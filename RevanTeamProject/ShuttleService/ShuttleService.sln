@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MidStateShuttleService", "MidStateShuttleService\MidStateShuttleService.csproj", "{21CDC756-559A-45AA-819F-349F0ED792A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21CDC756-559A-45AA-819F-349F0ED792A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21CDC756-559A-45AA-819F-349F0ED792A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21CDC756-559A-45AA-819F-349F0ED792A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21CDC756-559A-45AA-819F-349F0ED792A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {877C6F84-B8F5-4CA8-95F7-D62655CF91FF}
+	EndGlobalSection
+EndGlobal
