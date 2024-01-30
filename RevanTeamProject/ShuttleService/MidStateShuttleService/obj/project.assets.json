@@ -2835,23 +2835,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nic\\.nuget\\packages\\": {},
+    "C:\\Users\\alexi\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nic\\Documents\\MidState\\capstone\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj",
+      "projectUniqueName": "C:\\Users\\alexi\\School\\Spring 2024\\Capstone\\RevanProject\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj",
       "projectName": "MidStateShuttleService",
-      "projectPath": "C:\\Users\\Nic\\Documents\\MidState\\capstone\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj",
-      "packagesPath": "C:\\Users\\Nic\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nic\\Documents\\MidState\\capstone\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\obj\\",
+      "projectPath": "C:\\Users\\alexi\\School\\Spring 2024\\Capstone\\RevanProject\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj",
+      "packagesPath": "C:\\Users\\alexi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\alexi\\School\\Spring 2024\\Capstone\\RevanProject\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Nic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\alexi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
