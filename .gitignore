@@ -24,3 +24,10 @@
 /RevanTeamProject/ShuttleService/MidStateShuttleService/obj/Debug/net8.0/staticwebassets.build.json
 /RevanTeamProject/ShuttleService/MidStateShuttleService/obj/Debug/net8.0/staticwebassets.development.json
 /RevanTeamProject/ShuttleService/MidStateShuttleService/obj/Debug/net8.0/staticwebassets.pack.json
+/.vs/capstone/DesignTimeBuild/.dtbcache.v2
+/.vs/capstone/v17/.futdcache.v2
+*.wsuo
+/.vs/VSWorkspaceState.json
+/RevanTeamProject/ShuttleService/.vs/ProjectEvaluation/shuttleservice.metadata.v7.bin
+/RevanTeamProject/ShuttleService/.vs/ProjectEvaluation/shuttleservice.projects.v7.bin
+/RevanTeamProject/ShuttleService/.vs/ShuttleService/DesignTimeBuild/.dtbcache.v2
