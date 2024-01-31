@@ -1,8 +1,43 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
-public class Class1
+namespace MidStateShuttleService.Models
 {
-	public Class1()
-	{
-	}
+    public class RegisterModel
+    {
+
+        [Required]
+        public int StudentId { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public bool IsFirstTimeUsingShuttle { get; set; }
+
+        [Required]
+        public string PickUpLocation { get; set; }
+
+        [Required]
+        public string DropOffLocation { get; set; }
+
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
+
+        [Required]
+        [DataType(DataType.Time)]
+        public DateTime Time { get; set; }
+
+        public string Comment { get; set; }
+    }
+    
 }
+

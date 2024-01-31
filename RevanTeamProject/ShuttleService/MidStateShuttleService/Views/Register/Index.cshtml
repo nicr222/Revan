@@ -1,0 +1,105 @@
+﻿
+@model MidStateShuttleService.Models.RegisterModel
+
+@{
+    ViewBag.Title = "Shuttle Service Registration";
+}
+
+<link rel="stylesheet" href="css/Register.css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
+
+<body>
+
+        <div class="wrapper wrapper--w680">
+            <div class="card card-1">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Registration Info</h2>
+                    @using (Html.BeginForm("Register", "Register", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", type = "text" } })
+                            @Html.ValidationMessageFor(model => model.StudentId)    
+                        </div>
+
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName)
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name" } })
+                                    @Html.ValidationMessageFor(model => model.LastName)
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="input-group radio-inline-group">
+                        @Html.Label("Is it your first time using the shuttle?")
+                        <div class="radio-options">
+                            @Html.RadioButtonFor(model => model.IsFirstTimeUsingShuttle, true) Yes
+                            @Html.RadioButtonFor(model => model.IsFirstTimeUsingShuttle, false) No
+                        </div>
+                        @Html.ValidationMessageFor(model => model.IsFirstTimeUsingShuttle)
+                    </div>
+
+
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "StevensPoint", "WisconsinRapids", "Other" }), "Please Select Pick-Up Location", new { @class = "input--style-1" })
+                                    @Html.ValidationMessageFor(model => model.PickUpLocation)
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "StevensPoint", "WisconsinRapids", "Other" }), "Please Select Drop-Off Location", new { @class = "input--style-1" })
+                                    @Html.ValidationMessageFor(model => model.DropOffLocation)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber)
+                        </div>
+
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <input class="input--style-1" type="text" placeholder="Date" id="dateInput" />
+                                </div>
+                            </div>
+
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <input class="input--style-1" type="text" placeholder="Time" id="timeInput" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="input-group">
+                            @Html.TextAreaFor(model => model.Comment, new { @class = "input--style-1", placeholder = "Comment" })
+                            @Html.ValidationMessageFor(model => model.Comment)
+                        </div>
+
+                        <div class="p-t-20">
+                            <button class="btn btn--radius btn--green" type="submit">Submit</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+</body>
+
+<script src="js/Register.js"></script>
+
