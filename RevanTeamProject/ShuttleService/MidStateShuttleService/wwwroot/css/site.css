@@ -1,25 +1,6 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-/* custom-style.css */
-
 body {
     padding-top: 56px;
+    overflow-x: hidden;
 }
 
 @media (min-width: 768px) {
@@ -28,28 +9,74 @@ body {
     }
 }
 
+a {
+    text-decoration: none;
+    color: currentColor;
+}
+
+    a:hover {
+        color: currentColor;
+    }
+
 header {
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
+    width: 100vw;
+    background-color: #fff;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 25%);
+    display: flex;
+    align-items: center;
+    padding: 10px 15px; /* Adjusted padding for better spacing */
 }
 
-.navbar {
-    padding: 1rem 0;
-}
 
-.navbar-brand {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #007bff;
-}
+    header .container-fluid {
+        width: 100%;
+        padding: 0 15px; /* Adjusted padding for smaller screens */
+    }
 
-.navbar-nav .nav-link {
-    color: #495057;
-    font-weight: bold;
-}
+    /* Maintain your existing styles for .navb-items and .items */
+    header .navb-items {
+        display: flex;
+        align-items: center;
+        letter-spacing: 3px;
+    }
 
+    header .nav-item {
+        text-align: center;
+        margin-right: 15px; /* Adjusted margin for smaller screens */
+        font-size: 20px;
+        letter-spacing: 3px;
+        color: maroon;
+        padding: 5px 0;
+        transition: all .1s ease;
+        border-bottom: 0px solid #ffd300;
+        border-top: 0px solid #ffd300;
+        cursor: pointer;
+    }
+
+        header .nav-item:hover {
+            border-bottom: 3px solid #ffd300;
+            border-top: 3px solid #ffd300;
+        }
+
+    header .item-button a {
+        background-color: maroon;
+        width: 150px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+        color: #ffd300;
+        transition: all .5s ease;
+    }
+
+        header .item-button a:hover {
+            background-color: #ffd300;
+            color: maroon;
+        }
+
+/* Style the navbar-toggler button */
 .navbar-toggler-icon {
-    background-color: #007bff;
+    color: maroon;
 }
-
-/* Add more styles as needed */
