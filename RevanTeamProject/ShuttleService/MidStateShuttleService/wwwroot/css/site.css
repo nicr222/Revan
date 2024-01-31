@@ -16,7 +16,40 @@ html {
   position: relative;
   min-height: 100%;
 }
+/* custom-style.css */
 
 body {
-  margin-bottom: 60px;
+    padding-top: 56px;
 }
+
+@media (min-width: 768px) {
+    body {
+        padding-top: 0;
+    }
+}
+
+header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.navbar {
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.navbar-nav .nav-link {
+    color: #495057;
+    font-weight: bold;
+}
+
+.navbar-toggler-icon {
+    background-color: #007bff;
+}
+
+/* Add more styles as needed */
