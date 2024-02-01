@@ -11,7 +11,7 @@ namespace MidStateShuttleService.Controllers
 
         // When the form submits, this method will play out.
         [HttpPost]
-        public IActionResult SendMessage()
+        public IActionResult Communicate()
         {
             // Retrieve passed in list of students from the database.
 

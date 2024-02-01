@@ -4,12 +4,24 @@
 @{
 }
 
-<div class="text-center">
-    <h1 class="display-4">Send Message</h1>
-</div>
-
 <div>
-    <form>
+    <div class="wrapper wrapper--w680">
+        <div class="card card-1">
+            <div class="card-heading"></div>
+            <div class="card-body">
+                <h2 class="title">Send Message</h2>
+                @using (Html.BeginForm("Communicate", "Communicate", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
 
-    </form>
+
+                <div class="p-t-20">
+                    <button class="btn btn--radius btn--green" type="submit">Send Message</button>
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+
+
 </div>
