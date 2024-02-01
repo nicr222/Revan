@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MidStateShuttleService.Models;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -11,7 +12,8 @@ namespace MidStateShuttleService.Controllers
 
         public IActionResult CheckIn(int id)
         {
-            return View(id);
+            //Reservation reservation = DB get reservation by ID
+            return View(/* reservation */);
         }
     }
 }
