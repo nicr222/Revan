@@ -256,6 +256,7 @@ input[type="date" i] {
         outline: none;
     }
 
+
 /* ==========================================================================
    #FORM
    ========================================================================== */
@@ -266,7 +267,7 @@ input {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    width: 100%;
+/*    width: 100%; */ /* comment it out because it was causing the input fields to be too wide*/
     font-size: 14px;
     font-family: inherit;
 }
@@ -283,10 +284,6 @@ input {
     color: #ccc;
     right: 8px;
     top: 50%;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
     transform: translateY(-50%);
     cursor: pointer;
 }
@@ -323,26 +320,70 @@ input {
         /* Microsoft Edge */
         color: #555;
     }
-
-.radio-inline-group {
+/*
+    First trip yes or no radio buttons which I commented out for now
+*/
+/*.radio-inline-group {
     display: flex;
     position: relative;
     margin-bottom: 30px;
     border-bottom: 2px solid #ccc;
     align-items: center;
-    gap: 60px; /* Adjust the spacing between elements */
-    padding-bottom: 15px;
+    gap: 60px;*/ /* Adjust the spacing between elements */
+    /*padding-bottom: 15px;
 }
 
     .radio-inline-group label {
         margin-right: 10px;
-        white-space: nowrap; /* Prevents the label from breaking into multiple lines */
-    }
+        white-space: nowrap;*/ /* Prevents the label from breaking into multiple lines */
+    /*}
 
     .radio-inline-group .radio-options {
         display: flex;
+        gap: 10px;*/ /* Adjust the spacing between radio buttons */
+    /*}*/
+
+
+.radio-trip-type {
+    display: flex;
+    flex-direction: column; /* Keeps the label and options in a column */
+    padding-bottom: 15px;
+}
+
+    .radio-trip-type  .typetrip
+    {
+        margin-right: 10px;
+    }
+
+    .radio-trip-type label {
+        margin: 5px; /* Space between the label and the radio buttons */
+    }
+
+    .radio-trip-type .radio-options {
+        display: flex;
+        flex-direction: row; /* Aligns radio buttons in a row */
         gap: 10px; /* Adjust the spacing between radio buttons */
     }
+
+    .radio-trip-type .trip-info {
+        font-size: 12px;
+        margin-top: 10px;
+        color: #666;
+    }
+
+
+.location-description {
+    font-size: 12px; /* Font size of the description text */
+    color: #666; /* Color of the description text */
+    text-align: left; /* Align text to the left */
+    padding: 0 15px; /* Padding around the text */
+}
+
+@media (max-width: 767px) {
+    .location-description {
+        padding: 0 10px; /* Adjust padding for smaller screens */
+    }
+}
 
 
 
