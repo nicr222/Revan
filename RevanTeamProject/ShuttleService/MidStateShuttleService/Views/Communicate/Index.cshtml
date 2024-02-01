@@ -4,6 +4,10 @@
 @{
 }
 
+@model MidStateShuttleService.Models.CommuncateModel
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
 <div>
     <div class="wrapper wrapper--w680">
         <div class="card card-1">
@@ -12,8 +16,18 @@
                 <h2 class="title">Send Message</h2>
                 @using (Html.BeginForm("Communicate", "Communicate", FormMethod.Post))
             {
-                @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
 
+                    /// Message input box
+
+
+                    /// Shuttle choosing
+                    /// The drop down list should display each shuttle in the database, but uses placeholders for now
+                    <div class="col-2">
+                        <div class="input-group">
+                            @Html.DropDownListFor(model => model.shuttles, new SelectList(new[] { "Example1", "Example2" }), "Select shuttles to send message to", new { @class = "input--style-1" })
+                        </div>
+                    </div>
 
                 <div class="p-t-20">
                     <button class="btn btn--radius btn--green" type="submit">Send Message</button>
