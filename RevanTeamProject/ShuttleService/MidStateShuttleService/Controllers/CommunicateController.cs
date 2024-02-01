@@ -8,5 +8,16 @@ namespace MidStateShuttleService.Controllers
         {
             return View();
         }
+
+        // When the form submits, this method will play out.
+        [HttpPost]
+        public IActionResult SendMessage()
+        {
+            // Retrieve passed in list of students from the database.
+
+            // Send the message to each person in the 
+
+            return View();
+        }
     }
 }
