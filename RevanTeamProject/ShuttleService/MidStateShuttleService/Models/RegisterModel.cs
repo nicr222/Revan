@@ -5,6 +5,7 @@ namespace MidStateShuttleService.Models
 {
     public class RegisterModel
     {
+        public int Id { get; set; }
 
         [Required]
         public int StudentId { get; set; }
@@ -15,8 +16,12 @@ namespace MidStateShuttleService.Models
         [Required]
         public string LastName { get; set; }
 
+        //[Required]
+        //public bool IsFirstTimeUsingShuttle { get; set; }
+
         [Required]
-        public bool IsFirstTimeUsingShuttle { get; set; }
+        public string TripType { get; set; }
+
 
         [Required]
         public string PickUpLocation { get; set; }
@@ -36,7 +41,6 @@ namespace MidStateShuttleService.Models
         [DataType(DataType.Time)]
         public DateTime Time { get; set; }
 
-        public string Comment { get; set; }
     }
     
 }
