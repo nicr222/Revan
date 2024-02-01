@@ -1,13 +1,22 @@
-body {
-    padding-top: 56px;
-    overflow-x: hidden;
+/*
+    @media (min-width: 544px) {}
+    @media (min-width: 768px) {}
+    @media (min-width: 992px) {}
+    @media (min-width: 1200px) {}
+    @media (min-width: 1400px) {}
+    @media (min-width: 1600px) {}
+*/
+
+
+* {
+    box-sizing: border-box;
 }
 
-@media (min-width: 768px) {
-    body {
-        padding-top: 0;
-    }
+body {
+    margin: 0;
+    padding: 0;
 }
+
 
 a {
     text-decoration: none;
@@ -25,6 +34,7 @@ header {
     display: flex;
     align-items: center;
     padding: 10px 15px; /* Adjusted padding for better spacing */
+    z-index: 2;
 }
 
 
@@ -34,7 +44,7 @@ header {
     }
 
     /* Maintain your existing styles for .navb-items and .items */
-    header .navb-items {
+    header .nav-items {
         display: flex;
         align-items: center;
         letter-spacing: 3px;
