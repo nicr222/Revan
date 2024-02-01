@@ -5,8 +5,11 @@
     ViewBag.Title = "Shuttle Service Registration";
 }
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+
 <link rel="stylesheet" href="css/Register.css" />
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+@* <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"> *@
 
 
 <body>
@@ -40,55 +43,73 @@
                             </div>
                         </div>
 
-                    <div class="input-group radio-inline-group">
+                       
+                    @* Not sure we will ask this question or not so I commented it out for now *@
+                       @*  <div class="input-group radio-inline-group">
                         @Html.Label("Is it your first time using the shuttle?")
                         <div class="radio-options">
                             @Html.RadioButtonFor(model => model.IsFirstTimeUsingShuttle, true) Yes
                             @Html.RadioButtonFor(model => model.IsFirstTimeUsingShuttle, false) No
                         </div>
                         @Html.ValidationMessageFor(model => model.IsFirstTimeUsingShuttle)
+                    </div> *@
+
+                    <div class="input-group">
+                        <div class="radio-trip-type">
+                            <p class="typetrip">Trip Type:</p>
+                            <div class="radio-options">
+                                @Html.RadioButtonFor(model => model.TripType, "RoundTrip", new { id = "RoundTrip" }) <label for="RoundTrip">Round Trip</label>
+                                @Html.RadioButtonFor(model => model.TripType, "OneWay", new { id = "OneWay" }) <label for="OneWay">One Way</label>
+                                @Html.RadioButtonFor(model => model.TripType, "Friday", new { id = "Friday" }) <label for="Friday">Friday*</label>
+                            </div>
+                            <p class="trip-info">*Friday routes are by reservation only and can be customized for your schedule.</p>
+                            @Html.ValidationMessageFor(model => model.TripType)
+                        </div>
                     </div>
 
+                    <div class="additional-fields">
 
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "StevensPoint", "WisconsinRapids", "Other" }), "Please Select Pick-Up Location", new { @class = "input--style-1" })
-                                    @Html.ValidationMessageFor(model => model.PickUpLocation)
+                            <div class="row row-space">
+                                <div class="location-description">
+                                    <p>Other: Choose this option for additional stops along a current route or the Healthcare Simulation Center (Requires a special request)</p>
                                 </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "StevensPoint", "WisconsinRapids", "Other" }), "Please Select Drop-Off Location", new { @class = "input--style-1" })
-                                    @Html.ValidationMessageFor(model => model.DropOffLocation)
+
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Please Select Pick-Up Location", new { @class = "input--style-1" })
+                                        @Html.ValidationMessageFor(model => model.PickUpLocation)
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number" } })
-                            @Html.ValidationMessageFor(model => model.PhoneNumber)
-                        </div>
-
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <input class="input--style-1" type="text" placeholder="Date" id="dateInput" />
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Please Select Drop-Off Location", new { @class = "input--style-1" })
+                                        @Html.ValidationMessageFor(model => model.DropOffLocation)
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <input class="input--style-1" type="text" placeholder="Time" id="timeInput" />
-                                </div>
+                            <div class="input-group">
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number" } })
+                                @Html.ValidationMessageFor(model => model.PhoneNumber)
                             </div>
+
+                            <div class="row row-space">
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <input class="input--style-1 js-datepicker" type="text" placeholder="Date" id="dateInput" />
+                                 @*        <i class="bi bi-calendar-week input-icon js-btn-calendar" onclick="openDatePicker()"></i>  *@<!-- Calendar icon -->
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group">
+                                        <input class="input--style-1" type="text" placeholder="Time" id="timeInput" />
+                                 @*        <i class="bi bi-clock" onclick="openTimePicker()"></i>  *@<!-- Clock icon -->
+                                    </div>
+                                </div>
                         </div>
 
 
-                        <div class="input-group">
-                            @Html.TextAreaFor(model => model.Comment, new { @class = "input--style-1", placeholder = "Comment" })
-                            @Html.ValidationMessageFor(model => model.Comment)
-                        </div>
+                    </div>
 
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--green" type="submit">Submit</button>
@@ -101,5 +122,7 @@
 
 </body>
 
-<script src="js/Register.js"></script>
+<script src="js/Registeration/Registeration.js"></script>
+@* <script src="js/Registeration/datepicker.js"></script> *@
+
 
