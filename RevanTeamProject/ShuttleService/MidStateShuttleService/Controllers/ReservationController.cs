@@ -8,5 +8,10 @@ namespace MidStateShuttleService.Controllers
         {
             return View();
         }
+
+        public IActionResult CheckIn(int id)
+        {
+            return View(id);
+        }
     }
 }
