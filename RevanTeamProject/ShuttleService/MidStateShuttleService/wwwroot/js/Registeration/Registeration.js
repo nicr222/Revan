@@ -27,38 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
-//document.addEventListener("DOMContentLoaded", function () {
-//    var dateInput = document.getElementById('dateInput');
-//    var timeInput = document.getElementById('timeInput');
-
-//    // Function to open the date picker
-//    window.openDatePicker = function () {
-//        dateInput.type = 'date';
-//        dateInput.focus();
-//    };
-
-//    dateInput.addEventListener('change', function () {
-//        if (this.value) {
-//            this.type = 'text';
-//        }
-//    });
-
-//    dateInput.addEventListener('blur', function () {
-//        if (!this.value) {
-//            this.type = 'text';
-//        }
-//    });
-
-//    timeInput.addEventListener('focus', function () {
-//        this.type = 'time';
-//    });
-
-//    timeInput.addEventListener('blur', function () {
-//        this.type = 'text';
-//    });
-//});
-
-
+//hiding One way or round trip fields based on the selection
 document.addEventListener("DOMContentLoaded", function () {
 
     // Function to toggle visibility of additional fields
@@ -78,6 +47,33 @@ document.addEventListener("DOMContentLoaded", function () {
                 toggleAdditionalFields('');
             } else {
                 toggleAdditionalFields('none');
+            }
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Existing function to toggle additional fields
+    function toggleAdditionalFields(display) {
+        document.querySelectorAll('.additional-fields').forEach(function (element) {
+            element.style.display = display;
+        });
+    }
+
+    // New function to toggle Special Request section
+    function toggleSpecialRequest(display) {
+        document.querySelector('.special-request').style.display = display;
+    }
+
+    // Event listener for changes in trip type
+    document.querySelectorAll('input[name="TripType"]').forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            if (this.value === 'Friday') {
+                toggleAdditionalFields('none');
+                toggleSpecialRequest('');
+            } else {
+                toggleAdditionalFields('');
+                toggleSpecialRequest('none');
             }
         });
     });
