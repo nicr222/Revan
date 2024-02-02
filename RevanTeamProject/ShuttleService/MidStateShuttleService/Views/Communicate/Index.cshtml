@@ -6,40 +6,47 @@
 
 @model MidStateShuttleService.Models.CommuncateModel
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+<link rel="stylesheet" href="css/Communicate.css" />
 
-<div>
-    <div class="wrapper wrapper--w680">
-        <div class="card card-1">
-            <div class="card-heading"></div>
-            <div class="card-body">
-                <h2 class="title">Send Message</h2>
-                @using (Html.BeginForm("Communicate", "Communicate", FormMethod.Post))
-            {
-                    @Html.AntiForgeryToken()
+<body>
+    <div>
+        <div class="wrapper wrapper--w680">
+            <div class="card card-1">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Send Message</h2>
+                    @using (Html.BeginForm("Communicate", "Communicate", FormMethod.Post))
+                {
+                        @Html.AntiForgeryToken()
+                        <div>
 
-                    /// Message input box
-                    <div class="col-2">
-                        <textarea>
+                           @* Message input box *@
+                            <div class="row row-space">
+                                <div class="col-2">
+                                    <textarea>
 
-                        </textarea>
-                    </div>
+                                    </textarea>
+                                </div>
+                            </div>
 
-                    /// Shuttle choosing
-                    /// The drop down list should display each shuttle in the database, but uses placeholders for now
-                    <div class="col-2">
-                        <div class="input-group">
-                            @Html.DropDownListFor(model => model.shuttles, new SelectList(new[] { "Example1", "Example2" }), "Select shuttles to send message to", new { @class = "input--style-1" })
+                            @* Shuttle choosing 
+                            The drop down list should display each shuttle in the database, but uses placeholders for now *@
+                            <div class="row row-space">
+                                <div class="col-2">
+                                    <select id="shuttleSelect" asp-for="shuttles" class="form-control choices-multiple">
+                                        <option>Example</option>
+                                        <option>Example2</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                <div class="p-t-20">
-                    <button class="btn btn--radius btn--green" type="submit">Send Message</button>
+                        <div class="p-t-20">
+                            <button class="btn btn--radius btn--green" type="submit">Send</button>
+                        </div>
+                }
                 </div>
-            }
             </div>
         </div>
     </div>
+</body>
 
-
-</div>
