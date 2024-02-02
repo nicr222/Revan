@@ -1,0 +1,20 @@
+﻿@model MidStateShuttleService.Models.RegisterModel
+
+<h2>Registration Confirmation</h2>
+
+<div>
+    <h4>Student Information</h4>
+    <p>Student ID: @Model.StudentId</p>
+    <p>Name: @Model.FirstName @Model.LastName</p>
+    <p>Phone Number: @Model.PhoneNumber</p>
+</div>
+
+<div>
+    <h4>Shuttle Trip Details</h4>
+    <p>Trip Type: @Model.TripType</p>
+    <p>Pick-Up Location: @Model.PickUpLocation</p>
+    <p>Drop-Off Location: @Model.DropOffLocation</p>
+    <p>Date: @Model.Date.ToShortDateString()</p>
+    <p>Time: @Model.Time.ToShortTimeString()</p>
+    <p>Special Requests: @Model.SpecialRequest</p>
+</div>
