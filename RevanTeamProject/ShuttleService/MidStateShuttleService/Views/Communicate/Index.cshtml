@@ -23,9 +23,7 @@
                            @* Message input box *@
                             <div class="row row-space">
                                 <div class="input-group">
-                                    <textarea class="form-control">
-
-                                    </textarea>
+                                    <textarea class="form-control border-0 shadow-none" rows="1" placeholder="Enter message..."></textarea>
                                 </div>
                             </div>
 
@@ -33,7 +31,7 @@
                             The drop down list should display each shuttle in the database, but uses placeholders for now *@
                             <div class="row row-space">
                                 <div class="input-group">
-                                    <select id="shuttleSelect" asp-for="shuttles" class="form-control choices-multiple">
+                                    <select id="shuttleSelect" asp-for="shuttles" class="form-control">
                                         <option>Example</option>
                                         <option>Example2</option>
                                     </select>
