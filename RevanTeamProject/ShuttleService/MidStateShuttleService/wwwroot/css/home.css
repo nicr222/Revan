@@ -7,6 +7,8 @@
     @media (min-width: 1600px) {}
 */
 
+html{scroll-behavior: smooth;}
+
 /*custom contaienr*/
 .container-custom {
     width: 100%;
@@ -45,17 +47,22 @@
 
 }
 
-
-.hero_video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    transform: translateX(-50%) translateY(-50%);
+@media (min-width: 1400px) {
+    .hero_heading {
+        font-size: 3.2rem;
+    }
 }
+    
+    .hero_video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        transform: translateX(-50%) translateY(-50%);
+    }
 
 .hero_overlay {
     position: absolute;
@@ -71,4 +78,39 @@
 .hero_content {
     z-index: 1;
 
-} 
+}
+
+.hero_content-width {
+    max-width: 540px;
+}
+
+.hero_scroll-btn {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+.hero_scroll-btn:hover {
+    color: white;
+    opacity: 0.8;
+}
+
+.hero_scroll-btn .bi {
+    transition-delay: 0.8s;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0px)
+    } to {
+          transform: translateY(-10px)
+      }
+}
