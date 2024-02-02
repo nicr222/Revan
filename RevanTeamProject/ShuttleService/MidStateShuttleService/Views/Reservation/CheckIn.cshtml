@@ -4,18 +4,21 @@
     ViewBag.Title = "Arrival Confirmation";
 }
 
+<link rel="stylesheet" href="css/CheckIn.css" />
+
 <body>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Shuttle 2 Check In</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Wisconsin Rapids -> Stevens Point</h6>
-            <h6 class="card-subtitle mb-2 text-body-secondary">3/14/2024 3:50pm</h6>
-            <div class="mb-3">
-                <label for="studentID" class="form-label">Enter Student ID</label>
-                <input type="number" class="form-control" id="studentID" />
-            </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary mb-3">Check In</button>
+    <div class="wrapper wrapper--w680">
+        <div class="form form-1">
+            <div class="form-body">
+                <h2 class="title">Shuttle 2 Check In</h2>
+                <h6 class="title">Wisconsin Rapids -> Stevens Point</h6>
+                <h6 class="title">3/14/2024 3:50pm</h6>
+                <div class="input-fields">
+                    <input type="number" class="input--style-1" id="studentID" placeholder="Student ID" />
+                </div>
+                <div class="p-t-20">
+                    <button type="submit" class="btn btn--radius btn--green">Check In</button>
+                </div>
             </div>
         </div>
     </div>
