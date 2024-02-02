@@ -14,8 +14,12 @@
                 <h5 class="title">Wisconsin Rapids to Stevens Point</h5>
                 <h6 class="title">3/14/2024 3:50pm</h6>
                 <div class="input-fields">
-                    <input type="number" class="input--style-1" id="studentID" placeholder="Student ID" />
+                    <input type="number" class="input--style-1" id="studentID" placeholder="Student ID" max="8" required/>
+                    <div id="studentIDFeedback" class="invalid-feedback">
+                        Invalid Student ID
+                    </div>
                 </div>
+
                 <div class="p-t-20">
                     <button type="submit" class="btn btn--radius btn--green">Check In</button>
                 </div>
@@ -23,6 +27,5 @@
         </div>
     </div>
 
-
-
+    <script src="/js/CheckIn.js"></script>
 </body>
