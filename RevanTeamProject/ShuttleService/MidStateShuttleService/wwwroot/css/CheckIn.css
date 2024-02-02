@@ -1,1 +1,142 @@
-﻿
+﻿/* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+.wrapper {
+    margin: 0 auto;
+}
+
+.wrapper--w680 {
+    max-width: 680px;
+}
+
+/* ==========================================================================
+   #Form Structure
+   ========================================================================== */
+.form {
+    overflow: hidden;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.form-1 {
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+    .form-1 .form-body {
+        padding: 0 90px;
+        padding-top: 55px;
+        padding-bottom: 65px;
+    }
+
+@media (max-width: 767px) {
+    .form-1 .form-body {
+        padding: 0 40px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
+
+
+/* ==========================================================================
+   #TITLE
+   ========================================================================== */
+.title {
+    margin-bottom: 37px;
+}
+
+/* ==========================================================================
+   #Input Fields
+   ========================================================================== */
+input {
+    outline: none;
+    margin: 0;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    /*    width: 100%; */ /* comment it out because it was causing the input fields to be too wide*/
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.input-fields {
+    position: relative;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ccc;
+}
+
+.input--style-1 {
+    padding: 9px 0;
+    color: #666;
+    border: none;
+}
+
+    .input--style-1::-webkit-input-placeholder {
+        /* WebKit, Blink, Edge */
+        color: #555;
+    }
+
+    .input--style-1:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #555;
+        opacity: 1;
+    }
+
+    .input--style-1::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #555;
+        opacity: 1;
+    }
+
+    .input--style-1:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: #555;
+    }
+
+    .input--style-1:-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: #555;
+    }
+
+/* ==========================================================================
+    #SPACING
+    ========================================================================== */
+.p-t-20 {
+    padding-top: 20px;
+}
+
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+.btn {
+    line-height: 40px;
+    display: inline-block;
+    padding: 0 25px;
+    cursor: pointer;
+    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    color: #fff;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.btn--radius {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.btn--green {
+    background: #57b846;
+}
+
+    .btn--green:hover {
+        background: #4dae3c;
+    }
