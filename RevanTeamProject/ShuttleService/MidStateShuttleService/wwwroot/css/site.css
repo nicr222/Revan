@@ -1,4 +1,6 @@
 /*
+    Mid-state Marron: #840029;
+    Mid-state Gold: ##fdb71a;
     @media (min-width: 544px) {}
     @media (min-width: 768px) {}
     @media (min-width: 992px) {}
@@ -55,21 +57,21 @@ header {
         margin-right: 15px; /* Adjusted margin for smaller screens */
         font-size: 20px;
         letter-spacing: 3px;
-        color: maroon;
+        color: #840029;
         padding: 5px 0;
         transition: all .1s ease;
-        border-bottom: 0px solid #ffd300;
-        border-top: 0px solid #ffd300;
+        border-bottom: 0px solid #fdb71a;
+        border-top: 0px solid #fdb71a;
         cursor: pointer;
     }
 
         header .nav-item:hover {
-            border-bottom: 3px solid #ffd300;
-            border-top: 3px solid #ffd300;
+            border-bottom: 3px solid #fdb71a;
+            border-top: 3px solid #fdb71a;
         }
 
     header .item-button a {
-        background-color: maroon;
+        background-color: #840029;
         width: 150px;
         height: 50px;
         display: flex;
@@ -82,7 +84,7 @@ header {
     }
 
         header .item-button a:hover {
-            background-color: #ffd300;
+            background-color: #fdb71a;
             color: maroon;
         }
 
