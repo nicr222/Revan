@@ -19,7 +19,7 @@ namespace MidStateShuttleService.Models
         //[Required]
         //public bool IsFirstTimeUsingShuttle { get; set; }
 
-        [Required]
+        //[Required]
         public string TripType { get; set; }
 
 
@@ -40,6 +40,9 @@ namespace MidStateShuttleService.Models
         [Required]
         [DataType(DataType.Time)]
         public DateTime Time { get; set; }
+
+        //[Required]
+        public string SpecialRequest { get; set; }
 
     }
     
