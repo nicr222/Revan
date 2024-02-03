@@ -82,7 +82,7 @@ namespace MidStateShuttleService.Controllers
                 }
 
                 // Redirect to confirmation page (assuming you have a confirmation action and view ready)
-                return RedirectToAction("RegisterConfirmation", new { id = model.StudentId }); // Adjust according to your confirmation page setup
+                return RedirectToAction("RegisterConfirmation", new { id = model.StudentId }); // Adjust according to confirmation page setup
             }
 
             // If model state is not valid, return back to the form with the model to show validation errors

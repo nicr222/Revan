@@ -1,20 +1,24 @@
 ﻿@model MidStateShuttleService.Models.RegisterModel
 
-<h2>Registration Confirmation</h2>
+<link rel="stylesheet" href="~/css/RegisterConfirmation.css" />
 
-<div>
-    <h4>Student Information</h4>
-    <p>Student ID: @Model.StudentId</p>
-    <p>Name: @Model.FirstName @Model.LastName</p>
-    <p>Phone Number: @Model.PhoneNumber</p>
-</div>
+    <div class="register-container">
+        <h2 class="page-title">Registration Confirmation</h2>
 
-<div>
-    <h4>Shuttle Trip Details</h4>
-    <p>Trip Type: @Model.TripType</p>
-    <p>Pick-Up Location: @Model.PickUpLocation</p>
-    <p>Drop-Off Location: @Model.DropOffLocation</p>
-    <p>Date: @Model.Date.ToShortDateString()</p>
-    <p>Time: @Model.Time.ToShortTimeString()</p>
-    <p>Special Requests: @Model.SpecialRequest</p>
-</div>
+        <div class="section">
+            <h4>Student Information</h4>
+            <p><strong>Student ID:</strong> @Model.StudentId</p>
+            <p><strong>Name:</strong> @Model.FirstName @Model.LastName</p>
+            <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
+        </div>
+
+        <div class="section">
+            <h4>Shuttle Trip Details</h4>
+            <p><strong>Trip Type:</strong> @Model.TripType</p>
+            <p><strong>Pick-Up Location:</strong> @Model.PickUpLocation</p>
+            <p><strong>Drop-Off Location:</strong> @Model.DropOffLocation</p>
+            <p><strong>Date:</strong> @Model.Date.ToShortDateString()</p>
+            <p><strong>Time:</strong> @Model.Time.ToShortTimeString()</p>
+            <p><strong>Special Requests:</strong> @Model.SpecialRequest</p>
+        </div>
+    </div>
