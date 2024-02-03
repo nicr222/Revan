@@ -20,21 +20,24 @@
                     @Html.AntiForgeryToken()
 
                     <div class="input-fields">
-                        @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", type = "text" } })
-                        @Html.ValidationMessageFor(model => model.StudentId)
+                        @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", type = "number" } })
+                        <div id="StudentId-validation-message" class="validation-message"></div>
+                        @*                 @Html.ValidationMessageFor(model => model.StudentId) *@
                     </div>
 
                     <div class="row row-space">
                         <div class="col-2">
                             <div class="input-fields">
                                 @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
-                                @Html.ValidationMessageFor(model => model.FirstName)
+                                <div id="FirstName-validation-message" class="validation-message"></div>
+                          @*       @Html.ValidationMessageFor(model => model.FirstName) *@
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="input-fields">
                                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name" } })
-                                @Html.ValidationMessageFor(model => model.LastName)
+                                <div id="LastName-validation-message" class="validation-message"></div>
+                         @*        @Html.ValidationMessageFor(model => model.LastName) *@
                             </div>
                         </div>
                     </div>
@@ -58,8 +61,9 @@
                                 @Html.RadioButtonFor(model => model.TripType, "OneWay", new { id = "OneWay" }) <label for="OneWay">One Way</label>
                                 @Html.RadioButtonFor(model => model.TripType, "Friday", new { id = "Friday" }) <label for="Friday">Friday*</label>
                             </div>
+                            <div id="TripType-validation-message" class="validation-message"></div> <!-- Placeholder for Trip Type validation message -->
                             <p class="trip-info">*Friday routes are by reservation only and can be customized for your schedule.</p>
-                            @Html.ValidationMessageFor(model => model.TripType)
+                  @*           @Html.ValidationMessageFor(model => model.TripType) *@
                         </div>
                     </div>
 
@@ -73,33 +77,38 @@
                             <div class="col-2">
                                 <div class="input-fields">
                                     @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Please Select Pick-Up Location", new { @class = "input--style-1" })
-                                    @Html.ValidationMessageFor(model => model.PickUpLocation)
+                                    <div id="PickUpLocation-validation-message" class="validation-message"></div>
+                                 @*    @Html.ValidationMessageFor(model => model.PickUpLocation) *@
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-fields">
                                     @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Please Select Drop-Off Location", new { @class = "input--style-1" })
-                                    @Html.ValidationMessageFor(model => model.DropOffLocation)
+                                    <div id="DropOffLocation-validation-message" class="validation-message"></div>
+                                @*     @Html.ValidationMessageFor(model => model.DropOffLocation) *@
                                 </div>
                             </div>
                         </div>
 
                         <div class="input-fields">
                             @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number" } })
-                            @Html.ValidationMessageFor(model => model.PhoneNumber)
+                            <div id="PhoneNumber-validation-message" class="validation-message"></div>
+                       @*      @Html.ValidationMessageFor(model => model.PhoneNumber) *@
                         </div>
 
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-fields">
                                     @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "input--style-1 js-datepicker", placeholder = "Date", type = "date" } })
-                                    @Html.ValidationMessageFor(model => model.Date)
+                                    <div id="Date-validation-message" class="validation-message"></div>
+                               @*      @Html.ValidationMessageFor(model => model.Date) *@
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-fields">
                                     @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Time", type = "time" } })
-                                    @Html.ValidationMessageFor(model => model.Time)
+                                    <div id="Time-validation-message" class="validation-message"></div>
+                              @*       @Html.ValidationMessageFor(model => model.Time) *@
                                 </div>
                             </div>
                             @* <div class="col-2">
@@ -138,11 +147,11 @@
         </div>
     </div>
 
-
 </body>
 
 
 <script src="js/Registeration/Registeration.js"></script>
+<script src="js/Registeration/RegisterationValidation.js"></script>
 
 
 

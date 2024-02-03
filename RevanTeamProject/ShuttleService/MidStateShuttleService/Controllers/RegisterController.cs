@@ -44,6 +44,9 @@ namespace MidStateShuttleService.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
+            // Remove the ModelState entry for SpecialRequest to ignore its validation
+            //ModelState.Remove("SpecialRequest");
+
             if (ModelState.IsValid || model.SpecialRequest == null)
             {
                 // Here you would implement the logic to store the data in the database.
@@ -58,7 +61,8 @@ namespace MidStateShuttleService.Controllers
                     command.Parameters.AddWithValue("@FirstName", model.FirstName);
                     command.Parameters.AddWithValue("@LastName", model.LastName);
                     command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
-                    var userId = (int)(decimal)command.ExecuteScalar();
+                    //var userId = (int)(decimal)command.ExecuteScalar();
+                    var userId = Convert.ToInt32(command.ExecuteScalar()); // This is fine as userId is expected to be within INT range
 
                     // Insert Trip
                     command.CommandText = "INSERT INTO Trips (UserId, TripType, PickUpLocation, DropOffLocation, Date, Time) VALUES (@UserId, @TripType, @PickUpLocation, @DropOffLocation, @Date, @Time);";
@@ -81,15 +85,22 @@ namespace MidStateShuttleService.Controllers
                     command.ExecuteNonQuery();
                 }
 
+                _logger.LogInformation("Registration successful for Student ID: {StudentId}", model.StudentId);
+
                 // Redirect to confirmation page (assuming you have a confirmation action and view ready)
                 return RedirectToAction("RegisterConfirmation", new { id = model.StudentId }); // Adjust according to confirmation page setup
             }
 
-            // If model state is not valid, return back to the form with the model to show validation errors
-            return View(model);
+            else
+            {
+                _logger.LogWarning("Registration failed validation for Student ID: {StudentId}.", model.StudentId);
+
+                // Return the form with validation errors
+                return View(model);
+            }
         }
 
-        public ActionResult RegisterConfirmation(int id)
+        public ActionResult RegisterConfirmation(long id)
         {
             RegisterModel model = new RegisterModel(); // Placeholder for the actual model
 
@@ -112,7 +123,7 @@ namespace MidStateShuttleService.Controllers
                 {
                     if (reader.Read()) // Assuming at least one record is returned
                     {
-                        model.StudentId = reader.GetInt32(reader.GetOrdinal("StudentId"));
+                        model.StudentId = reader.GetInt64(reader.GetOrdinal("StudentId"));
                         model.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
                         model.LastName = reader.GetString(reader.GetOrdinal("LastName"));
                         model.PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
