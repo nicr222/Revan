@@ -92,16 +92,28 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-fields">
+                                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "input--style-1 js-datepicker", placeholder = "Date", type = "date" } })
+                                    @Html.ValidationMessageFor(model => model.Date)
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-fields">
+                                    @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Time", type = "time" } })
+                                    @Html.ValidationMessageFor(model => model.Time)
+                                </div>
+                            </div>
+                            @* <div class="col-2">
+                                <div class="input-fields">
                                     <input class="input--style-1 js-datepicker" type="text" placeholder="Date" id="dateInput" />
-                                    @*<i class="bi bi-calendar-week input-icon js-btn-calendar" onclick="openDatePicker()"></i> *@ <!-- Calendar icon -->
+                                    @*<i class="bi bi-calendar-week input-icon js-btn-calendar" onclick="openDatePicker()"></i> <!-- Calendar icon -->
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-fields">
                                     <input class="input--style-1" type="text" placeholder="Time" id="timeInput" />
-                                    @*        <i class="bi bi-clock" onclick="openTimePicker()"></i>  *@<!-- Clock icon -->
+                                    @*        <i class="bi bi-clock" onclick="openTimePicker()"></i> <!-- Clock icon -->
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
 
 
