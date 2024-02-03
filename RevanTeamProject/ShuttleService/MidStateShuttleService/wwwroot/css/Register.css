@@ -91,6 +91,19 @@ h6 {
     font-size: 13px;
 }
 
+/* Hide the spinner in Webkit browsers */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide the spinner in Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
 
 /* ==========================================================================
    #SPACING
@@ -150,6 +163,24 @@ h6 {
         background: #4dae3c;
     }
 
+/* ==========================================================================
+   #Validation
+   ========================================================================== */
+
+
+.validation-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: none; /* Hide by default */
+}
+
+    .validation-message:before {
+        content: "\26A0";
+        color: red;
+        font-weight: bold;
+        margin-right: 5px;
+    }
 
 /* ==========================================================================
    #Input Fields

@@ -1,31 +1,31 @@
 ﻿
 //date and time picker
-document.addEventListener("DOMContentLoaded", function () {
-    var dateInput = document.getElementById('dateInput');
-    var timeInput = document.getElementById('timeInput');
+//document.addEventListener("DOMContentLoaded", function () {
+//    var dateInput = document.getElementById('dateInput');
+//    var timeInput = document.getElementById('timeInput');
 
-    dateInput.addEventListener('focus', function () {
-        this.type = 'date';
-    });
-    dateInput.addEventListener('blur', function () {
-        this.type = 'text';
-    });
+//    dateInput.addEventListener('focus', function () {
+//        this.type = 'date';
+//    });
+//    dateInput.addEventListener('blur', function () {
+//        this.type = 'text';
+//    });
 
-    timeInput.addEventListener('focus', function () {
-        this.type = 'time';
-    });
-    timeInput.addEventListener('blur', function () {
-        this.type = 'text';
-    });
+//    timeInput.addEventListener('focus', function () {
+//        this.type = 'time';
+//    });
+//    timeInput.addEventListener('blur', function () {
+//        this.type = 'text';
+//    });
 
-    window.openDatePicker = function () {
-        dateInput.focus();
-    };
+//    window.openDatePicker = function () {
+//        dateInput.focus();
+//    };
 
-    window.openTimePicker = function () {
-        timeInput.focus();
-    };
-});
+//    window.openTimePicker = function () {
+//        timeInput.focus();
+//    };
+//});
 
 //hiding One way or round trip fields based on the selection
 document.addEventListener("DOMContentLoaded", function () {
