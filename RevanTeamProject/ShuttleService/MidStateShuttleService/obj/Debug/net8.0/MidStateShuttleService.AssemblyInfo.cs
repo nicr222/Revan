@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MidStateShuttleService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee8624d8e0177b590505d1d2ae3bd4e0211a479d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bcb74c23917a8c86176874b913e7796efe9cef4a")]
 [assembly: System.Reflection.AssemblyProductAttribute("MidStateShuttleService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MidStateShuttleService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
