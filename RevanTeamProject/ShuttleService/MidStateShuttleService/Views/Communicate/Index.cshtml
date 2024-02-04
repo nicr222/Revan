@@ -20,22 +20,29 @@
                         @Html.AntiForgeryToken()
                         <div>
 
-                           @* Message input box *@
+                           @* Message input box 
+                               I don't quite know if I like the styling for this as of right now
+                           *@
                             <div class="row row-space">
                                 <div class="input-group">
-                                    <textarea class="form-control border-0 shadow-none" rows="1" placeholder="Enter message..."></textarea>
+                                    <textarea id="message" class="form-control border-0 shadow-none " rows="1" placeholder="Enter message..."></textarea>
                                 </div>
+                                <div id="Message-validation-message" class="validation-message"></div>
                             </div>
 
                             @* Shuttle choosing 
                             The drop down list should display each shuttle in the database, but uses placeholders for now *@
                             <div class="row row-space">
                                 <div class="input-group">
-                                    <select id="shuttleSelect" asp-for="shuttles" class="form-control">
+                                    <select id="shuttleSelect" asp-for="shuttles" class="form-select">
                                         <option>Example</option>
                                         <option>Example2</option>
+                                        <option>Example3</option>
+                                        <option>Example4</option>
                                     </select>
                                 </div>
+                                <div id="Shuttles-validation-message" class="validation-message"></div>
+                                <p class="trip-info">*Message will be sent to all students registered to the selected shuttles.</p>
                             </div>
                         </div>
                         <div class="p-t-20">
@@ -47,4 +54,6 @@
         </div>
     </div>
 </body>
+
+<script src="~/js/Communicate.js"></script>
 

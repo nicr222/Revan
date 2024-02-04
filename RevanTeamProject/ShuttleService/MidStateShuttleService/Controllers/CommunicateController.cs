@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MidStateShuttleService.Models;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -13,10 +14,14 @@ namespace MidStateShuttleService.Controllers
         [HttpPost]
         public IActionResult Communicate()
         {
-            // Retrieve passed in list of students from the database.
+            if (ModelState.IsValid)
+            {
+                // Retrieve passed in list of students from the database.
 
-            // Send the message to each person in the 
-
+                // Send the message to each person registered to the shutte.
+                return View();
+            }
+            
             return View();
         }
     }
