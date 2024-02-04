@@ -7,6 +7,7 @@
 
 
 <link rel="stylesheet" href="css/Register.css" />
+<link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 
 
 <body>
@@ -26,14 +27,14 @@
                     </div>
 
                     <div class="row row-space">
-                        <div class="col-2">
+                        <div class="col-6">
                             <div class="input-fields">
                                 @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
                                 <div id="FirstName-validation-message" class="validation-message"></div>
                           @*       @Html.ValidationMessageFor(model => model.FirstName) *@
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-6">
                             <div class="input-fields">
                                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name" } })
                                 <div id="LastName-validation-message" class="validation-message"></div>
@@ -74,14 +75,14 @@
                                 <p>Other: Choose this option for additional stops along a current route or the Healthcare Simulation Center (Requires a special request)</p>
                             </div>
 
-                            <div class="col-2">
+                            <div class="col-6">
                                 <div class="input-fields">
                                     @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Please Select Pick-Up Location", new { @class = "input--style-1" })
                                     <div id="PickUpLocation-validation-message" class="validation-message"></div>
                                  @*    @Html.ValidationMessageFor(model => model.PickUpLocation) *@
                                 </div>
                             </div>
-                            <div class="col-2">
+                            <div class="col-6">
                                 <div class="input-fields">
                                     @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Please Select Drop-Off Location", new { @class = "input--style-1" })
                                     <div id="DropOffLocation-validation-message" class="validation-message"></div>
@@ -97,14 +98,14 @@
                         </div>
 
                         <div class="row row-space">
-                            <div class="col-2">
+                            <div class="col-6">
                                 <div class="input-fields">
                                     @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "input--style-1 js-datepicker", placeholder = "Date", type = "date" } })
                                     <div id="Date-validation-message" class="validation-message"></div>
                                @*      @Html.ValidationMessageFor(model => model.Date) *@
                                 </div>
                             </div>
-                            <div class="col-2">
+                            <div class="col-6">
                                 <div class="input-fields">
                                     @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Time", type = "time" } })
                                     <div id="Time-validation-message" class="validation-message"></div>

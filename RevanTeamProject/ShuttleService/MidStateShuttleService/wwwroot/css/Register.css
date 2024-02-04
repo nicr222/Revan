@@ -21,7 +21,7 @@
     justify-content: space-between;
 }
 
-.col-2 {
+.col-6 {
     width: -webkit-calc((100% - 60px) / 2);
     width: -moz-calc((100% - 60px) / 2);
     width: calc((100% - 60px) / 2);
