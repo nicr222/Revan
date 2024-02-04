@@ -1,0 +1,158 @@
+﻿
+@model MidStateShuttleService.Models.RegisterModel
+
+@{
+    ViewBag.Title = "Shuttle Service Registration";
+}
+
+
+<link rel="stylesheet" href="css/Register.css" />
+<link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+
+
+<body>
+
+    <div class="wrapper wrapper--w680">
+        <div class="form form-1">
+            <div class="form-body">
+                <h2 class="title">Registration Info</h2>
+                @using (Html.BeginForm("Register", "Register", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="input-fields">
+                        @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", type = "number" } })
+                        <div id="StudentId-validation-message" class="validation-message"></div>
+                        @*                 @Html.ValidationMessageFor(model => model.StudentId) *@
+                    </div>
+
+                    <div class="row row-space">
+                        <div class="col-6">
+                            <div class="input-fields">
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
+                                <div id="FirstName-validation-message" class="validation-message"></div>
+                          @*       @Html.ValidationMessageFor(model => model.FirstName) *@
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-fields">
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name" } })
+                                <div id="LastName-validation-message" class="validation-message"></div>
+                         @*        @Html.ValidationMessageFor(model => model.LastName) *@
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @* Not sure we will ask this question or not so I commented it out for now *@
+                    @*  <div class="input-fields radio-inline-group">
+                @Html.Label("Is it your first time using the shuttle?")
+                <div class="radio-options">
+                @Html.RadioButtonFor(model => model.IsFirstTimeUsingShuttle, true) Yes
+                @Html.RadioButtonFor(model => model.IsFirstTimeUsingShuttle, false) No
+                </div>
+                @Html.ValidationMessageFor(model => model.IsFirstTimeUsingShuttle)
+                </div> *@
+
+                    <div class="input-fields">
+                        <div class="radio-trip-type">
+                            <p class="typetrip">Trip Type:</p>
+                            <div class="radio-options">
+                                @Html.RadioButtonFor(model => model.TripType, "RoundTrip", new { id = "RoundTrip" }) <label for="RoundTrip">Round Trip</label>
+                                @Html.RadioButtonFor(model => model.TripType, "OneWay", new { id = "OneWay" }) <label for="OneWay">One Way</label>
+                                @Html.RadioButtonFor(model => model.TripType, "Friday", new { id = "Friday" }) <label for="Friday">Friday*</label>
+                            </div>
+                            <div id="TripType-validation-message" class="validation-message"></div> <!-- Placeholder for Trip Type validation message -->
+                            <p class="trip-info">*Friday routes are by reservation only and can be customized for your schedule.</p>
+                  @*           @Html.ValidationMessageFor(model => model.TripType) *@
+                        </div>
+                    </div>
+
+                    <div class="additional-fields">
+
+                        <div class="row row-space">
+                            <div class="location-description">
+                                <p>Other: Choose this option for additional stops along a current route or the Healthcare Simulation Center (Requires a special request)</p>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="input-fields">
+                                    @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Please Select Pick-Up Location", new { @class = "input--style-1" })
+                                    <div id="PickUpLocation-validation-message" class="validation-message"></div>
+                                 @*    @Html.ValidationMessageFor(model => model.PickUpLocation) *@
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-fields">
+                                    @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Please Select Drop-Off Location", new { @class = "input--style-1" })
+                                    <div id="DropOffLocation-validation-message" class="validation-message"></div>
+                                @*     @Html.ValidationMessageFor(model => model.DropOffLocation) *@
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-fields">
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number" } })
+                            <div id="PhoneNumber-validation-message" class="validation-message"></div>
+                       @*      @Html.ValidationMessageFor(model => model.PhoneNumber) *@
+                        </div>
+
+                        <div class="row row-space">
+                            <div class="col-6">
+                                <div class="input-fields">
+                                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "input--style-1 js-datepicker", placeholder = "Date", type = "date" } })
+                                    <div id="Date-validation-message" class="validation-message"></div>
+                               @*      @Html.ValidationMessageFor(model => model.Date) *@
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-fields">
+                                    @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Time", type = "time" } })
+                                    <div id="Time-validation-message" class="validation-message"></div>
+                              @*       @Html.ValidationMessageFor(model => model.Time) *@
+                                </div>
+                            </div>
+                            @* <div class="col-2">
+                                <div class="input-fields">
+                                    <input class="input--style-1 js-datepicker" type="text" placeholder="Date" id="dateInput" />
+                                    @*<i class="bi bi-calendar-week input-icon js-btn-calendar" onclick="openDatePicker()"></i> <!-- Calendar icon -->
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-fields">
+                                    <input class="input--style-1" type="text" placeholder="Time" id="timeInput" />
+                                    @*        <i class="bi bi-clock" onclick="openTimePicker()"></i> <!-- Clock icon -->
+                                </div>
+                            </div> *@
+                        </div>
+
+
+                    </div>
+
+                    <!-- Special Request Section -->
+                    <div class="special-request" style="display: none;">
+                        <p class="special-request-label">Special Request?</p>
+                        <div class="special-request-options">
+                            @Html.RadioButtonFor(model => model.SpecialRequest, true, new { id = "specialYes", @class = "special-request-input" }) <label for="specialYes">Yes</label>
+                            @Html.RadioButtonFor(model => model.SpecialRequest, false, new { id = "specialNo", @class = "special-request-input" }) <label for="specialNo">No</label>
+                        </div>
+                        <p class="special-request-info">Your Friday* selection requires a special request. Would you like to provide additional information and submit a request to the Shuttle Coordinator?</p>
+                    </div>
+
+
+                    <div class="p-t-20">
+                        <button class="btn btn--radius btn--green" type="submit">Submit</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+<script src="js/Registeration/Registeration.js"></script>
+<script src="js/Registeration/RegisterationValidation.js"></script>
+
+
+

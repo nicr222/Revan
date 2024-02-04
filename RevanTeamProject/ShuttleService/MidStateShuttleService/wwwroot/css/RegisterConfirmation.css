@@ -1,0 +1,70 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.register-container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #f8f8f8;
+    border-left: 4px solid #840029;
+}
+
+    .section h4 {
+        margin-top: 0;
+        color: #840029;
+    }
+
+    .section p {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+
+        .section p strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+}
+
+
+/* Style for the Go Back to Home Page button */
+.home-button {
+    display: block; /* Make it a block element to allow width manipulation */
+    width: 200px; /* Button width */
+    padding: 10px; /* Button padding for better touch */
+    margin: 20px auto; /* Center the button with automatic margin and add some space around it */
+    background-color: #007bff; /* Example button color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Optional: rounded corners */
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+    font-size: 16px; /* Text size */
+    text-align: center; /* Center the text inside the button */
+}
+
+    .home-button:hover {
+        background-color: #0056b3; /* Darker shade for hover effect */
+    }
