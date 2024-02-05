@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model MidStateShuttleService.Models.CommuncateModel
+
+<link rel="stylesheet" href="css/Communicate.css" />
+
+<body>
+    <div>
+        <div class="wrapper wrapper--w680">
+            <div class="card card-1">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Send Message</h2>
+                    @using (Html.BeginForm("Communicate", "Communicate", FormMethod.Post))
+                {
+                        @Html.AntiForgeryToken()
+                        <div>
+
+                           @* Message input box 
+                               I don't quite know if I like the styling for this as of right now
+                           *@
+                            <div class="row row-space">
+                                <div class="input-group">
+                                    <textarea id="message" class="form-control border-0 shadow-none " rows="1" placeholder="Enter message..."></textarea>
+                                </div>
+                                <div id="Message-validation-message" class="validation-message"></div>
+                            </div>
+
+                            @* Shuttle choosing 
+                            The drop down list should display each shuttle in the database, but uses placeholders for now *@
+                            <div class="row row-space">
+                                <div class="input-group">
+                                    <select id="shuttleSelect" asp-for="shuttles" class="form-select">
+                                        <option>Example</option>
+                                        <option>Example2</option>
+                                        <option>Example3</option>
+                                        <option>Example4</option>
+                                    </select>
+                                </div>
+                                <div id="Shuttles-validation-message" class="validation-message"></div>
+                                <p class="trip-info">*Message will be sent to all students registered to the selected shuttles.</p>
+                            </div>
+                        </div>
+                        <div class="p-t-20">
+                            <button class="btn btn--radius btn--green" type="submit">Send</button>
+                        </div>
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="~/js/Communicate.js"></script>
+
