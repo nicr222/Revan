@@ -15,7 +15,7 @@ namespace MidStateShuttleService.Controllers
 
         public RegisterController(ILogger<RegisterController> logger, IConfiguration configuration)
         {
-            this.connectionString = configuration.GetConnectionString("DefaultConnection");
+            this.connectionString = configuration.GetConnectionString("Connection");
             _logger = logger;
         }
 
