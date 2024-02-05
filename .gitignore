@@ -49,3 +49,12 @@ RevanTeamProject/ShuttleService/MidStateShuttleService/MidStateShuttleService.cs
 /RevanTeamProject/ShuttleService/.vs/ShuttleService/DesignTimeBuild/.dtbcache.v2
 /RevanTeamProject/ShuttleService/MidStateShuttleService/obj/Debug/net8.0/MidStateShuttleService.AssemblyInfo.cs
 *.bin
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/Debug/net8.0/MidStateShuttleService.AssemblyInfo.cs
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/Debug/net8.0/MidStateShuttleService.assets.cache
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/Debug/net8.0/MidStateShuttleService.csproj.AssemblyReference.cache
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/Debug/net8.0/MidStateShuttleService.GeneratedMSBuildEditorConfig.editorconfig
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/Debug/net8.0/project.razor.vs.bin
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/MidStateShuttleService.csproj.nuget.dgspec.json
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/MidStateShuttleService.csproj.nuget.g.props
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/project.assets.json
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/project.nuget.cache
