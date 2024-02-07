@@ -28,7 +28,7 @@
 }
 
 @media (max-width: 767px) {
-    .col-2 {
+    .col-6 {
         width: 100%;
     }
 }
@@ -199,7 +199,7 @@ input {
 
 .input-fields {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     border-bottom: 2px solid #ccc;
 }
 
@@ -269,6 +269,21 @@ input {
     /*}*/
 
 /* ==========================================================================
+   #Student Info
+   ========================================================================== */
+.student-info .student-info-label {
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.student-email {
+    font-size: 12px;
+    margin-top: 3px;
+    color: #666;
+}
+
+
+/* ==========================================================================
    #Additional Fields
    ========================================================================== */
 .radio-trip-type {
@@ -277,9 +292,10 @@ input {
     padding-bottom: 15px;
 }
 
-    .radio-trip-type  .typetrip
-    {
+    .radio-trip-type .typetrip {
         margin-right: 10px;
+        font-size: 14px;
+        font-weight: bold;
     }
 
     .radio-trip-type label {
@@ -369,6 +385,12 @@ input {
         color: #555;
     }
 
+.special-request-guide
+{
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
 
 /* ==========================================================================
    #TITLE

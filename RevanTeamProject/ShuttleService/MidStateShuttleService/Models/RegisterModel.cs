@@ -23,6 +23,9 @@ namespace MidStateShuttleService.Models
         [RegularExpression("^[0-9]{10}$", ErrorMessage = "Must be 10 digits")]
         public string PhoneNumber { get; set; }
 
+        [Required(ErrorMessage = "Email is required")]
+        public string Email { get; set; }
+
         [Required(ErrorMessage = "Trip Type is required")]
         public string TripType { get; set; }
 
@@ -42,6 +45,18 @@ namespace MidStateShuttleService.Models
         // [StringLength(5, ErrorMessage = "Special Request cannot exceed 5 characters")]
         public string SpecialRequest { get; set; }
 
+        // New Properties for the Friday request form fields
+        [Required(ErrorMessage = "Arrival Time is required")]
+        public DateTime ArrivalTime { get; set; }
+
+        [Required(ErrorMessage = "Departure Time is required")]
+        public DateTime DepartureTime { get; set; }
+
+        [StringLength(50, ErrorMessage = "Which Friday cannot exceed 50 characters")]
+        public string WhichFriday { get; set; }
+
+        [Required]
+        public bool AgreeTerms { get; set; } // This assumes you want a simple true/false for agreement
     }
 
 }
