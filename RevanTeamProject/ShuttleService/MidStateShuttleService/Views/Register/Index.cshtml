@@ -7,8 +7,6 @@
 
 
 <link rel="stylesheet" href="css/Register.css" />
-<link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
-
 
 <body>
 
@@ -72,7 +70,7 @@
                     <div class="Route-schedule">
                         <div class="input-fields">
                             <div class="radio-trip-type">
-                                <p class="typetrip">Choose Your Trip Type</p>
+                                <p class="typetrip">Route Schedule</p>
                                 <div class="radio-options">
                                     @Html.RadioButtonFor(model => model.TripType, "RoundTrip", new { id = "RoundTrip" }) <label for="RoundTrip">Round Trip</label>
                                     @Html.RadioButtonFor(model => model.TripType, "OneWay", new { id = "OneWay" }) <label for="OneWay">One Way</label>
@@ -149,11 +147,11 @@
                                 <p class="special-request-info">Your Friday* selection requires a special request. Would you like to provide additional information and submit a request to the Shuttle Coordinator?</p>
 
                             <!--Speical Request Time Preferences -->
-                            <div class="special-request-time-preferences">
+                            <div class="special-request-time-preferences" style="display: none;">
                                 <div class="row row-space">
                                     <div class="col-6">
                                         <div class="input-fields">
-                                            @Html.LabelFor(model => model.ArrivalTime, "Must arrive by")
+                                            <p class="must-arrive-by">Must Arrive By:</p>
                                             @Html.EditorFor(model => model.ArrivalTime, new { htmlAttributes = new { @class = "input--style-1", type = "time" } })
                                             <div id="ArrivalTime-validation-message" class="validation-message"></div>
                                         </div>
@@ -161,7 +159,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="input-fields">
-                                            @Html.LabelFor(model => model.DepartureTime, "Can leave after")
+                                            <p class="must-arrive-by">Can Leave After:</p>
                                             @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "input--style-1", type = "time" } })
                                             <div id="DepartureTime-validation-message" class="validation-message"></div>
                                         </div>
@@ -172,14 +170,14 @@
                                 <div class="row row-space">
                                     <div class="col-6">
                                         <div class="input-fields">
-                                            @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Pefer Pick-Up Location", new { @class = "input--style-1" })
+                                            @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Prefer Pick-Up Location", new { @class = "input--style-1" })
                                             <div id="PickUpLocation-validation-message" class="validation-message"></div>
                                             @*    @Html.ValidationMessageFor(model => model.PickUpLocation) *@
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-fields">
-                                            @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Pefer Drop-Off Location", new { @class = "input--style-1" })
+                                            @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Prefer Drop-Off Location", new { @class = "input--style-1" })
                                             <div id="DropOffLocation-validation-message" class="validation-message"></div>
                                             @*     @Html.ValidationMessageFor(model => model.DropOffLocation) *@
                                         </div>
@@ -187,23 +185,20 @@
                                 </div>
 
                                 <!-- Which Friday Field -->
-                                <div class="input-fields">
-                                    @Html.LabelFor(model => model.WhichFriday, "Which Friday")
-                                    @Html.EditorFor(model => model.WhichFriday, new { htmlAttributes = new { @class = "input--style-1" } })
+                                <div class="which-friday-container">
+                                    <label for="WhichFriday" class="which-friday-label">Which Friday</label>
+                                    @Html.TextAreaFor(model => model.WhichFriday, new { htmlAttributes = new { @class = "which-friday-input", @style = "padding: 20px;" } })
                                     <div id="WhichFriday-validation-message" class="validation-message"></div>
+                                    <p class="special-request-guide which-friday-guide">*Please enter which Friday(s) you need transportation for and other additional information that might be important to our scheduler, who will respond to this request.</p>
                                 </div>
-                                <p class="special-request-guide">*Please enter which Friday(s) you need transportation for and other additional information that 
-                                    might be important to our scheduler, who will respond to this request.
-                                </p>
+
 
                                 <!-- Terms and Conditions Checkbox -->
-                                <div class="checkbox">
-                                    @Html.CheckBoxFor(model => model.AgreeTerms, new { id = "AgreeTerms" })
-                                    <p class="AgreeTerms">I understand my Friday request will be reviewed but is not guaranteed.
-                                        I will be required to communicate and confirm my request with shuttle program before it is scheduled. 
-                                        I also understand I must notify the shuttle program if I need to cancel or change my reservation after it is added to the schedule.
-                                    </p>
+                                <div class="checkbox-container">
+                                    <input type="checkbox" id="AgreeTerms" name="AgreeTerms" />
+                                    <label for="AgreeTerms" class="AgreeTerms">I understand my Friday request will be reviewed but is not guaranteed. I will be required to communicate and confirm my request with the shuttle program before it is scheduled. I also understand I must notify the shuttle program if I need to cancel or change my reservation after it is added to the schedule.</label>
                                 </div>
+
                             </div>
                         </div>
                     </div>
