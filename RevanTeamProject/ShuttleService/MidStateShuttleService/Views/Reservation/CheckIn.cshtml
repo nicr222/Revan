@@ -14,10 +14,72 @@
                 <h5 class="title">Wisconsin Rapids to Stevens Point</h5>
                 <h6 class="title">3/14/2024 3:50pm</h6>
                 <div class="input-fields">
-                    <input type="number" class="input--style-1" id="studentID" placeholder="Student ID" max="8" required/>
+                    <input type="number" class="input--style-1" id="studentID" placeholder="Student ID" max="8" required />
                     <div id="studentIDFeedback" class="invalid-feedback">
                         Invalid Student ID
                     </div>
+                </div>
+                <div class="row row-space">
+                    <div class="col-6">
+                        <div class="input-fields">
+                            <input type="text" class="input--style-1" id="firstName" placeholder="First Name" max="8" required />
+                            <div id="studentIDFeedback" class="invalid-feedback">
+                                Invalid Name
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-fields">
+                            <input type="text" class="input--style-1" id="lastName" placeholder="Last Name" max="8" required />
+                            <div id="studentIDFeedback" class="invalid-feedback">
+                                Invalid Name
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-space">
+                    <div class="col-6">
+                        <div class="input-fields">
+                            <h6>Today's Date'</h6>
+                            <div class="input--style-1">12/3/2024</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-fields">
+                            <h6>Is this your first time riding?</h6>
+                            <div class="input--style-1">
+                                <input type="radio" class="input--style-1" id="newRiderYes" name="firstTime" required />
+                                <label class="radio-label-style" for="newRiderYes">Yes</label>
+                                <input type="radio" class="input--style-1" id="newRiderNo" name="firstTime" required />
+                                <label class="radio-label-style" for="newRiderNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-space">
+                    <div class="col-6">
+                        <div class="input-fields">
+                            <h6>START Location/Campus</h6>
+                            <select class="input--style-1" id="startLocation">
+                                <option>Please Select Start Location</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-fields">
+                            <h6>END Location/Campus</h6>
+                            <select class="input--style-1" id="endLocation">
+                                <option>Please Select End Location</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-fields">
+                    <h6>Rider Comments / Suggestions</h6>
+                    <textarea class="input--style-1" id="feedback" placeholder="Share your experience" rows="4" cols="50" max="8" required></textarea>
                 </div>
 
                 <div class="p-t-20">
