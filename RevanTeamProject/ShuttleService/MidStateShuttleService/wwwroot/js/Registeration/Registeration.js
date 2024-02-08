@@ -54,34 +54,62 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //Show and hide speical request time preferences section based on the selection
 document.addEventListener("DOMContentLoaded", function () {
-    // Function to toggle Special Request Time Preferences section
-    function toggleSpecialRequestTimePreferences(display) {
+    // Function to toggle visibility of sections based on the Special Request selection
+    function toggleSectionsBasedOnSpecialRequest() {
+        var specialRequestYes = document.getElementById('specialYes').checked;
         var specialRequestTimePreferences = document.querySelector('.special-request-time-preferences');
+        var contactPreferenceSection = document.querySelector('.contact-preference');
+
+        // Toggle Special Request Time Preferences section
         if (specialRequestTimePreferences) {
-            specialRequestTimePreferences.style.display = display;
+            specialRequestTimePreferences.style.display = specialRequestYes ? 'block' : 'none';
+        }
+
+        // Toggle Contact Preference section
+        if (contactPreferenceSection) {
+            contactPreferenceSection.style.display = specialRequestYes ? 'block' : 'none';
         }
     }
 
     // Event listener for changes in Special Request radio buttons
     document.querySelectorAll('input[name="SpecialRequest"]').forEach(function (radio) {
-        radio.addEventListener('change', function () {
-            // Check if "Yes" is selected for Special Request
-            if (document.getElementById('specialYes').checked) {
-                toggleSpecialRequestTimePreferences('block'); // Show time preferences section
-            } else {
-                toggleSpecialRequestTimePreferences('none'); // Hide time preferences section
-            }
-        });
+        radio.addEventListener('change', toggleSectionsBasedOnSpecialRequest);
     });
 
     // Optionally, trigger the change event on page load if "Yes" is already checked
-    // This is useful in case the form is reloaded with the "Yes" option preselected
-    if (document.getElementById('specialYes').checked) {
-        toggleSpecialRequestTimePreferences('block');
-    } else {
-        toggleSpecialRequestTimePreferences('none');
-    }
+    // This ensures the correct sections are shown or hidden based on the preselected value
+    toggleSectionsBasedOnSpecialRequest();
 });
+
+//document.addEventListener("DOMContentLoaded", function () {
+//    // Function to toggle Special Request Time Preferences section
+//    function toggleSpecialRequestTimePreferences(display) {
+//        var specialRequestTimePreferences = document.querySelector('.special-request-time-preferences');
+//        if (specialRequestTimePreferences) {
+//            specialRequestTimePreferences.style.display = display;
+//        }
+//    }
+
+//    // Event listener for changes in Special Request radio buttons
+//    document.querySelectorAll('input[name="SpecialRequest"]').forEach(function (radio) {
+//        radio.addEventListener('change', function () {
+//            // Check if "Yes" is selected for Special Request
+//            if (document.getElementById('specialYes').checked) {
+//                toggleSpecialRequestTimePreferences('block'); // Show time preferences section
+//            } else {
+//                toggleSpecialRequestTimePreferences('none'); // Hide time preferences section
+//            }
+//        });
+//    });
+
+//    // Optionally, trigger the change event on page load if "Yes" is already checked
+//    // This is useful in case the form is reloaded with the "Yes" option preselected
+//    if (document.getElementById('specialYes').checked) {
+//        toggleSpecialRequestTimePreferences('block');
+//    } else {
+//        toggleSpecialRequestTimePreferences('none');
+//    }
+//});
 
 //Hide can leave after field based on Friday Special Request time preferences selection
 document.addEventListener('DOMContentLoaded', function () {
