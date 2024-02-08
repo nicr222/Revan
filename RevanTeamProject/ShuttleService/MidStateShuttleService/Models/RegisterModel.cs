@@ -52,11 +52,11 @@ namespace MidStateShuttleService.Models
         [Required(ErrorMessage = "Departure Time is required")]
         public DateTime DepartureTime { get; set; }
 
-        [StringLength(50, ErrorMessage = "Which Friday cannot exceed 50 characters")]
+        [StringLength(300, ErrorMessage = "Which Friday cannot exceed 300 characters")]
         public string WhichFriday { get; set; }
 
         [Required]
-        public bool AgreeTerms { get; set; } // This assumes you want a simple true/false for agreement
+        public bool AgreeTerms { get; set; } //  true/false for agreement
     }
 
 }
