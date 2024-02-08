@@ -329,6 +329,39 @@ input {
     }
 }
 
+/* ==========================================================================
+   #Other Special Request Styles
+   ========================================================================== */
+.other-special-request {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ccc;
+}
+
+.other-special-request-label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.other-special-request-options .radio-options {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.other-special-request-options label {
+    margin: 5px; /* Space between the label and the radio buttons */
+}
+
+.other-special-request-info {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #666;
+}
+
+
 
 /* ==========================================================================
    #Friday Special Request Styles

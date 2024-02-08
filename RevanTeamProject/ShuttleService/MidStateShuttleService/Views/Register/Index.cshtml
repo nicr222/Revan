@@ -91,14 +91,14 @@
 
                                 <div class="col-6">
                                     <div class="input-fields">
-                                        @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1" })
+                                        @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })
                                         <div id="PickUpLocation-validation-message" class="validation-message"></div>
                                      @*    @Html.ValidationMessageFor(model => model.PickUpLocation) *@
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="input-fields">
-                                        @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1" })
+                                        @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })
                                         <div id="DropOffLocation-validation-message" class="validation-message"></div>
                                     @*     @Html.ValidationMessageFor(model => model.DropOffLocation) *@
                                     </div>
@@ -120,24 +120,21 @@
                                   @*       @Html.ValidationMessageFor(model => model.Time) *@
                                     </div>
                                 </div>
-                                @* <div class="col-2">
-                                    <div class="input-fields">
-                                        <input class="input--style-1 js-datepicker" type="text" placeholder="Date" id="dateInput" />
-                                        @*<i class="bi bi-calendar-week input-icon js-btn-calendar" onclick="openDatePicker()"></i> <!-- Calendar icon -->
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="input-fields">
-                                        <input class="input--style-1" type="text" placeholder="Time" id="timeInput" />
-                                        @*        <i class="bi bi-clock" onclick="openTimePicker()"></i> <!-- Clock icon -->
-                                    </div>
-                                </div> *@
                             </div>
 
+                            <!-- Other Special Request Section -->
+                            <div class="other-special-request" style="display: none;">
+                                <p class="other-special-request-label">Special Request?</p>
+                                <div class="other-special-request-options">
+                                    @Html.RadioButtonFor(model => model.SpecialRequest, true, new { id = "otherSpecialYes", @class = "other-special-request-input" }) <label for="otherSpecialYes">Yes</label>
+                                    @Html.RadioButtonFor(model => model.SpecialRequest, false, new { id = "otherSpecialNo", @class = "other-special-request-input" }) <label for="otherSpecialNo">No</label>
+                                </div>
+                                <p class="other-special-request-info">Your selection of 'Other' requires a special request. Would you like to provide additional information and submit a request to the Shuttle Coordinator?</p>
+                            </div>
 
                         </div>
 
-                            <!-- Special Request Section -->
+                            <!-- Friday Special Request Section -->
                         <div class="special-request" style="display: none;">
                                 <p class="special-request-label">Special Request?</p>
                                     <div class="special-request-options">
@@ -209,7 +206,6 @@
                                     <p class="special-request-guide which-friday-guide">*Please enter which Friday(s) you need transportation for and other additional information that might be important to our scheduler, who will respond to this request.</p>
                                 </div>
 
-
                                 <!-- Terms and Conditions Checkbox -->
                                 <div class="checkbox-container">
                                     <input type="checkbox" id="AgreeTerms" name="AgreeTerms" />
@@ -217,18 +213,18 @@
                                 </div>
 
                             </div>
+                        </div>
 
-                            <div class="contact-preference" style="display: none;">
-                                <p class="contact-preference-label">Contact Preference</p>
-                                <div class="radio-options">
-                                    @Html.RadioButtonFor(model => model.ContactPreference, "Email", new { id = "Email" }) <label for="Email">Email</label>
-                                    @Html.RadioButtonFor(model => model.ContactPreference, "Phone", new { id = "Phone" }) <label for="Phone">Phone</label>
-                                    @Html.RadioButtonFor(model => model.ContactPreference, "Text", new { id = "Text" }) <label for="Text">Text</label>
-                                </div>
-                                <div id="ContactPreference-validation-message" class="validation-message"></div>
-                                @*  @Html.ValidationMessageFor(model => model.ContactPreference) *@
-                                <p class="contact-preference-guide">*Any communication would be directly related to the shuttle service or route updates.</p>
+                        <div class="contact-preference" style="display: none;">
+                            <p class="contact-preference-label">Contact Preference</p>
+                            <div class="radio-options">
+                                @Html.RadioButtonFor(model => model.ContactPreference, "Email", new { id = "Email" }) <label for="Email">Email</label>
+                                @Html.RadioButtonFor(model => model.ContactPreference, "Phone", new { id = "Phone" }) <label for="Phone">Phone</label>
+                                @Html.RadioButtonFor(model => model.ContactPreference, "Text", new { id = "Text" }) <label for="Text">Text</label>
                             </div>
+                            <div id="ContactPreference-validation-message" class="validation-message"></div>
+                            @*  @Html.ValidationMessageFor(model => model.ContactPreference) *@
+                            <p class="contact-preference-guide">*Any communication would be directly related to the shuttle service or route updates.</p>
                         </div>
                     </div>
 
