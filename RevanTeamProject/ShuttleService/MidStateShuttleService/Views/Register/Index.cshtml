@@ -148,6 +148,21 @@
 
                             <!--Speical Request Time Preferences -->
                             <div class="special-request-time-preferences" style="display: none;">
+
+                                <!-- Friday Special Request Trip Type Radio Buttons -->
+                                <div class="input-fields">
+                                    <div class="radio-options-special-request">
+                                        <!-- Round Trip Radio Button -->
+                                        @Html.RadioButtonFor(model => model.FridayTripType, "RoundTrip", new { id = "FridayRoundTrip", @class = "input--style-1" })
+                                        <label for="FridayRoundTrip">Round Trip</label>
+
+                                        <!-- One Way Radio Button -->
+                                        @Html.RadioButtonFor(model => model.FridayTripType, "OneWay", new { id = "FridayOneWay", @class = "input--style-1" })
+                                        <label for="FridayOneWay">One Way</label>
+
+                                    </div>
+                                </div>
+
                                 <div class="row row-space">
                                     <div class="col-6">
                                         <div class="input-fields">
@@ -158,12 +173,14 @@
                                         <p class="special-request-guide">*eg, first class start time</p>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-fields">
-                                            <p class="must-arrive-by">Can Leave After:</p>
-                                            @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "input--style-1", type = "time" } })
-                                            <div id="DepartureTime-validation-message" class="validation-message"></div>
+                                        <div class="leave-after">
+                                            <div class="input-fields">
+                                                <p class="must-arrive-by">Can Leave After:</p>
+                                                @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "input--style-1", type = "time" } })
+                                                <div id="DepartureTime-validation-message" class="validation-message"></div>
+                                            </div>
+                                            <p class="special-request-guide">*eg, last class end time</p>
                                         </div>
-                                        <p class="special-request-guide">*eg, last class end time</p>
                                     </div>
                                 </div>
 

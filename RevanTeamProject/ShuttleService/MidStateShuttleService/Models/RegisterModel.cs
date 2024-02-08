@@ -55,6 +55,9 @@ namespace MidStateShuttleService.Models
         [StringLength(300, ErrorMessage = "Which Friday cannot exceed 300 characters")]
         public string WhichFriday { get; set; }
 
+        [Required(ErrorMessage = "Friday Trip Type is required")]
+        public string FridayTripType { get; set; }
+
         [Required]
         public bool AgreeTerms { get; set; } //  true/false for agreement
     }
