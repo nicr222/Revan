@@ -59,6 +59,9 @@ namespace MidStateShuttleService.Models
         public string FridayTripType { get; set; }
 
         [Required]
+        public string ContactPreference { get; set; }
+
+        [Required]
         public bool AgreeTerms { get; set; } //  true/false for agreement
     }
 
