@@ -392,6 +392,106 @@ input {
     margin-top: 5px;
 }
 
+.must-arrive-by {
+    margin-right: 10px;
+    margin-bottom: 3px;
+}
+
+
+.which-friday-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    margin-bottom: 20px; /* Spacing below the container */
+}
+
+.which-friday-label {
+    margin-bottom: 10px; /* Spacing between label and textbox */
+}
+
+.which-friday-input {
+    padding: 9px 12px !important;
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 14px; /* Matching font size */
+    color: #666; /* Text color */
+    width: 100%; /* Ensure it fills the container */
+    box-sizing: border-box; /* Padding and border included in the width */
+}
+
+/* Adjust styling for textarea to handle multiple lines */
+.which-friday-container .which-friday-input {
+    padding: 20px !important; /* Increased padding for larger text area */
+    height: 180px; /* Adjust the height as necessary */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 14px; /* Matching font size */
+    color: #666; /* Text color */
+}
+
+
+.which-friday-guide {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   #Checkbox Styles
+   ========================================================================== */
+
+/* Container for the checkbox and text */
+.checkbox-container {
+    display: flex;
+    align-items: start;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9; /* Light background color */
+}
+
+/* Styling for the checkbox input */
+#AgreeTerms {
+    flex-shrink: 0; /* Prevent checkbox from shrinking */
+    margin-right: 10px; /* Space between the checkbox and the label text */
+    cursor: pointer;
+}
+
+/* Styling for the Terms and Conditions label */
+.AgreeTerms {
+    flex-grow: 1;
+    font-size: 14px; /* Readable text size */
+    color: red; /* Distinctive font color */
+    line-height: 1.5; /* Space between lines */
+    cursor: pointer;
+}
+
+/* Styling for the checkbox input */
+input[type=checkbox] {
+    appearance: none; /* Remove default checkbox appearance */
+    -webkit-appearance: none; /* For Safari */
+    margin-right: 10px; /* Space between the checkbox and the label text */
+    font-size: 20px; /* Sets the size of the checkbox */
+    line-height: 1; /* Aligns the checkbox symbol vertically */
+    width: 20px;
+    height: 20px;
+    border: 2px solid #808080; 
+    border-radius: 3px; /* Slightly rounded corners for the checkbox */
+    vertical-align: middle;
+    cursor: pointer;
+    position: relative; /* Needed to position the checkmark absolutely */
+    outline: none; /* Removes the focus outline */
+}
+
+    /* Checkmark style when checked */
+    input[type=checkbox]:checked::after {
+        content: '✔'; /* Unicode checkmark symbol */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the checkmark inside the checkbox */
+        font-size: 16px;
+        color: #4dae3c; /* green checkmark */
+    }
+
 /* ==========================================================================
    #TITLE
    ========================================================================== */
