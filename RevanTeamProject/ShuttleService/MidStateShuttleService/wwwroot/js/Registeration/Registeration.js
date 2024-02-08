@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+//Friday Special Request Selection
 document.addEventListener("DOMContentLoaded", function () {
     // Existing function to toggle additional fields
     function toggleAdditionalFields(display) {
@@ -51,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+//Show and hide speical request time preferences section based on the selection
 document.addEventListener("DOMContentLoaded", function () {
     // Function to toggle Special Request Time Preferences section
     function toggleSpecialRequestTimePreferences(display) {
@@ -81,6 +83,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+//Hide can leave after field based on Friday Special Request time preferences selection
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to toggle the visibility of the Can Leave After field
+    function toggleCanLeaveAfterVisibility() {
+        var specialRequestYes = document.getElementById('specialYes').checked;
+        var fridayOneWay = document.getElementById('FridayOneWay').checked;
 
+        // Logic to determine if the Can Leave After field should be hidden
+        if (specialRequestYes && fridayOneWay) {
+            document.querySelector('.leave-after').style.display = 'none'; // Hides the Can Leave After field
+        } else {
+            document.querySelector('.leave-after').style.display = 'block'; // Shows the Can Leave After field
+        }
+    }
 
+    // Attach event listeners to the Special Request and FridayTripType radio buttons
+    document.getElementById('specialYes').addEventListener('change', toggleCanLeaveAfterVisibility);
+    document.getElementById('specialNo').addEventListener('change', toggleCanLeaveAfterVisibility);
+    document.getElementById('FridayRoundTrip').addEventListener('change', toggleCanLeaveAfterVisibility);
+    document.getElementById('FridayOneWay').addEventListener('change', toggleCanLeaveAfterVisibility);
+
+    // Initial call to set the correct state when the page loads
+    toggleCanLeaveAfterVisibility();
+});
 
