@@ -286,33 +286,34 @@ input {
 /* ==========================================================================
    #Additional Fields
    ========================================================================== */
-.radio-trip-type {
+.radio-options-special-request, .radio-trip-type {
     display: flex;
     flex-direction: column; /* Keeps the label and options in a column */
     padding-bottom: 15px;
 }
 
-    .radio-trip-type .typetrip {
+    .radio-options-special-request .typetrip, .radio-trip-type .typetrip {
         margin-right: 10px;
         font-size: 14px;
         font-weight: bold;
     }
 
-    .radio-trip-type label {
+    .radio-options-special-request label, .radio-trip-type label {
         margin: 5px; /* Space between the label and the radio buttons */
     }
 
-    .radio-trip-type .radio-options {
+    .radio-options-special-request, .radio-trip-type .radio-options {
         display: flex;
         flex-direction: row; /* Aligns radio buttons in a row */
         gap: 10px; /* Adjust the spacing between radio buttons */
     }
 
-    .radio-trip-type .trip-info {
-        font-size: 12px;
-        margin-top: 10px;
-        color: #666;
-    }
+        .radio-options-special-request .trip-info, .radio-trip-type .trip-info {
+            font-size: 12px;
+            margin-top: 10px;
+            color: #666;
+        }
+
 
 
 .location-description {
@@ -330,7 +331,7 @@ input {
 
 
 /* ==========================================================================
-   #Special Request Styles
+   #Friday Special Request Styles
    ========================================================================== */
 .special-request {
     display: flex;
@@ -345,11 +346,14 @@ input {
     font-weight: bold;
 }
 
-.special-request-options {
+.special-request-options .radio-options{
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
+    .special-request-options label{
+        margin: 5px; /* Space between the label and the radio buttons */
+    }
 
 .special-request-info {
     font-size: 12px;
@@ -434,6 +438,7 @@ input {
     color: #666;
     margin-top: 5px;
 }
+
 
 /* ==========================================================================
    #Checkbox Styles
