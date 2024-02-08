@@ -24,6 +24,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+//Other Special Request Selection
+document.addEventListener('DOMContentLoaded', function () {
+    var pickUpLocationSelect = document.getElementById('PickUpLocation');
+    var dropOffLocationSelect = document.getElementById('DropOffLocation');
+    var otherSpecialRequestSection = document.querySelector('.other-special-request');
+
+    function toggleSpecialRequestDisplay() {
+        // Check if either of the dropdowns has "Other" selected
+        if (pickUpLocationSelect.value === 'Other' || dropOffLocationSelect.value === 'Other') {
+            otherSpecialRequestSection.style.display = 'block';
+        } else {
+            otherSpecialRequestSection.style.display = 'none';
+        }
+    }
+
+    // Add change event listeners to both dropdowns
+    pickUpLocationSelect.addEventListener('change', toggleSpecialRequestDisplay);
+    dropOffLocationSelect.addEventListener('change', toggleSpecialRequestDisplay);
+
+    // Initial check in case the page is loaded with "Other" already selected
+    toggleSpecialRequestDisplay();
+});
+
+
 //Friday Special Request Selection
 document.addEventListener("DOMContentLoaded", function () {
     // Existing function to toggle additional fields
@@ -81,35 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleSectionsBasedOnSpecialRequest();
 });
 
-//document.addEventListener("DOMContentLoaded", function () {
-//    // Function to toggle Special Request Time Preferences section
-//    function toggleSpecialRequestTimePreferences(display) {
-//        var specialRequestTimePreferences = document.querySelector('.special-request-time-preferences');
-//        if (specialRequestTimePreferences) {
-//            specialRequestTimePreferences.style.display = display;
-//        }
-//    }
-
-//    // Event listener for changes in Special Request radio buttons
-//    document.querySelectorAll('input[name="SpecialRequest"]').forEach(function (radio) {
-//        radio.addEventListener('change', function () {
-//            // Check if "Yes" is selected for Special Request
-//            if (document.getElementById('specialYes').checked) {
-//                toggleSpecialRequestTimePreferences('block'); // Show time preferences section
-//            } else {
-//                toggleSpecialRequestTimePreferences('none'); // Hide time preferences section
-//            }
-//        });
-//    });
-
-//    // Optionally, trigger the change event on page load if "Yes" is already checked
-//    // This is useful in case the form is reloaded with the "Yes" option preselected
-//    if (document.getElementById('specialYes').checked) {
-//        toggleSpecialRequestTimePreferences('block');
-//    } else {
-//        toggleSpecialRequestTimePreferences('none');
-//    }
-//});
 
 //Hide can leave after field based on Friday Special Request time preferences selection
 document.addEventListener('DOMContentLoaded', function () {
