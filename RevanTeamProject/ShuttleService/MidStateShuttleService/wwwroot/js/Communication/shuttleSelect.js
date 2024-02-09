@@ -13,9 +13,9 @@ items.forEach(item => {
             btnText = document.querySelector(".btn-text");
 
         if (checked && checked.length > 0) {
-            btnText.innerText = '${checked.length} Selected'
+            btnText.innerText = `${checked.length} Selected`;
         } else {
-            btnText.innerText = 'Select Message Recipients'
+            btnText.innerText = 'Select Message Recipients';
         }
     });
 });
