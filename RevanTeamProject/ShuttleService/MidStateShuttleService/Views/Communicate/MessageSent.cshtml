@@ -1,0 +1,18 @@
+﻿@model MidStateShuttleService.Models.CommuncateModel
+
+<link rel="stylesheet" href="~/css/RegisterConfirmation.css" />
+
+    <div class="register-container">
+        <h2 class="page-title">Registration Confirmation</h2>
+
+        <div class="section">
+            <h4>Message sent</h4>
+            <p>@Model.message</p>
+        </div>
+
+    <!-- Go Back to Home Page Button -->
+        <button type="button" onclick="window.location.href='@Url.Action("Index", "Home")'" class="home-button">
+            Go Back to Home Page
+        </button>
+
+    </div>
