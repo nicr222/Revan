@@ -35,6 +35,9 @@ namespace MidStateShuttleService.Models
         [Required(ErrorMessage = "Drop Off Location is required")]
         public string DropOffLocation { get; set; }
 
+        [StringLength(300, ErrorMessage = "Need transportation cannot exceed 300 characters")]
+        public string NeedTransportation { get; set; }
+
         [Required(ErrorMessage = "Date is required")]
         public DateTime Date { get; set; }
 
