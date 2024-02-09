@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // Real-time validation event listeners
-    message.addEventListener('input', validateStudentIdPhoneNumber);
-    shuttles.addEventListener('input', validateStudentIdPhoneNumber);
+    message.addEventListener('input', validateMessage);
+    shuttles.addEventListener('input', validateShuttles);
 
     // Form submission event listener
     document.querySelector('.wrapper').addEventListener('submit', function (event) {
