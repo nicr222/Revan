@@ -278,7 +278,7 @@ input {
 }
 .student-email {
     font-size: 12px;
-    margin-top: 3px;
+    margin-top: -13px;
     color: #666;
 }
 
@@ -310,7 +310,7 @@ input {
 
         .radio-options-special-request .trip-info, .radio-trip-type .trip-info {
             font-size: 12px;
-            margin-top: 10px;
+            margin-top: 3px;
             color: #666;
         }
 
@@ -426,7 +426,7 @@ input {
 {
     font-size: 12px;
     color: #666;
-    margin-top: 5px;
+    margin-top: -11px;
 }
 
 .must-arrive-by {
@@ -439,6 +439,7 @@ input {
     display: flex;
     flex-direction: column; /* Stack elements vertically */
     margin-bottom: 20px; /* Spacing below the container */
+    margin-top: 20px; /* Spacing above the container */
 }
 
 .which-friday-label {
@@ -449,7 +450,7 @@ input {
     padding: 9px 12px !important;
     border: 1px solid #ccc; /* Light grey border */
     border-radius: 5px; /* Slightly rounded corners */
-    font-size: 14px; /* Matching font size */
+    font-size: 12px; /* Matching font size */
     color: #666; /* Text color */
     width: 100%; /* Ensure it fills the container */
     box-sizing: border-box; /* Padding and border included in the width */
@@ -457,11 +458,11 @@ input {
 
 /* Adjust styling for textarea to handle multiple lines */
 .which-friday-container .which-friday-input {
-    padding: 20px !important; /* Increased padding for larger text area */
-    height: 180px; /* Adjust the height as necessary */
+    padding: 10px !important; /* Increased padding for larger text area */
+    height: 150px; /* Adjust the height as necessary */
     border: 1px solid #ccc; /* Light grey border */
     border-radius: 5px; /* Slightly rounded corners */
-    font-size: 14px; /* Matching font size */
+    font-size: 12px; /* Matching font size */
     color: #666; /* Text color */
 }
 
@@ -470,6 +471,41 @@ input {
     font-size: 12px;
     color: #666;
     margin-top: 5px;
+}
+
+/* ==========================================================================
+   #Other Special Request Need Transportation
+   ========================================================================== */
+
+.need-transportation-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    margin-bottom: 20px; /* Spacing below the container */
+    margin-top: 20px; /* Spacing above the container */
+}
+
+.need-transportation-label {
+    margin-bottom: 10px; /* Spacing between label and textbox */
+}
+
+.need-transportation-input {
+    padding: 9px 12px !important;
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 12px; /* Matching font size */
+    color: #666; /* Text color */
+    width: 100%; /* Ensure it fills the container */
+    box-sizing: border-box; /* Padding and border included in the width */
+}
+
+/* Adjust styling for textarea to handle multiple lines */
+.need-transportation-container .need-transportation-input {
+    padding: 10px !important; /* Increased padding for larger text area */
+    height: 150px; /* Adjust the height as necessary */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 12px; /* Matching font size */
+    color: #666; /* Text color */
 }
 
 

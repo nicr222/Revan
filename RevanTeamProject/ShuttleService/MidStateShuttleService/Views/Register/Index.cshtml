@@ -130,6 +130,64 @@
                                     @Html.RadioButtonFor(model => model.SpecialRequest, false, new { id = "otherSpecialNo", @class = "other-special-request-input" }) <label for="otherSpecialNo">No</label>
                                 </div>
                                 <p class="other-special-request-info">Your selection of 'Other' requires a special request. Would you like to provide additional information and submit a request to the Shuttle Coordinator?</p>
+
+                                <!--Other Speical Request Time Preferences -->
+                                <div class="other-special-request-time-preferences" style="display: none;">
+
+                                    <div class="row row-space">
+                                        <div class="col-6">
+                                            <div class="input-fields">
+                                                <p class="must-arrive-by">Must Arrive By:</p>
+                                                @Html.EditorFor(model => model.ArrivalTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id="otherMustArriveBy" } })
+                                                <div id="ArrivalTime-validation-message" class="validation-message"></div>
+                                            </div>
+                                            <p class="special-request-guide">*eg, first class start time</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-fields">
+                                                <p class="must-arrive-by">Can Leave After:</p>
+                                                @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "otherCanLeaveAfter" } })
+                                                <div id="DepartureTime-validation-message" class="validation-message"></div>
+                                            </div>
+                                            <p class="special-request-guide">*eg, last class end time</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row row-space">
+                                        <div class="col-6">
+                                            <div class="input-fields">
+                                                <input type="text" class="input--style-1" name="PickUpLocation" placeholder="Pick Up Location" /> 
+                                                <div id="PickUpLocation-validation-message" class="validation-message"></div>
+                                                @*    @Html.ValidationMessageFor(model => model.PickUpLocation) *@
+                                            </div>
+                                            <p class="special-request-guide">Where would you prefer to be picked up?</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-fields">
+                                                <input type="text" class="input--style-1" name="DropOffLocation" placeholder="Drop Off Location" />
+                                                <div id="DropOffLocation-validation-message" class="validation-message"></div>
+                                                @*     @Html.ValidationMessageFor(model => model.DropOffLocation) *@
+                                            </div>
+                                            <p class="special-request-guide">Where would you prefer to be dropped off?</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- days need transportation Field -->
+                                    <div class="need-transportation-container">
+                                        <label for="NeedTransportation" class="need-transportation-label">Enter the day(s) you need transportation*</label>
+                                        <textarea id="NeedTransportation" name="NeedTransportation" class="need-transportation-input"></textarea>
+                                        <div id="NeedTransportation-validation-message" class="validation-message"></div>
+                                        <p class="special-request-guide which-friday-guide">*Please enter the day(s) and other additional imformation might be important to our scheduler, who will respond to this request.</p>
+                                    </div>
+
+
+                                    <!-- Terms and Conditions Checkbox -->
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" id="AgreeTerms" name="AgreeTerms" />
+                                        <label for="AgreeTerms" class="AgreeTerms">I understand my transportation request will be reviewed but is not guaranteed. I will be required to communicate and confirm my request with the shuttle program before it is scheduled. I also understand I must notify the shuttle program if I need to cancel or change my reservation after it is added to the schedule.</label>
+                                    </div>
+
+                                </div>
                             </div>
 
                         </div>
@@ -201,10 +259,11 @@
                                 <!-- Which Friday Field -->
                                 <div class="which-friday-container">
                                     <label for="WhichFriday" class="which-friday-label">Which Friday</label>
-                                    @Html.TextAreaFor(model => model.WhichFriday, new { htmlAttributes = new { @class = "which-friday-input", @style = "padding: 20px;" } })
+                                    <textarea id="WhichFriday" name="WhichFriday" class="which-friday-input" ></textarea>
                                     <div id="WhichFriday-validation-message" class="validation-message"></div>
                                     <p class="special-request-guide which-friday-guide">*Please enter which Friday(s) you need transportation for and other additional information that might be important to our scheduler, who will respond to this request.</p>
                                 </div>
+
 
                                 <!-- Terms and Conditions Checkbox -->
                                 <div class="checkbox-container">
@@ -216,15 +275,17 @@
                         </div>
 
                         <div class="contact-preference" style="display: none;">
-                            <p class="contact-preference-label">Contact Preference</p>
-                            <div class="radio-options">
-                                @Html.RadioButtonFor(model => model.ContactPreference, "Email", new { id = "Email" }) <label for="Email">Email</label>
-                                @Html.RadioButtonFor(model => model.ContactPreference, "Phone", new { id = "Phone" }) <label for="Phone">Phone</label>
-                                @Html.RadioButtonFor(model => model.ContactPreference, "Text", new { id = "Text" }) <label for="Text">Text</label>
+                            <div class="input-fields">
+                                <p class="contact-preference-label">Contact Preference</p>
+                                <div class="radio-options">
+                                    @Html.RadioButtonFor(model => model.ContactPreference, "Email", new { id = "Email" }) <label for="Email">Email</label>
+                                    @Html.RadioButtonFor(model => model.ContactPreference, "Phone", new { id = "Phone" }) <label for="Phone">Phone</label>
+                                    @Html.RadioButtonFor(model => model.ContactPreference, "Text", new { id = "Text" }) <label for="Text">Text</label>
+                                </div>
+                                <div id="ContactPreference-validation-message" class="validation-message"></div>
+                                @*  @Html.ValidationMessageFor(model => model.ContactPreference) *@
+                                <p class="contact-preference-guide">*Any communication would be directly related to the shuttle service or route updates.</p>
                             </div>
-                            <div id="ContactPreference-validation-message" class="validation-message"></div>
-                            @*  @Html.ValidationMessageFor(model => model.ContactPreference) *@
-                            <p class="contact-preference-guide">*Any communication would be directly related to the shuttle service or route updates.</p>
                         </div>
                     </div>
 
