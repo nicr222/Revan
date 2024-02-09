@@ -144,34 +144,33 @@ sup {
    #BUTTON
    ========================================================================== */
 .btn {
-    line-height: 40px;
+    line-height: 36px;
     display: inline-block;
-    padding: 0 25px;
+    padding: 0 16px;
     cursor: pointer;
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
-    color: #fff;
-    -webkit-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    font-size: 14px;
+    color: #840029; /* Maroon color for text */
+    font-size: 12px;
     font-weight: 700;
+    border: 2px solid #840029; /* Initial border thickness */
+    background-color: transparent; /* Transparent background */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 5px;
+    border-radius: 25px; /* Rounded corners */
+    transition: all 0.1s ease-out; /* Smooth transition for all properties */
+    animation: none;
 }
 
-.btn--radius {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+.btn--submit:hover, .btn--cancel:hover {
+    animation: thickenBorder 0.1s ease-out forwards; /* Apply the keyframe animation on hover */
 }
 
-.btn--green {
-    background: #57b846;
-}
-
-    .btn--green:hover {
-        background: #4dae3c;
+/* Keyframes for border thickening animation */
+@keyframes thickenBorder {
+    to {
+        border-width: 3px; /* Target a thicker border */
     }
-
+}
 /* ==========================================================================
    #Validation
    ========================================================================== */
@@ -635,7 +634,7 @@ input {
     }
 
 input:checked + .slider {
-    background-color: #b90000;
+    background-color: #fdb71a;
 }
 
     input:checked + .slider:before {
