@@ -160,6 +160,36 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //Show and hide contact preference section based on the selection
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to toggle the contact preference display based on trip type selection
+    function toggleContactPreferenceDisplay() {
+        // Select the contact preference section
+        var contactPreferenceSection = document.querySelector('.contact-preference');
+
+        // Check if any trip type is selected
+        var isAnyTripTypeSelected = document.getElementById('RoundTrip').checked ||
+            document.getElementById('OneWay').checked ||
+            document.getElementById('Friday').checked;
+
+        // Show the contact preference section if any trip type is selected
+        contactPreferenceSection.style.display = isAnyTripTypeSelected ? 'block' : 'none';
+    }
+
+    // Get the trip type radio buttons by ID
+    var roundTripRadio = document.getElementById('RoundTrip');
+    var oneWayRadio = document.getElementById('OneWay');
+    var fridayRadio = document.getElementById('Friday');
+
+    // Add event listeners to trip type radio buttons to toggle the contact preference display
+    [roundTripRadio, oneWayRadio, fridayRadio].forEach(function (radioButton) {
+        radioButton.addEventListener('change', toggleContactPreferenceDisplay);
+    });
+
+    // Initial check to set the correct display state when the page loads
+    toggleContactPreferenceDisplay();
+});
+
+//** This is to show and hide contact preference section based on special request the selection. I want to hide it for now becuase I am not sure which one is better **
 //document.addEventListener('DOMContentLoaded', function () {
 //    // Function to check the state of special request options and toggle contact preference visibility
 //    function checkSpecialRequestsAndToggleContactPreference() {
@@ -187,38 +217,6 @@ document.addEventListener('DOMContentLoaded', function () {
 //    checkSpecialRequestsAndToggleContactPreference();
 //});
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Define the function to control the display of contact preferences
-    function updateContactPreferencesDisplay() {
-        var specialYesChecked = document.getElementById('specialYes').checked;
-        var otherSpecialYesChecked = document.getElementById('otherSpecialYes').checked;
-        var contactPreferenceSection = document.querySelector('.contact-preference');
-
-        // Hide contact preferences by default
-        contactPreferenceSection.style.display = 'none';
-
-        // Logic to determine if contact preferences should be shown
-        if (specialYesChecked && !otherSpecialYesChecked) {
-            contactPreferenceSection.style.display = 'block';
-        } else if (otherSpecialYesChecked && !specialYesChecked) {
-            contactPreferenceSection.style.display = 'block';
-        }
-    }
-
-    // Get all the relevant radio buttons by ID
-    var specialYes = document.getElementById('specialYes');
-    var specialNo = document.getElementById('specialNo');
-    var otherSpecialYes = document.getElementById('otherSpecialYes');
-    var otherSpecialNo = document.getElementById('otherSpecialNo');
-
-    // Add event listeners to the special request radio buttons
-    [specialYes, specialNo, otherSpecialYes, otherSpecialNo].forEach(function (radioButton) {
-        radioButton.addEventListener('change', updateContactPreferencesDisplay);
-    });
-
-    // Initial update on page load
-    updateContactPreferencesDisplay();
-});
 
 
 
