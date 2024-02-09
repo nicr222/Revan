@@ -275,6 +275,29 @@ document.addEventListener('DOMContentLoaded', function () {
     updateToggleLabels();
 });
 
+//Show and hide additional stops section based on the selection
+document.addEventListener('DOMContentLoaded', function () {
+    var otherSpecialYes = document.getElementById('otherSpecialYes');
+    var additionalStopsToggle = document.getElementById('additionalStopsToggle');
+    var stopsAvailableSection = document.querySelector('.stops-available');
+
+    function toggleStopsAvailable() {
+        if (otherSpecialYes.checked && additionalStopsToggle.checked) {
+            stopsAvailableSection.style.display = 'block';
+        } else {
+            stopsAvailableSection.style.display = 'none';
+        }
+    }
+
+    // Event listeners for the other special request option and the toggle switch
+    otherSpecialYes.addEventListener('change', toggleStopsAvailable);
+    additionalStopsToggle.addEventListener('change', toggleStopsAvailable);
+
+    // Call the function on initial load to set the correct display state
+    toggleStopsAvailable();
+});
+
+
 
 //show and hide other pickup and dropoff location based on the selection
 document.addEventListener('DOMContentLoaded', function () {
