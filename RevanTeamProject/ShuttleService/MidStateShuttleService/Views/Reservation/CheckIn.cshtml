@@ -1,4 +1,4 @@
-﻿@model MidStateShuttleService.Models.Reservation
+﻿@model Tuple<List<string>, MidStateShuttleService.Models.Reservation>
 
 @{
     ViewBag.Title = "Arrival Confirmation";
@@ -62,17 +62,19 @@
                     <div class="col-6">
                         <div class="input-fields">
                             <h6>START Location/Campus</h6>
-                            <select class="input--style-1" id="startLocation">
-                                <option>Please Select Start Location</option>
-                            </select>
+                            @Html.DropDownListFor(model => model.Item2.PickUpLocation
+                                , new SelectList(Model.Item1),
+                                "Please Select Start Location",
+                                     new { @class = "input--style-1", @id = "startLocation" })
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-fields">
                             <h6>END Location/Campus</h6>
-                            <select class="input--style-1" id="endLocation">
-                                <option>Please Select End Location</option>
-                            </select>
+                            @Html.DropDownListFor(model => model.Item2.DropOffLocation,
+                                new SelectList(Model.Item1),
+                                "Please Select Start Location",
+                                new { @class = "input--style-1", @id = "endLocation" })
                         </div>
                     </div>
                 </div>
