@@ -28,6 +28,13 @@ namespace MidStateShuttleService.Controllers
 
             return View(viewModel);
         }
+
+        [HttpPost]
+        public IActionResult CheckIn(Reservation reservation)
+        {
+            
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
 

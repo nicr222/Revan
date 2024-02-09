@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var startValue = $("#startLocation").val();
         var endValue = $("#endLocation").val();
 
-        if (startValue === endValue) {
+        if (startValue == "" || endValue == "" || startValue === endValue) {
             // Either one is invalid or they have different values
             $("#startLocation, #endLocation").removeClass("is-valid").addClass("is-invalid");
         } else {
@@ -77,11 +77,17 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 // At least one element has the is-invalid class, the form is not valid
                 alert("Form contains invalid fields. Please check and try again.");
+                $("form").on("submit", function (e) {
+                    e.preventDefault();
+                });
             }
         } else {
             // neither radio is checked
             $("#newRiderYes").removeClass("is-valid").addClass("is-invalid");
             alert("Form contains invalid fields. Please check and try again.");
+            $("form").on("submit", function (e) {
+                e.preventDefault();
+            });
         }
     });
 });

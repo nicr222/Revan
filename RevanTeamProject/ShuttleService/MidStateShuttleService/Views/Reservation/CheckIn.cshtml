@@ -1,20 +1,16 @@
 ﻿@model Tuple<List<string>, MidStateShuttleService.Models.Reservation>
 
-@{
-    ViewBag.Title = "Arrival Confirmation";
-}
-
 <link rel="stylesheet" href="/css/CheckIn.css" />
 
 <body>
     <div class="wrapper wrapper--w680">
-        <div class="form form-1">
+        <form asp-controller="Reservation" asp-action="CheckIn" method="post" class="form form-1">
             <div class="form-body">
                 <h2 class="title">Shuttle 2 Check In</h2>
                 <h5 class="title">Wisconsin Rapids to Stevens Point</h5>
                 <h6 class="title">3/14/2024 3:50pm</h6>
                 <div class="input-fields">
-                    <input type="number" class="form-control input--style-1" id="studentID" placeholder="Student ID" required />
+                    <input name="Reservation.studentID" type="number" class="form-control input--style-1" id="studentID" placeholder="Student ID" required />
                     <div class="invalid-feedback">
                         Invalid student ID must be 8 didgets
                     </div>
@@ -68,7 +64,7 @@
                             @Html.DropDownListFor(model => model.Item2.PickUpLocation
                                      , new SelectList(Model.Item1),
                                      "Please Select Start Location",
-                                     new { @class = "form-control input--style-1", @id = "startLocation" })
+                                     new { @class = "form-control input--style-1", @id = "startLocation", @name = "Reservation.PickUpLocation", @required = "required" })
                             <div class="invalid-feedback">
                                 Locations can not be the same
                             </div>
@@ -79,8 +75,8 @@
                             <h6>END Location/Campus</h6>
                             @Html.DropDownListFor(model => model.Item2.DropOffLocation,
                                      new SelectList(Model.Item1),
-                                     "Please Select Start Location",
-                                     new { @class = "form-control input--style-1", @id = "endLocation" })
+                                     "Please Select End Location",
+                                     new { @class = "form-control input--style-1", @id = "endLocation", @name = "Reservation.DropOffLocation", @required = "required" })
                             <div class="invalid-feedback">
                                 Locations can not be the same
                             </div>
@@ -100,7 +96,7 @@
                     <button type="submit" class="btn btn--radius btn--green">Check In</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <script src="/js/CheckIn.js"></script>
