@@ -137,40 +137,60 @@
                                     <div class="row row-space">
                                         <div class="col-6">
                                             <div class="input-fields">
-                                                <p class="must-arrive-by">Must Arrive By:</p>
+                                                <p class="must-arrive-by">Must Arrive the Campus By:</p>
                                                 @Html.EditorFor(model => model.ArrivalTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id="otherMustArriveBy" } })
                                                 <div id="ArrivalTime-validation-message" class="validation-message"></div>
                                             </div>
                                             <p class="special-request-guide">*eg, first class start time</p>
                                         </div>
                                         <div class="col-6">
-                                            <div class="input-fields">
-                                                <p class="must-arrive-by">Can Leave After:</p>
-                                                @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "otherCanLeaveAfter" } })
-                                                <div id="DepartureTime-validation-message" class="validation-message"></div>
+                                            <div class="other-leave-after">
+                                                <div class="input-fields">
+                                                    <p class="must-arrive-by">Can Leave the Campus After:</p>
+                                                    @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "otherCanLeaveAfter" } })
+                                                    <div id="DepartureTime-validation-message" class="validation-message"></div>
+                                                </div>
+                                                <p class="special-request-guide">*eg, last class end time</p>
                                             </div>
-                                            <p class="special-request-guide">*eg, last class end time</p>
                                         </div>
                                     </div>
 
-                                    <div class="row row-space">
-                                        <div class="col-6">
-                                            <div class="input-fields">
-                                                <input type="text" class="input--style-1" name="PickUpLocation" placeholder="Pick Up Location" /> 
-                                                <div id="PickUpLocation-validation-message" class="validation-message"></div>
-                                                @*    @Html.ValidationMessageFor(model => model.PickUpLocation) *@
+                                    <div class="toggle-switch-wrapper">
+                                        <div class="input-fields">
+                                            <p class="toggle-description">Show Additional Stops Available (not an inclusive list)</p>
+                                            <div class="toggle-switch">
+                                                <span id="toggleNo" class="toggle-label">No</span>
+                                                <label class="switch">
+                                                    <input type="checkbox" id="additionalStopsToggle">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                                <span id="toggleYes" class="toggle-label">Yes</span>
                                             </div>
-                                            <p class="special-request-guide">Where would you prefer to be picked up?</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="input-fields">
-                                                <input type="text" class="input--style-1" name="DropOffLocation" placeholder="Drop Off Location" />
-                                                <div id="DropOffLocation-validation-message" class="validation-message"></div>
-                                                @*     @Html.ValidationMessageFor(model => model.DropOffLocation) *@
-                                            </div>
-                                            <p class="special-request-guide">Where would you prefer to be dropped off?</p>
                                         </div>
                                     </div>
+
+                                    @* <div class="row row-space">
+                                        <div class="col-6"> *@
+                                        <div class="other-pickup-dropoff-location">
+                                            <div class="other-pickup">
+                                                <div class="input-fields">
+                                                    <input type="text" id="other-pickup-location" class="input--style-1" name="PickUpLocation" placeholder="Pick Up Location" /> 
+                                                    <div id="PickUpLocation-validation-message" class="validation-message"></div>
+                                                    @*    @Html.ValidationMessageFor(model => model.PickUpLocation) *@
+                                                </div>
+                                                <p class="special-request-guide">Where would you prefer to be picked up?</p>
+                                            </div>
+                                      @*   <div class="col-6"> *@
+                                            <div class="other-dropoff">
+                                                <div class="input-fields">
+                                                    <input type="text" id="other-dropoff-location" class="input--style-1" name="DropOffLocation" placeholder="Drop Off Location" />
+                                                    <div id="DropOffLocation-validation-message" class="validation-message"></div>
+                                                    @*     @Html.ValidationMessageFor(model => model.DropOffLocation) *@
+                                                </div>
+                                                <p class="special-request-guide">Where would you prefer to be dropped off?</p>
+                                            </div>
+                                        </div>
+                                  @*   </div> *@
 
                                     <!-- days need transportation Field -->
                                     <div class="need-transportation-container">
@@ -221,8 +241,8 @@
                                 <div class="row row-space">
                                     <div class="col-6">
                                         <div class="input-fields">
-                                            <p class="must-arrive-by">Must Arrive By:</p>
-                                            @Html.EditorFor(model => model.ArrivalTime, new { htmlAttributes = new { @class = "input--style-1", type = "time" } })
+                                            <p class="must-arrive-by">Must Arrive the Campus By:</p>
+                                            @Html.EditorFor(model => model.ArrivalTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id="friday-special-arrive" } })
                                             <div id="ArrivalTime-validation-message" class="validation-message"></div>
                                         </div>
                                         <p class="special-request-guide">*eg, first class start time</p>
@@ -230,8 +250,8 @@
                                     <div class="col-6">
                                         <div class="leave-after">
                                             <div class="input-fields">
-                                                <p class="must-arrive-by">Can Leave After:</p>
-                                                @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "input--style-1", type = "time" } })
+                                                <p class="must-arrive-by">Can Leave the Campus After:</p>
+                                                @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "friday-special-arrive" } })
                                                 <div id="DepartureTime-validation-message" class="validation-message"></div>
                                             </div>
                                             <p class="special-request-guide">*eg, last class end time</p>
