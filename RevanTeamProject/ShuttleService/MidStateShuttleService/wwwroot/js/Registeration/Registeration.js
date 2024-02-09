@@ -81,6 +81,39 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+//Hide and Show the Must leave the campus from Other Special Request One way section
+document.addEventListener('DOMContentLoaded', function () {
+    // Select the DOM elements
+    var oneWayRadio = document.getElementById('OneWay');
+    var roundTripRadio = document.getElementById('RoundTrip');
+    var otherSpecialYesRadio = document.getElementById('otherSpecialYes');
+    var otherMustLeaveAfterContainer = document.querySelector('.other-leave-after'); // Updated selector to match your HTML
+
+    // Function to toggle the visibility of the 'otherMustLeaveAfter' container
+    function toggleOtherMustLeaveAfterVisibility() {
+        // Check the current state of the 'OneWay' and 'RoundTrip' trip types and 'Other Special Request' Yes option
+        var isOneWaySelected = oneWayRadio.checked;
+        var isOtherSpecialYesSelected = otherSpecialYesRadio.checked;
+
+        // Hide or show the 'otherMustLeaveAfter' container based on the 'OneWay' selection and 'Other Special Request' being 'Yes'
+        if (isOneWaySelected && isOtherSpecialYesSelected) {
+            otherMustLeaveAfterContainer.style.display = 'none';
+        } else {
+            otherMustLeaveAfterContainer.style.display = 'block';
+        }
+    }
+
+    // Add event listeners for change events on the 'OneWay', 'RoundTrip', and 'Other Special Request' Yes radio buttons
+    oneWayRadio.addEventListener('change', toggleOtherMustLeaveAfterVisibility);
+    roundTripRadio.addEventListener('change', toggleOtherMustLeaveAfterVisibility);
+    otherSpecialYesRadio.addEventListener('change', toggleOtherMustLeaveAfterVisibility);
+
+    // Initial check to set the correct display state
+    toggleOtherMustLeaveAfterVisibility();
+});
+
+
+
 
 //Friday Special Request Selection
 document.addEventListener("DOMContentLoaded", function () {
@@ -216,6 +249,71 @@ document.addEventListener('DOMContentLoaded', function () {
 //    // Initial check to set the correct display state when the page loads
 //    checkSpecialRequestsAndToggleContactPreference();
 //});
+
+
+//Slider toggle
+document.addEventListener('DOMContentLoaded', function () {
+    var toggleInput = document.getElementById('additionalStopsToggle');
+    var toggleNoLabel = document.getElementById('toggleNo');
+    var toggleYesLabel = document.getElementById('toggleYes');
+
+    // Function to update label styles based on the checkbox state
+    function updateToggleLabels() {
+        if (toggleInput.checked) {
+            toggleYesLabel.classList.add('active');
+            toggleNoLabel.classList.remove('active');
+        } else {
+            toggleNoLabel.classList.add('active');
+            toggleYesLabel.classList.remove('active');
+        }
+    }
+
+    // Event listener for the toggle input change event
+    toggleInput.addEventListener('change', updateToggleLabels);
+
+    // Initial state update
+    updateToggleLabels();
+});
+
+
+//show and hide other pickup and dropoff location based on the selection
+document.addEventListener('DOMContentLoaded', function () {
+    var pickUpLocationSelect = document.getElementById('PickUpLocation');
+    var dropOffLocationSelect = document.getElementById('DropOffLocation');
+    var otherSpecialYesRadio = document.getElementById('otherSpecialYes');
+    var otherPickupLocationDiv = document.querySelector('.other-pickup');
+    var otherDropoffLocationDiv = document.querySelector('.other-dropoff');
+
+    function toggleLocationInputs() {
+        var pickUpSelectedOther = pickUpLocationSelect.value === 'Other';
+        var dropOffSelectedOther = dropOffLocationSelect.value === 'Other';
+        var isOtherSpecialRequestSelected = otherSpecialYesRadio.checked;
+
+        // Show or hide the 'other-pickup' and 'other-dropoff' divs
+        if (isOtherSpecialRequestSelected) {
+            otherPickupLocationDiv.style.display = pickUpSelectedOther ? 'block' : 'none';
+            otherDropoffLocationDiv.style.display = dropOffSelectedOther ? 'block' : 'none';
+        } else {
+            otherPickupLocationDiv.style.display = 'none';
+            otherDropoffLocationDiv.style.display = 'none';
+        }
+
+        // Special case: If both are 'Other', show both
+        if (pickUpSelectedOther && dropOffSelectedOther && isOtherSpecialRequestSelected) {
+            otherPickupLocationDiv.style.display = 'block';
+            otherDropoffLocationDiv.style.display = 'block';
+        }
+    }
+
+    // Event listeners
+    pickUpLocationSelect.addEventListener('change', toggleLocationInputs);
+    dropOffLocationSelect.addEventListener('change', toggleLocationInputs);
+    otherSpecialYesRadio.addEventListener('change', toggleLocationInputs);
+
+    // Initial state check
+    toggleLocationInputs();
+});
+
 
 
 

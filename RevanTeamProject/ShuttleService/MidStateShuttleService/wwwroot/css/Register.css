@@ -185,6 +185,7 @@ input[type=number] {
 /* ==========================================================================
    #Input Fields
    ========================================================================== */
+
 input {
     outline: none;
     margin: 0;
@@ -361,6 +362,10 @@ input {
     color: #666;
 }
 
+.other-pickup-dropoff-location
+{
+    margin-bottom: 10px;
+}
 
 
 /* ==========================================================================
@@ -481,7 +486,7 @@ input {
     display: flex;
     flex-direction: column; /* Stack elements vertically */
     margin-bottom: 20px; /* Spacing below the container */
-    margin-top: 20px; /* Spacing above the container */
+    margin-top: 35px; /* Spacing above the container */
 }
 
 .need-transportation-label {
@@ -506,6 +511,90 @@ input {
     border-radius: 5px; /* Slightly rounded corners */
     font-size: 12px; /* Matching font size */
     color: #666; /* Text color */
+}
+
+/* ==========================================================================
+   #Togle Switch Styles
+   ========================================================================== */
+.toggle-switch-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.toggle-description {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: flex;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 16px;
+    margin: 0 10px;
+}
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 15px;
+        width: 15px;
+        left: 4px;
+/*        bottom: 4px;*/
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+input:checked + .slider {
+    background-color: #b90000;
+}
+
+    input:checked + .slider:before {
+        transform: translateX(30px);
+    }
+
+/* Toggle labels */
+.toggle-label {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.4s;
+}
+
+input[type=checkbox]:checked ~ .toggle-label#toggleYes,
+input[type=checkbox]:not(:checked) ~ .toggle-label#toggleNo {
+    color: #b90000;
 }
 
 
