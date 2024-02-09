@@ -47,6 +47,40 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleSpecialRequestDisplay();
 });
 
+//Other Special Request Selection
+document.addEventListener('DOMContentLoaded', function () {
+    // Select the radio buttons for "Other Special Request"
+    const otherSpecialYes = document.getElementById('otherSpecialYes');
+    const otherSpecialNo = document.getElementById('otherSpecialNo');
+
+    // Function to toggle visibility based on the "Other Special Request" selection
+    function toggleVisibility(show) {
+        // Select the elements to show/hide
+        const otherSpecialRequestTimePreferences = document.querySelector('.other-special-request-time-preferences');
+
+        if (show) {
+            // Show elements
+            otherSpecialRequestTimePreferences.style.display = '';
+        } else {
+            // Hide elements
+            otherSpecialRequestTimePreferences.style.display = 'none';
+        }
+    }
+
+    // Initialize with current selection
+    toggleVisibility(otherSpecialYes.checked);
+
+    // Add event listeners to the radio buttons
+    otherSpecialYes.addEventListener('change', function () {
+        toggleVisibility(this.checked);
+    });
+
+    otherSpecialNo.addEventListener('change', function () {
+        // When "No" is selected, ensure the elements are hidden
+        toggleVisibility(false);
+    });
+});
+
 
 //Friday Special Request Selection
 document.addEventListener("DOMContentLoaded", function () {
@@ -82,16 +116,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function toggleSectionsBasedOnSpecialRequest() {
         var specialRequestYes = document.getElementById('specialYes').checked;
         var specialRequestTimePreferences = document.querySelector('.special-request-time-preferences');
-        var contactPreferenceSection = document.querySelector('.contact-preference');
 
         // Toggle Special Request Time Preferences section
         if (specialRequestTimePreferences) {
             specialRequestTimePreferences.style.display = specialRequestYes ? 'block' : 'none';
-        }
-
-        // Toggle Contact Preference section
-        if (contactPreferenceSection) {
-            contactPreferenceSection.style.display = specialRequestYes ? 'block' : 'none';
         }
     }
 
@@ -130,4 +158,68 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initial call to set the correct state when the page loads
     toggleCanLeaveAfterVisibility();
 });
+
+//Show and hide contact preference section based on the selection
+//document.addEventListener('DOMContentLoaded', function () {
+//    // Function to check the state of special request options and toggle contact preference visibility
+//    function checkSpecialRequestsAndToggleContactPreference() {
+//        var specialYesChecked = document.getElementById('specialYes').checked;
+//        var otherSpecialYesChecked = document.getElementById('otherSpecialYes').checked;
+//        var contactPreferenceSection = document.querySelector('.contact-preference');
+
+//        // Show contact preference if either special request is checked, otherwise hide
+//        if (specialYesChecked || otherSpecialYesChecked) {
+//            contactPreferenceSection.style.display = 'block';
+//        } else {
+//            contactPreferenceSection.style.display = 'none';
+//        }
+//    }
+
+//    // Listen for changes on the 'specialYes' and 'otherSpecialYes' radio buttons
+//    document.getElementById('specialYes').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
+//    document.getElementById('otherSpecialYes').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
+
+//    // Also, listen for changes on the 'no' options to ensure the contact preference section is hidden when neither 'yes' option is selected
+//    document.getElementById('specialNo').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
+//    document.getElementById('otherSpecialNo').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
+
+//    // Initial check to set the correct display state when the page loads
+//    checkSpecialRequestsAndToggleContactPreference();
+//});
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Define the function to control the display of contact preferences
+    function updateContactPreferencesDisplay() {
+        var specialYesChecked = document.getElementById('specialYes').checked;
+        var otherSpecialYesChecked = document.getElementById('otherSpecialYes').checked;
+        var contactPreferenceSection = document.querySelector('.contact-preference');
+
+        // Hide contact preferences by default
+        contactPreferenceSection.style.display = 'none';
+
+        // Logic to determine if contact preferences should be shown
+        if (specialYesChecked && !otherSpecialYesChecked) {
+            contactPreferenceSection.style.display = 'block';
+        } else if (otherSpecialYesChecked && !specialYesChecked) {
+            contactPreferenceSection.style.display = 'block';
+        }
+    }
+
+    // Get all the relevant radio buttons by ID
+    var specialYes = document.getElementById('specialYes');
+    var specialNo = document.getElementById('specialNo');
+    var otherSpecialYes = document.getElementById('otherSpecialYes');
+    var otherSpecialNo = document.getElementById('otherSpecialNo');
+
+    // Add event listeners to the special request radio buttons
+    [specialYes, specialNo, otherSpecialYes, otherSpecialNo].forEach(function (radioButton) {
+        radioButton.addEventListener('change', updateContactPreferencesDisplay);
+    });
+
+    // Initial update on page load
+    updateContactPreferencesDisplay();
+});
+
+
+
 
