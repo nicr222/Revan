@@ -135,7 +135,7 @@ html{scroll-behavior: smooth;}
 }
 
 .steps_section-width{
-    height: 456px;
+    height: 256px;
     margin: 0 auto;
 }
 
@@ -145,6 +145,6 @@ html{scroll-behavior: smooth;}
         padding-bottom: 80px;
     }
     .steps_section-thumbnail {
-        height: auto;
+        height: 240px;
     }
 }
