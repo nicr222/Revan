@@ -121,6 +121,15 @@ input[type=number] {
 }
 
 /* ==========================================================================
+   #Asterisk
+   ========================================================================== */
+sup {
+    vertical-align: super;
+    font-size: 13px;
+    color: red;
+}
+
+/* ==========================================================================
    #WRAPPER
    ========================================================================== */
 .wrapper {
@@ -367,6 +376,55 @@ input {
     margin-bottom: 10px;
 }
 
+/*Stops Available*/
+.section-title {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.stops-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+    .stops-list li {
+        position: relative; /* Needed for absolute positioning of pseudo-element */
+        padding: 10px 15px;
+        padding-left: 30px; /* Increase padding to make space for the custom bullet */
+        font-size: 14px;
+        color: #555;
+    }
+
+        .stops-list li::before {
+            content: ''; /* Required property for pseudo-elements */
+            position: absolute;
+            left: 0; /* Align with the left edge of the list item */
+            top: 47%; /* Center vertically */
+            height: 8px; /* Height of custom bullet */
+            width: 8px; /* Width of custom bullet */
+            background-color: #555; /* Bullet color */
+            border-radius: 50%; /* Makes the bullet round */
+            transform: translateY(-50%); /* Center the bullet */
+        }
+
+/* Responsive adjustments for mobile view */
+@media (max-width: 767px) {
+    .stops-list li {
+        padding: 8px 10px;
+        padding-left: 25px; /* Slightly decrease padding for space constraints */
+        font-size: 12px; /* Slightly smaller font size for mobile */
+    }
+
+        .stops-list li::before {
+            height: 6px; /* Smaller height for custom bullet */
+            width: 6px; /* Smaller width for custom bullet */
+            top: 50%; /* Adjust if necessary to center */
+            left: 5px; /* Adjust left position to align with text */
+        }
+}
 
 /* ==========================================================================
    #Friday Special Request Styles
