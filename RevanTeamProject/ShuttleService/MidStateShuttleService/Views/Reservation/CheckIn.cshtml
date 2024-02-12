@@ -11,6 +11,7 @@
                 <h6 class="title">3/14/2024 3:50pm</h6>
                 <div class="input-fields">
                     <input name="Reservation.studentID" type="number" class="form-control input--style-1" id="studentID" placeholder="Student ID" required />
+                    <div class="div-line"></div>
                     <div class="invalid-feedback">
                         Invalid student ID must be 8 didgets
                     </div>
@@ -19,6 +20,7 @@
                     <div class="col-6">
                         <div class="input-fields">
                             <input type="text" class="form-control input--style-1" id="firstName" placeholder="First Name" maxlength="20" required />
+                            <div class="div-line"></div>
                             <div class="invalid-feedback">
                                 Invalid name max 20 letters
                             </div>
@@ -27,6 +29,7 @@
                     <div class="col-6">
                         <div class="input-fields">
                             <input type="text" class="form-control input--style-1" id="lastName" placeholder="Last Name" maxlength="20" required />
+                            <div class="div-line"></div>
                             <div class="invalid-feedback">
                                 Invalid name max 20 letters
                             </div>
@@ -39,16 +42,18 @@
                         <div class="input-fields">
                             <h6>Today's Date'</h6>
                             <div class="input--style-1">12/3/2024</div>
+                            <div class="div-line"></div>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="input-fields">
                             <h6>Is this your first time riding?</h6>
-                            <div class="form-control input--style-1">
+                            <div class="form-control input--style-radio-group">
                                 <input type="radio" class="form-check-input radio-style input--style-1" id="newRiderYes" name="firstTime" required />
                                 <label class="radio-label-style" for="newRiderYes">Yes</label>
                                 <input type="radio" class="form-check-input radio-style input--style-1" id="newRiderNo" name="firstTime" required />
                                 <label class="radio-label-style" for="newRiderNo">No</label>
+                                <div class="div-line"></div>
                                 <div class="invalid-feedback">
                                     Must select one
                                 </div>
@@ -65,6 +70,7 @@
                                      , new SelectList(Model.Item1),
                                      "Please Select Start Location",
                                      new { @class = "form-control input--style-1", @id = "startLocation", @name = "Reservation.PickUpLocation", @required = "required" })
+                            <div class="div-line"></div>
                             <div class="invalid-feedback">
                                 Locations can not be the same
                             </div>
@@ -77,6 +83,7 @@
                                      new SelectList(Model.Item1),
                                      "Please Select End Location",
                                      new { @class = "form-control input--style-1", @id = "endLocation", @name = "Reservation.DropOffLocation", @required = "required" })
+                            <div class="div-line"></div>
                             <div class="invalid-feedback">
                                 Locations can not be the same
                             </div>
@@ -87,6 +94,7 @@
                 <div class="input-fields">
                     <h6>Rider Comments / Suggestions</h6>
                     <textarea class="form-control input--style-1" id="feedback" placeholder="Share your experience" rows="4" cols="50" maxlength="255"></textarea>
+                    <div class="div-line"></div>
                     <div class="invalid-feedback">
                         Max 255 characters
                     </div>

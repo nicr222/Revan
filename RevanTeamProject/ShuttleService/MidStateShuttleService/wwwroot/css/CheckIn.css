@@ -66,7 +66,6 @@ input {
 .input-fields {
     position: relative;
     margin-bottom: 30px;
-    border-bottom: 2px solid #ccc;
 }
 
 .input--style-1 {
@@ -75,39 +74,50 @@ input {
     border: none;
 }
 
-    .input--style-1::-webkit-input-placeholder {
-        /* WebKit, Blink, Edge */
-        color: #555;
-    }
+.input--style-radio-group {
+    padding: 0px;
+    color: #666;
+    border: none;
+}
 
-    .input--style-1:-moz-placeholder {
-        /* Mozilla Firefox 4 to 18 */
-        color: #555;
-        opacity: 1;
-    }
+.div-line {
+    border-top: 2px solid #ccc;
+}
 
-    .input--style-1::-moz-placeholder {
-        /* Mozilla Firefox 19+ */
-        color: #555;
-        opacity: 1;
-    }
+.input--style-1::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #555;
+}
 
-    .input--style-1:-ms-input-placeholder {
-        /* Internet Explorer 10-11 */
-        color: #555;
-    }
+.input--style-1:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #555;
+    opacity: 1;
+}
 
-    .input--style-1:-ms-input-placeholder {
-        /* Microsoft Edge */
-        color: #555;
-    }
+.input--style-1::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #555;
+    opacity: 1;
+}
+
+.input--style-1:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #555;
+}
+
+.input--style-1:-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #555;
+}
 
 label.radio-label-style {
     margin-bottom: 0px;
     margin-right: 1rem;
+    padding: 9px 0;
 }
 
-input.radio-style{
+input.radio-style {
     position: static;
     margin-left: 0rem;
     margin-top: 0rem;
