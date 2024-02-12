@@ -2,23 +2,27 @@
 {
     public class Reservation
     {
-        private int id { get; }
-        private int studentID { get; }
-        public int ShuttleNumber;
-        public string PickUpLocation;
-        public string DropOffLocation;
-        public DateOnly Date;
-        public TimeOnly Time;
+        // Change private properties to public properties with get;set;
+        public int? Id { get; private set; }
+        public int StudentID { get; private set; }
+        public int? ShuttleNumber { get; set; }
+        public string? PickUpLocation { get; set; }
+        public string? DropOffLocation { get; set; }
+        public DateOnly? Date { get; set; }
+        public TimeOnly? Time { get; set; }
+
+        // Add a parameterless constructor
+        public Reservation() { }
 
         public Reservation(int id, int studentID, int shuttleNumber, string pickUpLocation, string dropOffLocation, DateOnly date, TimeOnly time)
         {
-            this.id = id;
-            this.studentID = studentID;
-            this.ShuttleNumber = shuttleNumber;
-            this.PickUpLocation = pickUpLocation;
-            this.DropOffLocation = dropOffLocation;
-            this.Date = date;
-            this.Time = time;
+            Id = id;
+            StudentID = studentID;
+            ShuttleNumber = shuttleNumber;
+            PickUpLocation = pickUpLocation;
+            DropOffLocation = dropOffLocation;
+            Date = date;
+            Time = time;
         }
     }
 }
