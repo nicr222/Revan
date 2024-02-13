@@ -29,7 +29,7 @@
                            *@
                             <div class="row row-space">
                                 <div class="input-group">
-                                    <textarea id="message" class="form-control border-0 shadow-none " rows="1" placeholder="Enter message..."></textarea>
+                                    <textarea id="message" asp-for="message" class="form-control border-0 shadow-none " rows="1" placeholder="Enter message..."></textarea>
                                 </div>
                                 <div id="Message-validation-message" class="validation-message"></div>
                             </div>
@@ -45,24 +45,18 @@
                                         </span>
                                     </div>
 
-                                    <ul class="list-items">
+                                    <ul class="list-items" asp-for="shuttles">
                                         <li class="item">
-                                            <span class="checkbox">
-                                                <i class="fa-solid fa-check check-icon"></i>
-                                            </span>
-                                            <span class="item-text">Example 1</span>
+                                            <input class="checkbox">
+                                            <label for="checkbox" class="item-text">Example 1</label>
                                         </li>
                                         <li class="item">
-                                            <span class="checkbox">
-                                                <i class="fa-solid fa-check check-icon"></i>
-                                            </span>
-                                            <span class="item-text">Example 2</span>
+                                            <input class="checkbox">
+                                            <label for="checkbox" class="item-text">Example 2</label>
                                         </li>
                                         <li class="item">
-                                            <span class="checkbox">
-                                                <i class="fa-solid fa-check check-icon"></i>
-                                            </span>
-                                            <span class="item-text">Example 3</span>
+                                            <input class="checkbox">
+                                            <label for="checkbox" class="item-text">Example 3</label>
                                         </li>
                                     </ul>
                                 </div>
