@@ -12,17 +12,17 @@ namespace MidStateShuttleService.Controllers
 
         // When the form submits, this method will play out.
         [HttpPost]
-        public IActionResult Communicate()
+        public IActionResult Send(CommuncateModel c)
         {
             if (ModelState.IsValid)
             {
                 // Retrieve passed in list of students from the database.
 
                 // Send the message to each person registered to the shutte.
-                return View();
+                return RedirectToAction("MessageSent");
             }
             
-            return View();
+            return View("Index");
         }
     }
 }

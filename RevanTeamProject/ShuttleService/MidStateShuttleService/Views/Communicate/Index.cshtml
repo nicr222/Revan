@@ -19,8 +19,7 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Send Message</h2>
-                    @using (Html.BeginForm("Communicate", "Communicate", FormMethod.Post))
-                {
+                    <form method="post" asp-action="Send">
                         @Html.AntiForgeryToken()
                         <div>
 
@@ -67,7 +66,7 @@
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--green" type="submit">Send</button>
                         </div>
-                }
+                    </form>
                 </div>
             </div>
         </div>
