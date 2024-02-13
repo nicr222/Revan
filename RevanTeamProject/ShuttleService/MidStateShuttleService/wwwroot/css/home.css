@@ -139,6 +139,17 @@ html{scroll-behavior: smooth;}
     margin: 0 auto;
 }
 
+.steps {
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+    .steps.animated {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
 @media (min-width: 544px) {
     .steps {
         padding-top: 80px;
