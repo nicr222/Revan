@@ -28,6 +28,12 @@
 
             swLog.WriteLine("Log Entry");
             swLog.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString());
+            swLog.WriteLine("Message Title : {0}", title);
+            swLog.WriteLine("Message : {0}", logMessage);
+            swLog.WriteLine("-------------------------------");
+            swLog.WriteLine("");
+
+
             swLog.Close();
         }
     }
