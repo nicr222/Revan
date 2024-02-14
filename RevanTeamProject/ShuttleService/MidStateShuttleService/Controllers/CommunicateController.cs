@@ -12,7 +12,7 @@ namespace MidStateShuttleService.Controllers
 
         // When the form submits, this method will play out.
         [HttpPost]
-        public IActionResult Send(CommuncateModel c)
+        public IActionResult Index(CommuncateModel c)
         {
             if (ModelState.IsValid)
             {
@@ -22,7 +22,7 @@ namespace MidStateShuttleService.Controllers
                 return RedirectToAction("MessageSent");
             }
             
-            return View("Index");
+            return View(c);
         }
 
         public IActionResult MessageSent()

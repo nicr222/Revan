@@ -224,6 +224,8 @@ input {
     }
 
 
+
+
 /* ==========================================================================
    #TITLE
    ========================================================================== */
@@ -268,6 +270,25 @@ input {
 }
 
 /* ==========================================================================
+   #Validation
+   ========================================================================== */
+
+
+.validation-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: none; /* Hide by default */
+}
+
+.validation-message:before {
+    content: "\26A0";
+    color: red;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* ==========================================================================
    #Select Button
    ========================================================================== */
 
@@ -277,7 +298,6 @@ input {
 }
 
 .select-btn .btn-text{
-    font-size: 17px;
     font-weight: 400;
     margin-left: 10px;
 }
@@ -318,8 +338,8 @@ input {
 }
 
 .item .item-text{
-    font-size: 16px;
     font-weight: 400;
+    margin-bottom: 0px;
 }
 
 .item .checkbox {

@@ -19,7 +19,7 @@
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Send Message</h2>
-                    <form method="post" asp-action="Send">
+                    <form id="CommunicateForm" method="post" asp-action="Index">
                         @Html.AntiForgeryToken()
                         <div>
 
@@ -28,9 +28,9 @@
                            *@
                             <div class="row row-space">
                                 <div class="input-group">
-                                    <textarea id="message" asp-for="message" class="form-control border-0 shadow-none " rows="1" placeholder="Enter message..."></textarea>
+                                    <input type="text" id="message" asp-for="message" class="form-control border-0 shadow-none " rows="1" placeholder="Enter message...">
+                                    <div id="message-Validation-Message" class="validation-message"></div>
                                 </div>
-                                <div id="Message-validation-message" class="validation-message"></div>
                             </div>
 
                             @* Shuttle choosing 
@@ -65,7 +65,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div id="Shuttles-validation-message" class="validation-message"></div>
+                                <div id="shuttle-Validation-Message" class="validation-message"></div>
                                 <p class="trip-info">*Message will be sent to all students registered to the selected shuttles.</p>
                             </div>
                         </div>

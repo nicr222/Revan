@@ -2,15 +2,10 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     const message = document.getElementById('message'); 
-    const shuttles = document.getElementById('shuttleSelect');
-
-
-    // Real-time validation event listeners
-    message.addEventListener('input', validateMessage);
-    shuttles.addEventListener('input', validateShuttles);
+    const shuttles = document.querySelectorAll('.checkbox');
 
     // Form submission event listener
-    document.querySelector('.wrapper').addEventListener('submit', function (event) {
+    document.querySelector('#CommunicateForm').addEventListener('submit', function (event) {
         let isFormValid = validateForm();
         if (!isFormValid) {
             event.preventDefault();
@@ -21,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateForm() {
         let isFormValid = true;
         isFormValid &= validateMessage();
-        isFormValid &= validateShuttles();
         return isFormValid;
     }
 
@@ -36,25 +30,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Checks if the shuttles have been selected or not/
-    function validateShuttles() {
-        if (!shuttles.value) {
-            displayValidationMessage(message, "Please select a group of students to send the message to");
-            return false;
-        } else {
-            clearValidationMessage(shuttles);
-            return true;
-        }
-    }
-
     // Functions are the same as the ones from Phoo's validation just without the Radio options
     function displayValidationMessage(element, message) {
+        const id = element.id;
+        const elementId = id.concat("-", "Validation-Message")
+        let validationMessageElement = document.getElementById(elementId);
         validationMessageElement.innerText = message;
         validationMessageElement.style.display = 'block'; // Show validation message
         element.classList.add('is-invalid');
     }
 
-    function clearValidationMessage(element, isRadio) {
+    function clearValidationMessage(element) {
+        const id = element.id;
+        const elementId = id.concat("-", "Validation-Message")
+        let validationMessageElement = document.getElementById(elementId);
         validationMessageElement.innerText = '';
         validationMessageElement.style.display = 'none'; // Hide validation message
         element.classList.remove('is-invalid');
