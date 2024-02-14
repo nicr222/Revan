@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Eventing.Reader;
 
 namespace MidStateShuttleService.Models
 {
@@ -10,6 +11,13 @@ namespace MidStateShuttleService.Models
         public string message { get; set; }
 
         [Required(ErrorMessage = "Please pick message recipiants.")]
-        public Array shuttles { get; set; }
+        public Shuttle[] shuttles { get; set; }
+    }
+
+    public class Shuttle
+    {
+        public int id {  set; get; }
+
+        public bool isSelected { get; set; }
     }
 }

@@ -44,18 +44,24 @@
                                         </span>
                                     </div>
 
-                                    <ul class="list-items" asp-for="shuttles">
+                                    <ul class="list-items">
                                         <li class="item">
-                                            <input class="checkbox">
-                                            <label for="checkbox" class="item-text">Example 1</label>
+                                            @* eventually will pass in the shuttles, change the value to the passed in shuttle's id
+                                                so the ids match when in the controller
+                                            *@
+                                            <input type="checkbox" class="checkbox" asp-for="shuttles[0].isSelected">
+                                            <label class="item-text" asp-for="shuttles[0].isSelected">Example 1</label>
+                                            <input type="hidden" asp-for="shuttles[0].id" value="1"/>
+                                        </li>
+                                        <li class="item" >
+                                            <input type="checkbox" class="checkbox" asp-for="shuttles[1].isSelected">
+                                            <label class="item-text" asp-for="shuttles[1].isSelected">Example 2</label>
+                                            <input type="hidden" asp-for="shuttles[1].id" value="2" />
                                         </li>
                                         <li class="item">
-                                            <input class="checkbox">
-                                            <label for="checkbox" class="item-text">Example 2</label>
-                                        </li>
-                                        <li class="item">
-                                            <input class="checkbox">
-                                            <label for="checkbox" class="item-text">Example 3</label>
+                                            <input type="checkbox" class="checkbox" asp-for="shuttles[2].isSelected">
+                                            <label class="item-text" asp-for="shuttles[2].isSelected">Example 3</label>
+                                            <input type="hidden" asp-for="shuttles[2].id" value="3"/>
                                         </li>
                                     </ul>
                                 </div>
@@ -75,4 +81,3 @@
 
 <script src="~/js/Communication/Communicate.js"></script>
 <script src="~/js/Communication/shuttleSelect.js"></script>
-
