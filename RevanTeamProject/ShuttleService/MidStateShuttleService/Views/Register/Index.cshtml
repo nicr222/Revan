@@ -5,8 +5,14 @@
     ViewBag.Title = "Shuttle Service Registration";
 }
 
-
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/Register.css" />
+
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 <body>
 
@@ -18,10 +24,32 @@
                 {
                     @Html.AntiForgeryToken()
 
+                    <!-- Confirmation Modal -->
+                    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalLabel">Final Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- The confirmation details will be dynamically inserted here -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Review</button>
+                                    <button type="button" class="btn btn-primary" id="confirmSubmit">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="student-info">
                         <p class="student-info-label">Student Information</p>
                         <div class="input-fields">
-                            @Html.EditorFor(model => /* model.StudentId */model.UserId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", type = "number" } })
+                            @Html.EditorFor(model => /* model.StudentId */model.UserId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "User ID", type = "number" } })
                             <div id="StudentId-validation-message" class="validation-message"></div>
                             @*                 @Html.ValidationMessageFor(model => model.StudentId) *@
                         </div>
@@ -57,16 +85,6 @@
                         </div>
                     </div>
 
-
-                    @* Not sure we will ask this question or not so I commented it out for now *@
-                    @*  <div class="input-fields radio-inline-group">
-                @Html.Label("Is it your first time using the shuttle?")
-                <div class="radio-options">
-                @Html.RadioButtonFor(model => model.IsFirstTimeUsingShuttle, true) Yes
-                @Html.RadioButtonFor(model => model.IsFirstTimeUsingShuttle, false) No
-                </div>
-                @Html.ValidationMessageFor(model => model.IsFirstTimeUsingShuttle)
-                </div> *@
                     <div class="Route-schedule">
                         <div class="input-fields">
                             <div class="radio-trip-type">
@@ -360,9 +378,9 @@
 
 </body>
 
-
 <script src="js/Registeration/Registeration.js"></script>
 <script src="js/Registeration/RegisterationValidation.js"></script>
+<script src="js/Registeration/finalconfirmation.js"></script>
 
 
 
