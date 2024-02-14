@@ -21,7 +21,7 @@
                     <div class="student-info">
                         <p class="student-info-label">Student Information</p>
                         <div class="input-fields">
-                            @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", type = "number" } })
+                            @Html.EditorFor(model => /* model.StudentId */model.UserId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", type = "number" } })
                             <div id="StudentId-validation-message" class="validation-message"></div>
                             @*                 @Html.ValidationMessageFor(model => model.StudentId) *@
                         </div>
@@ -91,14 +91,14 @@
 
                                 <div class="col-6">
                                     <div class="input-fields">
-                                        @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })
+                                        @Html.DropDownListFor(model => model.PickLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })
                                         <div id="PickUpLocation-validation-message" class="validation-message"></div>
                                      @*    @Html.ValidationMessageFor(model => model.PickUpLocation) *@
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="input-fields">
-                                        @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })
+                                        @Html.DropDownListFor(model => model.DropOffLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })
                                         <div id="DropOffLocation-validation-message" class="validation-message"></div>
                                     @*     @Html.ValidationMessageFor(model => model.DropOffLocation) *@
                                     </div>
@@ -299,14 +299,14 @@
                                 <div class="row row-space">
                                     <div class="col-6">
                                         <div class="input-fields">
-                                            @Html.DropDownListFor(model => model.PickUpLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Prefer Pick-Up Location", new { @class = "input--style-1" })
+                                            @Html.DropDownListFor(model => model.PickLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Prefer Pick-Up Location", new { @class = "input--style-1" })
                                             <div id="PickUpLocation-validation-message" class="validation-message"></div>
                                             @*    @Html.ValidationMessageFor(model => model.PickUpLocation) *@
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-fields">
-                                            @Html.DropDownListFor(model => model.DropOffLocation, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Prefer Drop-Off Location", new { @class = "input--style-1" })
+                                            @Html.DropDownListFor(model => model.DropOffLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Prefer Drop-Off Location", new { @class = "input--style-1" })
                                             <div id="DropOffLocation-validation-message" class="validation-message"></div>
                                             @*     @Html.ValidationMessageFor(model => model.DropOffLocation) *@
                                         </div>
