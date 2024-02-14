@@ -20,7 +20,7 @@
         <div class="form form-1">
             <div class="form-body">
                 <h2 class="title">Registration Info</h2>
-                @using (Html.BeginForm("Register", "Register", FormMethod.Post))
+                @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { id = "registrationForm" }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -123,19 +123,27 @@
                                 </div>
                             </div>
 
+                            
+                            <div class="input-fields">
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "input--style-1 js-datepicker", placeholder = "Date", type = "date" } })
+                                <div id="Date-validation-message" class="validation-message"></div>
+                            @*      @Html.ValidationMessageFor(model => model.Date) *@
+                            </div>
+
+
                             <div class="row row-space">
                                 <div class="col-6">
                                     <div class="input-fields">
-                                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "input--style-1 js-datepicker", placeholder = "Date", type = "date" } })
-                                        <div id="Date-validation-message" class="validation-message"></div>
-                                   @*      @Html.ValidationMessageFor(model => model.Date) *@
+                                        @Html.EditorFor(model => model.PickUpTime, new { htmlAttributes = new { @class = "input--style-1", placeholder = "PickUpTime", type = "time" } })
+                                        <div id="Time-validation-message" class="validation-message"></div>
+                                        @*       @Html.ValidationMessageFor(model => model.Time) *@
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="input-fields">
-                                        @Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Time", type = "time" } })
+                                        @Html.EditorFor(model => model.DropOffTime, new { htmlAttributes = new { @class = "input--style-1", placeholder = "DropOffTime", type = "time" } })
                                         <div id="Time-validation-message" class="validation-message"></div>
-                                  @*       @Html.ValidationMessageFor(model => model.Time) *@
+                                        @*       @Html.ValidationMessageFor(model => model.Time) *@
                                     </div>
                                 </div>
                             </div>

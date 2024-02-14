@@ -27,6 +27,6 @@
     // Handle the final confirmation button click
     $('#confirmSubmit').click(function () {
         // When the confirmation button is clicked, submit the form
-        $('form').submit();
+        $('#registrationForm').submit();
     });
 });

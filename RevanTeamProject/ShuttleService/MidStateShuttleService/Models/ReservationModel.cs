@@ -13,6 +13,6 @@
         public int? CheckedIn { get; set; }
 
         public DateTime? Date { get; set; }
-        public bool SpeicalRequest { get; set; }
+        public bool? SpeicalRequest { get; set; }
     }
 }

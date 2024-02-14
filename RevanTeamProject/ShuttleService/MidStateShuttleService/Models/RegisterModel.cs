@@ -45,10 +45,13 @@ namespace MidStateShuttleService.Models
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Time is required")]
-        public DateTime Time { get; set; }
+        public DateTime PickUpTime { get; set; }
+
+        [Required(ErrorMessage = "Time is required")]
+        public DateTime DropOffTime { get; set; }
 
         [Required(ErrorMessage = "Special request is required")]
-        public bool SpecialRequest { get; set; } // Assuming this is mandatory for registration
+        public bool? SpecialRequest { get; set; } // Assuming this is mandatory for registration
 
         // New Properties for the Friday request form fields
         [Required(ErrorMessage = "Arrival Time is required")]
