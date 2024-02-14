@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateForm() {
         let isFormValid = true;
         isFormValid &= validateMessage();
+        isFormValid &= validateShuttles();
         return isFormValid;
     }
 
@@ -26,6 +27,25 @@ document.addEventListener('DOMContentLoaded', function () {
             return false;
         } else {
             clearValidationMessage(message);
+            return true;
+        }
+    }
+
+    function validateShuttles() {
+        var isChecked = false;
+
+        for (var i = 0; i < shuttles.length; i++) {
+            if (shuttles[i].checked) {
+                isChecked = true;
+                break;
+            }
+        }
+
+        if (!isChecked) {
+            displayShuttleValidation("shuttle-Validation-Message", "Please select at least 1 shuttle")
+            return false;
+        } else {
+            clearShuttleValidation("shuttle-Validation-Message");
             return true;
         }
     }
@@ -47,5 +67,17 @@ document.addEventListener('DOMContentLoaded', function () {
         validationMessageElement.innerText = '';
         validationMessageElement.style.display = 'none'; // Hide validation message
         element.classList.remove('is-invalid');
+    }
+
+    function displayShuttleValidation(element, message) {
+        let validationMessageElement = document.getElementById(element);
+        validationMessageElement.innerText = message;
+        validationMessageElement.style.display = 'block'; // Show validation message
+    }
+
+    function clearShuttleValidation(element) {
+        let validationMessageElement = document.getElementById(element);
+        validationMessageElement.innerText = '';
+        validationMessageElement.style.display = 'none'; // Show validation message
     }
 });
