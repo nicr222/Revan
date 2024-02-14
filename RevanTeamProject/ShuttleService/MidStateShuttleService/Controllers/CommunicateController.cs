@@ -24,5 +24,10 @@ namespace MidStateShuttleService.Controllers
             
             return View("Index");
         }
+
+        public IActionResult MessageSent()
+        {
+            return View();
+        }
     }
 }
