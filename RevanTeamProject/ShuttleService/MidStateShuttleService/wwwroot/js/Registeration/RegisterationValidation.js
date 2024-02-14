@@ -1,5 +1,5 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
-    const studentId = document.getElementById('StudentId'); //const, it means that the variable cannot be reassigned to a different value later in the code
+    const userId = document.getElementById('UserId'); //const, it means that the variable cannot be reassigned to a different value later in the code
     const firstName = document.getElementById('FirstName');
     const lastName = document.getElementById('LastName');
     const phoneNumber = document.getElementById('PhoneNumber');
@@ -10,7 +10,7 @@
     const time = document.getElementById('Time');
 
     // Real-time validation event listeners
-    studentId.addEventListener('input', validateStudentIdPhoneNumber);
+    userId.addEventListener('input', validateStudentIdPhoneNumber);
     phoneNumber.addEventListener('input', validateStudentIdPhoneNumber);
     firstName.addEventListener('input', validateFirstLastName);
     lastName.addEventListener('input', validateFirstLastName);
@@ -31,7 +31,7 @@
     // Validation functions
     function validateForm() {
         let isFormValid = true;
-        isFormValid &= validateStudentIdPhoneNumber();
+        isFormValid &= validateUserIdPhoneNumber();
         isFormValid &= validateFirstLastName();
         isFormValid &= validateTripType();
         isFormValid &= validatePickUpLocation();
@@ -41,7 +41,7 @@
         return isFormValid;
     }
 
-    function validateStudentIdPhoneNumber() {
+    function validateUserIdPhoneNumber() {
         let isValid = true;
         [studentId, phoneNumber].forEach(input => {
             const regex = /^[0-9]{10}$/;
