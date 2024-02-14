@@ -47,9 +47,8 @@ namespace MidStateShuttleService.Models
         [Required(ErrorMessage = "Time is required")]
         public DateTime Time { get; set; }
 
-        // If you decide to enforce validation for SpecialRequest in the future
-        // [StringLength(5, ErrorMessage = "Special Request cannot exceed 5 characters")]
-        public string SpecialRequest { get; set; }
+        [Required(ErrorMessage = "Special request is required")]
+        public bool SpecialRequest { get; set; } // Assuming this is mandatory for registration
 
         // New Properties for the Friday request form fields
         [Required(ErrorMessage = "Arrival Time is required")]
