@@ -28,7 +28,7 @@
 }
 
 @media (max-width: 767px) {
-    .col-2 {
+    .col-6 {
         width: 100%;
     }
 }
@@ -121,6 +121,15 @@ input[type=number] {
 }
 
 /* ==========================================================================
+   #Asterisk
+   ========================================================================== */
+sup {
+    vertical-align: super;
+    font-size: 13px;
+    color: red;
+}
+
+/* ==========================================================================
    #WRAPPER
    ========================================================================== */
 .wrapper {
@@ -135,34 +144,33 @@ input[type=number] {
    #BUTTON
    ========================================================================== */
 .btn {
-    line-height: 40px;
+    line-height: 36px;
     display: inline-block;
-    padding: 0 25px;
+    padding: 0 16px;
     cursor: pointer;
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
-    color: #fff;
-    -webkit-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    font-size: 14px;
+    color: #840029; /* Maroon color for text */
+    font-size: 12px;
     font-weight: 700;
+    border: 2px solid #840029; /* Initial border thickness */
+    background-color: transparent; /* Transparent background */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 5px;
+    border-radius: 25px; /* Rounded corners */
+    transition: all 0.1s ease-out; /* Smooth transition for all properties */
+    animation: none;
 }
 
-.btn--radius {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+.btn--submit:hover, .btn--cancel:hover {
+    animation: thickenBorder 0.1s ease-out forwards; /* Apply the keyframe animation on hover */
 }
 
-.btn--green {
-    background: #57b846;
-}
-
-    .btn--green:hover {
-        background: #4dae3c;
+/* Keyframes for border thickening animation */
+@keyframes thickenBorder {
+    to {
+        border-width: 3px; /* Target a thicker border */
     }
-
+}
 /* ==========================================================================
    #Validation
    ========================================================================== */
@@ -185,6 +193,7 @@ input[type=number] {
 /* ==========================================================================
    #Input Fields
    ========================================================================== */
+
 input {
     outline: none;
     margin: 0;
@@ -199,7 +208,10 @@ input {
 
 .input-fields {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+}
+
+.form-line {
     border-bottom: 2px solid #ccc;
 }
 
@@ -269,34 +281,51 @@ input {
     /*}*/
 
 /* ==========================================================================
-   #Additional Fields
+   #Student Info
    ========================================================================== */
-.radio-trip-type {
+.student-info .student-info-label {
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.student-email {
+    font-size: 12px;
+    margin-top: -13px;
+    color: #666;
+}
+
+
+/* ==========================================================================
+   #Additional Fields Radio buttons(TripType/FridayRequest)
+   ========================================================================== */
+.radio-options-special-request, .radio-trip-type {
     display: flex;
     flex-direction: column; /* Keeps the label and options in a column */
     padding-bottom: 15px;
 }
 
-    .radio-trip-type  .typetrip
-    {
+    .radio-options-special-request .typetrip, .radio-trip-type .typetrip {
         margin-right: 10px;
+        font-size: 14px;
+        font-weight: bold;
     }
 
-    .radio-trip-type label {
+    .radio-options-special-request label, .radio-trip-type label{
         margin: 5px; /* Space between the label and the radio buttons */
     }
 
-    .radio-trip-type .radio-options {
+    .radio-options-special-request, .radio-trip-type .radio-options {
         display: flex;
         flex-direction: row; /* Aligns radio buttons in a row */
         gap: 10px; /* Adjust the spacing between radio buttons */
     }
 
-    .radio-trip-type .trip-info {
-        font-size: 12px;
-        margin-top: 10px;
-        color: #666;
-    }
+        .radio-options-special-request .trip-info, .radio-trip-type .trip-info {
+            font-size: 12px;
+            margin-top: 3px;
+            color: #666;
+        }
+
 
 
 .location-description {
@@ -312,9 +341,95 @@ input {
     }
 }
 
+/* ==========================================================================
+   #Other Special Request Styles
+   ========================================================================== */
+.other-special-request {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ccc;
+}
+
+.other-special-request-label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.other-special-request-options .radio-options {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.other-special-request-options label {
+    margin: 5px; /* Space between the label and the radio buttons */
+}
+
+.other-special-request-info {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #666;
+}
+
+.other-pickup-dropoff-location
+{
+    margin-bottom: 10px;
+}
+
+/*Stops Available*/
+.section-title {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.stops-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+    .stops-list li {
+        position: relative; /* Needed for absolute positioning of pseudo-element */
+        padding: 10px 15px;
+        padding-left: 30px; /* Increase padding to make space for the custom bullet */
+        font-size: 14px;
+        color: #555;
+    }
+
+        .stops-list li::before {
+            content: ''; /* Required property for pseudo-elements */
+            position: absolute;
+            left: 0; /* Align with the left edge of the list item */
+            top: 47%; /* Center vertically */
+            height: 8px; /* Height of custom bullet */
+            width: 8px; /* Width of custom bullet */
+            background-color: #555; /* Bullet color */
+            border-radius: 50%; /* Makes the bullet round */
+            transform: translateY(-50%); /* Center the bullet */
+        }
+
+/* Responsive adjustments for mobile view */
+@media (max-width: 767px) {
+    .stops-list li {
+        padding: 8px 10px;
+        padding-left: 25px; /* Slightly decrease padding for space constraints */
+        font-size: 12px; /* Slightly smaller font size for mobile */
+    }
+
+        .stops-list li::before {
+            height: 6px; /* Smaller height for custom bullet */
+            width: 6px; /* Smaller width for custom bullet */
+            top: 50%; /* Adjust if necessary to center */
+            left: 5px; /* Adjust left position to align with text */
+        }
+}
 
 /* ==========================================================================
-   #Special Request Styles
+   #Friday Special Request Styles
    ========================================================================== */
 .special-request {
     display: flex;
@@ -329,11 +444,14 @@ input {
     font-weight: bold;
 }
 
-.special-request-options {
+.special-request-options .radio-options{
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
+    .special-request-options label{
+        margin: 5px; /* Space between the label and the radio buttons */
+    }
 
 .special-request-info {
     font-size: 12px;
@@ -369,6 +487,264 @@ input {
         color: #555;
     }
 
+.special-request-guide
+{
+    font-size: 12px;
+    color: #666;
+    margin-top: -11px;
+}
+
+.must-arrive-by {
+    margin-right: 10px;
+    margin-bottom: 3px;
+}
+
+
+.which-friday-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    margin-bottom: 20px; /* Spacing below the container */
+    margin-top: 20px; /* Spacing above the container */
+}
+
+.which-friday-label {
+    margin-bottom: 10px; /* Spacing between label and textbox */
+}
+
+.which-friday-input {
+    padding: 9px 12px !important;
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 12px; /* Matching font size */
+    color: #666; /* Text color */
+    width: 100%; /* Ensure it fills the container */
+    box-sizing: border-box; /* Padding and border included in the width */
+}
+
+/* Adjust styling for textarea to handle multiple lines */
+.which-friday-container .which-friday-input {
+    padding: 10px !important; /* Increased padding for larger text area */
+    height: 150px; /* Adjust the height as necessary */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 12px; /* Matching font size */
+    color: #666; /* Text color */
+}
+
+
+.which-friday-guide {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   #Other Special Request Need Transportation
+   ========================================================================== */
+
+.need-transportation-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    margin-bottom: 20px; /* Spacing below the container */
+    margin-top: 35px; /* Spacing above the container */
+}
+
+.need-transportation-label {
+    margin-bottom: 10px; /* Spacing between label and textbox */
+}
+
+.need-transportation-input {
+    padding: 9px 12px !important;
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 12px; /* Matching font size */
+    color: #666; /* Text color */
+    width: 100%; /* Ensure it fills the container */
+    box-sizing: border-box; /* Padding and border included in the width */
+}
+
+/* Adjust styling for textarea to handle multiple lines */
+.need-transportation-container .need-transportation-input {
+    padding: 10px !important; /* Increased padding for larger text area */
+    height: 150px; /* Adjust the height as necessary */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 12px; /* Matching font size */
+    color: #666; /* Text color */
+}
+
+/* ==========================================================================
+   #Togle Switch Styles
+   ========================================================================== */
+.toggle-switch-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.toggle-description {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: flex;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 16px;
+    margin: 0 10px;
+}
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 15px;
+        width: 15px;
+        left: 4px;
+/*        bottom: 4px;*/
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+input:checked + .slider {
+    background-color: #fdb71a;
+}
+
+    input:checked + .slider:before {
+        transform: translateX(30px);
+    }
+
+/* Toggle labels */
+.toggle-label {
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.4s;
+}
+
+input[type=checkbox]:checked ~ .toggle-label#toggleYes,
+input[type=checkbox]:not(:checked) ~ .toggle-label#toggleNo {
+    color: #b90000;
+}
+
+
+/* ==========================================================================
+   #Contact Preferences
+   ========================================================================== */
+.contact-preference {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column; /* Keeps the label and options in a column */
+}
+
+.contact-preference-label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+    .contact-preference label {
+        margin: 5px; /* Space between the label and the radio buttons */
+    }
+
+    .contact-preference .radio-options {
+        display: flex;
+        flex-direction: row; /* Aligns radio buttons in a row */
+        gap: 10px; /* Adjust the spacing between radio buttons */
+    }
+
+.contact-preference-guide {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+
+/* ==========================================================================
+   #Checkbox Styles
+   ========================================================================== */
+
+/* Container for the checkbox and text */
+.checkbox-container {
+    display: flex;
+    align-items: start;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9; /* Light background color */
+}
+
+/* Styling for the checkbox input */
+#AgreeTerms {
+    flex-shrink: 0; /* Prevent checkbox from shrinking */
+    margin-right: 10px; /* Space between the checkbox and the label text */
+    cursor: pointer;
+}
+
+/* Styling for the Terms and Conditions label */
+.AgreeTerms {
+    flex-grow: 1;
+    font-size: 14px; /* Readable text size */
+    color: red; /* Distinctive font color */
+    line-height: 1.5; /* Space between lines */
+    cursor: pointer;
+}
+
+/* Styling for the checkbox input */
+input[type=checkbox] {
+    appearance: none; /* Remove default checkbox appearance */
+    -webkit-appearance: none; /* For Safari */
+    margin-right: 10px; /* Space between the checkbox and the label text */
+    font-size: 20px; /* Sets the size of the checkbox */
+    line-height: 1; /* Aligns the checkbox symbol vertically */
+    width: 20px;
+    height: 20px;
+    border: 2px solid #808080; 
+    border-radius: 3px; /* Slightly rounded corners for the checkbox */
+    vertical-align: middle;
+    cursor: pointer;
+    position: relative; /* Needed to position the checkmark absolutely */
+    outline: none; /* Removes the focus outline */
+}
+
+    /* Checkmark style when checked */
+    input[type=checkbox]:checked::after {
+        content: '✔'; /* Unicode checkmark symbol */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center the checkmark inside the checkbox */
+        font-size: 16px;
+        color: #4dae3c; /* green checkmark */
+    }
 
 /* ==========================================================================
    #TITLE
@@ -405,5 +781,46 @@ input {
         padding: 0 40px;
         padding-top: 40px;
         padding-bottom: 40px;
+    }
+}
+
+/* ==========================================================================
+   #Final Confirmation Styles
+   ========================================================================== */
+
+.modal-content {
+    border-radius: 0.5rem; /* Smooth rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.modal-header {
+    padding: 1rem; /* Comfortable padding around the header */
+    border-bottom: 1px solid #e9ecef; /* Light border for a subtle separation */
+    background-color: #fff; /* Keeping it clean and white */
+}
+
+.modal-title {
+    font-size: 1.25rem; /* Appropriately sized title */
+    color: #840029; 
+    font-weight: bold;
+    margin: 0; /* No additional margin to keep things tight */
+}
+
+.modal-body {
+    background-color: white;  /*White background for the modal body */
+    color: #333; /* Dark text for readability */
+    line-height: 1.5;  /*Spacing between lines*/ 
+}
+
+
+/* Add some margin to the top of the modal for aesthetics */
+.modal-dialog {
+    margin-top: 5%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin-top: 20%;  /*More top margin on smaller screens*/ 
     }
 }

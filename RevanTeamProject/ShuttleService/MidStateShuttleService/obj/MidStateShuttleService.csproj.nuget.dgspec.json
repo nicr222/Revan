@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\natha\\source\\repos\\Revan\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj": {}
+    "C:\\Users\\myint\\Spring 2024\\Cap Stone\\Revan\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\natha\\source\\repos\\Revan\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj": {
+    "C:\\Users\\myint\\Spring 2024\\Cap Stone\\Revan\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\natha\\source\\repos\\Revan\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj",
+        "projectUniqueName": "C:\\Users\\myint\\Spring 2024\\Cap Stone\\Revan\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj",
         "projectName": "MidStateShuttleService",
-        "projectPath": "C:\\Users\\natha\\source\\repos\\Revan\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj",
-        "packagesPath": "C:\\Users\\natha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\natha\\source\\repos\\Revan\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\obj\\",
+        "projectPath": "C:\\Users\\myint\\Spring 2024\\Cap Stone\\Revan\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\MidStateShuttleService.csproj",
+        "packagesPath": "C:\\Users\\myint\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\myint\\Spring 2024\\Cap Stone\\Revan\\RevanTeamProject\\ShuttleService\\MidStateShuttleService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\natha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\myint\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
