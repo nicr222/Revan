@@ -12,6 +12,11 @@ public class MidStateShuttleServiceContext : IdentityDbContext<MidStateShuttleSe
     {
     }
 
+    protected MidStateShuttleServiceContext(DbContextOptions options)
+        : base(options)
+    {
+    }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

@@ -1,12 +1,16 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MidStateShuttleService.Areas.Identity.Data;
 using MidStateShuttleService.Data;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MidStateShuttleServiceContextConnection") ?? throw new InvalidOperationException("Connection string 'MidStateShuttleServiceContextConnection' not found.");
 
 builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<MidStateShuttleServiceUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MidStateShuttleServiceContext>();
+builder.Services.AddDefaultIdentity<MidStateShuttleServiceUser>()
+    .AddEntityFrameworkStores<MidStateShuttleServiceContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders(); ;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
