@@ -209,6 +209,9 @@ input {
 .input-fields {
     position: relative;
     margin-bottom: 25px;
+}
+
+.form-line {
     border-bottom: 2px solid #ccc;
 }
 
