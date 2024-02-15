@@ -159,3 +159,11 @@ html{scroll-behavior: smooth;}
         height: 480px;
     }
 }
+
+
+@media (max-width: 767px) {
+    
+    .Three {
+        display: none;
+    }
+}
