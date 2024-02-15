@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Areas.Identity.Data;
@@ -7,13 +9,11 @@ var connectionString = builder.Configuration.GetConnectionString("MidStateShuttl
 
 builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<MidStateShuttleServiceUser>()
-    .AddEntityFrameworkStores<MidStateShuttleServiceContext>()
-    .AddDefaultUI()
-    .AddDefaultTokenProviders(); ;
+builder.Services.AddDefaultIdentity<MidStateShuttleServiceUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<MidStateShuttleServiceContext>();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -31,6 +31,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
