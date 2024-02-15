@@ -1,135 +1,106 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
-    const userId = document.getElementById('UserId'); //const, it means that the variable cannot be reassigned to a different value later in the code
+﻿// ** Commented out the some validation fields to work witht the rest of the form in next sprint **//
+
+document.addEventListener('DOMContentLoaded', function () {
     const firstName = document.getElementById('FirstName');
     const lastName = document.getElementById('LastName');
+    const email = document.getElementById('Email');
     const phoneNumber = document.getElementById('PhoneNumber');
-    const tripTypeRadios = document.querySelectorAll('input[name="TripType"]');
-    const pickUpLocation = document.getElementById('PickUpLocation');
-    const dropOffLocation = document.getElementById('DropOffLocation');
-    const date = document.getElementById('Date');
-    const time = document.getElementById('Time');
+    //const tripTypeRadios = document.querySelectorAll('input[name="TripType"]');
+    //const pickUpLocation = document.getElementById('PickLocationID'); // Corrected ID
+    //const dropOffLocation = document.getElementById('DropOffLocationID'); // Corrected ID
+    //const date = document.getElementById('Date');
+    //const pickUpTime = document.getElementById('PickUpTime');
+    //const dropOffTime = document.getElementById('DropOffTime');
 
-    // Real-time validation event listeners
-    userId.addEventListener('input', validateStudentIdPhoneNumber);
-    phoneNumber.addEventListener('input', validateStudentIdPhoneNumber);
-    firstName.addEventListener('input', validateFirstLastName);
-    lastName.addEventListener('input', validateFirstLastName);
-    tripTypeRadios.forEach(radio => radio.addEventListener('change', validateTripType));
-    pickUpLocation.addEventListener('change', validatePickUpLocation);
-    dropOffLocation.addEventListener('change', validateDropOffLocation);
-    date.addEventListener('change', validateDate);
-    time.addEventListener('change', validateTime);
+    // Attach event listeners for real-time validation
+    phoneNumber.addEventListener('input', () => validateField(phoneNumber, /^[0-9]{10}$/, 'PhoneNumber'));
+    firstName.addEventListener('input', () => validateField(firstName, /^[A-Za-z\s]{2,}$/, 'FirstName'));
+    lastName.addEventListener('input', () => validateField(lastName, /^[A-Za-z\s]{2,}$/, 'LastName'));
+    email.addEventListener('input', () => validateField(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email')); // Email validation regex
+    //pickUpLocation.addEventListener('change', () => validateSelection(pickUpLocation, 'PickLocationID'));
+    //dropOffLocation.addEventListener('change', () => validateSelection(dropOffLocation, 'DropOffLocationID'));
+    //date.addEventListener('change', () => validateSelection(date, 'Date'));
+    //pickUpTime.addEventListener('change', () => validateSelection(pickUpTime, 'PickUpTime'));
+    //dropOffTime.addEventListener('change', () => validateSelection(dropOffTime, 'DropOffTime'));
+    //tripTypeRadios.forEach(radio => radio.addEventListener('change', validateTripType));
 
-    // Form submission event listener
-    document.querySelector('.wrapper').addEventListener('submit', function (event) {
-        let isFormValid = validateForm();
-        if (!isFormValid) {
-            event.preventDefault();
+    document.querySelector('#registrationForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Always prevent default submission initially
+
+        if (validateForm()) {
+            console.log("Form is valid, showing confirmation modal.");
+            $('#confirmationModal').modal('show'); // Correctly show confirmation modal only if valid
+        } else {
+            console.log("Form is not valid, submission prevented.");
+            scrollToFirstInvalid();
         }
     });
 
-    // Validation functions
+    // Make sure it returns false if any validation fails
     function validateForm() {
-        let isFormValid = true;
-        isFormValid &= validateUserIdPhoneNumber();
-        isFormValid &= validateFirstLastName();
-        isFormValid &= validateTripType();
-        isFormValid &= validatePickUpLocation();
-        isFormValid &= validateDropOffLocation();
-        isFormValid &= validateDate();
-        isFormValid &= validateTime();
-        return isFormValid;
+        const isPhoneNumberValid = validateField(phoneNumber, /^[0-9]{10}$/, 'PhoneNumber');
+        const isFirstNameValid = validateField(firstName, /^[A-Za-z\s]{2,}$/, 'FirstName');
+        const isLastNameValid = validateField(lastName, /^[A-Za-z\s]{2,}$/, 'LastName');
+        const isEmailValid = validateField(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email');
+        //const isPickUpLocationValid = validateSelection(pickUpLocation, 'PickLocationID');
+        //const isDropOffLocationValid = validateSelection(dropOffLocation, 'DropOffLocationID');
+        //const isDateValid = validateSelection(date, 'Date');
+        //const isPickUpTimeValid = validateSelection(pickUpTime, 'PickUpTime');
+        //const isDropOffTimeValid = validateSelection(dropOffTime, 'DropOffTime');
+        //const isTripTypeValid = validateTripType(); // Correctly placed outside the array
+
+        // Combine all validations for overall form validity
+        //return isPhoneNumberValid && isFirstNameValid && isLastNameValid && isEmailValid &&
+        //    isPickUpLocationValid && isDropOffLocationValid && isDateValid &&
+        //    isPickUpTimeValid && isDropOffTimeValid && isTripTypeValid;
     }
 
-    function validateUserIdPhoneNumber() {
-        let isValid = true;
-        [studentId, phoneNumber].forEach(input => {
-            const regex = /^[0-9]{10}$/;
-            if (!regex.test(input.value)) {
-                displayValidationMessage(input, "Must be 10 digits");
-                isValid = false;
-            } else {
-                clearValidationMessage(input);
-            }
-        });
+    function validateField(element, regex, fieldName) {
+        const isValid = regex.test(element.value);
+        const validationMessageElement = document.getElementById(`${fieldName}-validation-message`);
+        if (isValid) {
+            validationMessageElement.style.display = 'none';
+            element.classList.remove('is-invalid');
+        } else {
+            validationMessageElement.style.display = 'block';
+            element.classList.add('is-invalid');
+        }
         return isValid;
     }
 
-    function validateFirstLastName() {
-        let isValid = true;
-        [firstName, lastName].forEach(input => {
-            const regex = /^[A-Za-z\s]{2,}$/;
-            if (!regex.test(input.value)) {
-                displayValidationMessage(input, "Must contain only characters and be at least 2 characters long");
-                isValid = false;
-            } else {
-                clearValidationMessage(input);
-            }
-        });
-        return isValid;
-    }
+    //function validateSelection(element, fieldName) {
+    //    const isValid = element.value !== '';
+    //    const validationMessageElement = document.getElementById(`${fieldName}-validation-message`);
+    //    if (isValid) {
+    //        validationMessageElement.style.display = 'none';
+    //        element.classList.remove('is-invalid');
+    //    } else {
+    //        validationMessageElement.style.display = 'block';
+    //        element.classList.add('is-invalid');
+    //    }
+    //    return isValid;
+    //}
+    //function validateTripType() {
+    //    const isValid = [...tripTypeRadios].some(radio => radio.checked);
+    //    const validationMessageElement = document.getElementById('TripType-validation-message');
+    //    if (!isValid) {
+    //        validationMessageElement.style.display = 'block';
+    //        tripTypeRadios.forEach(radio => radio.classList.add('is-invalid'));
+    //    } else {
+    //        validationMessageElement.style.display = 'none';
+    //        tripTypeRadios.forEach(radio => radio.classList.remove('is-invalid'));
+    //    }
+    //    return isValid;
+    //}
 
-    function validateTripType() {
-        if (![...tripTypeRadios].some(radio => radio.checked)) {
-            displayValidationMessage(tripTypeRadios[0], "You must select a trip type", true);
-            return false;
-        } else {
-            clearValidationMessage(tripTypeRadios[0], true);
-            return true;
+    //to improve user experience by bringing the first invalid input into view if the form is not valid.
+    function scrollToFirstInvalid() {
+        const firstInvalidElement = document.querySelector('.is-invalid');
+        if (firstInvalidElement) {
+            firstInvalidElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
         }
-    }
-
-    function validatePickUpLocation() {
-        if (!pickUpLocation.value) {
-            displayValidationMessage(pickUpLocation, "Please select a pick-up location");
-            return false;
-        } else {
-            clearValidationMessage(pickUpLocation);
-            return true;
-        }
-    }
-
-    function validateDropOffLocation() {
-        if (!dropOffLocation.value) {
-            displayValidationMessage(dropOffLocation, "Please select a drop-off location");
-            return false;
-        } else {
-            clearValidationMessage(dropOffLocation);
-            return true;
-        }
-    }
-
-    function validateDate() {
-        if (!date.value) {
-            displayValidationMessage(date, "Please select a date");
-            return false;
-        } else {
-            clearValidationMessage(date);
-            return true;
-        }
-    }
-
-    function validateTime() {
-        if (!time.value) {
-            displayValidationMessage(time, "Please select a time");
-            return false;
-        } else {
-            clearValidationMessage(time);
-            return true;
-        }
-    }
-
-    function displayValidationMessage(element, message, isRadio = false) {
-        let validationMessageElement = isRadio ? element.closest('.radio-options').nextElementSibling : element.nextElementSibling;
-        validationMessageElement.innerText = message;
-        validationMessageElement.style.display = 'block'; // Show validation message
-        element.classList.add('is-invalid');
-    }
-
-    function clearValidationMessage(element, isRadio = false) {
-        let validationMessageElement = isRadio ? element.closest('.radio-options').nextElementSibling : element.nextElementSibling;
-        validationMessageElement.innerText = '';
-        validationMessageElement.style.display = 'none'; // Hide validation message
-        element.classList.remove('is-invalid');
     }
 });
