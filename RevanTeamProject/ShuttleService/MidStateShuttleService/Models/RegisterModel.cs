@@ -5,12 +5,12 @@ namespace MidStateShuttleService.Models
 {
     public class RegisterModel
     {
-        public int Id { get; set; }
+        public int RiderID { get; set; }
 
         [Required(ErrorMessage = "User ID is required")]
         [RegularExpression("^[0-9]{10}$", ErrorMessage = "Must be 10 digits")]
         //public long StudentId { get; set; } // Changed from int to long
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
         [RegularExpression("^[A-Za-z\\s]{2,}$", ErrorMessage = "Must contain only characters and be at least 2 characters long")]
@@ -56,23 +56,23 @@ namespace MidStateShuttleService.Models
         // New Properties for the Friday request form fields
         [Required(ErrorMessage = "Arrival Time is required")]
         [DataType(DataType.Time)]
-        public TimeSpan ArrivalTime { get; set; }
+        public TimeSpan? ArrivalTime { get; set; }
 
         [Required(ErrorMessage = "Departure Time is required")]
         [DataType(DataType.Time)]
-        public TimeSpan DepartureTime { get; set; }
+        public TimeSpan? DepartureTime { get; set; }
 
         [StringLength(300, ErrorMessage = "Which Friday cannot exceed 300 characters")]
-        public string WhichFriday { get; set; }
+        public string? WhichFriday { get; set; }
 
         [Required(ErrorMessage = "Friday Trip Type is required")]
-        public string FridayTripType { get; set; }
+        public string? FridayTripType { get; set; }
 
         [Required]
         public string ContactPreference { get; set; }
 
         [Required]
-        public bool AgreeTerms { get; set; } //  true/false for agreement
+        public bool? AgreeTerms { get; set; } //  true/false for agreement
     }
 
 }

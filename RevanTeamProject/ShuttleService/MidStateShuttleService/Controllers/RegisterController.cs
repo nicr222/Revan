@@ -17,7 +17,7 @@ namespace MidStateShuttleService.Controllers
 
         public RegisterController(ILogger<RegisterController> logger, IConfiguration configuration)
         {
-            this.connectionString = configuration.GetConnectionString("Connection");
+            this.connectionString = configuration.GetConnectionString("DefaultConnection");
             _logger = logger;
         }
 
@@ -55,9 +55,10 @@ namespace MidStateShuttleService.Controllers
                         connection.Open();
 
                         // Insert into Rider Table
-                        string riderInsertQuery = "INSERT INTO [dbo].[Rider] (UserId, FirstName, LastName, Type, Phone, Email) VALUES (@UserId, @FirstName, @LastName, @Type, @Phone, @Email); SELECT SCOPE_IDENTITY();";
+                        //Currently set userId as nullable in the model, so it's not included in the insert query
+                        string riderInsertQuery = "INSERT INTO [dbo].[Rider] (FirstName, LastName, Type, Phone, Email) VALUES (@FirstName, @LastName, @Type, @Phone, @Email); SELECT SCOPE_IDENTITY();";
                         SqlCommand cmdRider = new SqlCommand(riderInsertQuery, connection);
-                        cmdRider.Parameters.AddWithValue("@UserId", model.UserId);
+                        //cmdRider.Parameters.AddWithValue("@UserId", model.UserId);
                         cmdRider.Parameters.AddWithValue("@FirstName", model.FirstName);
                         cmdRider.Parameters.AddWithValue("@LastName", model.LastName);
                         cmdRider.Parameters.AddWithValue("@Type", model.TripType); // Assuming 'Type' is the trip type for simplicity
@@ -98,127 +99,7 @@ namespace MidStateShuttleService.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Register(RegisterModel model)
-        //{
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Save the data to the database.
-        //        // Replace this with your actual database saving logic.
-        //        var saveSuccess = SaveReservationToDatabase(model);
-
-        //        if (saveSuccess)
-        //        {
-        //            // If the save was successful, send the confirmation email.
-        //            try
-        //            {
-        //                await SendConfirmationEmailAsync(model);
-        //                ViewBag.Message = "Reservation confirmed. Confirmation email sent.";
-        //                return View("Confirmation"); // Redirect to a confirmation page or display a success message.
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                // Log the exception
-        //                _logger.LogError(ex, "Error sending confirmation email.");
-        //                ModelState.AddModelError("", "An error occurred while sending the confirmation email.");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("", "An error occurred while saving the reservation.");
-        //        }
-        //    }
-
-        //    // If we get here, something went wrong; return to the form to display validation errors or other messages.
-        //    return View(model); ;
-        //}
-
-        //private async Task SendConfirmationEmailAsync(RegisterModel model)
-        //{
-        //    var smtpSettings = Configuration.GetSection("SmtpSettings");
-        //    using (var client = new SmtpClient())
-        //    {
-        //        client.Host = smtpSettings["Server"];
-        //        client.Port = int.Parse(smtpSettings["Port"]);
-        //        client.EnableSsl = bool.Parse(smtpSettings["EnableSSL"]);
-        //        client.Credentials = new NetworkCredential(smtpSettings["Username"], smtpSettings["Password"]);
-
-        //        var mailMessage = new MailMessage
-        //        {
-        //            From = new MailAddress(smtpSettings["SenderEmail"], smtpSettings["SenderName"]),
-        //            Subject = "Shuttle Reservation Confirmation",
-        //            Body = CreateEmailBody(model),
-        //            IsBodyHtml = true // Set to true if you want to use HTML tags in your email
-        //        };
-
-        //        mailMessage.To.Add(new MailAddress(model.Email));
-
-        //        await client.SendMailAsync(mailMessage);
-        //    }
-        //}
-
-        //private string CreateEmailBody(RegisterModel model)
-        //{
-        //    // You can use a more sophisticated templating system or StringBuilder for larger templates
-        //    string body = $"<h1>Shuttle Reservation Confirmation</h1>" +
-        //                  $"<p>Dear {model.FirstName} {model.LastName},</p>" +
-        //                  $"<p>Your reservation has been confirmed with the following details:</p>" +
-        //                  $"<ul>" +
-        //                  $"<li>User ID: {model.UserId}</li>" +
-        //                  $"<li>Email: {model.Email}</li>" +
-        //                  $"<li>Phone Number: {model.PhoneNumber}</li>" +
-        //                  $"<li>Trip Type: {model.TripType}</li>" +
-        //                  $"<li>Pick-Up Location ID: {model.PickLocationID}</li>" +
-        //                  $"<li>Drop-Off Location ID: {model.DropOffLocationID}</li>" +
-        //                  $"<li>Date: {model.Date.ToString("MM/dd/yyyy")}</li>" +
-        //                  $"<li>Time: {model.Time.ToString("HH:mm")}</li>" +
-        //                  $"<li>Contact Preference: {model.ContactPreference}</li>" +
-        //                  $"</ul>" +
-        //                  $"<p>Please contact us if you have any questions about your reservation.</p>";
-
-        //    return body;
-        //}
-
-        //private bool SaveReservationToDatabase(RegisterModel model)
-        //{
-        //    bool saveSuccessful = false;
-
-        //    // Use ADO.NET to save to the database.
-        //    using (var connection = new SqlConnection(connectionString))
-        //    {
-        //        // Open connection.
-        //        connection.Open();
-
-        //        // Create a command.
-        //        using (var command = connection.CreateCommand())
-        //        {
-        //            // Set up command text (SQL or stored procedure).
-        //            command.CommandText = "INSERT INTO Reservation ..."; // Your SQL INSERT command.
-
-        //            // Add parameters from the model to prevent SQL injection.
-        //            command.Parameters.AddWithValue("@UserId", model.UserId);
-        //            command.Parameters.AddWithValue("@FirstName", model.FirstName);
-        //            command.Parameters.AddWithValue("@LastName", model.LastName);
-        //            command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
-        //            command.Parameters.AddWithValue("@PickLocationID", model.PickLocationID);
-        //            command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID);
-        //            command.Parameters.AddWithValue("@Date", model.Date);
-        //            command.Parameters.AddWithValue("@Time", model.Time);
-        //            command.Parameters.AddWithValue("@ContactPreference", model.ContactPreference);
-        //            // Add other parameters as necessary.
-
-        //            // Execute the command.
-        //            int result = command.ExecuteNonQuery();
-        //            saveSuccessful = result > 0;
-        //        }
-        //    }
-
-        //    return saveSuccessful;
-        //}
-
-
+     
         //[HttpPost]
         //public ActionResult Register(RegisterModel model)
         //{
