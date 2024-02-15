@@ -12,11 +12,13 @@
 
 * {
     box-sizing: border-box;
+
 }
 
 body {
     margin: 0;
     padding: 0;
+    
 }
 
 
@@ -88,7 +90,51 @@ header {
             color: maroon;
         }
 
+/*custom contaienr*/
+.container-custom {
+    width: 100%;
+    padding: 0 1rem;
+    margin: 0 auto;
+}
+
+@media (min-width: 1200px) {
+    .container-custom {
+        width: 1140px;
+    }
+}
+
+
+@media (min-width: 1400px) {
+    .container-custom {
+        width: 1340px;
+    }
+}
+
+
+@media (min-width: 1600px) {
+    .container-custom {
+        width: 1520px;
+    }
+}
+
 /* Style the navbar-toggler button */
 .navbar-toggler-icon {
     color: maroon;
+}
+
+/*
+    Footer styles
+*/
+
+footer {
+    background-color: #840029;
+    color: white;
+}
+
+.footer .border-highlight {
+    border-top: 1px solid #fdb71a;
+}
+
+.footer .footer-words:hover {
+    color: #fdb71a;
 }
