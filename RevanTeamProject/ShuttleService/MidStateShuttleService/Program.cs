@@ -52,7 +52,7 @@ namespace MidStateShuttleService
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                 // creates roles
-                var roles = new[] { "Admin", "User", "Guest" };
+                var roles = new[] { "Admin", "User"};
 
                 // adds roles if not added already
                 foreach (var role in roles)

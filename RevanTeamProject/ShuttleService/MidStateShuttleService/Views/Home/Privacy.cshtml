@@ -1,6 +1,21 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<MidStateShuttleServiceUser> SignInManager
+@inject UserManager<MidStateShuttleServiceUser> UserManager
+
+@{
     ViewData["Title"] = "Privacy Policy";
 }
+
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
+
+@if (User.IsInRole("Admin"))
+{
+    <h1>You are an Admin</h1>
+}
+else
+{
+    <h1>Hello</h1>
+}

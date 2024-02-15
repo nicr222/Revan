@@ -9,5 +9,9 @@ namespace MidStateShuttleService.Areas.Identity.Data;
 // Add profile data for application users by adding properties to the MidStateShuttleServiceUser class
 public class MidStateShuttleServiceUser : IdentityUser
 {
+    public MidStateShuttleServiceUser()
+    {
+        
+    }
 }
 
