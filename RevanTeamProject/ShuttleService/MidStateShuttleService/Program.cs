@@ -46,6 +46,7 @@ namespace MidStateShuttleService
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            // Adds roles
             using (var scope = app.Services.CreateScope())
             {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -61,6 +62,31 @@ namespace MidStateShuttleService
                         await roleManager.CreateAsync(new IdentityRole(role));
                     }
                 }
+            }
+
+            // Adds admin account
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MidStateShuttleServiceUser>>();
+
+                // hard coded admin account
+                string email = "Admin@email.com";
+                string password = "Admin1$";
+
+                // checks if there is already an admin account
+                if (await userManager.FindByEmailAsync(email) == null)
+                {
+                    var user = new MidStateShuttleServiceUser();
+                    user.Email = email;
+                    user.UserName = email;
+                    user.EmailConfirmed = true;
+
+                    await userManager.CreateAsync(user, password);
+
+                    await userManager.AddToRoleAsync(user, "Admin");
+                }
+
+
             }
 
             app.Run();
