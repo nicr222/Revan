@@ -70,7 +70,7 @@ html{scroll-behavior: smooth;}
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: maroon;
+    background-color: #840029;
     opacity: 0.5;
     z-index: 1;
 }
@@ -113,4 +113,57 @@ html{scroll-behavior: smooth;}
     } to {
           transform: translateY(-10px)
       }
+}
+
+/*
+    About Section
+*/
+
+.steps {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.steps_section-thumbnail {
+    height: 240px;    
+    object-fit: cover;
+    margin: 0 auto;
+}
+
+.steps--background{
+    background-color: #f8f9fa;
+}
+
+.steps_section-width{
+    height: 256px;
+    margin: 0 auto;
+}
+
+.steps {
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+    .steps.animated {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+@media (min-width: 544px) {
+    .steps {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+    .steps_section-thumbnail {
+        height: 480px;
+    }
+}
+
+
+@media (max-width: 767px) {
+    
+    .Three {
+        display: none;
+    }
 }
