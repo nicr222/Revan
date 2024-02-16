@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Areas.Identity.Data;
 using MidStateShuttleService.Data;
@@ -19,6 +22,11 @@ namespace MidStateShuttleService
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MidStateShuttleServiceContext>();
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            });
+
             // Add services to the container.
             builder.Services.AddRazorPages();
 
@@ -34,27 +42,24 @@ namespace MidStateShuttleService
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
-            app.UseAuthorization();
+            
             app.UseAuthentication();
-
+            app.UseAuthorization();
             app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            // Adds roles
+            // add user Roles and a default Admin
             using (var scope = app.Services.CreateScope())
             {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MidStateShuttleServiceUser>>();
 
-                // creates roles
-                var roles = new[] { "Admin", "User"};
+                var roles = new[] { "Admin", "User" };
 
-                // adds roles if not added already
                 foreach (var role in roles)
                 {
                     if (!await roleManager.RoleExistsAsync(role))
@@ -62,31 +67,22 @@ namespace MidStateShuttleService
                         await roleManager.CreateAsync(new IdentityRole(role));
                     }
                 }
-            }
 
-            // Adds admin account
-            using (var scope = app.Services.CreateScope())
-            {
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<MidStateShuttleServiceUser>>();
-
-                // hard coded admin account
                 string email = "Admin@email.com";
                 string password = "Admin1$";
 
-                // checks if there is already an admin account
                 if (await userManager.FindByEmailAsync(email) == null)
                 {
-                    var user = new MidStateShuttleServiceUser();
-                    user.Email = email;
-                    user.UserName = email;
-                    user.EmailConfirmed = true;
+                    var user = new MidStateShuttleServiceUser
+                    {
+                        Email = email,
+                        UserName = email,
+                        EmailConfirmed = true
+                    };
 
                     await userManager.CreateAsync(user, password);
-
                     await userManager.AddToRoleAsync(user, "Admin");
                 }
-
-
             }
 
             app.Run();
