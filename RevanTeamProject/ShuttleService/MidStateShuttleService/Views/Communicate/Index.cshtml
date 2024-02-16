@@ -27,8 +27,8 @@
                                I don't quite know if I like the styling for this as of right now
                            *@
                             <div class="row row-space">
-                                <div class="input-group">
-                                    <input type="text" id="message" asp-for="message" class="form-control border-0 shadow-none " rows="1" placeholder="Enter message...">
+                                <div class="input-fields">
+                                    <input type="text" id="message" asp-for="message" class="input--style-1" rows="1" placeholder="Enter message...">
                                     <div id="message-Validation-Message" class="validation-message"></div>
                                 </div>
                             </div>
@@ -37,12 +37,14 @@
                             The drop down list should display each shuttle in the database, but uses placeholders for now *@
                             <div class="row row-space">
                                 <div class="select-container">
-                                    <div class="select-btn input-group">
+                                    <div class="select-btn input-fields">
                                         <span class="btn-text">Select Message Recipients</span>
                                         <span class="arrow-dwn">
                                             <i class="fa-solid fa-chevron-down"></i>
                                         </span>
                                     </div>
+                                    
+                                    <div id="shuttle-Validation-Message" class="validation-message"></div>
 
                                     <ul class="list-items">
                                         <li class="item">
@@ -65,7 +67,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div id="shuttle-Validation-Message" class="validation-message"></div>
+                                
                                 <p class="trip-info">*Message will be sent to all students registered to the selected shuttles.</p>
                             </div>
                         </div>

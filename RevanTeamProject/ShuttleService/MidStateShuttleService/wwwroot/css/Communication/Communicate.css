@@ -158,9 +158,8 @@ h6 {
     .btn--green:hover {
         background: #4dae3c;
     }
-
 /* ==========================================================================
-   #FORM
+   #Input Fields
    ========================================================================== */
 input {
     outline: none;
@@ -174,7 +173,7 @@ input {
     font-family: inherit;
 }
 
-.input-group {
+.input-fields {
     position: relative;
     margin-bottom: 30px;
     border-bottom: 2px solid #ccc;
@@ -222,9 +221,6 @@ input {
         /* Microsoft Edge */
         color: #555;
     }
-
-
-
 
 /* ==========================================================================
    #TITLE
