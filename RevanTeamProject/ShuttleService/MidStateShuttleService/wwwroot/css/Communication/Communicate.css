@@ -168,7 +168,7 @@ input {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    /*    width: 100%; */ /* comment it out because it was causing the input fields to be too wide*/
+    /* width: 100%; */ /* comment it out because it was causing the input fields to be too wide */
     font-size: 14px;
     font-family: inherit;
 }
@@ -295,7 +295,8 @@ input {
 
 .select-btn .btn-text{
     font-weight: 400;
-    margin-left: 10px;
+    margin-bottom: 10px;
+    color: #666;
 }
 
 .select-btn .arrow-dwn {

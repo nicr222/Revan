@@ -26,16 +26,13 @@
                            @* Message input box 
                                I don't quite know if I like the styling for this as of right now
                            *@
-                            <div class="row row-space">
                                 <div class="input-fields">
-                                    <input type="text" id="message" asp-for="message" class="input--style-1" rows="1" placeholder="Enter message...">
+                                    <input id="message" asp-for="message" class="input--style-1 text-box single-line" rows="1" placeholder="Enter message..." maxlength="160">
                                     <div id="message-Validation-Message" class="validation-message"></div>
                                 </div>
-                            </div>
 
                             @* Shuttle choosing 
                             The drop down list should display each shuttle in the database, but uses placeholders for now *@
-                            <div class="row row-space">
                                 <div class="select-container">
                                     <div class="select-btn input-fields">
                                         <span class="btn-text">Select Message Recipients</span>
@@ -69,7 +66,6 @@
                                 </div>
                                 
                                 <p class="trip-info">*Message will be sent to all students registered to the selected shuttles.</p>
-                            </div>
                         </div>
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--green" type="submit">Send</button>
