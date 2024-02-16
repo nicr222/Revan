@@ -217,3 +217,5 @@ orleans.codegen.cs
 # Tye
 .tye/
 /RevanTeamProject/SprintPowerPoint/~$Sprint1.pptx
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/MidStateShuttleService.csproj.nuget.dgspec.json
+/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/project.nuget.cache
