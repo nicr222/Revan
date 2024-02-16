@@ -300,7 +300,7 @@ input {
 }
 
 .select-btn .arrow-dwn {
-    display: flex;
+    display: inline-flex;
     height: 21px;
     width: 21px;
     align-items: center;
