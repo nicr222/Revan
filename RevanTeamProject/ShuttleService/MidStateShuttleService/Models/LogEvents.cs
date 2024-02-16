@@ -1,8 +1,10 @@
-﻿namespace MidStateShuttleService.Models
+﻿using Microsoft.Data.SqlClient;
+
+namespace MidStateShuttleService.Models
 {
-    public class LogEvents
+    public static class LogEvents
     {
-        public static void LogToFile(string title, string logMessage, IWebHostEnvironment env)
+        public static void LogToFile(LogLevel level, string logMessage, IWebHostEnvironment env)
         {
             bool exists = Directory.Exists(env.WebRootPath + "\\" + "LogFolder");
             if (!exists)
@@ -28,7 +30,7 @@
 
             swLog.WriteLine("Log Entry");
             swLog.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString());
-            swLog.WriteLine("Message Title : {0}", title);
+            swLog.WriteLine("Message Title : {0}", level);
             swLog.WriteLine("Message : {0}", logMessage);
             swLog.WriteLine("-------------------------------");
             swLog.WriteLine("");
