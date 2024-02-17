@@ -129,6 +129,10 @@ header {
 footer {
     background-color: #840029;
     color: white;
+    text-decoration: none;
+    position: fixed;
+    bottom: 0;
+width: 100%;
 }
 
 .footer .border-highlight {
