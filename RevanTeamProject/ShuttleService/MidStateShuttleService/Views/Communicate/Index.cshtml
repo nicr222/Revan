@@ -6,54 +6,78 @@
 
 @model MidStateShuttleService.Models.CommuncateModel
 
-<link rel="stylesheet" href="css/Communicate.css" />
+@* page stylesheet *@
+<link rel="stylesheet" href="css/Communication/Communicate.css" />
+
+@* fontawesome link for dropdown arrow *@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <body>
     <div>
-        <div class="wrapper wrapper--w680">
+        <div class="wrapper wrapper--w680 mt-5">
             <div class="card card-1">
                 <div class="card-heading"></div>
                 <div class="card-body">
                     <h2 class="title">Send Message</h2>
-                    @using (Html.BeginForm("Communicate", "Communicate", FormMethod.Post))
-                {
+                    <form id="CommunicateForm" method="post" asp-action="Index">
                         @Html.AntiForgeryToken()
                         <div>
 
                            @* Message input box 
                                I don't quite know if I like the styling for this as of right now
                            *@
-                            <div class="row row-space">
-                                <div class="input-group">
-                                    <textarea id="message" class="form-control border-0 shadow-none " rows="1" placeholder="Enter message..."></textarea>
+                                <div class="input-fields">
+                                    <input type="text" id="message" asp-for="message" class="input--style-1 text-box single-line" placeholder="Enter message..." maxlength="160" />
+                                    <div id="message-Validation-Message" class="validation-message"></div>
                                 </div>
-                                <div id="Message-validation-message" class="validation-message"></div>
-                            </div>
 
                             @* Shuttle choosing 
                             The drop down list should display each shuttle in the database, but uses placeholders for now *@
-                            <div class="row row-space">
-                                <div class="input-group">
-                                    <select id="shuttleSelect" asp-for="shuttles" class="form-select">
-                                        <option>Example</option>
-                                        <option>Example2</option>
-                                        <option>Example3</option>
-                                        <option>Example4</option>
-                                    </select>
+                                <div class="select-container">
+                                    
+                                    <div class="select-btn">
+                                        <div class="input-fields">
+                                            <span class="btn-text">Select Message Recipients</span>
+                                            <span class="arrow-dwn">
+                                                <i class="fa-solid fa-chevron-down"></i>
+                                            </span>
+                                            <div id="shuttle-Validation-Message" class="validation-message"></div>
+                                        </div>
+                                    </div>
+
+                                    <ul class="list-items">
+                                        <li class="item">
+                                            @* eventually will pass in the shuttles, change the value to the passed in shuttle's id
+                                                so the ids match when in the controller
+                                            *@
+                                            <input type="checkbox" class="checkbox" asp-for="shuttles[0].isSelected">
+                                            <label class="item-text" asp-for="shuttles[0].isSelected">Example 1</label>
+                                            <input type="hidden" asp-for="shuttles[0].id" value="1"/>
+                                        </li>
+                                        <li class="item" >
+                                            <input type="checkbox" class="checkbox" asp-for="shuttles[1].isSelected">
+                                            <label class="item-text" asp-for="shuttles[1].isSelected">Example 2</label>
+                                            <input type="hidden" asp-for="shuttles[1].id" value="2" />
+                                        </li>
+                                        <li class="item">
+                                            <input type="checkbox" class="checkbox" asp-for="shuttles[2].isSelected">
+                                            <label class="item-text" asp-for="shuttles[2].isSelected">Example 3</label>
+                                            <input type="hidden" asp-for="shuttles[2].id" value="3"/>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div id="Shuttles-validation-message" class="validation-message"></div>
+                                
                                 <p class="trip-info">*Message will be sent to all students registered to the selected shuttles.</p>
-                            </div>
                         </div>
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--green" type="submit">Send</button>
                         </div>
-                }
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </body>
 
-<script src="~/js/Communicate.js"></script>
-
+<script src="~/js/Communication/Communicate.js"></script>
+<script src="~/js/Communication/shuttleSelect.js"></script>
