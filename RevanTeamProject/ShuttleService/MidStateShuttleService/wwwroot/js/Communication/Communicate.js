@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // checks if the message box is empty
     function validateMessage() {
         if (!message.value || message.value.length > 160) {
-            displayValidationMessage(message, "Please enter a message before sending";
+            displayValidationMessage(message, "Please enter a message before sending");
             return false;
         } else {
             clearValidationMessage(message);
