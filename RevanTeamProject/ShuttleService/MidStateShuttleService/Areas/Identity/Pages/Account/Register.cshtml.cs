@@ -30,12 +30,14 @@ namespace MidStateShuttleService.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<MidStateShuttleServiceUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<MidStateShuttleServiceUser> userManager,
             IUserStore<MidStateShuttleServiceUser> userStore,
             SignInManager<MidStateShuttleServiceUser> signInManager,
             ILogger<RegisterModel> logger,
+            RoleManager<IdentityRole> roleManager,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -43,6 +45,7 @@ namespace MidStateShuttleService.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
+            _roleManager = roleManager;
             _emailSender = emailSender;
         }
 
@@ -122,6 +125,14 @@ namespace MidStateShuttleService.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    // Sets the default user on registering
+                    var defaultrole = _roleManager.FindByNameAsync("User").Result;
+
+                    if (defaultrole != null)
+                    {
+                        IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultrole.Name);
+                    }
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
