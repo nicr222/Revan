@@ -15,7 +15,7 @@
         public TimeSpan PickUpTime { get; set; }
         public TimeSpan DropOffTime { get; set; }
 
-        public string AdditionalDetails { get; set; }
+        public string? AdditionalDetails { get; set; }
     }
 
 }

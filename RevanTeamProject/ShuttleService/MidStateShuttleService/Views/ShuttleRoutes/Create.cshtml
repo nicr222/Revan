@@ -5,7 +5,7 @@
 
 <body>
     <div class="wrapper wrapper--w680">
-        <form asp-action="Create" method="post" class="form form-1">
+        <form asp-action="Create" asp-controller="ShuttleRoutes" method="post" class="form form-1">
             <div class="form-body">
                 <h2 class="title">Create Route</h2>
 
@@ -26,19 +26,19 @@
 
                 <div class="input-fields">
                     <label>Pick Up Time</label>
-                    <input asp-for="PickUpTime" type="time" class="form-control input--style-1" required />
+                    <input asp-for="PickUpTime" name="PickUpTime" type="time" class="form-control input--style-1" required />
                     <div class="div-line"></div>
                 </div>
 
                 <div class="input-fields">
                     <label>Drop Off Time</label>
-                    <input asp-for="DropOffTime" type="time" class="form-control input--style-1" required />
+                    <input asp-for="DropOffTime" name="PickUpTime" type="time" class="form-control input--style-1" required />
                     <div class="div-line"></div>
                 </div>
 
                 <div class="input-fields">
                     <label>Additional Details</label>
-                    <textarea asp-for="AdditionalDetails" class="form-control input--style-1" placeholder="Enter additional details"></textarea>
+                    <textarea asp-for="AdditionalDetails" name="AdditionalDetails" class="form-control input--style-1" placeholder="Enter additional details"></textarea>
                     <div class="div-line"></div>
                 </div>
 
@@ -49,5 +49,5 @@
         </form>
     </div>
 
-    <script src="/js/route.js"></script>
+    <script src="/js/routes.js"></script>
 </body>
