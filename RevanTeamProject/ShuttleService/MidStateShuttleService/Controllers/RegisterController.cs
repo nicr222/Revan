@@ -159,51 +159,5 @@ namespace MidStateShuttleService.Controllers
         //    }
         //}
 
-        //public ActionResult RegisterConfirmation(long id)
-        //{
-        //    RegisterModel model = new RegisterModel(); // Placeholder for the actual model
-
-        //    // Fetching the user and trip details from the database
-        //    using (var connection = new SqlConnection(connectionString))
-        //    {
-        //        connection.Open();
-        //        var command = connection.CreateCommand();
-
-        //        // Assuming you're identifying the user and trip uniquely with StudentId
-        //        // This query needs adjustment based on the actual database schema and requirements
-        //        command.CommandText = @"
-        //                                SELECT u.StudentId, u.FirstName, u.LastName, u.PhoneNumber, t.TripType, t.PickUpLocation, t.DropOffLocation, t.Date, t.Time, t.SpecialRequest
-        //                                FROM Users u
-        //                                INNER JOIN Trips t ON u.UserId = t.UserId
-        //                                WHERE u.StudentId = @StudentId;";
-        //        command.Parameters.AddWithValue("@StudentId", id);
-
-        //        using (var reader = command.ExecuteReader())
-        //        {
-        //            if (reader.Read()) // Assuming at least one record is returned
-        //            {
-        //                //model.UserId = reader.GetInt64(reader.GetOrdinal("UserId"));
-        //                model.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
-        //                model.LastName = reader.GetString(reader.GetOrdinal("LastName"));
-        //                model.PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
-        //                model.TripType = reader.GetString(reader.GetOrdinal("TripType"));
-        //                //model.PickLocationID = reader.GetString(reader.GetOrdinal("PickUpLocation"));
-        //                //model.DropOffLocationID = reader.GetString(reader.GetOrdinal("DropOffLocation"));
-        //                model.Date = reader.GetDateTime(reader.GetOrdinal("Date"));
-        //                // Correctly handle the TimeSpan to DateTime conversion
-        //                TimeSpan timeSpan = (TimeSpan)reader.GetValue(reader.GetOrdinal("Time"));
-        //                model.Time = DateTime.Today.Add(timeSpan); // This sets the Time part on today's date, adjust as necessary
-
-        //                // Assign "No" to SpecialRequest if it's null
-        //                //var specialRequest = string.IsNullOrWhiteSpace(model.SpecialRequest) ? "No" : model.SpecialRequest;
-        //                //model.SpecialRequest = specialRequest;
-        //            }
-        //        }
-        //    }
-
-        //    return View(model); // Pass the populated model to the view
-        //}
-
-
     }
 }
