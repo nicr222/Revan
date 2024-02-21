@@ -47,7 +47,7 @@ namespace MidStateShuttleService.Controllers
             }
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                string sql = "INSERT INTO [Location] (Name, Address, Abbreviation) VALUES (@Name, @Address, @Abbreviation)";
+                string sql = "INSERT INTO [Location] (Name, Address, City, State, ZipCode, Abbreviation) VALUES (@Name, @Address, @City, @State, @ZipCode, @Abbreviation)";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -57,7 +57,7 @@ namespace MidStateShuttleService.Controllers
                     {
                         ParameterName = "@Name",
                         Value = location.Name,
-                        SqlDbType = SqlDbType.VarChar,
+                        SqlDbType = SqlDbType.NVarChar,
                         Size = 100
                     };
                     command.Parameters.Add(parameter);
@@ -66,8 +66,35 @@ namespace MidStateShuttleService.Controllers
                     {
                         ParameterName = "@Address",
                         Value = location.Address,
-                        SqlDbType = SqlDbType.VarChar,
+                        SqlDbType = SqlDbType.NVarChar,
                         Size = 255
+                    };
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter
+                    {
+                        ParameterName = "@City",
+                        Value = location.City,
+                        SqlDbType = SqlDbType.NVarChar,
+                        Size = 100
+                    };
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter
+                    {
+                        ParameterName = "@State",
+                        Value = location.State,
+                        SqlDbType = SqlDbType.NVarChar,
+                        Size = 2
+                    };
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter
+                    {
+                        ParameterName = "@ZipCode",
+                        Value = location.ZipCode,
+                        SqlDbType = SqlDbType.NVarChar,
+                        Size = 10
                     };
                     command.Parameters.Add(parameter);
 
@@ -75,7 +102,7 @@ namespace MidStateShuttleService.Controllers
                     {
                         ParameterName = "@Abbreviation",
                         Value = location.Abbreviation,
-                        SqlDbType = SqlDbType.VarChar,
+                        SqlDbType = SqlDbType.NVarChar,
                         Size = 5
                     };
                     command.Parameters.Add(parameter);
@@ -83,6 +110,7 @@ namespace MidStateShuttleService.Controllers
                     connection.Open();
                     command.ExecuteNonQuery();
                     connection.Close();
+
                 }
             }
             return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
