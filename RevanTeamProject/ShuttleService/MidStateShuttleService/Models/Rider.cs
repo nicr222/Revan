@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using MidStateShuttleService.Areas.Identity.Data;
 
 namespace MidStateShuttleService.Models;
 
@@ -36,5 +37,5 @@ public partial class Rider
 
     [ForeignKey("UserId")]
     [InverseProperty("Riders")]
-    public virtual AspNetUser User { get; set; } = null!;
+    public virtual MidStateShuttleServiceUser User { get; set; } = null!;
 }

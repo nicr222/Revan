@@ -15,8 +15,6 @@ public partial class ApplicationDbContext : DbContext
     {
     }
 
-    public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-
     public virtual DbSet<Bus> Buses { get; set; }
 
     public virtual DbSet<BusDriver> BusDrivers { get; set; }
@@ -43,32 +41,6 @@ public partial class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AspNetRole>(entity =>
-        {
-            entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
-                .IsUnique()
-                .HasFilter("([NormalizedName] IS NOT NULL)");
-        });
-
-        modelBuilder.Entity<AspNetUser>(entity =>
-        {
-            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
-                .IsUnique()
-                .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
-            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "AspNetUserRole",
-                    r => r.HasOne<AspNetRole>().WithMany().HasForeignKey("RoleId"),
-                    l => l.HasOne<AspNetUser>().WithMany().HasForeignKey("UserId"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "RoleId");
-                        j.ToTable("AspNetUserRoles");
-                        j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
-                    });
-        });
-
         modelBuilder.Entity<Bus>(entity =>
         {
             entity.HasKey(e => e.BusId).HasName("PK__Bus__6A0F60B5718116B1");
@@ -133,8 +105,6 @@ public partial class ApplicationDbContext : DbContext
         modelBuilder.Entity<Feedback>(entity =>
         {
             entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__6A4BEDF69EC0AC18");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Feedbacks).HasConstraintName("FK__Feedback__UserID__0D7A0286");
         });
 
         modelBuilder.Entity<Location>(entity =>
@@ -166,17 +136,11 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.Route).WithMany(p => p.Registrations)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Registrat__Route__2645B050");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Registrations).HasConstraintName("FK__Registrat__UserI__25518C17");
         });
 
         modelBuilder.Entity<Rider>(entity =>
         {
             entity.HasKey(e => e.RiderId).HasName("PK__Rider__7D726C00670C3598");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Riders)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Rider__UserId__0E6E26BF");
         });
 
         modelBuilder.Entity<Route>(entity =>
