@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Areas.Identity.Data;
-using MidStateShuttleService.Models;
+using MidStateShuttleService.Models.Data;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Emit;
 

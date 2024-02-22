@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Areas.Identity.Data;
 
-namespace MidStateShuttleService.Models;
+namespace MidStateShuttleService.Models.Data;
 
 [Table("Rider")]
 public partial class Rider

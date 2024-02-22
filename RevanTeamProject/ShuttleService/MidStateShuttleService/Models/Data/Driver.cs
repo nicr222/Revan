@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace MidStateShuttleService.Models;
+namespace MidStateShuttleService.Models.Data;
 
 [Table("Driver")]
 public partial class Driver

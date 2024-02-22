@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using MidStateShuttleService.Models;
+using MidStateShuttleService.Models.Data;
 
 namespace MidStateShuttleService.Areas.Identity.Data;
 

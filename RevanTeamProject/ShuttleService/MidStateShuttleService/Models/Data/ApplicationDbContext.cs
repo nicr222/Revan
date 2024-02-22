@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace MidStateShuttleService.Models;
+namespace MidStateShuttleService.Models.Data;
 
 public partial class ApplicationDbContext : DbContext
 {

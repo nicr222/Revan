@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Areas.Identity.Data;
 using MidStateShuttleService.Data;
-using MidStateShuttleService.Models;
+using MidStateShuttleService.Models.Data;
 namespace MidStateShuttleService
 {
     public class Program
