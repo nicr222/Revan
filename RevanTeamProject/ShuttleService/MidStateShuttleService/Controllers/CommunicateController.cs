@@ -41,7 +41,7 @@ namespace MidStateShuttleService.Controllers
 
         // When the form submits, this method will play out.
         [HttpPost]
-        public IActionResult StudentCommunicate(CommuncateModel c)
+        public IActionResult StudentCommunicate(Message c)
         {
             if (ModelState.IsValid)
             {
