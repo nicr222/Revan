@@ -1,4 +1,4 @@
-﻿@model Tuple<List<string>, MidStateShuttleService.Models.Reservation>
+﻿@* @model Tuple<List<string>, MidStateShuttleService.Models.Reservation> *@
 
 <link rel="stylesheet" href="/css/CheckIn.css" />
 
@@ -66,10 +66,10 @@
                     <div class="col-6">
                         <div class="input-fields">
                             <h6>START Location/Campus</h6>
-                            @Html.DropDownListFor(model => model.Item2.PickUpLocation
+                            @* @Html.DropDownListFor(model => model.Item2.PickUpLocation
                                      , new SelectList(Model.Item1),
                                      "Please Select Start Location",
-                                     new { @class = "form-control input--style-1", @id = "startLocation", @name = "Reservation.PickUpLocation", @required = "required" })
+                                     new { @class = "form-control input--style-1", @id = "startLocation", @name = "Reservation.PickUpLocation", @required = "required" }) *@
                             <div class="div-line"></div>
                             <div class="invalid-feedback">
                                 Locations can not be the same
@@ -79,10 +79,10 @@
                     <div class="col-6">
                         <div class="input-fields">
                             <h6>END Location/Campus</h6>
-                            @Html.DropDownListFor(model => model.Item2.DropOffLocation,
+                            @* @Html.DropDownListFor(model => model.Item2.DropOffLocation,
                                      new SelectList(Model.Item1),
                                      "Please Select End Location",
-                                     new { @class = "form-control input--style-1", @id = "endLocation", @name = "Reservation.DropOffLocation", @required = "required" })
+                                     new { @class = "form-control input--style-1", @id = "endLocation", @name = "Reservation.DropOffLocation", @required = "required" }) *@
                             <div class="div-line"></div>
                             <div class="invalid-feedback">
                                 Locations can not be the same
