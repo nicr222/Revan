@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Areas.Identity.Data;
 using MidStateShuttleService.Data;
+using MidStateShuttleService.Service;
 namespace MidStateShuttleService
 {
     public class Program
@@ -17,7 +18,7 @@ namespace MidStateShuttleService
             var connectionString = builder.Configuration.GetConnectionString("MidStateShuttleServiceContextConnection") ?? throw new InvalidOperationException("Connection string 'MidStateShuttleServiceContextConnection' not found.");
 
             builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(connectionString));
-
+            builder.Services.AddSingleton<IListService, ListServices>();
             builder.Services.AddDefaultIdentity<MidStateShuttleServiceUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MidStateShuttleServiceContext>();
