@@ -1,10 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Framework;
+using Microsoft.Data.SqlClient;
 using MidStateShuttleService.Models;
 
 namespace MidStateShuttleService.Controllers
 {
     public class CommunicateController : Controller
     {
+        private readonly string connectionString;
+
+        private readonly ILogger<CommunicateController> _logger;
+
+        public CommunicateController(ILogger<CommunicateController> logger, IConfiguration configuration)
+        {
+            this.connectionString = configuration.GetConnectionString("DefaultConnection");
+            _logger = logger;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -45,10 +57,27 @@ namespace MidStateShuttleService.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Retrieve passed in list of students from the database.
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
 
-                // Send the message to each person registered to the shutte.
-                return RedirectToAction("MessageSent");
+                        string sendMessageQuery = "INSERT INTO [dbo].[DispatchMessage] (Message) VALUES (@Message); SELECT SCOPE_IDENTITY();";
+                        SqlCommand cmdMessage = new SqlCommand(sendMessageQuery, connection);
+
+                        cmdMessage.Parameters.AddWithValue("@Message", c.message);
+                        cmdMessage.ExecuteNonQuery();
+                    }
+
+                    return RedirectToAction("MessageSent");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error Sending Message");
+
+                    return View("Error");
+                }
             }
 
             return View(c);
