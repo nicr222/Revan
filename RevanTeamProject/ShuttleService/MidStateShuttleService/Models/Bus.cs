@@ -1,24 +1,43 @@
-﻿namespace MidStateShuttleService.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace MidStateShuttleService.Models;
+
+[Table("Bus")]
+public partial class Bus
 {
-    public class Bus
-    {
-        public class Shuttle
-        {
-            // Primary Key
-            public int BusId { get; set; }
+    [Key]
+    public int BusId { get; set; }
 
-            // Shuttle details
-            public string BusNo { get; set; }
-            public int PassengerCapacity { get; set; }
+    [StringLength(50)]
+    public string BusNo { get; set; } = null!;
 
-            // Foreign Key to Driver table
-            public int DriverID { get; set; }
-            public Driver Driver { get; set; }
+    public int PassengerCapacity { get; set; }
 
-            // Foreign Key to BusRider table
-            public int RiderId { get; set; }
-            public BusRider BusRider { get; set; }
-        }
+    [Column("DriverID")]
+    public int DriverId { get; set; }
 
-    }
+    public int BusRiderId { get; set; }
+
+    public bool IsActive { get; set; }
+
+    [InverseProperty("Bus")]
+    public virtual ICollection<BusDriver> BusDrivers { get; set; } = new List<BusDriver>();
+
+    [ForeignKey("BusRiderId")]
+    [InverseProperty("Buses")]
+    public virtual Rider BusRider { get; set; } = null!;
+
+    [InverseProperty("Bus")]
+    public virtual ICollection<BusRider> BusRiders { get; set; } = new List<BusRider>();
+
+    [InverseProperty("Bus")]
+    public virtual ICollection<BusRoute> BusRoutes { get; set; } = new List<BusRoute>();
+
+    [ForeignKey("DriverId")]
+    [InverseProperty("Buses")]
+    public virtual Driver Driver { get; set; } = null!;
 }

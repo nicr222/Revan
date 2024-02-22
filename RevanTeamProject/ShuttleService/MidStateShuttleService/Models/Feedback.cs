@@ -1,18 +1,32 @@
-﻿namespace MidStateShuttleService.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace MidStateShuttleService.Models;
+
+[Table("Feedback")]
+public partial class Feedback
 {
-    public class Feedback
-    {
-        // Primary Key
-        public int FeedbackID { get; set; }
+    [Key]
+    [Column("FeedbackID")]
+    public int FeedbackId { get; set; }
 
-        // Foreign Key to User table
-        public int RiderId { get; set; }
+    [StringLength(255)]
+    public string Comment { get; set; } = null!;
 
-        public Rider Rider { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime DateSubmitted { get; set; }
 
-        // Feedback details
-        public string Comment { get; set; }
-        public DateTime DateSubmitted { get; set; }
-    }
+    [Column("UserID")]
+    [StringLength(450)]
+    public string? UserId { get; set; }
 
+    [InverseProperty("FeedBack")]
+    public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
+
+    [ForeignKey("UserId")]
+    [InverseProperty("Feedbacks")]
+    public virtual AspNetUser? User { get; set; }
 }

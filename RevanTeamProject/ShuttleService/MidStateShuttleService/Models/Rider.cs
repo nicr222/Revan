@@ -1,19 +1,40 @@
-﻿namespace MidStateShuttleService.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace MidStateShuttleService.Models;
+
+[Table("Rider")]
+public partial class Rider
 {
-    public class Rider
-    {
-        // Primary Key
-        public int RiderID { get; set; }
+    [Key]
+    [Column("RiderID")]
+    public int RiderId { get; set; }
 
-        // Foreign Key to User table
-        public int UserId { get; set; }
+    [StringLength(450)]
+    public string UserId { get; set; } = null!;
 
-        // Rider details
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Type { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-    }
+    [StringLength(50)]
+    public string FirstName { get; set; } = null!;
 
+    [StringLength(50)]
+    public string LastName { get; set; } = null!;
+
+    [StringLength(20)]
+    public string Phone { get; set; } = null!;
+
+    [StringLength(100)]
+    public string Email { get; set; } = null!;
+
+    [InverseProperty("Rider")]
+    public virtual ICollection<BusRider> BusRiders { get; set; } = new List<BusRider>();
+
+    [InverseProperty("BusRider")]
+    public virtual ICollection<Bus> Buses { get; set; } = new List<Bus>();
+
+    [ForeignKey("UserId")]
+    [InverseProperty("Riders")]
+    public virtual AspNetUser User { get; set; } = null!;
 }

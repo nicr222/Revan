@@ -6,23 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MidStateShuttleService.Models;
 
-[Table("BusRider")]
-public partial class BusRider
+[Table("BusDriver")]
+public partial class BusDriver
 {
     [Key]
-    public int BusRiderId { get; set; }
+    public int BusDriverId { get; set; }
 
-    [Column("BusID")]
     public int BusId { get; set; }
 
-    [Column("RiderID")]
-    public int RiderId { get; set; }
+    public int DriverId { get; set; }
 
     [ForeignKey("BusId")]
-    [InverseProperty("BusRiders")]
+    [InverseProperty("BusDrivers")]
     public virtual Bus Bus { get; set; } = null!;
 
-    [ForeignKey("RiderId")]
-    [InverseProperty("BusRiders")]
-    public virtual Rider Rider { get; set; } = null!;
+    [ForeignKey("DriverId")]
+    [InverseProperty("BusDrivers")]
+    public virtual Driver Driver { get; set; } = null!;
 }

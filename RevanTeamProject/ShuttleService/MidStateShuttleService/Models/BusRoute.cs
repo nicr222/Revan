@@ -1,17 +1,26 @@
-﻿namespace MidStateShuttleService.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace MidStateShuttleService.Models;
+
+[Table("BusRoute")]
+public partial class BusRoute
 {
-    public class BusRoute
-    {
-        // Primary Key
-        public int BusRouteID { get; set; }
+    [Key]
+    public int BusRouteId { get; set; }
 
-        // Foreign Keys to Bus and Route tables
-        public int BusID { get; set; }
-        public Bus Bus { get; set; }
+    public int BusId { get; set; }
 
-        public int RouteID { get; set; }
+    public int RouteId { get; set; }
 
-        public Routes Route { get; set; }
-    }
+    [ForeignKey("BusId")]
+    [InverseProperty("BusRoutes")]
+    public virtual Bus Bus { get; set; } = null!;
 
+    [ForeignKey("RouteId")]
+    [InverseProperty("BusRoutes")]
+    public virtual Route Route { get; set; } = null!;
 }

@@ -1,19 +1,38 @@
-﻿namespace MidStateShuttleService.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace MidStateShuttleService.Models;
+
+[Table("RouteLocation")]
+public partial class RouteLocation
 {
-    public class RouteLocation
-    {
-        // Primary Key
-        public int RouteLocationID { get; set; }
+    [Key]
+    [Column("RouteLocationID")]
+    public int RouteLocationId { get; set; }
 
-        // Foreign Keys to Route, Location, and NextStop tables
-        public int RouteID { get; set; }
-        public int LocationID { get; set; }
-        public int NextStopID { get; set; }
+    [Column("RouteID")]
+    public int RouteId { get; set; }
 
-        // Route location details
-        public TimeSpan ArrivalTime { get; set; }
-        public TimeSpan DepartureTime { get; set; }
-        public bool IsStartLocation { get; set; }
-    }
+    [Column("LocationID")]
+    public int LocationId { get; set; }
 
+    [Column("NextStopID")]
+    public int NextStopId { get; set; }
+
+    public TimeOnly ArrivalTime { get; set; }
+
+    public TimeOnly DepartureTime { get; set; }
+
+    public bool IsStartLocation { get; set; }
+
+    [ForeignKey("LocationId")]
+    [InverseProperty("RouteLocationLocations")]
+    public virtual Location Location { get; set; } = null!;
+
+    [ForeignKey("NextStopId")]
+    [InverseProperty("RouteLocationNextStops")]
+    public virtual Location NextStop { get; set; } = null!;
 }
