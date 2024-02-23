@@ -37,23 +37,32 @@ document.addEventListener('DOMContentLoaded', function () {
     var oneWayRadio = document.getElementById('OneWay');
     var roundTripRadio = document.getElementById('RoundTrip');
 
+    //fucntion used to ccontrol the display of the special request section in a route shecudling system
     function toggleSpecialRequestDisplay() {
+        // Get the selected option text for both pickup and dropoff locations
         var pickUpSelectedOptionText = pickUpLocationSelect.options[pickUpLocationSelect.selectedIndex].text;
         var dropOffSelectedOptionText = dropOffLocationSelect.options[dropOffLocationSelect.selectedIndex].text;
+        // Check if the selected text in 'other' (in a case-insensitive manner)
         var displayState = (pickUpSelectedOptionText.toLowerCase() === 'other' || dropOffSelectedOptionText.toLowerCase() === 'other') ? 'block' : 'none';
 
+        // Applies the displayState to the otherSpecialRequestSection's display style, determining its visibility.
         otherSpecialRequestSection.style.display = displayState;
+        // Sets the display style of otherPickupLocationDiv and  otherDropoffLocationDiv to 'block' if location are 'other', or 'none' if not.
         otherPickupLocationDiv.style.display = (pickUpSelectedOptionText.toLowerCase() === 'other') ? 'block' : 'none';
         otherDropoffLocationDiv.style.display = (dropOffSelectedOptionText.toLowerCase() === 'other') ? 'block' : 'none';
+        //Calls the function with the argument otherSpecialYes.checked, which is a boolean representing whether the "Yes" option for other special requests is selected.
         toggleOtherSpecialRequestVisibility(otherSpecialYes.checked);
     }
 
     function toggleOtherSpecialRequestVisibility(show) {
+// Determines whether the "Yes" radio button for other special requests is selected
         otherSpecialRequestTimePreferences.style.display = show ? '' : 'none';
     }
 
     function toggleOtherMustLeaveAfterVisibility() {
+        // Determines whether the "One Way" radio button is selected
         var isOneWaySelected = oneWayRadio.checked;
+// Determines whether the "Yes" radio button for other special requests is selected
         var isOtherSpecialYesSelected = otherSpecialYes.checked;
         otherMustLeaveAfterContainer.style.display = (isOneWaySelected && isOtherSpecialYesSelected) ? 'none' : 'block';
     }
