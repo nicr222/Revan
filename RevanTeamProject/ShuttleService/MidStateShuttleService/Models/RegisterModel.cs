@@ -32,7 +32,7 @@ namespace MidStateShuttleService.Models
 
         [Required(ErrorMessage = "Pick Up Location is required")]
         //public string PickUpLocation { get; set; }
-        public int PickLocationID { get; set; }
+        public int PickUpLocationID { get; set; }
 
         [Required(ErrorMessage = "Drop Off Location is required")]
         //public string DropOffLocation { get; set; }
@@ -73,6 +73,8 @@ namespace MidStateShuttleService.Models
 
         [Required]
         public bool? AgreeTerms { get; set; } //  true/false for agreement
-    }
 
+        public IEnumerable<SelectListItem> LocationNames { get; set; }
+    }
+    
 }
