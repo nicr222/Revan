@@ -31,8 +31,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var otherSpecialRequestSection = document.querySelector('.other-special-request');
 
     function toggleSpecialRequestDisplay() {
-        // Check if either of the dropdowns has "Other" selected
-        if (pickUpLocationSelect.value === 'Other' || dropOffLocationSelect.value === 'Other') {
+        // Check if either of the dropdowns has an option selected that equals "Other" (case-insensitive)
+        var pickUpSelectedOptionText = pickUpLocationSelect.options[pickUpLocationSelect.selectedIndex].text;
+        var dropOffSelectedOptionText = dropOffLocationSelect.options[dropOffLocationSelect.selectedIndex].text;
+
+        if (pickUpSelectedOptionText.toLowerCase() === 'other' || dropOffSelectedOptionText.toLowerCase() === 'other') {
             otherSpecialRequestSection.style.display = 'block';
         } else {
             otherSpecialRequestSection.style.display = 'none';
@@ -43,9 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
     pickUpLocationSelect.addEventListener('change', toggleSpecialRequestDisplay);
     dropOffLocationSelect.addEventListener('change', toggleSpecialRequestDisplay);
 
-    // Initial check in case the page is loaded with "Other" already selected
+    // Initial check in case the page is loaded with an option equivalent to "Other" already selected
     toggleSpecialRequestDisplay();
 });
+
 
 //Other Special Request Selection
 document.addEventListener('DOMContentLoaded', function () {
