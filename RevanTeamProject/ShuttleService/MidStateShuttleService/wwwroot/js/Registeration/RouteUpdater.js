@@ -27,8 +27,9 @@ $(document).ready(function () {
                     routes.forEach(function (route) {
                         console.log("Individual route object:", route); // Log the entire route object
                         // Append an HTML string for each route option to the routeOptionsHtml string.
-                        routeOptionsHtml += '<input type="radio" name="RouteID" value="' + route.routeID + '">' +
-                            route.detail + '<br>';
+                        routeOptionsHtml +=
+                            '<label><input type="radio" name="RouteID" value="' + route.routeID + '">' +
+                            '<span>' + route.detail + '</span></label><br>';
                     });
                     console.log("Generated HTML:", routeOptionsHtml); // Log the generated HTML
                     // Insert the generated HTML into the page.
