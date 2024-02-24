@@ -198,34 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleContactPreferenceDisplay();
 });
 
-//** This is to show and hide contact preference section based on special request the selection. I want to hide it for now becuase I am not sure which one is better **
-//document.addEventListener('DOMContentLoaded', function () {
-//    // Function to check the state of special request options and toggle contact preference visibility
-//    function checkSpecialRequestsAndToggleContactPreference() {
-//        var specialYesChecked = document.getElementById('specialYes').checked;
-//        var otherSpecialYesChecked = document.getElementById('otherSpecialYes').checked;
-//        var contactPreferenceSection = document.querySelector('.contact-preference');
-
-//        // Show contact preference if either special request is checked, otherwise hide
-//        if (specialYesChecked || otherSpecialYesChecked) {
-//            contactPreferenceSection.style.display = 'block';
-//        } else {
-//            contactPreferenceSection.style.display = 'none';
-//        }
-//    }
-
-//    // Listen for changes on the 'specialYes' and 'otherSpecialYes' radio buttons
-//    document.getElementById('specialYes').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
-//    document.getElementById('otherSpecialYes').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
-
-//    // Also, listen for changes on the 'no' options to ensure the contact preference section is hidden when neither 'yes' option is selected
-//    document.getElementById('specialNo').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
-//    document.getElementById('otherSpecialNo').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
-
-//    // Initial check to set the correct display state when the page loads
-//    checkSpecialRequestsAndToggleContactPreference();
-//});
-
 
 //Slider toggle
 document.addEventListener('DOMContentLoaded', function () {
