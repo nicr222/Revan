@@ -429,6 +429,74 @@ input {
 }
 
 /* ==========================================================================
+   #Select Route Section Styles
+   ========================================================================== */
+
+.route-schedule {
+    padding: 0px 15px;
+}
+
+/* Styling for the route selection title */
+.radio-route-type .route-type {
+    font-size: 14px;
+    font-weight: bold; 
+    margin-bottom: 10px; 
+    color: #333;
+}
+
+/* General styling for radio button options within the route selection */
+#routeOptions {
+    display: flex;
+    flex-direction: column; /* Stack options vertically for clarity */
+    margin-bottom: 15px; /* Space below the options */
+    font-size: 13px;
+}
+
+/* Style for individual radio buttons - assuming you add class 'route-option' to each radio input */
+.route-option {
+    margin: 5px 0; /* Space between radio buttons */
+    cursor: pointer; 
+    position: relative;
+}
+
+/* Styling for the route information text to match other form info texts */
+.radio-route-type .route-info {
+    font-size: 12px; 
+    color: #666; 
+    margin-top: 10px; 
+}
+
+/* Style for individual radio buttons and labels */
+.radio-route-options label {
+    display: flex;
+    align-items: center; /* Aligns the radio button and label text vertically */
+    margin-bottom: 1px;
+}
+
+.radio-route-options input[type="radio"] {
+    margin-right: 10px; /* Space between radio button and label text */
+}
+
+/* Ensure that the label text wraps correctly next to the radio button */
+.radio-route-options label span {
+    display: inline-block;
+    margin-right: auto;
+}
+
+
+/* Adjustments for smaller screens, if necessary */
+@media (max-width: 767px) {
+    #routeOptions {
+        flex-direction: column; /* Ensure vertical stacking on small screens */
+    }
+
+    .route-schedule {
+        padding: 0px 10px; /* Adjust padding for smaller screens */
+    }
+}
+
+
+/* ==========================================================================
    #Friday Special Request Styles
    ========================================================================== */
 .special-request {
