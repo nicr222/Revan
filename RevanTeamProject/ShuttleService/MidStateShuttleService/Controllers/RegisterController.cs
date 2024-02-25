@@ -133,12 +133,15 @@ namespace MidStateShuttleService.Controllers
                                 var routeID = reader.GetInt32(reader.GetOrdinal("RouteID"));
                                 var pickUpTime = reader.GetTimeSpan(reader.GetOrdinal("PickUpTime")).ToString(@"hh\:mm");
                                 var dropOffTime = reader.GetTimeSpan(reader.GetOrdinal("DropOffTime")).ToString(@"hh\:mm");
-                                var additionalDetails = reader.IsDBNull(reader.GetOrdinal("AdditionalDetails")) ? string.Empty : reader.GetString(reader.GetOrdinal("AdditionalDetails"));
+                                var additionalDetails = reader.IsDBNull(reader.GetOrdinal("AdditionalDetails")) ? null : reader.GetString(reader.GetOrdinal("AdditionalDetails"));
                                 var pickUpLocationName = reader.GetString(reader.GetOrdinal("PickUpLocationName"));
                                 var dropOffLocationName = reader.GetString(reader.GetOrdinal("DropOffLocationName"));
 
                                 // Format the route details into a string.
-                                var routeDetail = $"Leave {pickUpLocationName} at {pickUpTime} ({additionalDetails}), Arrive at {dropOffLocationName} at {dropOffTime}";
+                                // Conditionally construct the routeDetail string
+                                var routeDetail = additionalDetails != null
+                                    ? $"Leave {pickUpLocationName} at {pickUpTime} ({additionalDetails}), Arrive at {dropOffLocationName} at {dropOffTime}"
+                                    : $"Leave {pickUpLocationName} at {pickUpTime}, Arrive at {dropOffLocationName} at {dropOffTime}";
 
                                 routesList.Add(new { RouteID = routeID, Detail = routeDetail }); // Add the route details to the list.
                             }
