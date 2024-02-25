@@ -730,7 +730,7 @@ input[type=checkbox]:not(:checked) ~ .toggle-label#toggleNo {
    #Contact Preferences
    ========================================================================== */
 .contact-preference {
-    margin-top: 30px;
+    margin-top: -9px;
     display: flex;
     flex-direction: column; /* Keeps the label and options in a column */
 }

@@ -23,7 +23,7 @@ $(document).ready(function () {
                     // Create Select Route and route-info HTML
                     var routeSelectHtml = '<p class="route-type">Select Route </p>';
                     var routeOptionsHtml = '';
-                    var routeInfoHtml = '<p class="route-info">Friday routes are by reservation only and can be customized for your schedule.</p>';
+                    var routeInfoHtml = '<p class="route-info">If these routes do not meet your needs, please submit a special request.</p>';
 
                     // Iterate over each route in the routes array.
                     routes.forEach(function (route) {

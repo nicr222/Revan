@@ -150,31 +150,6 @@
 
                             </div>
 
-                            
-                            <div class="input-fields">
-                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "input--style-1 js-datepicker", placeholder = "Date", type = "date" } })
-                                <div class="form-line"></div>
-                                <div id="Date-validation-message" class="validation-message">Please select date</div>
-                            </div>
-
-
-                            <div class="row row-space">
-                                <div class="col-6">
-                                    <div class="input-fields">
-                                        @Html.EditorFor(model => model.PickUpTime, new { htmlAttributes = new { @class = "input--style-1", placeholder = "PickUpTime", type = "time" } })
-                                        <div class="form-line"></div>
-                                        <div id="Time-validation-message" class="validation-message">Please select pickup time</div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="input-fields">
-                                        @Html.EditorFor(model => model.DropOffTime, new { htmlAttributes = new { @class = "input--style-1", placeholder = "DropOffTime", type = "time" } })
-                                        <div class="form-line"></div>
-                                        <div id="Time-validation-message" class="validation-message">Please select dropoff time</div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Other Special Request Section -->
                             <div class="other-special-request" style="display: none;">
                                 <p class="other-special-request-label">Special Request?</p>
