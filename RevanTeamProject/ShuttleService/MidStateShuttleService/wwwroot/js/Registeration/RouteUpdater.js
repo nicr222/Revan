@@ -23,6 +23,7 @@ $(document).ready(function () {
                     // Create Select Route and route-info HTML
                     var routeSelectHtml = '<p class="route-type">Select Route </p>';
                     var routeOptionsHtml = '';
+                    var routeformlineHtml = '<div class="form-line"></div>';
                     var routeInfoHtml = '<p class="route-info">If these routes do not meet your needs, please submit a special request.</p>';
 
                     // Iterate over each route in the routes array.
@@ -36,15 +37,20 @@ $(document).ready(function () {
 
                     console.log("Generated HTML:", routeOptionsHtml); // Log the generated HTML
                     // Insert the generated HTML into the page.
-                    $('#routeOptions').html(routeSelectHtml + routeOptionsHtml + routeInfoHtml);
+                    $('#routeOptions').html(routeSelectHtml + routeOptionsHtml + routeformlineHtml + routeInfoHtml);
                 })
                 .catch(error => {
                     console.error('There has been a problem with your fetch operation:', error);
                     $('#routeOptions').html('<p>Error loading routes. Please try again.</p>');
                 });
+
+            // Show the special request section when both locations are selected.
+            $('.other-special-request').show();
         } else {
             // If either pick-up or drop-off location is not selected, clear the route options.
             $('#routeOptions').empty();
+
+            $('.other-special-request').hide();
         }
     }
 
