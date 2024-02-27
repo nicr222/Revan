@@ -20,6 +20,10 @@
                     <form id="CommunicateForm" method="post" asp-action="StudentCommunicate">
                         @Html.AntiForgeryToken()
                         <div>
+                            @* Name input box *@
+                            <div class="input-fields">
+                                <input type="text" asp-for="name" class="input--style-1 text-box single-line p-2" placeholder="Name" maxlength="50"/>
+                            </div>
 
                             @* Message input box
                             I don't quite know if I like the styling for this as of right now
@@ -29,6 +33,14 @@
                                 <div id="message-Validation-Message" class="validation-message"></div>
                             </div>
 
+                            @* Checkbox to get response *@
+                            <div class="input-fields">
+                                <p class="typetrip">Would you like to recieve a response?</p>
+                                <div class="radio-options">
+                                    <input type="checkbox" asp-for="responseRequired" id="response"/>
+                                    <label for="response">Yes</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--submit" type="submit">Send</button>

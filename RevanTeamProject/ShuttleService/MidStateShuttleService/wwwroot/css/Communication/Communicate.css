@@ -399,3 +399,14 @@ input {
 .item.checked .check-icon {
     transform: scale(1);
 }
+
+/* For the response request */
+    .typetrip {
+        margin-right: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .radio-options label{
+        margin: 5px; /* Space between the label and the radio buttons */
+    }
