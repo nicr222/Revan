@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     const message = document.getElementById('message');
-    const shuttles = document.querySelectorAll('.checkbox');
+    const name = document.getElementById('name');
 
     // Form submission event listener
     document.querySelector('#CommunicateForm').addEventListener('submit', function (event) {
@@ -15,17 +15,18 @@ document.addEventListener('DOMContentLoaded', function () {
     // Validation functions
     function validateForm() {
         let isFormValid = true;
-        isFormValid &= validateMessage();
+        isFormValid &= validateMessage(name, 50);
+        isFormValid &= validateMessage(message, 160);
         return isFormValid;
     }
 
     // checks if the message box is empty
-    function validateMessage() {
-        if (!message.value || message.value.length > 160) {
-            displayValidationMessage(message, "Please enter a message before sending");
+    function validateMessage(element, length) {
+        if (!element.value || element.value.length > length) {
+            displayValidationMessage(element, "Please fill out field before sending");
             return false;
         } else {
-            clearValidationMessage(message);
+            clearValidationMessage(element);
             return true;
         }
     }

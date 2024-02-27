@@ -22,7 +22,8 @@
                         <div>
                             @* Name input box *@
                             <div class="input-fields">
-                                <input type="text" asp-for="name" class="input--style-1 text-box single-line p-2" placeholder="Name" maxlength="50"/>
+                                <input type="text" asp-for="name" class="input--style-1 text-box single-line p-2" placeholder="Name" id="name" maxlength="50"/>
+                                <div id="name-Validation-Message" class="validation-message"></div>
                             </div>
 
                             @* Message input box
