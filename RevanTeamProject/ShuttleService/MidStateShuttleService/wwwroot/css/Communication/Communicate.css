@@ -193,6 +193,7 @@ input {
     padding: 9px 0;
     color: #666;
     border: none;
+    width: 100%;
 }
 
     .input--style-1::-webkit-input-placeholder {
