@@ -14,11 +14,11 @@
 <body>
     <div>
         <div class="wrapper wrapper--w680 mt-5">
-            <div class="card card-1">
+            <div class="form form-1">
                 
-                <div class="card-body">
+                <div class="form-body">
                     <h2 class="title">Create Location</h2>
-                    <form id="CommunicateForm" asp-action="Create" method="post">
+                    <form asp-action="Create" method="post">
                         @Html.AntiForgeryToken()
                         <div>
 
@@ -54,7 +54,10 @@
                             </div>
 
                             <div class="p-t-20">
-                                <button type="submit" class="btn btn--radius btn--submit">Create Location</button>
+                                <div class="p-t-20">
+                                    <button class="btn btn--radius btn--submit" type="submit">Submit</button>
+                                    <button class="btn btn--radius btn--cancel" type="button" onclick="location.href='yourCancelPage.html'">Cancel</button>
+                                </div>
                             </div>
                         </div>
                     </form>
