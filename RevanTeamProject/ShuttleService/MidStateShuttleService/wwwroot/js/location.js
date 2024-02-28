@@ -32,7 +32,7 @@
         isValidForm &= validateInput($('#State'), /^[A-Za-z]{2}$/, 'State-validation-message');
 
         // Validate ZipCode
-        isValidForm &= validateInput($('#ZipCode'), /^[0-9]{5,10}$/, 'ZipCode-validation-message');
+        isValidForm &= validateInput($('#ZipCode'), /^[0-9]{5}(-[0-9]{4})?$/, 'ZipCode-validation-message');
 
         // Validate Abbreviation
         isValidForm &= validateInput($('#Abbreviation'), /^[A-Za-z]{3}$/, 'Abbreviation-validation-message');
@@ -68,11 +68,10 @@
         validateInput($(this), /^[A-Za-z]{2}$/, 'State-validation-message');
     });
 
-    $('#ZipCode').change(function () {
-        validateInput($(this), /^[0-9]{5,10}$/, 'ZipCode-validation-message');
-    });
-
-    $('#Abbreviation').change(function () {
-        validateInput($(this), /^[A-Za-z]{3}$/, 'Abbreviation-validation-message');
-    });
-});
+    // ZipCode validation with hyphen on keystroke
+    $('#ZipCode').on('input', function () {
+        var value = $(this).val().trim();
+        // Remove non-numeric characters
+        var numericValue = value.replace(/[^0-9]/g, '');
+        // Add hyphen for formatting
+        var formattedValue = numericValue.replace(/(\d{5})(\d
