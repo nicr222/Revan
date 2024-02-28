@@ -5,51 +5,67 @@
 }
 @model MidStateShuttleService.Models.Location
 
-<link rel="stylesheet" href="/css/CheckIn.css" />
+<link rel="stylesheet" href="/css/Location.css" />
+
+
+
+<link rel="stylesheet" href="/path/to/location-form.css" />
 
 <body>
-    <div class="wrapper wrapper--w680">
-        <form asp-action="Create" method="post" class="form form-1">
-            <div class="form-body">
-                <h2 class="title">Create Location</h2>
-
-                <div class="input-fields">
-                    <input asp-for="Name" type="text" class="form-control input--style-1" placeholder="Location Name" required />
-                    <div class="div-line"></div>
-                </div>
-
-                <div class="input-fields">
-                    <input asp-for="Address" type="text" class="form-control input--style-1" placeholder="Location Address" required />
-                    <div class="div-line"></div>
-                </div>
-
-                <div class="input-fields">
-                    <input asp-for="City" type="text" class="form-control input--style-1" placeholder="City" required />
-                    <div class="div-line"></div>
-                </div>
-
-                <div class="input-fields">
-                    <input asp-for="State" type="text" class="form-control input--style-1" placeholder="State" maxlength="2" required />
-                    <div class="div-line"></div>
-                </div>
-
-                <div class="input-fields">
-                    <input asp-for="ZipCode" type="text" class="form-control input--style-1" placeholder="Zip Code" required />
-                    <div class="div-line"></div>
-                </div>
+    <div>
+        <div class="wrapper wrapper--w680 mt-5">
+            <div class="card card-1">
+                
+                <div class="card-body">
+                    <h2 class="title">Create Location</h2>
+                    <form id="CommunicateForm" asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <div>
 
 
-                <div class="input-fields">
-                    <input asp-for="Abbreviation" type="text" class="form-control input--style-1" placeholder="Location Abbreviation" required />
-                    <div class="div-line"></div>
-                </div>
+                            <div class="input-fields">
+                                <input asp-for="Name" type="text" class="input--style-1" placeholder="Stop Name" required />
+                                <div class="div-line"></div>
+                            </div>
 
-                <div class="p-t-20">
-                    <button type="submit" class="btn btn--radius btn--submit">Create Location</button>
+                            <div class="input-fields">
+                                <input asp-for="Address" type="text" class="input--style-1" placeholder="Enter Address" required />
+                                <div class="div-line"></div>
+                            </div>
+
+                            <div class="input-fields">
+                                <input asp-for="City" type="text" class="input--style-1" placeholder="City" required />
+                                <div class="div-line"></div>
+                            </div>
+
+                            <div class="input-fields">
+                                <input asp-for="State" type="text" class="input--style-1" placeholder="State" maxlength="2" required />
+                                <div class="div-line"></div>
+                            </div>
+
+                            <div class="input-fields">
+                                <input asp-for="ZipCode" type="text" class="input--style-1" placeholder="Zip Code" required />
+                                <div class="div-line"></div>
+                            </div>
+
+                            <div class="input-fields">
+                                <input asp-for="Abbreviation" type="text" class="input--style-1" placeholder="Stop Abbreviation" required />
+                                <div class="div-line"></div>
+                            </div>
+
+                            <div class="p-t-20">
+                                <button type="submit" class="btn btn--radius btn--submit">Create Location</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
+
+    
+        
+
 
     <script src="/js/location.js"></script>
 </body>
