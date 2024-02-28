@@ -101,53 +101,100 @@
 
                         <div class="additional-fields">
 
-                            <div class="row row-space">
-                                <div class="location-description">
-                                    <p>*Other: Choose this option for additional stops along a current route or the Healthcare Simulation Center (Requires a special request)</p>
-                                </div>
-
-                                <div class="col-6">
-                                    <div class="input-fields">
-                                        @* @Html.DropDownListFor(model => model.PickLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" }) *@
-                                        @if (Model.LocationNames != null)
-                                        {
-                                            @Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })
-                                        }
-                                        else
-                                        {
-                                            <p>Error: Location names not loaded.</p>
-                                        }
-                                        <div class="form-line"></div>
-                                        <div id="PickUpLocation-validation-message" class="validation-message">Please select pickup location</div>
+                            <div class="initial-select-route">
+                                <div class="row row-space">
+                                    <div class="location-description">
+                                        <p>*Other: Choose this option for additional stops along a current route or the Healthcare Simulation Center (Requires a special request)</p>
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="input-fields">
-                                       @*  @Html.DropDownListFor(model => model.DropOffLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" }) *@
-                                        @if (Model.LocationNames != null)
-                                        {
-                                            @Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })
-                                        }
-                                        else
-                                        {
-                                            <p>Error: Location names not loaded.</p>
-                                        }
-                                        <div class="form-line"></div>
-                                        <div id="DropOffLocation-validation-message" class="validation-message">Pelase select dropoff location</div>
+
+                                    <div class="col-6">
+                                        <div class="input-fields">
+                                            @* @Html.DropDownListFor(model => model.PickLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" }) *@
+                                            @if (Model.LocationNames != null)
+                                            {
+                                                @Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })
+                                            }
+                                            else
+                                            {
+                                                <p>Error: Location names not loaded.</p>
+                                            }
+                                            <div class="form-line"></div>
+                                            <div id="PickUpLocation-validation-message" class="validation-message">Please select pickup location</div>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="col-6">
+                                        <div class="input-fields">
+                                           @*  @Html.DropDownListFor(model => model.DropOffLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" }) *@
+                                            @if (Model.LocationNames != null)
+                                            {
+                                                @Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })
+                                            }
+                                            else
+                                            {
+                                                <p>Error: Location names not loaded.</p>
+                                            }
+                                            <div class="form-line"></div>
+                                            <div id="DropOffLocation-validation-message" class="validation-message">Pelase select dropoff location</div>
+                                        </div>
+                                    </div>
 
 
-                                <!-- Placeholder for Select Route radio buttons -->
-                                <div class="route-location-schedule">
-                                    <div class="input-fields">
-                                        <div class="radio-route-type">
-                                            <div id="routeOptions" class="radio-route-options"></div>
+                                    <!-- Placeholder for Select Route radio buttons -->
+                                    <div class="route-location-schedule">
+                                        <div class="input-fields">
+                                            <div class="radio-route-type">
+                                                <div id="routeOptions" class="radio-route-options"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
+                                <div class="return-select-route">
+                                    <div class="row row-space" >
 
+                                        <div class="col-6">
+                                            <div class="input-fields">
+                                                @* @Html.DropDownListFor(model => model.PickLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" }) *@
+                                                @if (Model.LocationNames != null)
+                                                {
+                                                    @Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Return Pick-Up Location", new { @class = "input--style-1", id = "ReturnPickUpLocation" })
+                                                }
+                                                else
+                                                {
+                                                    <p>Error: Location names not loaded.</p>
+                                                }
+                                                <div class="form-line"></div>
+                                                <div id="PickUpLocation-validation-message" class="validation-message">Please select pickup location</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-fields">
+                                                @*  @Html.DropDownListFor(model => model.DropOffLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" }) *@
+                                                @if (Model.LocationNames != null)
+                                                {
+                                                    @Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Return Drop-Off Location", new { @class = "input--style-1", id = "ReturnDropOffLocation" })
+                                                }
+                                                else
+                                                {
+                                                    <p>Error: Location names not loaded.</p>
+                                                }
+                                                <div class="form-line"></div>
+                                                <div id="DropOffLocation-validation-message" class="validation-message">Pelase select dropoff location</div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Placeholder for Select Route radio buttons -->
+                                        <div class="return-route-location-schedule">
+                                            <div class="input-fields">
+                                                <div class="return-radio-route-type">
+                                                    <div id="returnRouteOptions" class="return-radio-route-options"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                     </div>
+                                </div>
                             </div>
 
                             <!-- Other Special Request Section -->
@@ -414,6 +461,7 @@
 <script src="/js/Registeration/RegisterationValidation.js"></script>
 <script src="/js/Registeration/finalconfirmation.js"></script>
 <script src="/js/Registeration/RouteUpdater.js"></script>
+<script src="/js/Registeration/ReturnRouteUpdater.js"></script>
 
 
 
