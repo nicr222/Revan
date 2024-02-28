@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         isFormValid &= validateMessage(name, 50);
         isFormValid &= validateMessage(message, 160);
         if (response.checked) {
-            isFormValid &= validateMessage(contact, 50);
+            isFormValid &= validateEmail(contact, 50, /^[^\s@]+@[^\s@]+\.[^\s@]+$/);
         }
         return isFormValid;
     }
@@ -29,6 +29,17 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateMessage(element, length) {
         if (!element.value || element.value.length > length) {
             displayValidationMessage(element, "Please fill out field before sending");
+            return false;
+        } else {
+            clearValidationMessage(element);
+            return true;
+        }
+    }
+
+    function validateEmail(element, length, regex) {
+        const regexTest = regex.test(element.value)
+        if (!element.value || element.value.length > length || regexTest == false) {
+            displayValidationMessage(element, "Please enter a valid Email");
             return false;
         } else {
             clearValidationMessage(element);
