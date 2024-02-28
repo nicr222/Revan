@@ -16,6 +16,6 @@ namespace MidStateShuttleService.Models
 
         public bool responseRequired { get; set; }
 
-        public string contactInfo { get; set; }
+        public string? contactInfo { get; set; }
     }
 }

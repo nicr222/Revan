@@ -63,10 +63,20 @@ namespace MidStateShuttleService.Controllers
                     {
                         connection.Open();
 
-                        string sendMessageQuery = "INSERT INTO [dbo].[DispatchMessage] (Message) VALUES (@Message); SELECT SCOPE_IDENTITY();";
+                        string sendMessageQuery = "INSERT INTO [dbo].[DispatchMessage] (Message, Name, ResponseRequired, ContactInfo) VALUES (@Message, @Name, @ResponseRequired, @ContactInfo); SELECT SCOPE_IDENTITY();";
                         SqlCommand cmdMessage = new SqlCommand(sendMessageQuery, connection);
 
                         cmdMessage.Parameters.AddWithValue("@Message", c.message);
+                        cmdMessage.Parameters.AddWithValue("@Name", c.name);
+                        cmdMessage.Parameters.AddWithValue("@ResponseRequired", c.responseRequired);
+                        if (c.responseRequired == false)
+                        {
+                            cmdMessage.Parameters.AddWithValue("@ContactInfo", "null");
+                        }
+                        else
+                        {
+                            cmdMessage.Parameters.AddWithValue("@ContactInfo", c.contactInfo);
+                        }
                         cmdMessage.ExecuteNonQuery();
                     }
 
