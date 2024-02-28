@@ -248,3 +248,106 @@ input.radio-style {
 .btn--submit:hover, .btn--cancel:hover {
     animation: thickenBorder 0.1s ease-out forwards; /* Apply the keyframe animation on hover */
 }
+
+
+/* ==========================================================================
+   #Validation
+   ========================================================================== */
+
+
+.validation-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: none; /* Hide by default */
+}
+
+    .validation-message:before {
+        content: "\26A0";
+        color: red;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+/* ==========================================================================
+   #Select Button
+   ========================================================================== */
+
+.select-btn {
+    display: flex;
+    cursor: pointer;
+}
+
+    .select-btn .btn-text {
+        font-weight: 400;
+        margin-bottom: 10px;
+        color: #666;
+    }
+
+    .select-btn .arrow-dwn {
+        display: inline-flex;
+        height: 21px;
+        width: 21px;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+    }
+
+    .select-btn.open .arrow-dwn {
+        transform: rotate(-180deg);
+    }
+
+/* ==========================================================================
+#Select Items
+========================================================================== */
+.list-items {
+    position: relative;
+    margin-top: 15px;
+    padding: 16px;
+    display: none;
+}
+
+.select-btn.open ~ .list-items {
+    display: block;
+}
+
+.list-items .item {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    height: 50px;
+    cursor: pointer;
+}
+
+.item .item-text {
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.item .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+    transition: all 0.3s ease-in-out;
+}
+
+.item.checked .checkbox {
+    background-color: #840029;
+    border-color: #840029;
+}
+
+.checkbox .check-icon {
+    color: #ffffff;
+    font-size: 11px;
+    transform: scale(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.item.checked .check-icon {
+    transform: scale(1);
+}

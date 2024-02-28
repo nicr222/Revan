@@ -1,54 +1,78 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
-    // Checks Location Name
-    $("#Name").on("blur", function () {
-        // Regular Expression for only 255 characters
-        var regex = /^[A-Za-z0-9\s]{1,255}$/;
+﻿$(document).ready(function () {
+    // Function to validate each input field
+    function validateInput(input, regex, errorMessageId) {
+        var value = input.val().trim();
+        var isValid = regex.test(value);
 
-        if (regex.test($(this).val())) {
-            $(this).removeClass("is-invalid").addClass("is-valid");
+        if (isValid) {
+            input.removeClass('is-invalid');
+            $('#' + errorMessageId).hide();
         } else {
-            $(this).removeClass("is-valid").addClass("is-invalid");
+            input.addClass('is-invalid');
+            $('#' + errorMessageId).show();
+        }
+
+        return isValid;
+    }
+
+    // Function to validate the entire form
+    function validateForm() {
+        var isValidForm = true;
+
+        // Validate Name
+        isValidForm &= validateInput($('#Name'), /^[A-Za-z\s]{2,25}$/, 'Name-validation-message');
+
+        // Validate Address
+        isValidForm &= validateInput($('#Address'), /^[A-Za-z0-9\s]{2,50}$/, 'Address-validation-message');
+
+        // Validate City
+        isValidForm &= validateInput($('#City'), /^[A-Za-z\s]{2,50}$/, 'City-validation-message');
+
+        // Validate State
+        isValidForm &= validateInput($('#State'), /^[A-Za-z]{2}$/, 'State-validation-message');
+
+        // Validate ZipCode
+        isValidForm &= validateInput($('#ZipCode'), /^[0-9]{5,10}$/, 'ZipCode-validation-message');
+
+        // Validate Abbreviation
+        isValidForm &= validateInput($('#Abbreviation'), /^[A-Za-z]{3}$/, 'Abbreviation-validation-message');
+
+        return isValidForm;
+    }
+
+    // Submit form event
+    $('form').submit(function () {
+        if (validateForm()) {
+            // Form is valid, continue with submission
+            return true;
+        } else {
+            // Form is invalid, prevent submission
+            return false;
         }
     });
 
-    // Checks Location Address
-    $("#Address").on("blur", function () {
-        // Regular Expression for only 255 characters
-        var regex = /^[A-Za-z0-9\s]{1,255}$/;
-
-        if (regex.test($(this).val())) {
-            $(this).removeClass("is-invalid").addClass("is-valid");
-        } else {
-            $(this).removeClass("is-valid").addClass("is-invalid");
-        }
+    // Input field change events for live validation
+    $('#Name').change(function () {
+        validateInput($(this), /^[A-Za-z\s]{2,25}$/, 'Name-validation-message');
     });
 
-    // Checks Location Abbreviation
-    $("#Abbreviation").on("blur", function () {
-        // Regular Expression for only 10 characters
-        var regex = /^[A-Za-z0-9\s]{1,10}$/;
-
-        if (regex.test($(this).val())) {
-            $(this).removeClass("is-invalid").addClass("is-valid");
-        } else {
-            $(this).removeClass("is-valid").addClass("is-invalid");
-        }
+    $('#Address').change(function () {
+        validateInput($(this), /^[A-Za-z0-9\s]{2,50}$/, 'Address-validation-message');
     });
 
-    $("button[type='submit']").on("click", function () {
-        // Trigger blur events for all relevant elements
-        $("#Name, #Address, #Abbreviation").trigger("blur");
+    $('#City').change(function () {
+        validateInput($(this), /^[A-Za-z\s]{2,50}$/, 'City-validation-message');
+    });
 
-        // Check if any element has the is-invalid class
-        if ($(".is-invalid").length === 0) {
-            // No element has the is-invalid class, all fields are valid
-            alert("Form submitted successfully!");
-        } else {
-            // At least one element has the is-invalid class, the form is not valid
-            alert("Form contains invalid fields. Please check and try again.");
-            $("form").on("submit", function (e) {
-                e.preventDefault();
-            });
-        }
+    $('#State').change(function () {
+        validateInput($(this), /^[A-Za-z]{2}$/, 'State-validation-message');
+    });
+
+    $('#ZipCode').change(function () {
+        validateInput($(this), /^[0-9]{5,10}$/, 'ZipCode-validation-message');
+    });
+
+    $('#Abbreviation').change(function () {
+        validateInput($(this), /^[A-Za-z]{3}$/, 'Abbreviation-validation-message');
     });
 });

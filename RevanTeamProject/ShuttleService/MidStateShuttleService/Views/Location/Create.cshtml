@@ -5,11 +5,16 @@
 }
 @model MidStateShuttleService.Models.Location
 
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/Location.css" />
 
 
 
-<link rel="stylesheet" href="/path/to/location-form.css" />
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 <body>
     <div>
@@ -26,31 +31,37 @@
                             <div class="input-fields">
                                 <input asp-for="Name" type="text" class="input--style-1" placeholder="Stop Name" required />
                                 <div class="div-line"></div>
+                                <div id="Name-validation-message" class="validation-message">Please enter a valid stop name.</div>
                             </div>
 
                             <div class="input-fields">
                                 <input asp-for="Address" type="text" class="input--style-1" placeholder="Enter Address" required />
                                 <div class="div-line"></div>
+                                <div id="Address-validation-message" class="validation-message">Please enter a valid address.</div>
                             </div>
 
                             <div class="input-fields">
                                 <input asp-for="City" type="text" class="input--style-1" placeholder="City" required />
                                 <div class="div-line"></div>
+                                <div id="City-validation-message" class="validation-message">Please enter a valid city.</div>
                             </div>
 
                             <div class="input-fields">
                                 <input asp-for="State" type="text" class="input--style-1" placeholder="State" maxlength="2" required />
                                 <div class="div-line"></div>
+                                <div id="State-validation-message" class="validation-message">Please enter a valid State.</div>
                             </div>
 
                             <div class="input-fields">
                                 <input asp-for="ZipCode" type="text" class="input--style-1" placeholder="Zip Code" required />
                                 <div class="div-line"></div>
+                                <div id="ZipCode-validation-message" class="validation-message">Please enter a valid zip code.</div>
                             </div>
 
                             <div class="input-fields">
                                 <input asp-for="Abbreviation" type="text" class="input--style-1" placeholder="Stop Abbreviation" required />
                                 <div class="div-line"></div>
+                                <div id="Abbreviation-validation-message" class="validation-message">Please enter a 3 digit easy to understand abbreviation.</div>
                             </div>
 
                             <div class="p-t-20">
@@ -70,5 +81,5 @@
         
 
 
-    <script src="/js/location.js"></script>
+    <script src="~/js/location.js"></script>
 </body>
