@@ -3,6 +3,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const message = document.getElementById('message');
     const name = document.getElementById('name');
+    const response = document.getElementById('responseRequest');
+    const contact = document.getElementById('contactInfo')
 
     // Form submission event listener
     document.querySelector('#CommunicateForm').addEventListener('submit', function (event) {
@@ -17,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let isFormValid = true;
         isFormValid &= validateMessage(name, 50);
         isFormValid &= validateMessage(message, 160);
+        if (response.checked) {
+            isFormValid &= validateMessage(contact, 50);
+        }
         return isFormValid;
     }
 

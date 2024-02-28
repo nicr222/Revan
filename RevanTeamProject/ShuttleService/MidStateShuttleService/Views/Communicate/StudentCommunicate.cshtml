@@ -38,9 +38,16 @@
                             <div class="input-fields">
                                 <p class="typetrip">Would you like to recieve a response?</p>
                                 <div class="radio-options">
-                                    <input type="checkbox" asp-for="responseRequired" id="response"/>
-                                    <label for="response">Yes</label>
+                                    <input type="checkbox" asp-for="responseRequired" id="responseRequest" onclick="toggleDisplay()" />
+                                    <label for="responseRequest">Yes</label>
                                 </div>
+                            </div>
+
+                            @* Contact info *@
+                            <div class="input-fields" id="contactInfoDiv" style="display: none;">
+                                <p class="trip-info">Please enter an Email or Phone number to recieve a response.</p>
+                                <input type="text" asp-for="contactInfo" class="input--style-1 text-box single-line p-2" placeholder="Contact Info" id="contactInfo" maxlength="50" />
+                                <div id="contactInfo-Validation-Message" class="validation-message"></div>
                             </div>
                         </div>
                         <div class="p-t-20">
@@ -54,3 +61,4 @@
 </body>
 
 <script src="~/js/Communication/StudentCommunicate.js"></script>
+<script src="~/js/Communication/contactInfo.js"></script>
