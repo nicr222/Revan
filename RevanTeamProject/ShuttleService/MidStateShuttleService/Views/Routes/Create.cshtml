@@ -1,70 +1,72 @@
-﻿
-@{
-    ViewData["Title"] = "Create";
+﻿@{
+    ViewData["Title"] = "Create Route";
 }
 
 @inject MidStateShuttleService.Service.IListService ListServices
 @model MidStateShuttleService.Models.Routes
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<link rel="stylesheet" href="/css/CheckIn.css" />
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/routes.css" />
 
 <body>
-    <div class="wrapper wrapper--w680">
-        <form asp-action="Create" method="post" class="form form-1">
+    <div class="wrapper wrapper--w680 mt-5">
+        <div class="form form-1">
             <div class="form-body">
                 <h2 class="title">Create Route</h2>
+                <form asp-action="Create" method="post">
 
-                <div class="input-fields">
-                    <label>Pick Up Location</label>
-                    <select asp-for="PickUpLocationID"
-                            asp-items="ListServices.GetLocationList().Select(x => new SelectListItem{ Text = x.Name, Value = x.LocationID.ToString()})" class="form-control input--style-1" required>
-                        <option selected="selected" value="" required>--Select--</option>
-                    </select>
+                    <div class="input-fields">
+                        <label>Pick Up Location</label>
+                        <select asp-for="PickUpLocationID"
+                                asp-items="ListServices.GetLocationList().Select(x => new SelectListItem{ Text = x.Name, Value = x.LocationID.ToString()})"
+                                class="form-control input--style-1" required>
+                            <option selected="selected" value="" required>--Select--</option>
+                        </select>
+                        <div class="div-line"></div>
+                        <div id="PickUpLocationID-validation-message" class="validation-message">Please select a pick-up location.</div>
+                    </div>
 
-                    <div class="div-line"></div>
-                </div>
+                    <div class="input-fields">
+                        <label>Drop Off Location</label>
+                        <select asp-for="DropOffLocationID"
+                                asp-items="ListServices.GetLocationList().Select(x => new SelectListItem{ Text = x.Name, Value = x.LocationID.ToString()})"
+                                class="form-control input--style-1" required>
+                            <option selected="selected" value="" required>--Select--</option>
+                        </select>
+                        <div class="div-line"></div>
+                        <div id="DropOffLocationID-validation-message" class="validation-message">Please select a drop-off location.</div>
+                    </div>
 
-                <div class="input-fields">
-                    <label>Drop Off Location</label>
-                    <select asp-for="DropOffLocationID"
-                            asp-items="ListServices.GetLocationList().Select(x => new SelectListItem{ Text = x.Name, Value = x.LocationID.ToString()})" class="form-control input--style-1" required>
-                        <option selected="selected" value="" required>--Select--</option>
-                    </select>
+                    <div class="input-fields">
+                        <label>Pick Up Time</label>
+                        <input asp-for="PickUpTime" type="time" class="form-control input--style-1" required />
+                        <div class="div-line"></div>
+                        <div id="PickUpTime-validation-message" class="validation-message">Please enter a valid pick-up time.</div>
+                    </div>
 
-                    <div class="div-line"></div>
-                </div>
+                    <div class="input-fields">
+                        <label>Drop Off Time</label>
+                        <input asp-for="DropOffTime" type="time" class="form-control input--style-1" required />
+                        <div class="div-line"></div>
+                        <div id="DropOffTime-validation-message" class="validation-message">Please enter a valid drop-off time.</div>
+                    </div>
 
-                <div class="input-fields">
-                    <label>Pick Up Time</label>
-                    <input asp-for="PickUpTime" type="time" class="form-control input--style-1" required />
-                    <div class="div-line"></div>
-                </div>
+                    <div class="input-fields">
+                        <label>Additional Details</label>
+                        <textarea asp-for="AdditionalDetails" class="form-control input--style-1" placeholder="Enter additional details"></textarea>
+                        <div class="div-line"></div>
+                        <!-- Add validation message if needed for textarea -->
+                    </div>
 
-                <div class="input-fields">
-                    <label>Drop Off Time</label>
-                    <input asp-for="DropOffTime" type="time" class="form-control input--style-1" required />
-                    <div class="div-line"></div>
-                </div>
+                    <div class="p-t-20">
+                        <button type="submit" class="btn btn--radius btn--submit">Create Route</button>
+                    </div>
 
-                <div class="input-fields">
-                    <label>Additional Details</label>
-                    <textarea asp-for="AdditionalDetails" class="form-control input--style-1" placeholder="Enter additional details"></textarea>
-                    <div class="div-line"></div>
-                </div>
-
-                <div class="p-t-20">
-                    <button type="submit" class="btn btn--radius btn--green">Create Route</button>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
     <script src="/js/routes.js"></script>
 </body>
-
-
-
+</html>
