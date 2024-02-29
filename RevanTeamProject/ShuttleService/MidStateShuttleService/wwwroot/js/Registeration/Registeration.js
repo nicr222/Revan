@@ -24,95 +24,71 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-//Other Special Request Selection
 document.addEventListener('DOMContentLoaded', function () {
     var pickUpLocationSelect = document.getElementById('PickUpLocation');
     var dropOffLocationSelect = document.getElementById('DropOffLocation');
     var otherSpecialRequestSection = document.querySelector('.other-special-request');
+    var otherSpecialRequestTimePreferences = document.querySelector('.other-special-request-time-preferences');
+    var otherPickupLocationDiv = document.querySelector('.other-pickup');
+    var otherDropoffLocationDiv = document.querySelector('.other-dropoff');
+    var otherSpecialYes = document.getElementById('otherSpecialYes');
+    var otherSpecialNo = document.getElementById('otherSpecialNo');
+    var otherMustLeaveAfterContainer = document.querySelector('.other-leave-after');
+    var oneWayRadio = document.getElementById('OneWay');
+    var roundTripRadio = document.getElementById('RoundTrip');
 
+    //fucntion used to ccontrol the display of the special request section in a route shecudling system
     function toggleSpecialRequestDisplay() {
-        // Check if either of the dropdowns has "Other" selected
-        if (pickUpLocationSelect.value === 'Other' || dropOffLocationSelect.value === 'Other') {
-            otherSpecialRequestSection.style.display = 'block';
-        } else {
-            otherSpecialRequestSection.style.display = 'none';
-        }
+        // Get the selected option text for both pickup and dropoff locations
+        var pickUpSelectedOptionText = pickUpLocationSelect.options[pickUpLocationSelect.selectedIndex].text;
+        var dropOffSelectedOptionText = dropOffLocationSelect.options[dropOffLocationSelect.selectedIndex].text;
+        // Check if the selected text in 'other' (in a case-insensitive manner)
+        var displayState = (pickUpSelectedOptionText.toLowerCase() === 'other' || dropOffSelectedOptionText.toLowerCase() === 'other') ? 'block' : 'none';
+
+        // Applies the displayState to the otherSpecialRequestSection's display style, determining its visibility.
+        otherSpecialRequestSection.style.display = displayState;
+        // Sets the display style of otherPickupLocationDiv and  otherDropoffLocationDiv to 'block' if location are 'other', or 'none' if not.
+        otherPickupLocationDiv.style.display = (pickUpSelectedOptionText.toLowerCase() === 'other') ? 'block' : 'none';
+        otherDropoffLocationDiv.style.display = (dropOffSelectedOptionText.toLowerCase() === 'other') ? 'block' : 'none';
+        //Calls the function with the argument otherSpecialYes.checked, which is a boolean representing whether the "Yes" option for other special requests is selected.
+        toggleOtherSpecialRequestVisibility(otherSpecialYes.checked);
     }
 
-    // Add change event listeners to both dropdowns
+    function toggleOtherSpecialRequestVisibility(show) {
+// Determines whether the "Yes" radio button for other special requests is selected
+        otherSpecialRequestTimePreferences.style.display = show ? '' : 'none';
+    }
+
+    function toggleOtherMustLeaveAfterVisibility() {
+        // Determines whether the "One Way" radio button is selected
+        var isOneWaySelected = oneWayRadio.checked;
+// Determines whether the "Yes" radio button for other special requests is selected
+        var isOtherSpecialYesSelected = otherSpecialYes.checked;
+        otherMustLeaveAfterContainer.style.display = (isOneWaySelected && isOtherSpecialYesSelected) ? 'none' : 'block';
+    }
+
+    // Event listeners for changing display based on dropdown selections
     pickUpLocationSelect.addEventListener('change', toggleSpecialRequestDisplay);
     dropOffLocationSelect.addEventListener('change', toggleSpecialRequestDisplay);
 
-    // Initial check in case the page is loaded with "Other" already selected
-    toggleSpecialRequestDisplay();
-});
-
-//Other Special Request Selection
-document.addEventListener('DOMContentLoaded', function () {
-    // Select the radio buttons for "Other Special Request"
-    const otherSpecialYes = document.getElementById('otherSpecialYes');
-    const otherSpecialNo = document.getElementById('otherSpecialNo');
-
-    // Function to toggle visibility based on the "Other Special Request" selection
-    function toggleVisibility(show) {
-        // Select the elements to show/hide
-        const otherSpecialRequestTimePreferences = document.querySelector('.other-special-request-time-preferences');
-
-        if (show) {
-            // Show elements
-            otherSpecialRequestTimePreferences.style.display = '';
-        } else {
-            // Hide elements
-            otherSpecialRequestTimePreferences.style.display = 'none';
-        }
-    }
-
-    // Initialize with current selection
-    toggleVisibility(otherSpecialYes.checked);
-
-    // Add event listeners to the radio buttons
+    // Event listeners for "Other Special Request" Yes/No radio buttons
     otherSpecialYes.addEventListener('change', function () {
-        toggleVisibility(this.checked);
+        toggleOtherSpecialRequestVisibility(this.checked);
+        toggleOtherMustLeaveAfterVisibility();
     });
-
     otherSpecialNo.addEventListener('change', function () {
-        // When "No" is selected, ensure the elements are hidden
-        toggleVisibility(false);
+        toggleOtherSpecialRequestVisibility(false);
+        toggleOtherMustLeaveAfterVisibility();
     });
-});
 
-//Hide and Show the Must leave the campus from Other Special Request One way section
-document.addEventListener('DOMContentLoaded', function () {
-    // Select the DOM elements
-    var oneWayRadio = document.getElementById('OneWay');
-    var roundTripRadio = document.getElementById('RoundTrip');
-    var otherSpecialYesRadio = document.getElementById('otherSpecialYes');
-    var otherMustLeaveAfterContainer = document.querySelector('.other-leave-after'); // Updated selector to match your HTML
-
-    // Function to toggle the visibility of the 'otherMustLeaveAfter' container
-    function toggleOtherMustLeaveAfterVisibility() {
-        // Check the current state of the 'OneWay' and 'RoundTrip' trip types and 'Other Special Request' Yes option
-        var isOneWaySelected = oneWayRadio.checked;
-        var isOtherSpecialYesSelected = otherSpecialYesRadio.checked;
-
-        // Hide or show the 'otherMustLeaveAfter' container based on the 'OneWay' selection and 'Other Special Request' being 'Yes'
-        if (isOneWaySelected && isOtherSpecialYesSelected) {
-            otherMustLeaveAfterContainer.style.display = 'none';
-        } else {
-            otherMustLeaveAfterContainer.style.display = 'block';
-        }
-    }
-
-    // Add event listeners for change events on the 'OneWay', 'RoundTrip', and 'Other Special Request' Yes radio buttons
+    // Event listeners for trip type radio buttons
     oneWayRadio.addEventListener('change', toggleOtherMustLeaveAfterVisibility);
     roundTripRadio.addEventListener('change', toggleOtherMustLeaveAfterVisibility);
-    otherSpecialYesRadio.addEventListener('change', toggleOtherMustLeaveAfterVisibility);
 
-    // Initial check to set the correct display state
+    // Initial checks
+    toggleSpecialRequestDisplay();
     toggleOtherMustLeaveAfterVisibility();
 });
-
-
 
 
 //Friday Special Request Selection
@@ -222,34 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleContactPreferenceDisplay();
 });
 
-//** This is to show and hide contact preference section based on special request the selection. I want to hide it for now becuase I am not sure which one is better **
-//document.addEventListener('DOMContentLoaded', function () {
-//    // Function to check the state of special request options and toggle contact preference visibility
-//    function checkSpecialRequestsAndToggleContactPreference() {
-//        var specialYesChecked = document.getElementById('specialYes').checked;
-//        var otherSpecialYesChecked = document.getElementById('otherSpecialYes').checked;
-//        var contactPreferenceSection = document.querySelector('.contact-preference');
-
-//        // Show contact preference if either special request is checked, otherwise hide
-//        if (specialYesChecked || otherSpecialYesChecked) {
-//            contactPreferenceSection.style.display = 'block';
-//        } else {
-//            contactPreferenceSection.style.display = 'none';
-//        }
-//    }
-
-//    // Listen for changes on the 'specialYes' and 'otherSpecialYes' radio buttons
-//    document.getElementById('specialYes').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
-//    document.getElementById('otherSpecialYes').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
-
-//    // Also, listen for changes on the 'no' options to ensure the contact preference section is hidden when neither 'yes' option is selected
-//    document.getElementById('specialNo').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
-//    document.getElementById('otherSpecialNo').addEventListener('change', checkSpecialRequestsAndToggleContactPreference);
-
-//    // Initial check to set the correct display state when the page loads
-//    checkSpecialRequestsAndToggleContactPreference();
-//});
-
 
 //Slider toggle
 document.addEventListener('DOMContentLoaded', function () {
@@ -299,43 +247,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-//show and hide other pickup and dropoff location based on the selection
-document.addEventListener('DOMContentLoaded', function () {
-    var pickUpLocationSelect = document.getElementById('PickUpLocation');
-    var dropOffLocationSelect = document.getElementById('DropOffLocation');
-    var otherSpecialYesRadio = document.getElementById('otherSpecialYes');
-    var otherPickupLocationDiv = document.querySelector('.other-pickup');
-    var otherDropoffLocationDiv = document.querySelector('.other-dropoff');
-
-    function toggleLocationInputs() {
-        var pickUpSelectedOther = pickUpLocationSelect.value === 'Other';
-        var dropOffSelectedOther = dropOffLocationSelect.value === 'Other';
-        var isOtherSpecialRequestSelected = otherSpecialYesRadio.checked;
-
-        // Show or hide the 'other-pickup' and 'other-dropoff' divs
-        if (isOtherSpecialRequestSelected) {
-            otherPickupLocationDiv.style.display = pickUpSelectedOther ? 'block' : 'none';
-            otherDropoffLocationDiv.style.display = dropOffSelectedOther ? 'block' : 'none';
-        } else {
-            otherPickupLocationDiv.style.display = 'none';
-            otherDropoffLocationDiv.style.display = 'none';
-        }
-
-        // Special case: If both are 'Other', show both
-        if (pickUpSelectedOther && dropOffSelectedOther && isOtherSpecialRequestSelected) {
-            otherPickupLocationDiv.style.display = 'block';
-            otherDropoffLocationDiv.style.display = 'block';
-        }
-    }
-
-    // Event listeners
-    pickUpLocationSelect.addEventListener('change', toggleLocationInputs);
-    dropOffLocationSelect.addEventListener('change', toggleLocationInputs);
-    otherSpecialYesRadio.addEventListener('change', toggleLocationInputs);
-
-    // Initial state check
-    toggleLocationInputs();
-});
 
 
 
