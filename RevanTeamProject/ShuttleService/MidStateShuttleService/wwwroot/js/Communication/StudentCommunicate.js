@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Validation functions
     function validateForm() {
         let isFormValid = true;
-        isFormValid &= validateMessage(name, 50);
+        isFormValid &= validateName(name, 50, /^[A-Za-z\s]{2,}$/);
         isFormValid &= validateMessage(message, 160);
         if (response.checked) {
             isFormValid &= validateEmail(contact, 50, /^[^\s@]+@[^\s@]+\.[^\s@]+$/);
@@ -33,6 +33,23 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             clearValidationMessage(element);
             return true;
+        }
+    }
+
+    function validateName(element, length, regex) {
+        const regexTest = regex.test(element.value)
+        if (!element.value || element.value.length > length) {
+            displayValidationMessage(element, "Please fill out field before sending");
+            return false;
+        } else {
+            if (regexTest == false) {
+                displayValidationMessage(element, "Name must contain only characters");
+                return false;
+            }
+            else {
+                clearValidationMessage(element);
+                return true;
+            }
         }
     }
 
