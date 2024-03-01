@@ -5,7 +5,7 @@ namespace MidStateShuttleService.Models
 {
     public class RegisterModel
     {
-        public Route? RouteID { get; set; }
+        public int? RouteID { get; set; }
         public int? RiderID { get; set; }
 
         //[Required(ErrorMessage = "User ID is required")]
@@ -33,19 +33,19 @@ namespace MidStateShuttleService.Models
 
         //[Required(ErrorMessage = "Pick Up Location is required")]
         //public string PickUpLocation { get; set; }
-        public int PickUpLocationID { get; set; }
+        public int? PickUpLocationID { get; set; }
 
         //[Required(ErrorMessage = "Drop Off Location is required")]
-        public int DropOffLocationID { get; set; }
+        public int? DropOffLocationID { get; set; }
 
         //[StringLength(300, ErrorMessage = "Need transportation cannot exceed 300 characters")]
         public string? NeedTransportation { get; set; }
 
         //[Required(ErrorMessage = "Time is required")]
-        public DateTime PickUpTime { get; set; }
+        public TimeSpan? PickUpTime { get; set; }
 
         //[Required(ErrorMessage = "Time is required")]
-        public DateTime DropOffTime { get; set; }
+        public TimeSpan? DropOffTime { get; set; }
 
         //[Required(ErrorMessage = "Special request is required")]
         public bool? SpecialRequest { get; set; } = false; // Assuming this is mandatory for registration
@@ -72,6 +72,10 @@ namespace MidStateShuttleService.Models
         public bool? AgreeTerms { get; set; } = false;//  true/false for agreement
 
         public IEnumerable<SelectListItem>? LocationNames { get; set; }
+
+        // Add new properties for route details
+        public string? SelectedRouteDetail { get; set; }
+        public string? ReturnSelectedRouteDetail { get; set; }
     }
     
 }

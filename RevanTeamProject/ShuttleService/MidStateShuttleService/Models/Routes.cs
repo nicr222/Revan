@@ -12,8 +12,8 @@
         public int DropOffLocationID { get; set; }
 
         public Location DropOffLocation { get; set; }
-        public TimeSpan PickUpTime { get; set; }
-        public TimeSpan DropOffTime { get; set; }
+        public TimeSpan? PickUpTime { get; set; }
+        public TimeSpan? DropOffTime { get; set; }
 
         public string AdditionalDetails { get; set; }
     }
