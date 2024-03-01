@@ -78,8 +78,6 @@ namespace MidStateShuttleService.Controllers
                     command.Parameters.AddWithValue("@Email", model.Email);
                     command.Parameters.AddWithValue("@TripType", model.TripType);
                     command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
-                    //command.Parameters.AddWithValue("@PickUpLocationID", model.PickUpLocationID.HasValue ? (object)model.PickUpLocationID.Value : DBNull.Value);
-                    //command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID.HasValue ? (object)model.DropOffLocationID.Value : DBNull.Value);
                     command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
                     command.Parameters.AddWithValue("@ReturnSelectedRouteDetail", (object)model.ReturnSelectedRouteDetail ?? DBNull.Value);
                     command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
@@ -98,7 +96,7 @@ namespace MidStateShuttleService.Controllers
                         var result = command.ExecuteNonQuery();
                         if (result > 0)
                         {
-                            //model.LocationNames = GetLocationNames();
+                            TempData["RegistrationSuccess"] = true;
                             return RedirectToAction("Index");
                         }
                         else
