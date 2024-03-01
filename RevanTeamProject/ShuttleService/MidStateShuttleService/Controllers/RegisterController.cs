@@ -26,7 +26,9 @@ namespace MidStateShuttleService.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new RegisterModel();
+            model.LocationNames = GetLocationNames();
+            return View(model);
         }
 
         public IActionResult Privacy()
@@ -51,6 +53,10 @@ namespace MidStateShuttleService.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
+
+            // Repopulate LocationNames for the model in case of return to View due to invalid model state or any error.
+            model.LocationNames = GetLocationNames();
+
             if (ModelState.IsValid)
             {
                 using (var connection = new SqlConnection(connectionString))
@@ -92,6 +98,7 @@ namespace MidStateShuttleService.Controllers
                         var result = command.ExecuteNonQuery();
                         if (result > 0)
                         {
+                            //model.LocationNames = GetLocationNames();
                             return RedirectToAction("Index");
                         }
                         else
@@ -107,8 +114,8 @@ namespace MidStateShuttleService.Controllers
                 }
             }
 
-            model.LocationNames = GetLocationNames();
-            return View(model);
+            //model.LocationNames = GetLocationNames();
+            return View("Index", model);
         }
 
 
