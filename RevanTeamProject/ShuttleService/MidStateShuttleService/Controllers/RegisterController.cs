@@ -56,15 +56,15 @@ namespace MidStateShuttleService.Controllers
                 using (var connection = new SqlConnection(connectionString))
                 {
                     var commandText = @"INSERT INTO [dbo].[Registration] 
-                                (RouteID, UserID, FirstName, LastName, Phone, Email, TripType, AgreeToTerms, PickUpLocationID, DropOffLocationID, PickUpTime, DropOffTime, SpecialRequest) 
+                                (RouteID, UserID, FirstName, LastName, Phone, Email, TripType, AgreeToTerms, SelectedRouteDetail, ReturnSelectedRouteDetail, SpecialRequest) 
                                 VALUES 
-                                (@RouteID, @UserID, @FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @PickUpLocationID, @DropOffLocationID, @PickUpTime, @DropOffTime, @SpecialRequest)";
+                                (@RouteID, @UserID, @FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @SelectedRouteDetail, @ReturnSelectedRouteDetail, @SpecialRequest)";
 
                     // Initialize the command with the command text and connection
                     var command = new SqlCommand(commandText, connection);
 
                     // Add the common parameters that are always included
-                    command.Parameters.AddWithValue("@RouteID", model.RouteID);
+                    command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
                     command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
                     command.Parameters.AddWithValue("@FirstName", model.FirstName);
                     command.Parameters.AddWithValue("@LastName", model.LastName);
@@ -72,10 +72,10 @@ namespace MidStateShuttleService.Controllers
                     command.Parameters.AddWithValue("@Email", model.Email);
                     command.Parameters.AddWithValue("@TripType", model.TripType);
                     command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
-                    command.Parameters.AddWithValue("@PickUpLocationID", model.PickUpLocationID);
-                    command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID);
-                    command.Parameters.AddWithValue("@PickUpTime", model.PickUpTime);
-                    command.Parameters.AddWithValue("@DropOffTime", model.DropOffTime);
+                    //command.Parameters.AddWithValue("@PickUpLocationID", model.PickUpLocationID.HasValue ? (object)model.PickUpLocationID.Value : DBNull.Value);
+                    //command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID.HasValue ? (object)model.DropOffLocationID.Value : DBNull.Value);
+                    command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@ReturnSelectedRouteDetail", (object)model.ReturnSelectedRouteDetail ?? DBNull.Value);
                     command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
 
                     // Check if SpecialRequest is No and TripType is not Friday, then ignore the special request related fields
@@ -88,11 +88,11 @@ namespace MidStateShuttleService.Controllers
 
                     try
                     {
-                        connection.Open();
+                        connection.Open(); 
                         var result = command.ExecuteNonQuery();
                         if (result > 0)
                         {
-                            return RedirectToAction("RegistrationSuccess");
+                            return RedirectToAction("Index");
                         }
                         else
                         {
