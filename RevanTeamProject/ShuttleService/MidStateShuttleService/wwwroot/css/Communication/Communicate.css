@@ -193,6 +193,7 @@ input {
     padding: 9px 0;
     color: #666;
     border: none;
+    width: 100%;
 }
 
     .input--style-1::-webkit-input-placeholder {
@@ -262,6 +263,38 @@ input {
         padding: 0 40px;
         padding-top: 40px;
         padding-bottom: 40px;
+    }
+}
+
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+.btn {
+    line-height: 36px;
+    display: inline-block;
+    padding: 0 16px;
+    cursor: pointer;
+    color: #840029; /* Maroon color for text */
+    font-size: 12px;
+    font-weight: 700;
+    border: 2px solid #840029; /* Initial border thickness */
+    background-color: transparent; /* Transparent background */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 5px;
+    border-radius: 25px; /* Rounded corners */
+    transition: all 0.1s ease-out; /* Smooth transition for all properties */
+    animation: none;
+}
+
+.btn--submit:hover {
+    animation: thickenBorder 0.1s ease-out forwards; /* Apply the keyframe animation on hover */
+}
+
+/* Keyframes for border thickening animation */
+@keyframes thickenBorder {
+    to {
+        border-width: 3px; /* Target a thicker border */
     }
 }
 
@@ -366,3 +399,14 @@ input {
 .item.checked .check-icon {
     transform: scale(1);
 }
+
+/* For the response request */
+    .typetrip {
+        margin-right: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .radio-options label{
+        margin: 5px; /* Space between the label and the radio buttons */
+    }
