@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using MidStateShuttleService.Models;
+using MidStateShuttleService.Models.Data;
 using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
@@ -224,6 +225,32 @@ namespace MidStateShuttleService.Controllers
             return Json(routesList);
         }
 
+        [HttpGet]
+        public IActionResult CheckInByShuttle(int shuttleID)
+        {
+            // Your logic for getting information related to shuttleID
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult CheckInByRegistration(int registrationID)
+        {
+            // Your logic for getting information related to registrationID
+            return View();
+        }
+
+        public IActionResult CheckIn()
+        {
+            // Your logic for the empty CheckIn
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CheckIn(Registration registration)
+        {
+            // Your logic for handling the POST request
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
 
