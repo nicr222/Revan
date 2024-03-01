@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model MidStateShuttleService.Models.Location
+
+<link rel="stylesheet" href="/css/CheckIn.css" />
+
+<body>
+    <div class="wrapper wrapper--w680">
+        <form asp-action="Create" method="post" class="form form-1">
+            <div class="form-body">
+                <h2 class="title">Create Location</h2>
+
+                <div class="input-fields">
+                    <input asp-for="Name" type="text" class="form-control input--style-1" placeholder="Location Name" required />
+                    <div class="div-line"></div>
+                </div>
+
+                <div class="input-fields">
+                    <input asp-for="Address" type="text" class="form-control input--style-1" placeholder="Location Address" required />
+                    <div class="div-line"></div>
+                </div>
+
+                <div class="input-fields">
+                    <input asp-for="City" type="text" class="form-control input--style-1" placeholder="City" required />
+                    <div class="div-line"></div>
+                </div>
+
+                <div class="input-fields">
+                    <input asp-for="State" type="text" class="form-control input--style-1" placeholder="State" maxlength="2" required />
+                    <div class="div-line"></div>
+                </div>
+
+                <div class="input-fields">
+                    <input asp-for="ZipCode" type="text" class="form-control input--style-1" placeholder="Zip Code" required />
+                    <div class="div-line"></div>
+                </div>
+
+
+                <div class="input-fields">
+                    <input asp-for="Abbreviation" type="text" class="form-control input--style-1" placeholder="Location Abbreviation" required />
+                    <div class="div-line"></div>
+                </div>
+
+                <div class="p-t-20">
+                    <button type="submit" class="btn btn--radius btn--green">Create Location</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="/js/location.js"></script>
+</body>

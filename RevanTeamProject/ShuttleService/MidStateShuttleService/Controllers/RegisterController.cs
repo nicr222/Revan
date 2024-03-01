@@ -6,6 +6,9 @@ using MidStateShuttleService.Models;
 using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -40,170 +43,187 @@ namespace MidStateShuttleService.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            return View();
+            var model = new RegisterModel();
+            model.LocationNames = GetLocationNames();
+            return View("Index", model);
         }
 
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            if (ModelState.IsValid || model.SpecialRequest == null)
+
+            if (!ModelState.IsValid)
+            {
+                model.LocationNames = GetLocationNames();
+            }
+            return View(model);
+
+        }
+
+
+        //The method which will get the location names from the database
+        private IEnumerable<SelectListItem> GetLocationNames()
+        {
+            var locations = new List<SelectListItem>();
+
+            using (var connection = new SqlConnection(connectionString))
             {
                 try
                 {
-                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    connection.Open();
+                    var command = new SqlCommand("SELECT LocationID, Name FROM Location", connection);
+
+                    using (var reader = command.ExecuteReader())
                     {
-                        connection.Open();
-
-                        // Insert into Rider Table
-                        //Currently set userId as nullable in the model, so it's not included in the insert query
-                        string riderInsertQuery = "INSERT INTO [dbo].[Rider] (FirstName, LastName, Type, Phone, Email) VALUES (@FirstName, @LastName, @Type, @Phone, @Email); SELECT SCOPE_IDENTITY();";
-                        SqlCommand cmdRider = new SqlCommand(riderInsertQuery, connection);
-                        //cmdRider.Parameters.AddWithValue("@UserId", model.UserId);
-                        cmdRider.Parameters.AddWithValue("@FirstName", model.FirstName);
-                        cmdRider.Parameters.AddWithValue("@LastName", model.LastName);
-                        cmdRider.Parameters.AddWithValue("@Type", model.TripType); // Assuming 'Type' is the trip type for simplicity
-                        cmdRider.Parameters.AddWithValue("@Phone", model.PhoneNumber);
-                        cmdRider.Parameters.AddWithValue("@Email", model.Email);
-                        int riderId = Convert.ToInt32(cmdRider.ExecuteScalar());
-
-                        // Insert into Route Table
-                        string routeInsertQuery = "INSERT INTO [dbo].[Route] (PickLocationID, DropOffLocationID, PickUpTime, DropOffTime) VALUES (@PickLocationID, @DropOffLocationID, @PickUpTime, @DropOffTime); SELECT SCOPE_IDENTITY();";
-                        SqlCommand cmdRoute = new SqlCommand(routeInsertQuery, connection);
-                        cmdRoute.Parameters.AddWithValue("@PickLocationID", model.PickLocationID);
-                        cmdRoute.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID);
-
-                        cmdRoute.Parameters.AddWithValue("@PickUpTime", model.PickUpTime);
-                        cmdRoute.Parameters.AddWithValue("@DropOffTime", model.DropOffTime); // Adjust as necessary
-                        int routeId = Convert.ToInt32(cmdRoute.ExecuteScalar());
-
-                        // Insert into Reservation Table
-                        string reservationInsertQuery = "INSERT INTO [dbo].[Reservation] (RiderID, Date, SpecialRequest) VALUES (@RiderID, @Date, @SpecialRequest);";
-                        SqlCommand cmdReservation = new SqlCommand(reservationInsertQuery, connection);
-                        cmdReservation.Parameters.AddWithValue("@RiderID", riderId);
-                        cmdReservation.Parameters.AddWithValue("@Date", model.Date);
-                        cmdReservation.Parameters.AddWithValue("@SpecialRequest", (bool)model.SpecialRequest ? 1 : 0); // Convert bool to bit
-                        cmdReservation.ExecuteNonQuery();
+                        while (reader.Read())
+                        {
+                            locations.Add(new SelectListItem
+                            {
+                                Value = reader["LocationID"].ToString(),
+                                Text = reader["Name"].ToString()
+                            });
+                        }
                     }
-
-                    return RedirectToAction("Success");
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    _logger.LogError(ex, "Error registering shuttle reservation");
-                    // Handle the error (e.g., show an error message)
-                    return View("Error");
+                    _logger.LogError("Database connection error: ", ex);
+                    // Handle exception
+                }
+            }
+            return locations;
+        }
+
+        //retrieves route options based on selected pick-up and drop-off locations from a database and returns them as JSON.
+        [HttpGet]
+        public ActionResult GetRoutes(int pickUpLocationId, int dropOffLocationId)
+        {
+            var routesList = new List<object>(); // List to hold the route options
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    var query = @"
+                SELECT 
+                    r.RouteID, 
+                    r.PickUpTime, 
+                    r.DropOffTime, 
+                    r.AdditionalDetails, 
+                    pl.Name AS PickUpLocationName, 
+                    dl.Name AS DropOffLocationName 
+                FROM 
+                    Routes r
+                    INNER JOIN Location pl ON r.PickUpLocationID = pl.LocationID
+                    INNER JOIN Location dl ON r.DropOffLocationID = dl.LocationID
+                WHERE 
+                    r.PickUpLocationID = @PickUpLocationId AND 
+                    r.DropOffLocationID = @DropOffLocationId";   // SQL query to select route details based on pick-up and drop-off location 
+
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@PickUpLocationId", pickUpLocationId); // Set the parameter for the pick-up location ID.
+                        command.Parameters.AddWithValue("@DropOffLocationId", dropOffLocationId);
+
+                        using (var reader = command.ExecuteReader()) // Execute the command and store the results in a reader.
+                        {
+                            while (reader.Read())// Iterate through the results.
+                            {
+                                var routeID = reader.GetInt32(reader.GetOrdinal("RouteID"));
+                                var pickUpTime = reader.GetTimeSpan(reader.GetOrdinal("PickUpTime")).ToString(@"hh\:mm");
+                                var dropOffTime = reader.GetTimeSpan(reader.GetOrdinal("DropOffTime")).ToString(@"hh\:mm");
+                                var additionalDetails = reader.IsDBNull(reader.GetOrdinal("AdditionalDetails")) ? null : reader.GetString(reader.GetOrdinal("AdditionalDetails"));
+                                var pickUpLocationName = reader.GetString(reader.GetOrdinal("PickUpLocationName"));
+                                var dropOffLocationName = reader.GetString(reader.GetOrdinal("DropOffLocationName"));
+
+                                // Format the route details into a string.
+                                // Conditionally construct the routeDetail string
+                                var routeDetail = additionalDetails != null
+                                    ? $"Leave {pickUpLocationName} at {pickUpTime} ({additionalDetails}), Arrive at {dropOffLocationName} at {dropOffTime}"
+                                    : $"Leave {pickUpLocationName} at {pickUpTime}, Arrive at {dropOffLocationName} at {dropOffTime}";
+
+                                routesList.Add(new { RouteID = routeID, Detail = routeDetail }); // Add the route details to the list.
+                            }
+                        }
+                    }
+                }
+                catch (SqlException ex) // Catch any SQL exceptions.
+                {
+                    _logger.LogError("Database connection error: ", ex);
+                    // Handle exception appropriately
+                    return Json(new { error = "Error loading routes. Please try again." });
                 }
             }
 
-            // If we got this far, something failed; redisplay form
-            return View(model);
+            return Json(routesList);
         }
 
-     
-        //[HttpPost]
-        //public ActionResult Register(RegisterModel model)
-        //{
-        //    // Remove the ModelState entry for SpecialRequest to ignore its validation
-        //    //ModelState.Remove("SpecialRequest");
+        //retrieves route options based on selected pick-up and drop-off locations from a database and returns them as JSON.
+        [HttpGet]
+        public ActionResult ReturnGetRoutes(int returnpickUpLocationId, int returndropOffLocationId)
+        {
+            var routesList = new List<object>(); // List to hold the route options
 
-        //    if (ModelState.IsValid || model.SpecialRequest == null)
-        //    {
-        //        // Here you would implement the logic to store the data in the database.
-        //        using (var connection = new SqlConnection(connectionString))
-        //        {
-        //            connection.Open();
-        //            var command = connection.CreateCommand();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    var query = @"
+                SELECT 
+                    r.RouteID, 
+                    r.PickUpTime, 
+                    r.DropOffTime, 
+                    r.AdditionalDetails, 
+                    pl.Name AS PickUpLocationName, 
+                    dl.Name AS DropOffLocationName 
+                FROM 
+                    Routes r
+                    INNER JOIN Location pl ON r.PickUpLocationID = pl.LocationID
+                    INNER JOIN Location dl ON r.DropOffLocationID = dl.LocationID
+                WHERE 
+                    r.PickUpLocationID = @PickUpLocationId AND 
+                    r.DropOffLocationID = @DropOffLocationId";   // SQL query to select route details based on pick-up and drop-off location 
 
-        //            // Insert User
-        //            command.CommandText = "INSERT INTO Users (StudentId, FirstName, LastName, PhoneNumber) VALUES (@StudentId, @FirstName, @LastName, @PhoneNumber); SELECT SCOPE_IDENTITY();";
-        //            command.Parameters.AddWithValue("@StudentId", model.UserId);
-        //            command.Parameters.AddWithValue("@FirstName", model.FirstName);
-        //            command.Parameters.AddWithValue("@LastName", model.LastName);
-        //            command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
-        //            //var userId = (int)(decimal)command.ExecuteScalar();
-        //            var userId = Convert.ToInt32(command.ExecuteScalar()); // This is fine as userId is expected to be within INT range
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@PickUpLocationId", returnpickUpLocationId); // Set the parameter for the pick-up location ID.
+                        command.Parameters.AddWithValue("@DropOffLocationId", returndropOffLocationId);
 
-        //            // Insert Trip
-        //            command.CommandText = "INSERT INTO Trips (UserId, TripType, PickUpLocation, DropOffLocation, Date, Time) VALUES (@UserId, @TripType, @PickUpLocation, @DropOffLocation, @Date, @Time);";
-        //            command.Parameters.AddWithValue("@UserId", userId);
-        //            command.Parameters.AddWithValue("@TripType", model.TripType);
-        //            command.Parameters.AddWithValue("@PickUpLocation", model.PickLocationID);
-        //            command.Parameters.AddWithValue("@DropOffLocation", model.DropOffLocationID);
-        //            command.Parameters.AddWithValue("@Date", model.Date);
-        //            command.Parameters.AddWithValue("@Time", model.Time);
+                        using (var reader = command.ExecuteReader()) // Execute the command and store the results in a reader.
+                        {
+                            while (reader.Read())// Iterate through the results.
+                            {
+                                var routeID = reader.GetInt32(reader.GetOrdinal("RouteID"));
+                                var pickUpTime = reader.GetTimeSpan(reader.GetOrdinal("PickUpTime")).ToString(@"hh\:mm");
+                                var dropOffTime = reader.GetTimeSpan(reader.GetOrdinal("DropOffTime")).ToString(@"hh\:mm");
+                                var additionalDetails = reader.IsDBNull(reader.GetOrdinal("AdditionalDetails")) ? null : reader.GetString(reader.GetOrdinal("AdditionalDetails"));
+                                var pickUpLocationName = reader.GetString(reader.GetOrdinal("PickUpLocationName"));
+                                var dropOffLocationName = reader.GetString(reader.GetOrdinal("DropOffLocationName"));
 
-        //            //// Assign "No" to SpecialRequest if it's null
-        //            //var specialRequest = string.IsNullOrWhiteSpace(model.SpecialRequest) ? "No" : model.SpecialRequest;
-        //            //command.Parameters.AddWithValue("@SpecialRequest", specialRequest);
+                                // Format the route details into a string.
+                                // Conditionally construct the routeDetail string
+                                var routeDetail = additionalDetails != null
+                                    ? $"Leave {pickUpLocationName} at {pickUpTime} ({additionalDetails}), Arrive at {dropOffLocationName} at {dropOffTime}"
+                                    : $"Leave {pickUpLocationName} at {pickUpTime}, Arrive at {dropOffLocationName} at {dropOffTime}";
 
-        //            //// If you decide to include SpecialRequest in some cases, add it conditionally here
-        //            //if (!string.IsNullOrWhiteSpace(model.SpecialRequest))
-        //            {
-        //                // Optionally handle special request here
-        //            }
-        //            command.ExecuteNonQuery();
-        //        }
+                                routesList.Add(new { RouteID = routeID, Detail = routeDetail }); // Add the route details to the list.
+                            }
+                        }
+                    }
+                }
+                catch (SqlException ex) // Catch any SQL exceptions.
+                {
+                    _logger.LogError("Database connection error: ", ex);
+                    // Handle exception appropriately
+                    return Json(new { error = "Error loading routes. Please try again." });
+                }
+            }
 
-        //        _logger.LogInformation("Registration successful for Student ID: {StudentId}", model.UserId);
-
-        //        // Redirect to confirmation page (assuming you have a confirmation action and view ready)
-        //        return RedirectToAction("RegisterConfirmation", new { id = model.UserId }); // Adjust according to confirmation page setup
-        //    }
-
-        //    else
-        //    {
-        //        _logger.LogWarning("Registration failed validation for Student ID: {UserId}.", model.UserId);
-
-        //        // Return the form with validation errors
-        //        return View(model);
-        //    }
-        //}
-
-        //public ActionResult RegisterConfirmation(long id)
-        //{
-        //    RegisterModel model = new RegisterModel(); // Placeholder for the actual model
-
-        //    // Fetching the user and trip details from the database
-        //    using (var connection = new SqlConnection(connectionString))
-        //    {
-        //        connection.Open();
-        //        var command = connection.CreateCommand();
-
-        //        // Assuming you're identifying the user and trip uniquely with StudentId
-        //        // This query needs adjustment based on the actual database schema and requirements
-        //        command.CommandText = @"
-        //                                SELECT u.StudentId, u.FirstName, u.LastName, u.PhoneNumber, t.TripType, t.PickUpLocation, t.DropOffLocation, t.Date, t.Time, t.SpecialRequest
-        //                                FROM Users u
-        //                                INNER JOIN Trips t ON u.UserId = t.UserId
-        //                                WHERE u.StudentId = @StudentId;";
-        //        command.Parameters.AddWithValue("@StudentId", id);
-
-        //        using (var reader = command.ExecuteReader())
-        //        {
-        //            if (reader.Read()) // Assuming at least one record is returned
-        //            {
-        //                //model.UserId = reader.GetInt64(reader.GetOrdinal("UserId"));
-        //                model.FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
-        //                model.LastName = reader.GetString(reader.GetOrdinal("LastName"));
-        //                model.PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
-        //                model.TripType = reader.GetString(reader.GetOrdinal("TripType"));
-        //                //model.PickLocationID = reader.GetString(reader.GetOrdinal("PickUpLocation"));
-        //                //model.DropOffLocationID = reader.GetString(reader.GetOrdinal("DropOffLocation"));
-        //                model.Date = reader.GetDateTime(reader.GetOrdinal("Date"));
-        //                // Correctly handle the TimeSpan to DateTime conversion
-        //                TimeSpan timeSpan = (TimeSpan)reader.GetValue(reader.GetOrdinal("Time"));
-        //                model.Time = DateTime.Today.Add(timeSpan); // This sets the Time part on today's date, adjust as necessary
-
-        //                // Assign "No" to SpecialRequest if it's null
-        //                //var specialRequest = string.IsNullOrWhiteSpace(model.SpecialRequest) ? "No" : model.SpecialRequest;
-        //                //model.SpecialRequest = specialRequest;
-        //            }
-        //        }
-        //    }
-
-        //    return View(model); // Pass the populated model to the view
-        //}
-
+            return Json(routesList);
+        }
 
     }
 }
+
