@@ -31,7 +31,8 @@
         // Validate Drop Off Time
         isValidForm &= validateInput($('#DropOffTime'), /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'DropOffTime-validation-message');
 
-        // Additional validation can be added for textarea if needed
+        // Validate Additional Details
+        isValidForm &= validateInput($('#AdditionalDetails'), /^[a-zA-Z0-9.,!?'";:@#$%^&*()_+=\-\/]{0,500}$/, 'AdditionalDetails-validation-message');
 
         // Check if dropdowns have selected values
         if ($('#PickUpLocationID').val() === "") {
@@ -75,5 +76,9 @@
 
     $('#DropOffTime').on('input', function () {
         validateInput($(this), /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'DropOffTime-validation-message');
+    });
+
+    $('#AdditionalDetails').on('input', function () {
+        validateInput($(this), /^[a-zA-Z0-9.,!?'";:@#$%^&*()_+=\-\/]{0,500}$/, 'AdditionalDetails-validation-message');
     });
 });

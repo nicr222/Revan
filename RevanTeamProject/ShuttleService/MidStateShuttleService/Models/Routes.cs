@@ -34,6 +34,8 @@ namespace MidStateShuttleService.Models
         public TimeSpan DropOffTime { get; set; }
 
         [Display(Name = "Additional Details")]
+        [StringLength(500, ErrorMessage = "Additional details cannot exceed 500 characters.")]
+        [RegularExpression("^[a-zA-Z0-9.,!?'\";:@#$%^&*()_+=\\-\\/]*$", ErrorMessage = "Additional details can only contain letters, numbers, and important special characters.")]
         public string AdditionalDetails { get; set; }
     }
 }
