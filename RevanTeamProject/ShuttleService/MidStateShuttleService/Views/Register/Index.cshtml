@@ -143,7 +143,8 @@
                                     <div class="route-location-schedule">
                                         <div class="input-fields">
                                             <div class="radio-route-type">
-                                                <div id="routeOptions" class="radio-route-options"></div>
+                                                <div id="routeOptions" class="radio-route-options" name="SelectedRouteDetail"></div>
+                                           @*      @Html.HiddenFor(model => model.SelectedRouteDetail, new { id = "SelectedRouteDetail" }) *@
                                             </div>
                                         </div>
                                     </div>
@@ -184,14 +185,19 @@
                                         </div>
 
 
-                                        <!-- Placeholder for Select Route radio buttons -->
+                                        <!-- Placeholder for Return Select Route radio buttons -->
                                         <div class="return-route-location-schedule">
                                             <div class="input-fields">
                                                 <div class="return-radio-route-type">
-                                                    <div id="returnRouteOptions" class="return-radio-route-options"></div>
+                                                    <div id="returnRouteOptions" class="return-radio-route-options" name="SelectedRouteDetail"></div>
+                                         @*            @Html.HiddenFor(model => model.ReturnSelectedRouteDetail, new { id = "ReturnSelectedRouteDetail" }) *@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- Hidden fields for selected route details -->
+                                        <input type="hidden" id="hiddenSelectedRouteDetail" name="SelectedRouteDetail" value="">
+                                        <input type="hidden" id="hiddenReturnSelectedRouteDetail" name="ReturnSelectedRouteDetail" value="">
 
                                      </div>
                                 </div>

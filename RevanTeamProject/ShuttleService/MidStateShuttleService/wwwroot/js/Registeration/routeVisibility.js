@@ -18,3 +18,14 @@
     // Call the function on page load in case a radio button is already checked
     toggleReturnSelectRouteVisibility();
 });
+
+$(document).ready(function () {
+    // When a route option is selected, update the hidden input's value
+    $(document).on('change', 'input[type=radio][name="SelectedRouteDetail"]', function () {
+        $('#hiddenSelectedRouteDetail').val(this.value);
+    });
+
+    $(document).on('change', 'input[type=radio][name="ReturnSelectedRouteDetail"]', function () {
+        $('#hiddenReturnSelectedRouteDetail').val(this.value);
+    });
+});
