@@ -12,25 +12,13 @@ namespace MidStateShuttleService.Controllers
 
         public IActionResult CheckIn(int id)
         {
-            // replace list and reservation with DB queried info
-            var viewModel = new Tuple<List<string>, Reservation>
-            (
-                new List<string>
-                {
-                    "Wisconsin Rapids",
-                    "Stevens Point",
-                    "Wausua",
-                    "Adams"
-                },
+            
 
-                new Reservation(1, 1, 1, "rapids", "rapids", new DateOnly(), new TimeOnly())
-            );
-
-            return View(viewModel);
+            return View();
         }
 
         [HttpPost]
-        public IActionResult CheckIn(Reservation reservation)
+        public IActionResult CheckIn()
         {
             
             return RedirectToAction("Index", "Home");
