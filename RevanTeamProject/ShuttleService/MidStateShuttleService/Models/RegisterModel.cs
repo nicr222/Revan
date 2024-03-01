@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MidStateShuttleService.Models
 {
+
+    // !!**** Temporarily disabled validations, to be addressed in the next sprint. ****!!//
     public class RegisterModel
     {
         public int? RouteID { get; set; }
