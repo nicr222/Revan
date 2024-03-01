@@ -5,6 +5,7 @@ using System.Data;
 using System.Configuration;
 using Route = MidStateShuttleService.Models.Data.Route;
 using Location = MidStateShuttleService.Models.Location;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MidStateShuttleService.Service
 {
@@ -50,86 +51,6 @@ namespace MidStateShuttleService.Service
                 }
             }
             return locationList;
-        }
-
-        public Route GetRouteByID(int id)
-        {
-            Route route = null;
-
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
-            {
-                DataTable dataTable = new DataTable();
-
-                string sql = "SELECT * FROM [Route] WHERE ID = " + id;
-                SqlCommand cmd = new SqlCommand(sql, connection);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                da.Fill(dataTable);
-
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    DateTime pickupDateTime = (DateTime)row["PickUpTime"];
-                    TimeOnly pickupTime = new TimeOnly(pickupDateTime.TimeOfDay.Hours, pickupDateTime.TimeOfDay.Minutes);
-                    DateTime dropoffDateTime = (DateTime)row["DropOffTime"];
-                    TimeOnly dropoffTime = new TimeOnly(pickupDateTime.TimeOfDay.Hours, pickupDateTime.TimeOfDay.Minutes);
-
-                    route = new Route
-                    {
-                        RouteId = Convert.ToInt32(row["RouteID"]),
-                        PickUpLocationId = Convert.ToInt32(row["PickUpLocationID"]),
-                        DropOffLocationId = Convert.ToInt32(row["DropOffLocationID"]),
-                        PickUpTime = pickupTime,
-                        DropOffTime = dropoffTime,
-                        AdditionalDetails = row["ZipCode"].ToString(),
-                    };
-                }
-            }
-            return route;
-        }
-
-        public Route GetCurrentRouteByBusId(int id)
-        {
-            Route currentRoute = new Route();
-
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
-            {
-                DataTable dataTable = new DataTable();
-
-                // finds routes linked to the bus ID
-                string sql = "SELECT RouteID FROM [BusRoute] WHERE BusID = " + id;
-                SqlCommand cmd = new SqlCommand(sql, connection);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                da.Fill(dataTable);
-
-                // creates a list of routes
-                List<Route> routes = new List<Route>();
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    DateTime pickupDateTime = (DateTime)row["PickUpTime"];
-                    TimeOnly pickupTime = new TimeOnly(pickupDateTime.TimeOfDay.Hours, pickupDateTime.TimeOfDay.Minutes);
-                    DateTime dropoffDateTime = (DateTime)row["DropOffTime"];
-                    TimeOnly dropoffTime = new TimeOnly(pickupDateTime.TimeOfDay.Hours, pickupDateTime.TimeOfDay.Minutes);
-
-                    routes.Add(new Route
-                    {
-                        RouteId = Convert.ToInt32(row["RouteID"]),
-                        PickUpLocationId = Convert.ToInt32(row["PickUpLocationID"]),
-                        DropOffLocationId = Convert.ToInt32(row["DropOffLocationID"]),
-                        PickUpTime = pickupTime,
-                        DropOffTime = dropoffTime,
-                        AdditionalDetails = row["ZipCode"].ToString(),
-                    });
-                }
-
-                // Find the route with the pick-up time closest to the current time
-                TimeOnly currentTime = new TimeOnly(DateTime.Now.Hour, DateTime.Now.Minute);
-                currentRoute = routes.OrderBy(route => Math.Abs(route.PickUpTime.CompareTo(currentTime))).FirstOrDefault();
-            }
-
-            return currentRoute;
         }
     }
 }

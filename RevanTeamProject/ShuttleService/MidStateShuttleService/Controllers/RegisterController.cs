@@ -10,12 +10,16 @@ using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
+using MidStateShuttleService.Service;
+using Route = MidStateShuttleService.Models.Data.Route;
+using System.Data;
 
 namespace MidStateShuttleService.Controllers
 {
     public class RegisterController : Controller
     {
         private readonly string connectionString;
+        private readonly ApplicationDbContext _context;
 
         private readonly ILogger<RegisterController> _logger;
 
@@ -229,6 +233,8 @@ namespace MidStateShuttleService.Controllers
         public IActionResult CheckInByShuttle(int shuttleID)
         {
             // Your logic for getting information related to shuttleID
+            RouteServices rs = new RouteServices(_context);
+            Route route = rs.GetCurrentRouteByBusId(shuttleID);
             return View();
         }
 

@@ -1,4 +1,5 @@
 ﻿using MidStateShuttleService.Models;
+using Route = MidStateShuttleService.Models.Data.Route;
 
 namespace MidStateShuttleService.Service
 {
