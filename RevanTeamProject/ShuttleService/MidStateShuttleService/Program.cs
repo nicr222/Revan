@@ -22,7 +22,7 @@ namespace MidStateShuttleService
             builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(identityConnectionString));
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(appConnectionString));
 
-            builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(appConnectionString));
             builder.Services.AddSingleton<IListService, ListServices>();
             builder.Services.AddDefaultIdentity<MidStateShuttleServiceUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
