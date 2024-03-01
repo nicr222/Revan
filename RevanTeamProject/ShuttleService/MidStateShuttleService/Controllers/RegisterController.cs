@@ -232,9 +232,10 @@ namespace MidStateShuttleService.Controllers
         [HttpGet]
         public IActionResult CheckInByShuttle(int shuttleID)
         {
-            // Your logic for getting information related to shuttleID
+            // first check for user and see if they have any 
             RouteServices rs = new RouteServices(_context);
             Route route = rs.GetCurrentRouteByBusId(shuttleID);
+
             return View();
         }
 
