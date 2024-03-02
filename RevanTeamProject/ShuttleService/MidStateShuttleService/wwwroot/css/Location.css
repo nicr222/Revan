@@ -1,0 +1,353 @@
+﻿
+/* ==========================================================================
+   #GRID
+   ========================================================================== */
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.row-space {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.col-6 {
+    width: -webkit-calc((100% - 60px) / 2);
+    width: -moz-calc((100% - 60px) / 2);
+    width: calc((100% - 60px) / 2);
+}
+
+@media (max-width: 767px) {
+    .col-6 {
+        width: 100%;
+    }
+}
+
+/* ==========================================================================
+   #BOX-SIZING
+   ========================================================================== */
+/**
+ * More sensible default box-sizing:
+ */
+html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+    *, *:before, *:after {
+        -webkit-box-sizing: inherit;
+        -moz-box-sizing: inherit;
+        box-sizing: inherit;
+    }
+
+
+body {
+    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+h4 {
+    font-size: 18px;
+}
+
+h5 {
+    font-size: 15px;
+}
+
+h6 {
+    font-size: 13px;
+}
+
+
+
+/* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+.wrapper {
+    margin: 0 auto;
+}
+
+.wrapper--w680 {
+    max-width: 680px;
+}
+
+/* ==========================================================================
+   #Form Structure
+   ========================================================================== */
+.form {
+    overflow: hidden;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.form-1 {
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+    .form-1 .form-body {
+        padding: 0 90px;
+        padding-top: 55px;
+        padding-bottom: 65px;
+    }
+
+@media (max-width: 767px) {
+    .form-1 .form-body {
+        padding: 0 40px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
+
+
+/* ==========================================================================
+   #TITLE
+   ========================================================================== */
+.title {
+    margin-bottom: 37px;
+}
+
+/* ==========================================================================
+   #Input Fields
+   ========================================================================== */
+input {
+    outline: none;
+    margin: 0;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    /*    width: 100%; */ /* comment it out because it was causing the input fields to be too wide*/
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.input-fields {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.input--style-1 {
+    padding: 9px 0;
+    color: #666;
+    border: none;
+}
+
+.input--style-radio-group {
+    padding: 0px;
+    color: #666;
+    border: none;
+}
+
+.div-line {
+    border-top: 2px solid #ccc;
+}
+
+.input--style-1::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #555;
+}
+
+.input--style-1:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #555;
+    opacity: 1;
+}
+
+.input--style-1::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #555;
+    opacity: 1;
+}
+
+.input--style-1:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #555;
+}
+
+.input--style-1:-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #555;
+}
+
+label.radio-label-style {
+    margin-bottom: 0px;
+    margin-right: 1rem;
+    padding: 9px 0;
+}
+
+input.radio-style {
+    position: static;
+    margin-left: 0rem;
+    margin-top: 0rem;
+}
+
+/* ==========================================================================
+    #SPACING
+    ========================================================================== */
+.p-t-20 {
+    padding-top: 20px;
+}
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+.btn {
+    line-height: 36px;
+    display: inline-block;
+    padding: 0 16px;
+    cursor: pointer;
+    color: #840029; /* Maroon color for text */
+    font-size: 12px;
+    font-weight: 700;
+    border: 2px solid #840029; /* Initial border thickness */
+    background-color: transparent; /* Transparent background */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 5px;
+    border-radius: 25px; /* Rounded corners */
+    transition: all 0.1s ease-out; /* Smooth transition for all properties */
+    animation: none;
+}
+
+.btn--submit:hover, .btn--cancel:hover {
+    animation: thickenBorder 0.1s ease-out forwards; /* Apply the keyframe animation on hover */
+}
+
+
+/* ==========================================================================
+   #Validation
+   ========================================================================== */
+
+
+.validation-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: none; /* Hide by default */
+}
+
+    .validation-message:before {
+        content: "\26A0";
+        color: red;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+/* ==========================================================================
+   #Select Button
+   ========================================================================== */
+
+.select-btn {
+    display: flex;
+    cursor: pointer;
+}
+
+    .select-btn .btn-text {
+        font-weight: 400;
+        margin-bottom: 10px;
+        color: #666;
+    }
+
+    .select-btn .arrow-dwn {
+        display: inline-flex;
+        height: 21px;
+        width: 21px;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+    }
+
+    .select-btn.open .arrow-dwn {
+        transform: rotate(-180deg);
+    }
+
+/* ==========================================================================
+#Select Items
+========================================================================== */
+.list-items {
+    position: relative;
+    margin-top: 15px;
+    padding: 16px;
+    display: none;
+}
+
+.select-btn.open ~ .list-items {
+    display: block;
+}
+
+.list-items .item {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    height: 50px;
+    cursor: pointer;
+}
+
+.item .item-text {
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.item .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+    transition: all 0.3s ease-in-out;
+}
+
+.item.checked .checkbox {
+    background-color: #840029;
+    border-color: #840029;
+}
+
+.checkbox .check-icon {
+    color: #ffffff;
+    font-size: 11px;
+    transform: scale(0);
+    transition: all 0.3s ease-in-out;
+}
+
+.item.checked .check-icon {
+    transform: scale(1);
+}
