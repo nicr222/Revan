@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Eventing.Reader;
+using MidStateShuttleService.Models.Data;
 
 namespace MidStateShuttleService.Models
 {
@@ -12,7 +13,7 @@ namespace MidStateShuttleService.Models
         public string message { get; set; }
 
         [Required(ErrorMessage = "Please pick message recipiants.")]
-        public Shuttle[] shuttles { get; set; }
+        public IEnumerable<Shuttle> shuttles { get; set; }
     }
 
     public class Shuttle

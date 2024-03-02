@@ -48,5 +48,34 @@ namespace MidStateShuttleService.Service
             }
             return locationList;
         }
+
+        // For use in the Communication View. Only returns the Id of the bus to populate the shuttle select.
+        // Uses the shuttle model in the communicationmodel as opposed to the bus model for the IsSelected field.
+        public IEnumerable<Shuttle> GetShuttleList()
+        {
+            List<Shuttle> shuttleList = new List<Shuttle>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                DataTable dataTable = new DataTable();
+
+                string sql = "SELECT * FROM [Bus]";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dataTable);
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    shuttleList.Add(new Shuttle
+                    {
+                        id = Convert.ToInt32(row["BusID"])
+                    });
+                }
+            }
+
+            return shuttleList;
+        }
     }
 }
