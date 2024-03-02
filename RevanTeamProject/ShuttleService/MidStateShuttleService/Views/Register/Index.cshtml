@@ -47,6 +47,27 @@
                         </div>
                     </div>
 
+                    <!-- Success Modal -->
+                    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Your registration has been successfully submitted. Thank you!
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     <div class="student-info">
                         <p class="student-info-label">Student Information</p>
@@ -58,7 +79,6 @@
                                     @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
                                     <div class="form-line"></div>
                                     <div id="FirstName-validation-message" class="validation-message">Must be characters</div>
-                                @*       @Html.ValidationMessageFor(model => model.FirstName) *@
                                 </div>
                             </div>
                             <div class="col-6">
@@ -143,7 +163,8 @@
                                     <div class="route-location-schedule">
                                         <div class="input-fields">
                                             <div class="radio-route-type">
-                                                <div id="routeOptions" class="radio-route-options"></div>
+                                                <div id="routeOptions" class="radio-route-options" name="SelectedRouteDetail"></div>
+                                           @*      @Html.HiddenFor(model => model.SelectedRouteDetail, new { id = "SelectedRouteDetail" }) *@
                                             </div>
                                         </div>
                                     </div>
@@ -184,14 +205,19 @@
                                         </div>
 
 
-                                        <!-- Placeholder for Select Route radio buttons -->
+                                        <!-- Placeholder for Return Select Route radio buttons -->
                                         <div class="return-route-location-schedule">
                                             <div class="input-fields">
                                                 <div class="return-radio-route-type">
-                                                    <div id="returnRouteOptions" class="return-radio-route-options"></div>
+                                                    <div id="returnRouteOptions" class="return-radio-route-options" name="SelectedRouteDetail"></div>
+                                         @*            @Html.HiddenFor(model => model.ReturnSelectedRouteDetail, new { id = "ReturnSelectedRouteDetail" }) *@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- Hidden fields for selected route details -->
+                                        <input type="hidden" id="hiddenSelectedRouteDetail" name="SelectedRouteDetail" value="">
+                                        <input type="hidden" id="hiddenReturnSelectedRouteDetail" name="ReturnSelectedRouteDetail" value="">
 
                                      </div>
                                 </div>
@@ -447,7 +473,7 @@
                     <div class="p-t-20">
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--submit" type="submit">Submit</button>
-                            <button class="btn btn--radius btn--cancel" type="button" onclick="location.href='yourCancelPage.html'">Cancel</button>
+                            <button class="btn btn--radius btn--cancel" type="button" onclick="resetForm()">Cancel</button>
                         </div>
                     </div>
                 }
@@ -457,12 +483,24 @@
 
 </body>
 
+ <!-- Include success custom JS files -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        var registrationSuccess = '@TempData["RegistrationSuccess"]';
+        if (registrationSuccess === 'True') {
+            $('#successModal').modal('show');
+        }
+    });
+</script>
+
 <script src="/js/Registeration/Registeration.js"></script>
 <script src="/js/Registeration/RegisterationValidation.js"></script>
 <script src="/js/Registeration/finalconfirmation.js"></script>
 <script src="/js/Registeration/RouteUpdater.js"></script>
 <script src="/js/Registeration/ReturnRouteUpdater.js"></script>
 <script src="/js/Registeration/routeVisibility.js"></script>
+<script src="/js/Registeration/form-reset.js"></script>
+
 
 
 

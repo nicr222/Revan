@@ -26,7 +26,9 @@ namespace MidStateShuttleService.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new RegisterModel();
+            model.LocationNames = GetLocationNames();
+            return View(model);
         }
 
         public IActionResult Privacy()
@@ -52,13 +54,68 @@ namespace MidStateShuttleService.Controllers
         public ActionResult Register(RegisterModel model)
         {
 
-            if (!ModelState.IsValid)
-            {
-                model.LocationNames = GetLocationNames();
-            }
-            return View(model);
+            // Repopulate LocationNames for the model in case of return to View due to invalid model state or any error.
+            model.LocationNames = GetLocationNames();
 
+            if (ModelState.IsValid)
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    var commandText = @"INSERT INTO [dbo].[Registration] 
+                                (RouteID, UserID, FirstName, LastName, Phone, Email, TripType, AgreeToTerms, SelectedRouteDetail, ReturnSelectedRouteDetail, SpecialRequest) 
+                                VALUES 
+                                (@RouteID, @UserID, @FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @SelectedRouteDetail, @ReturnSelectedRouteDetail, @SpecialRequest)";
+
+                    // Initialize the command with the command text and connection
+                    var command = new SqlCommand(commandText, connection);
+
+                    // Add the common parameters that are always included
+                    command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
+                    command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
+                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    command.Parameters.AddWithValue("@LastName", model.LastName);
+                    command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
+                    command.Parameters.AddWithValue("@Email", model.Email);
+                    command.Parameters.AddWithValue("@TripType", model.TripType);
+                    command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
+                    command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@ReturnSelectedRouteDetail", (object)model.ReturnSelectedRouteDetail ?? DBNull.Value);
+                    command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
+
+                    // Check if SpecialRequest is No and TripType is not Friday, then ignore the special request related fields
+                    if (!(model.SpecialRequest ?? false) && model.TripType != "Friday")
+                    {
+                        // You can set default values or handle the database defaults for the fields you're ignoring
+                        // For example, setting default values for nullable fields that are being ignored
+                        // command.Parameters.AddWithValue("@SomeField", DBNull.Value);
+                    }
+
+                    try
+                    {
+                        connection.Open(); 
+                        var result = command.ExecuteNonQuery();
+                        if (result > 0)
+                        {
+                            TempData["RegistrationSuccess"] = true;
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        _logger.LogError("Database insertion error: ", ex);
+                        ModelState.AddModelError("", "There was a database error, please try again.");
+                    }
+                }
+            }
+
+            //model.LocationNames = GetLocationNames();
+            return View("Index", model);
         }
+
 
 
         //The method which will get the location names from the database

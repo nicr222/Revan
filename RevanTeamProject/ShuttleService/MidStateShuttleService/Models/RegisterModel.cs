@@ -3,12 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MidStateShuttleService.Models
 {
+
+    // !!**** Temporarily disabled validations, to be addressed in the next sprint. ****!!//
     public class RegisterModel
     {
-        public int RiderID { get; set; }
+        public int? RouteID { get; set; }
+        public int? RiderID { get; set; }
 
-        [Required(ErrorMessage = "User ID is required")]
-        [RegularExpression("^[0-9]{10}$", ErrorMessage = "Must be 10 digits")]
+        //[Required(ErrorMessage = "User ID is required")]
+        //[RegularExpression("^[0-9]{10}$", ErrorMessage = "Must be 10 digits")]
         //public long StudentId { get; set; } // Changed from int to long
         public int? UserId { get; set; }
 
@@ -30,51 +33,51 @@ namespace MidStateShuttleService.Models
         [Required(ErrorMessage = "Trip Type is required")]
         public string TripType { get; set; }// This could be a dropdown in the UI linked to Types available
 
-        [Required(ErrorMessage = "Pick Up Location is required")]
+        //[Required(ErrorMessage = "Pick Up Location is required")]
         //public string PickUpLocation { get; set; }
-        public int PickUpLocationID { get; set; }
+        public int? PickUpLocationID { get; set; }
 
-        [Required(ErrorMessage = "Drop Off Location is required")]
-        //public string DropOffLocation { get; set; }
-        public int DropOffLocationID { get; set; }
+        //[Required(ErrorMessage = "Drop Off Location is required")]
+        public int? DropOffLocationID { get; set; }
 
-        [StringLength(300, ErrorMessage = "Need transportation cannot exceed 300 characters")]
-        public string NeedTransportation { get; set; }
+        //[StringLength(300, ErrorMessage = "Need transportation cannot exceed 300 characters")]
+        public string? NeedTransportation { get; set; }
 
-        [Required(ErrorMessage = "Date is required")]
-        public DateTime Date { get; set; }
+        //[Required(ErrorMessage = "Time is required")]
+        public TimeSpan? PickUpTime { get; set; }
 
-        [Required(ErrorMessage = "Time is required")]
-        public DateTime PickUpTime { get; set; }
+        //[Required(ErrorMessage = "Time is required")]
+        public TimeSpan? DropOffTime { get; set; }
 
-        [Required(ErrorMessage = "Time is required")]
-        public DateTime DropOffTime { get; set; }
-
-        [Required(ErrorMessage = "Special request is required")]
-        public bool? SpecialRequest { get; set; } // Assuming this is mandatory for registration
+        //[Required(ErrorMessage = "Special request is required")]
+        public bool? SpecialRequest { get; set; } = false; // Assuming this is mandatory for registration
 
         // New Properties for the Friday request form fields
-        [Required(ErrorMessage = "Arrival Time is required")]
-        [DataType(DataType.Time)]
+        //[Required(ErrorMessage = "Arrival Time is required")]
+        //[DataType(DataType.Time)]
         public TimeSpan? ArrivalTime { get; set; }
 
-        [Required(ErrorMessage = "Departure Time is required")]
-        [DataType(DataType.Time)]
+        //[Required(ErrorMessage = "Departure Time is required")]
+        //[DataType(DataType.Time)]
         public TimeSpan? DepartureTime { get; set; }
 
-        [StringLength(300, ErrorMessage = "Which Friday cannot exceed 300 characters")]
+        //[StringLength(300, ErrorMessage = "Which Friday cannot exceed 300 characters")]
         public string? WhichFriday { get; set; }
 
-        [Required(ErrorMessage = "Friday Trip Type is required")]
+        //[Required(ErrorMessage = "Friday Trip Type is required")]
         public string? FridayTripType { get; set; }
 
         [Required]
         public string ContactPreference { get; set; }
 
         [Required]
-        public bool? AgreeTerms { get; set; } //  true/false for agreement
+        public bool? AgreeTerms { get; set; } = false;//  true/false for agreement
 
-        public IEnumerable<SelectListItem> LocationNames { get; set; }
+        public IEnumerable<SelectListItem>? LocationNames { get; set; }
+
+        // Add new properties for route details
+        public string? SelectedRouteDetail { get; set; }
+        public string? ReturnSelectedRouteDetail { get; set; }
     }
     
 }
