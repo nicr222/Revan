@@ -1,6 +1,4 @@
-﻿/* Alexis: I just grabbed the stuff that Phoo did and copy/pasted it. 
-   It would be better to link both forms to the same stylesheet I think, but this works for now */
-
+﻿
 /* ==========================================================================
    #GRID
    ========================================================================== */
@@ -23,14 +21,14 @@
     justify-content: space-between;
 }
 
-.col-2 {
+.col-6 {
     width: -webkit-calc((100% - 60px) / 2);
     width: -moz-calc((100% - 60px) / 2);
     width: calc((100% - 60px) / 2);
 }
 
 @media (max-width: 767px) {
-    .col-2 {
+    .col-6 {
         width: 100%;
     }
 }
@@ -40,7 +38,6 @@
    ========================================================================== */
 /**
  * More sensible default box-sizing:
- * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
  */
 html {
     -webkit-box-sizing: border-box;
@@ -94,27 +91,7 @@ h6 {
     font-size: 13px;
 }
 
-/* ==========================================================================
-   #BACKGROUND
-   ========================================================================== */
-.bg-blue {
-    background: #2c6ed5;
-}
 
-/* ==========================================================================
-   #SPACING
-   ========================================================================== */
-.p-t-100 {
-    padding-top: 100px;
-}
-
-.p-t-20 {
-    padding-top: 20px;
-}
-
-.p-b-100 {
-    padding-bottom: 100px;
-}
 
 /* ==========================================================================
    #WRAPPER
@@ -128,36 +105,44 @@ h6 {
 }
 
 /* ==========================================================================
-   #BUTTON
+   #Form Structure
    ========================================================================== */
-.btn {
-    line-height: 40px;
-    display: inline-block;
-    padding: 0 25px;
-    cursor: pointer;
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
-    color: #fff;
-    -webkit-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.btn--radius {
+.form {
+    overflow: hidden;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+    background: #fff;
 }
 
-.btn--green {
-    background: #57b846;
+.form-1 {
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
-    .btn--green:hover {
-        background: #4dae3c;
+    .form-1 .form-body {
+        padding: 0 90px;
+        padding-top: 55px;
+        padding-bottom: 65px;
     }
+
+@media (max-width: 767px) {
+    .form-1 .form-body {
+        padding: 0 40px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
+
+
+/* ==========================================================================
+   #TITLE
+   ========================================================================== */
+.title {
+    margin-bottom: 37px;
+}
+
 /* ==========================================================================
    #Input Fields
    ========================================================================== */
@@ -168,7 +153,7 @@ input {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    /* width: 100%; */ /* comment it out because it was causing the input fields to be too wide */
+    /*    width: 100%; */ /* comment it out because it was causing the input fields to be too wide*/
     font-size: 14px;
     font-family: inherit;
 }
@@ -176,96 +161,69 @@ input {
 .input-fields {
     position: relative;
     margin-bottom: 30px;
-    border-bottom: 2px solid #ccc;
-}
-
-.input-icon {
-    position: absolute;
-    font-size: 18px;
-    color: #ccc;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
 }
 
 .input--style-1 {
     padding: 9px 0;
     color: #666;
     border: none;
-    width: 100%;
 }
 
-    .input--style-1::-webkit-input-placeholder {
-        /* WebKit, Blink, Edge */
-        color: #555;
-    }
+.input--style-radio-group {
+    padding: 0px;
+    color: #666;
+    border: none;
+}
 
-    .input--style-1:-moz-placeholder {
-        /* Mozilla Firefox 4 to 18 */
-        color: #555;
-        opacity: 1;
-    }
+.div-line {
+    border-top: 2px solid #ccc;
+}
 
-    .input--style-1::-moz-placeholder {
-        /* Mozilla Firefox 19+ */
-        color: #555;
-        opacity: 1;
-    }
+.input--style-1::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #555;
+}
 
-    .input--style-1:-ms-input-placeholder {
-        /* Internet Explorer 10-11 */
-        color: #555;
-    }
+.input--style-1:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #555;
+    opacity: 1;
+}
 
-    .input--style-1:-ms-input-placeholder {
-        /* Microsoft Edge */
-        color: #555;
-    }
+.input--style-1::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #555;
+    opacity: 1;
+}
+
+.input--style-1:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #555;
+}
+
+.input--style-1:-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #555;
+}
+
+label.radio-label-style {
+    margin-bottom: 0px;
+    margin-right: 1rem;
+    padding: 9px 0;
+}
+
+input.radio-style {
+    position: static;
+    margin-left: 0rem;
+    margin-top: 0rem;
+}
 
 /* ==========================================================================
-   #TITLE
-   ========================================================================== */
-.title {
-    margin-bottom: 37px;
+    #SPACING
+    ========================================================================== */
+.p-t-20 {
+    padding-top: 20px;
 }
-
-/* ==========================================================================
-   #CARD
-   ========================================================================== */
-.card {
-    overflow: hidden;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    background: #fff;
-}
-
-.card-1 {
-    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-}
-
-    /*    .card-1 .card-heading {
-        background: url("../images/bg-head-02.jpg") center center/cover no-repeat;
-        padding-top: 210px;
-    }*/
-
-    .card-1 .card-body {
-        padding: 0 90px;
-        padding-top: 55px;
-        padding-bottom: 65px;
-    }
-
-@media (max-width: 767px) {
-    .card-1 .card-body {
-        padding: 0 40px;
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
-}
-
 /* ==========================================================================
    #BUTTON
    ========================================================================== */
@@ -287,16 +245,10 @@ input {
     animation: none;
 }
 
-.btn--submit:hover {
+.btn--submit:hover, .btn--cancel:hover {
     animation: thickenBorder 0.1s ease-out forwards; /* Apply the keyframe animation on hover */
 }
 
-/* Keyframes for border thickening animation */
-@keyframes thickenBorder {
-    to {
-        border-width: 3px; /* Target a thicker border */
-    }
-}
 
 /* ==========================================================================
    #Validation
@@ -310,52 +262,52 @@ input {
     display: none; /* Hide by default */
 }
 
-.validation-message:before {
-    content: "\26A0";
-    color: red;
-    font-weight: bold;
-    margin-right: 5px;
-}
+    .validation-message:before {
+        content: "\26A0";
+        color: red;
+        font-weight: bold;
+        margin-right: 5px;
+    }
 
 /* ==========================================================================
    #Select Button
    ========================================================================== */
 
-.select-btn{
+.select-btn {
     display: flex;
     cursor: pointer;
 }
 
-.select-btn .btn-text{
-    font-weight: 400;
-    margin-bottom: 10px;
-    color: #666;
-}
+    .select-btn .btn-text {
+        font-weight: 400;
+        margin-bottom: 10px;
+        color: #666;
+    }
 
-.select-btn .arrow-dwn {
-    display: inline-flex;
-    height: 21px;
-    width: 21px;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-}
+    .select-btn .arrow-dwn {
+        display: inline-flex;
+        height: 21px;
+        width: 21px;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+    }
 
-.select-btn.open .arrow-dwn {
-    transform: rotate(-180deg);
-}
+    .select-btn.open .arrow-dwn {
+        transform: rotate(-180deg);
+    }
 
 /* ==========================================================================
 #Select Items
 ========================================================================== */
-    .list-items {
-        position: relative;
-        margin-top: 15px;
-        padding: 16px;
-        display: none;
-    }
+.list-items {
+    position: relative;
+    margin-top: 15px;
+    padding: 16px;
+    display: none;
+}
 
-.select-btn.open ~ .list-items{
+.select-btn.open ~ .list-items {
     display: block;
 }
 
@@ -367,7 +319,7 @@ input {
     cursor: pointer;
 }
 
-.item .item-text{
+.item .item-text {
     font-weight: 400;
     margin-bottom: 0px;
 }
@@ -399,14 +351,3 @@ input {
 .item.checked .check-icon {
     transform: scale(1);
 }
-
-/* For the response request */
-    .typetrip {
-        margin-right: 10px;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    .radio-options label{
-        margin: 5px; /* Space between the label and the radio buttons */
-    }
