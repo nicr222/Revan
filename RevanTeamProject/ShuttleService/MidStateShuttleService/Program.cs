@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Areas.Identity.Data;
 using MidStateShuttleService.Data;
 using MidStateShuttleService.Service;
+using MidStateShuttleService.Models.Data;
 namespace MidStateShuttleService
 {
     public class Program
@@ -15,9 +16,13 @@ namespace MidStateShuttleService
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("MidStateShuttleServiceContextConnection") ?? throw new InvalidOperationException("Connection string 'MidStateShuttleServiceContextConnection' not found.");
+            var identityConnectionString = builder.Configuration.GetConnectionString("MidStateShuttleServiceContextConnection") ?? throw new InvalidOperationException("Connection string 'MidStateShuttleServiceContextConnection' not found.");
+            var appConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-            builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(identityConnectionString));
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(appConnectionString));
+
+            builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(appConnectionString));
             builder.Services.AddSingleton<IListService, ListServices>();
             builder.Services.AddDefaultIdentity<MidStateShuttleServiceUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()

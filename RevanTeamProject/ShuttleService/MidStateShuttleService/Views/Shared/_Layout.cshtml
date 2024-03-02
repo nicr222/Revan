@@ -35,9 +35,18 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        <a class="nav-item nav-link" asp-area="" asp-controller="Register" asp-action="Index">Register</a>
+                        <a class="nav-item nav-link" asp-area="" asp-controller="Register" asp-action="Register">Register</a>
                         <a class="nav-item nav-link" asp-area="" asp-controller="Reservation" asp-action="CheckIn">Check In</a>
-                        <a class="nav-item nav-link" asp-area="" asp-controller="Communicate" asp-action="Index">Message</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <!-- Pulls the Dispatch to Student form -->
+                            <a class="nav-item nav-link" asp-area="" asp-controller="Communicate" asp-action="Index">Message</a>
+                        }
+                        else
+                        {
+                            <!-- Pulls the Student to Dispatch form -->
+                            <a class="nav-item nav-link" asp-area="" asp-controller="Communicate" asp-action="StudentCommunicate">Message</a>
+                        }
                         <a class="nav-item nav-link" asp-area="" asp-controller="Location" asp-action="Create">Add Location</a>
                         <a class="nav-item nav-link" asp-area="" asp-controller="Routes" asp-action="Create">Add Routes</a>
                         <a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">See User Type</a>
