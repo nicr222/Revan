@@ -221,30 +221,29 @@
                                         <input type="hidden" id="hiddenReturnSelectedRouteDetail" name="ReturnSelectedRouteDetail" value="">
 
                                      </div>
-
-                                    <div class="schedule-date">
-                                        <!-- Multi-select Checkboxes for Days of the Week -->
-                                        <div class="form-group">
-                                            <div class="input-fields">
-                                                <label for="daysofweek">Select the days of the week that this route will be needed.*</label>
-                                                <div class="daysofweek-checkbox-group">
-                                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Monday"> Monday</label>
-                                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Tuesday"> Tuesday</label>
-                                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday"> Wednesday</label>
-                                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday"> Thursday</label>
-                                                    <div class="form-line"></div>
-                                                    <p class="days-of-weeks-guide">*Friday routes MUST be reserved and can be customized for your transportation needs.</p>
-                                                </div>
+                                </div>
+                                <div class="schedule-date" style="display: none;">
+                                    <!-- Multi-select Checkboxes for Days of the Week -->
+                                    <div class="form-group">
+                                        <div class="input-fields">
+                                            <label for="daysofweek">Select the days of the week that this route will be needed.*</label>
+                                            <div class="daysofweek-checkbox-group">
+                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Monday"> Monday</label>
+                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Tuesday"> Tuesday</label>
+                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday"> Wednesday</label>
+                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday"> Thursday</label>
+                                                <div class="form-line"></div>
+                                                <p class="days-of-weeks-guide">*Friday routes MUST be reserved and can be customized for your transportation needs.</p>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <!-- Date Field for First Day Expecting to Ride -->
-                                        <div class="form-group">
-                                            <div class="input-fields">
-                                                <label for="FirstDayExpectingToRide">First Day Expecting to Ride?</label>
-                                                @Html.EditorFor(model => model.FirstDayExpectingToRide, new { htmlAttributes = new { @class = "form-control", type = "date" } })
-                                                @*                                             <div class="validation-message"></div> *@ <!-- Placeholder for validation message -->
-                                            </div>
+                                    <!-- Date Field for First Day Expecting to Ride -->
+                                    <div class="form-group">
+                                        <div class="input-fields">
+                                            <label for="FirstDayExpectingToRide">First Day Expecting to Ride?</label>
+                                            @Html.EditorFor(model => model.FirstDayExpectingToRide, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                            @*                                             <div class="validation-message"></div> *@ <!-- Placeholder for validation message -->
                                         </div>
                                     </div>
                                 </div>
@@ -521,13 +520,14 @@
 </script>
 
 <script src="/js/Registeration/Registeration.js"></script>
-<script src="/js/Registeration/schedule-date.js"></script>
 <script src="/js/Registeration/RegisterationValidation.js"></script>
 <script src="/js/Registeration/finalconfirmation.js"></script>
 <script src="/js/Registeration/RouteUpdater.js"></script>
 <script src="/js/Registeration/ReturnRouteUpdater.js"></script>
 <script src="/js/Registeration/routeVisibility.js"></script>
+<script src="/js/Registeration/OneWayScheduleDateVisibility.js"></script>
 <script src="/js/Registeration/form-reset.js"></script>
+
 
 
 
