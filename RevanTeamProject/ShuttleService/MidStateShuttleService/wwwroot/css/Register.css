@@ -631,8 +631,8 @@ input {
    #Schedule Date Section Styles
    ========================================================================== */
 .schedule-date {
-    padding: 20px;
-    border-radius: 5px; /* Rounded corners for soft edges */
+    padding-bottom: 15px;
+    margin-right: 10px;
 }
 
     .schedule-date .form-group {
