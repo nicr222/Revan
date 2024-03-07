@@ -17,12 +17,6 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Bus> Buses { get; set; }
 
-    public virtual DbSet<BusDriver> BusDrivers { get; set; }
-
-    public virtual DbSet<BusRider> BusRiders { get; set; }
-
-    public virtual DbSet<BusRoute> BusRoutes { get; set; }
-
     public virtual DbSet<Driver> Drivers { get; set; }
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
@@ -33,11 +27,17 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Registration> Registrations { get; set; }
 
-    public virtual DbSet<Rider> Riders { get; set; }
+    public virtual DbSet<RegistrationDay> RegistrationDays { get; set; }
 
     public virtual DbSet<Route> Routes { get; set; }
 
     public virtual DbSet<RouteLocation> RouteLocations { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=0515_392_v1_Revan;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -45,56 +45,9 @@ public partial class ApplicationDbContext : DbContext
         {
             entity.HasKey(e => e.BusId).HasName("PK__Bus__6A0F60B5718116B1");
 
-            entity.HasOne(d => d.BusRider).WithMany(p => p.Buses)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Bus__BusRiderId__10566F31");
+            entity.HasOne(d => d.CurrentRoute).WithMany(p => p.Buses).HasConstraintName("FK__Bus__CurrentRout__4E53A1AA");
 
-            entity.HasOne(d => d.Driver).WithMany(p => p.Buses)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Bus__DriverID__48CFD27E");
-        });
-
-        modelBuilder.Entity<BusDriver>(entity =>
-        {
-            entity.HasKey(e => e.BusDriverId).HasName("PK__BusDrive__BA8E141F66849534");
-
-            entity.Property(e => e.BusDriverId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.Bus).WithMany(p => p.BusDrivers)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BusDriver__BusId__14270015");
-
-            entity.HasOne(d => d.Driver).WithMany(p => p.BusDrivers)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BusDriver__Drive__151B244E");
-        });
-
-        modelBuilder.Entity<BusRider>(entity =>
-        {
-            entity.HasKey(e => e.BusRiderId).HasName("PK__BusRider__FE19AE6471A5ECDC");
-
-            entity.Property(e => e.BusRiderId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.Bus).WithMany(p => p.BusRiders)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BusRider__BusID__4BAC3F29");
-
-            entity.HasOne(d => d.Rider).WithMany(p => p.BusRiders)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BusRider__RiderI__4CA06362");
-        });
-
-        modelBuilder.Entity<BusRoute>(entity =>
-        {
-            entity.HasKey(e => e.BusRouteId).HasName("PK__BusRoute__2A158E8DAE35A2E8");
-
-            entity.HasOne(d => d.Bus).WithMany(p => p.BusRoutes)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BusRoute__BusId__2A164134");
-
-            entity.HasOne(d => d.Route).WithMany(p => p.BusRoutes)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BusRoute__RouteI__2B0A656D");
+            entity.HasOne(d => d.Driver).WithMany(p => p.Buses).HasConstraintName("FK__Bus__DriverID__4D5F7D71");
         });
 
         modelBuilder.Entity<Driver>(entity =>
@@ -105,6 +58,8 @@ public partial class ApplicationDbContext : DbContext
         modelBuilder.Entity<Feedback>(entity =>
         {
             entity.HasKey(e => e.FeedbackId).HasName("PK__Feedback__6A4BEDF69EC0AC18");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Feedbacks).HasConstraintName("UserId");
         });
 
         modelBuilder.Entity<Location>(entity =>
@@ -138,14 +93,22 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("FK__Registrat__Route__2645B050");
         });
 
-        modelBuilder.Entity<Rider>(entity =>
+        modelBuilder.Entity<RegistrationDay>(entity =>
         {
-            entity.HasKey(e => e.RiderId).HasName("PK__Rider__7D726C00670C3598");
+            entity.HasKey(e => e.RegistrationDayId).HasName("PK__Registra__F8B74C8E0554913D");
+
+            entity.HasOne(d => d.Registration).WithMany(p => p.RegistrationDays)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Registrat__Regis__5AB9788F");
         });
 
         modelBuilder.Entity<Route>(entity =>
         {
             entity.HasKey(e => e.RouteId).HasName("PK__Route__80979AAD3C88294B");
+
+            entity.HasOne(d => d.Bus).WithMany(p => p.Routes)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Route__BusId__55009F39");
 
             entity.HasOne(d => d.DropOffLocation).WithMany(p => p.RouteDropOffLocations)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -167,6 +130,17 @@ public partial class ApplicationDbContext : DbContext
             entity.HasOne(d => d.NextStop).WithMany(p => p.RouteLocationNextStops)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__RouteLoca__NextS__1F98B2C1");
+
+            entity.HasOne(d => d.Route).WithMany(p => p.RouteLocations)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__RouteLoca__Route__57DD0BE4");
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("PK__User__1788CC4C2781EAC2");
+
+            entity.Property(e => e.UserId).ValueGeneratedNever();
         });
 
         OnModelCreatingPartial(modelBuilder);

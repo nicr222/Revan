@@ -31,6 +31,8 @@ public partial class Location
     [StringLength(5)]
     public string Abbreviation { get; set; } = null!;
 
+    public bool IsArchived { get; set; }
+
     [InverseProperty("DropOffLocation")]
     public virtual ICollection<Route> RouteDropOffLocations { get; set; } = new List<Route>();
 

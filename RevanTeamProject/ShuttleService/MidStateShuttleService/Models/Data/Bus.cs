@@ -18,26 +18,20 @@ public partial class Bus
     public int PassengerCapacity { get; set; }
 
     [Column("DriverID")]
-    public int DriverId { get; set; }
-
-    public int BusRiderId { get; set; }
+    public int? DriverId { get; set; }
 
     public bool IsActive { get; set; }
 
-    [InverseProperty("Bus")]
-    public virtual ICollection<BusDriver> BusDrivers { get; set; } = new List<BusDriver>();
+    public int? CurrentRouteId { get; set; }
 
-    [ForeignKey("BusRiderId")]
+    [ForeignKey("CurrentRouteId")]
     [InverseProperty("Buses")]
-    public virtual Rider BusRider { get; set; } = null!;
-
-    [InverseProperty("Bus")]
-    public virtual ICollection<BusRider> BusRiders { get; set; } = new List<BusRider>();
-
-    [InverseProperty("Bus")]
-    public virtual ICollection<BusRoute> BusRoutes { get; set; } = new List<BusRoute>();
+    public virtual Route? CurrentRoute { get; set; }
 
     [ForeignKey("DriverId")]
     [InverseProperty("Buses")]
-    public virtual Driver Driver { get; set; } = null!;
+    public virtual Driver? Driver { get; set; }
+
+    [InverseProperty("Bus")]
+    public virtual ICollection<Route> Routes { get; set; } = new List<Route>();
 }

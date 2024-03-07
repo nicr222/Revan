@@ -1,10 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using MidStateShuttleService.Areas.Identity.Data
-
-@inject SignInManager<MidStateShuttleServiceUser> SignInManager
-@inject UserManager<MidStateShuttleServiceUser> UserManager
-
-<!-- index.cshtml or your layout file -->
+﻿<!-- index.cshtml or your layout file -->
 @{
     ViewData["Title"] = "Home";
 }
@@ -49,15 +43,6 @@
                         }
                         <a class="nav-item nav-link" asp-area="" asp-controller="Location" asp-action="Create">Add Location</a>
                         <a class="nav-item nav-link" asp-area="" asp-controller="Routes" asp-action="Create">Add Routes</a>
-                        <a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">See User Type</a>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <a class="nav-item nav-link" asp-area="Identity" asp-page="/Account/Logout">Sign Out</a>
-                        }
-                        else
-                        {
-                            <a class="nav-item nav-link" asp-area="Identity" asp-page="/Account/Login">Sign In</a>
-                        }
                     </div>
                 </div>
             </nav>

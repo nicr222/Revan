@@ -35,4 +35,8 @@ public partial class RouteLocation
     [ForeignKey("NextStopId")]
     [InverseProperty("RouteLocationNextStops")]
     public virtual Location NextStop { get; set; } = null!;
+
+    [ForeignKey("RouteId")]
+    [InverseProperty("RouteLocations")]
+    public virtual Route Route { get; set; } = null!;
 }

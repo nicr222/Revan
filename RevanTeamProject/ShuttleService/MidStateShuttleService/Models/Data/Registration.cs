@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using MidStateShuttleService.Areas.Identity.Data;
 
 namespace MidStateShuttleService.Models.Data;
 
@@ -44,15 +43,19 @@ public partial class Registration
 
     public int? FeedBackId { get; set; }
 
+    [StringLength(10)]
+    public string? TripType { get; set; }
+
+    public DateOnly? FirstDayExpectingToRide { get; set; }
+
     [ForeignKey("FeedBackId")]
     [InverseProperty("Registrations")]
     public virtual Feedback? FeedBack { get; set; }
 
+    [InverseProperty("Registration")]
+    public virtual ICollection<RegistrationDay> RegistrationDays { get; set; } = new List<RegistrationDay>();
+
     [ForeignKey("RouteId")]
     [InverseProperty("Registrations")]
     public virtual Route Route { get; set; } = null!;
-
-    [ForeignKey("UserId")]
-    [InverseProperty("Registrations")]
-    public virtual MidStateShuttleServiceUser? User { get; set; }
 }

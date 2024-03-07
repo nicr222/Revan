@@ -26,8 +26,16 @@ public partial class Route
     [StringLength(300)]
     public string? AdditionalDetails { get; set; }
 
-    [InverseProperty("Route")]
-    public virtual ICollection<BusRoute> BusRoutes { get; set; } = new List<BusRoute>();
+    public bool IsArchived { get; set; }
+
+    public int BusId { get; set; }
+
+    [ForeignKey("BusId")]
+    [InverseProperty("Routes")]
+    public virtual Bus Bus { get; set; } = null!;
+
+    [InverseProperty("CurrentRoute")]
+    public virtual ICollection<Bus> Buses { get; set; } = new List<Bus>();
 
     [ForeignKey("DropOffLocationId")]
     [InverseProperty("RouteDropOffLocations")]
@@ -42,4 +50,7 @@ public partial class Route
 
     [InverseProperty("Route")]
     public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
+
+    [InverseProperty("Route")]
+    public virtual ICollection<RouteLocation> RouteLocations { get; set; } = new List<RouteLocation>();
 }

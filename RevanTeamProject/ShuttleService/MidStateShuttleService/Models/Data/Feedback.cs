@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using MidStateShuttleService.Areas.Identity.Data;
 
 namespace MidStateShuttleService.Models.Data;
 
@@ -21,13 +20,12 @@ public partial class Feedback
     public DateTime DateSubmitted { get; set; }
 
     [Column("UserID")]
-    [StringLength(450)]
-    public string? UserId { get; set; }
+    public int? UserId { get; set; }
 
     [InverseProperty("FeedBack")]
     public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
 
     [ForeignKey("UserId")]
     [InverseProperty("Feedbacks")]
-    public virtual MidStateShuttleServiceUser? User { get; set; }
+    public virtual User? User { get; set; }
 }

@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MidStateShuttleService.Models.Data;
 
 #nullable disable
 
-namespace MidStateShuttleService.Migrations.ApplicationDb
+namespace MidStateShuttleService.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240307061021_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,58 +24,6 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("MidStateShuttleService.Areas.Identity.Data.MidStateShuttleServiceUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MidStateShuttleServiceUser");
-                });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Data.Bus", b =>
                 {
@@ -87,10 +38,10 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("BusRiderId")
+                    b.Property<int?>("CurrentRouteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DriverId")
+                    b.Property<int?>("DriverId")
                         .HasColumnType("int")
                         .HasColumnName("DriverID");
 
@@ -103,79 +54,11 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                     b.HasKey("BusId")
                         .HasName("PK__Bus__6A0F60B5718116B1");
 
-                    b.HasIndex("BusRiderId");
+                    b.HasIndex("CurrentRouteId");
 
                     b.HasIndex("DriverId");
 
                     b.ToTable("Bus");
-                });
-
-            modelBuilder.Entity("MidStateShuttleService.Models.Data.BusDriver", b =>
-                {
-                    b.Property<int>("BusDriverId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DriverId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BusDriverId")
-                        .HasName("PK__BusDrive__BA8E141F66849534");
-
-                    b.HasIndex("BusId");
-
-                    b.HasIndex("DriverId");
-
-                    b.ToTable("BusDriver");
-                });
-
-            modelBuilder.Entity("MidStateShuttleService.Models.Data.BusRider", b =>
-                {
-                    b.Property<int>("BusRiderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BusId")
-                        .HasColumnType("int")
-                        .HasColumnName("BusID");
-
-                    b.Property<int>("RiderId")
-                        .HasColumnType("int")
-                        .HasColumnName("RiderID");
-
-                    b.HasKey("BusRiderId")
-                        .HasName("PK__BusRider__FE19AE6471A5ECDC");
-
-                    b.HasIndex("BusId");
-
-                    b.HasIndex("RiderId");
-
-                    b.ToTable("BusRider");
-                });
-
-            modelBuilder.Entity("MidStateShuttleService.Models.Data.BusRoute", b =>
-                {
-                    b.Property<int>("BusRouteId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BusRouteId"));
-
-                    b.Property<int>("BusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RouteId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BusRouteId")
-                        .HasName("PK__BusRoute__2A158E8DAE35A2E8");
-
-                    b.HasIndex("BusId");
-
-                    b.HasIndex("RouteId");
-
-                    b.ToTable("BusRoute");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Data.Driver", b =>
@@ -222,9 +105,8 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                     b.Property<DateTime>("DateSubmitted")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("UserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)")
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int")
                         .HasColumnName("UserID");
 
                     b.HasKey("FeedbackId")
@@ -258,6 +140,9 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -337,6 +222,9 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                     b.Property<int?>("FeedBackId")
                         .HasColumnType("int");
 
+                    b.Property<DateOnly?>("FirstDayExpectingToRide")
+                        .HasColumnType("date");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -366,6 +254,10 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                     b.Property<DateTime?>("SpecialRequestDate")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("TripType")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<string>("UserId")
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
@@ -377,51 +269,33 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
 
                     b.HasIndex("RouteId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Registration");
                 });
 
-            modelBuilder.Entity("MidStateShuttleService.Models.Data.Rider", b =>
+            modelBuilder.Entity("MidStateShuttleService.Models.Data.RegistrationDay", b =>
                 {
-                    b.Property<int>("RiderId")
+                    b.Property<int>("RegistrationDayId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("RiderID");
+                        .HasColumnName("RegistrationDayID");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RiderId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RegistrationDayId"));
 
-                    b.Property<string>("Email")
+                    b.Property<string>("DayOfWeek")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("RegistrationId")
+                        .HasColumnType("int")
+                        .HasColumnName("RegistrationID");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.HasKey("RegistrationDayId")
+                        .HasName("PK__Registra__F8B74C8E0554913D");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.HasIndex("RegistrationId");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("RiderId")
-                        .HasName("PK__Rider__7D726C00670C3598");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Rider");
+                    b.ToTable("RegistrationDays");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Data.Route", b =>
@@ -437,12 +311,18 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
+                    b.Property<int>("BusId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DropOffLocationId")
                         .HasColumnType("int")
                         .HasColumnName("DropOffLocationID");
 
                     b.Property<TimeOnly>("DropOffTime")
                         .HasColumnType("time");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
 
                     b.Property<int>("PickUpLocationId")
                         .HasColumnType("int")
@@ -453,6 +333,8 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
 
                     b.HasKey("RouteId")
                         .HasName("PK__Route__80979AAD3C88294B");
+
+                    b.HasIndex("BusId");
 
                     b.HasIndex("DropOffLocationId");
 
@@ -498,90 +380,45 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
 
                     b.HasIndex("NextStopId");
 
+                    b.HasIndex("RouteId");
+
                     b.ToTable("RouteLocation");
+                });
+
+            modelBuilder.Entity("MidStateShuttleService.Models.Data.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId")
+                        .HasName("PK__User__1788CC4C2781EAC2");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Data.Bus", b =>
                 {
-                    b.HasOne("MidStateShuttleService.Models.Data.Rider", "BusRider")
+                    b.HasOne("MidStateShuttleService.Models.Data.Route", "CurrentRoute")
                         .WithMany("Buses")
-                        .HasForeignKey("BusRiderId")
-                        .IsRequired()
-                        .HasConstraintName("FK__Bus__BusRiderId__10566F31");
+                        .HasForeignKey("CurrentRouteId")
+                        .HasConstraintName("FK__Bus__CurrentRout__4E53A1AA");
 
                     b.HasOne("MidStateShuttleService.Models.Data.Driver", "Driver")
                         .WithMany("Buses")
                         .HasForeignKey("DriverId")
-                        .IsRequired()
-                        .HasConstraintName("FK__Bus__DriverID__48CFD27E");
+                        .HasConstraintName("FK__Bus__DriverID__4D5F7D71");
 
-                    b.Navigation("BusRider");
-
-                    b.Navigation("Driver");
-                });
-
-            modelBuilder.Entity("MidStateShuttleService.Models.Data.BusDriver", b =>
-                {
-                    b.HasOne("MidStateShuttleService.Models.Data.Bus", "Bus")
-                        .WithMany("BusDrivers")
-                        .HasForeignKey("BusId")
-                        .IsRequired()
-                        .HasConstraintName("FK__BusDriver__BusId__14270015");
-
-                    b.HasOne("MidStateShuttleService.Models.Data.Driver", "Driver")
-                        .WithMany("BusDrivers")
-                        .HasForeignKey("DriverId")
-                        .IsRequired()
-                        .HasConstraintName("FK__BusDriver__Drive__151B244E");
-
-                    b.Navigation("Bus");
+                    b.Navigation("CurrentRoute");
 
                     b.Navigation("Driver");
-                });
-
-            modelBuilder.Entity("MidStateShuttleService.Models.Data.BusRider", b =>
-                {
-                    b.HasOne("MidStateShuttleService.Models.Data.Bus", "Bus")
-                        .WithMany("BusRiders")
-                        .HasForeignKey("BusId")
-                        .IsRequired()
-                        .HasConstraintName("FK__BusRider__BusID__4BAC3F29");
-
-                    b.HasOne("MidStateShuttleService.Models.Data.Rider", "Rider")
-                        .WithMany("BusRiders")
-                        .HasForeignKey("RiderId")
-                        .IsRequired()
-                        .HasConstraintName("FK__BusRider__RiderI__4CA06362");
-
-                    b.Navigation("Bus");
-
-                    b.Navigation("Rider");
-                });
-
-            modelBuilder.Entity("MidStateShuttleService.Models.Data.BusRoute", b =>
-                {
-                    b.HasOne("MidStateShuttleService.Models.Data.Bus", "Bus")
-                        .WithMany("BusRoutes")
-                        .HasForeignKey("BusId")
-                        .IsRequired()
-                        .HasConstraintName("FK__BusRoute__BusId__2A164134");
-
-                    b.HasOne("MidStateShuttleService.Models.Data.Route", "Route")
-                        .WithMany("BusRoutes")
-                        .HasForeignKey("RouteId")
-                        .IsRequired()
-                        .HasConstraintName("FK__BusRoute__RouteI__2B0A656D");
-
-                    b.Navigation("Bus");
-
-                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Data.Feedback", b =>
                 {
-                    b.HasOne("MidStateShuttleService.Areas.Identity.Data.MidStateShuttleServiceUser", "User")
+                    b.HasOne("MidStateShuttleService.Models.Data.User", "User")
                         .WithMany("Feedbacks")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("UserId");
 
                     b.Navigation("User");
                 });
@@ -618,30 +455,30 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                         .IsRequired()
                         .HasConstraintName("FK__Registrat__Route__2645B050");
 
-                    b.HasOne("MidStateShuttleService.Areas.Identity.Data.MidStateShuttleServiceUser", "User")
-                        .WithMany("Registrations")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("FeedBack");
 
                     b.Navigation("Route");
-
-                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MidStateShuttleService.Models.Data.Rider", b =>
+            modelBuilder.Entity("MidStateShuttleService.Models.Data.RegistrationDay", b =>
                 {
-                    b.HasOne("MidStateShuttleService.Areas.Identity.Data.MidStateShuttleServiceUser", "User")
-                        .WithMany("Riders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("MidStateShuttleService.Models.Data.Registration", "Registration")
+                        .WithMany("RegistrationDays")
+                        .HasForeignKey("RegistrationId")
+                        .IsRequired()
+                        .HasConstraintName("FK__Registrat__Regis__5AB9788F");
 
-                    b.Navigation("User");
+                    b.Navigation("Registration");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Data.Route", b =>
                 {
+                    b.HasOne("MidStateShuttleService.Models.Data.Bus", "Bus")
+                        .WithMany("Routes")
+                        .HasForeignKey("BusId")
+                        .IsRequired()
+                        .HasConstraintName("FK__Route__BusId__55009F39");
+
                     b.HasOne("MidStateShuttleService.Models.Data.Location", "DropOffLocation")
                         .WithMany("RouteDropOffLocations")
                         .HasForeignKey("DropOffLocationId")
@@ -653,6 +490,8 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                         .HasForeignKey("PickUpLocationId")
                         .IsRequired()
                         .HasConstraintName("FK__Route__PickUpLoc__18EBB532");
+
+                    b.Navigation("Bus");
 
                     b.Navigation("DropOffLocation");
 
@@ -673,33 +512,26 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                         .IsRequired()
                         .HasConstraintName("FK__RouteLoca__NextS__1F98B2C1");
 
+                    b.HasOne("MidStateShuttleService.Models.Data.Route", "Route")
+                        .WithMany("RouteLocations")
+                        .HasForeignKey("RouteId")
+                        .IsRequired()
+                        .HasConstraintName("FK__RouteLoca__Route__57DD0BE4");
+
                     b.Navigation("Location");
 
                     b.Navigation("NextStop");
-                });
 
-            modelBuilder.Entity("MidStateShuttleService.Areas.Identity.Data.MidStateShuttleServiceUser", b =>
-                {
-                    b.Navigation("Feedbacks");
-
-                    b.Navigation("Registrations");
-
-                    b.Navigation("Riders");
+                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Data.Bus", b =>
                 {
-                    b.Navigation("BusDrivers");
-
-                    b.Navigation("BusRiders");
-
-                    b.Navigation("BusRoutes");
+                    b.Navigation("Routes");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Data.Driver", b =>
                 {
-                    b.Navigation("BusDrivers");
-
                     b.Navigation("Buses");
 
                     b.Navigation("Messages");
@@ -721,20 +553,25 @@ namespace MidStateShuttleService.Migrations.ApplicationDb
                     b.Navigation("RoutePickUpLocations");
                 });
 
-            modelBuilder.Entity("MidStateShuttleService.Models.Data.Rider", b =>
+            modelBuilder.Entity("MidStateShuttleService.Models.Data.Registration", b =>
                 {
-                    b.Navigation("BusRiders");
-
-                    b.Navigation("Buses");
+                    b.Navigation("RegistrationDays");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Data.Route", b =>
                 {
-                    b.Navigation("BusRoutes");
+                    b.Navigation("Buses");
 
                     b.Navigation("Messages");
 
                     b.Navigation("Registrations");
+
+                    b.Navigation("RouteLocations");
+                });
+
+            modelBuilder.Entity("MidStateShuttleService.Models.Data.User", b =>
+                {
+                    b.Navigation("Feedbacks");
                 });
 #pragma warning restore 612, 618
         }

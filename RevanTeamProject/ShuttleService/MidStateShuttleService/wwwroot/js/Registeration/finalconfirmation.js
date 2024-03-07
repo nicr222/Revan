@@ -3,19 +3,28 @@
     $('.btn--submit').click(function (e) {
         e.preventDefault(); // Prevent the default form submit action
 
-        // Populate modal with form data
-        var confirmationContent = '<p>User ID: ' + $('#UserId').val() + '</p>' +
+        // For Initial Route
+        var initialRoute = $('input[name="SelectedRouteDetail"]:checked').val();
+
+        // For Return Route
+        var returnRoute = $('input[name="ReturnSelectedRouteDetail"]:checked').val();
+
+        // Determine other Special Request selection
+        var specialRequestSelection = $('input[name="SpecialRequest"]:checked').val();
+        var specialRequestText = specialRequestSelection === 'true' ? 'Yes' : 'No';
+
+
+        // Adjust the confirmationContent string to include these variables
+        var confirmationContent =
             '<p>First Name: ' + $('#FirstName').val() + '</p>' +
             '<p>Last Name: ' + $('#LastName').val() + '</p>' +
             '<p>Email: ' + $('#Email').val() + '</p>' +
             '<p>Phone Number: ' + $('#PhoneNumber').val() + '</p>' +
             '<p>Trip Type: ' + $('[name="TripType"]:checked').val() + '</p>' +
-            '<p>Pick-Up Location: ' + $('#PickUpLocation option:selected').text() + '</p>' +
-            '<p>Drop-Off Location: ' + $('#DropOffLocation option:selected').text() + '</p>' +
-            '<p>Date: ' + $('#Date').val() + '</p>' +
-            '<p>Time: ' + $('#Time').val() + '</p>' +
+            '<p>Initial Route: ' + initialRoute + '</p>' +
+            '<p>Return Route: ' + returnRoute + '</p>' +
+            '<p>Special Request: ' + specialRequestText + '</p>' +
             '<p>Contact Preference: ' + $('[name="ContactPreference"]:checked').val() + '</p>';
-
             // ... Continue for other fields
 
             $('.modal-body').html(confirmationContent);

@@ -21,9 +21,6 @@ public partial class Driver
     public bool IsActive { get; set; }
 
     [InverseProperty("Driver")]
-    public virtual ICollection<BusDriver> BusDrivers { get; set; } = new List<BusDriver>();
-
-    [InverseProperty("Driver")]
     public virtual ICollection<Bus> Buses { get; set; } = new List<Bus>();
 
     [InverseProperty("Driver")]
