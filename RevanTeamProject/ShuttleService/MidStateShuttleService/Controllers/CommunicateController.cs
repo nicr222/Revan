@@ -29,9 +29,35 @@ namespace MidStateShuttleService.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Retrieve passed in list of students from the database.
+                try
+                {
+                    // Retrieve passed in list of students from the database.
 
-                // Send the message to each person registered to the shutte.
+                    // Send the message to each person registered to the shutte.
+
+                    // Save message to database
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        string sendMessageQuery = "INSERT INTO [dbo].[Message] (Message, BusRiderId, DriverId) VALUES (@Message, @BusRiderId, @DriverId); SELECT SCOPE_IDENTITY();";
+                        SqlCommand cmdMessage = new SqlCommand(sendMessageQuery, connection);
+
+                        cmdMessage.Parameters.AddWithValue("@Message", c.message);
+                        cmdMessage.Parameters.AddWithValue("@BusRiderId", );
+                        // Pull the id from the User?
+                        cmdMessage.Parameters.AddWithValue("@DriverId", );
+                        cmdMessage.ExecuteNonQuery();
+                    }
+
+                    return RedirectToAction("MessageSent");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error Sending Message");
+
+                    return View("Error");
+                }
                 return RedirectToAction("MessageSent");
             }
             
