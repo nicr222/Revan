@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Service;
+using MidStateShuttleService.Models.Data;
+
 namespace MidStateShuttleService
 {
     public class Program
@@ -16,7 +18,7 @@ namespace MidStateShuttleService
             var identityConnectionString = builder.Configuration.GetConnectionString("MidStateShuttleServiceContextConnection") ?? throw new InvalidOperationException("Connection string 'MidStateShuttleServiceContextConnection' not found.");
             var appConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-            //builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(appConnectionString));
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(appConnectionString));
 
             builder.Services.AddSingleton<IListService, ListServices>();
          
