@@ -83,6 +83,14 @@ namespace MidStateShuttleService.Models
         public List<string>? SelectedDaysOfWeek { get; set; } = new List<string>();
 
         public DateOnly? FirstDayExpectingToRide { get; set; }
+
+        public TimeOnly? MustArriveTime { get; set; }
+
+        public TimeOnly? CanLeaveTime { get; set; }
+
+        public string? SpecialPickUpLocation { get; set; }
+
+        public string? SpecialDropOffLocation { get; set; }
     }
     
 }
