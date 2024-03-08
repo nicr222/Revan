@@ -113,11 +113,11 @@ namespace MidStateShuttleService.Controllers
                     {
                         var commandText = @"INSERT INTO [dbo].[Registration] 
                             (RouteID, UserID, FirstName, LastName, Phone, Email, TripType, SelectedRouteDetail, SpecialRequest, MustArriveTime, CanLeaveTime,
-                            SpecialPickUpLocation, SpecialDropOffLocation, AgreeToTerms, NeedTransportation, PickUpLocationID, DropOffLocationID) 
+                            SpecialPickUpLocation, SpecialDropOffLocation, AgreeToTerms, NeedTransportation) 
                             OUTPUT INSERTED.RegistrationID
                             VALUES 
                             (@RouteID, @UserID, @FirstName, @LastName, @Phone, @Email, @TripType, @SelectedRouteDetail, @SpecialRequest, @MustArriveTime, @CanLeaveTime,
-                            @SpecialPickUpLocation, @SpecialDropOffLocation, @AgreeToTerms, @NeedTransportation, @PickUpLocationID, @DropOffLocationID)";
+                            @SpecialPickUpLocation, @SpecialDropOffLocation, @AgreeToTerms, @NeedTransportation)";
 
                         // Initialize the command with the command text and connection
                         var command = new SqlCommand(commandText, connection);
@@ -130,8 +130,6 @@ namespace MidStateShuttleService.Controllers
                         command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
                         command.Parameters.AddWithValue("@Email", model.Email);
                         command.Parameters.AddWithValue("@TripType", model.TripType);
-                        command.Parameters.AddWithValue("@PickUpLocationID", model.PickUpLocationID.HasValue ? (object)model.PickUpLocationID.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID.HasValue ? (object)model.DropOffLocationID.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
                         command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
                         command.Parameters.AddWithValue("@MustArriveTime", model.MustArriveTime.HasValue ? (object)model.MustArriveTime.Value : DBNull.Value);
