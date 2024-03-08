@@ -66,18 +66,18 @@ namespace MidStateShuttleService.Controllers
                     if (model.TripType == "RoundTrip" && model.SpecialRequest == false)
                     {
                         var commandText = @"INSERT INTO [dbo].[Registration] 
-                        (RouteID, UserID, FirstName, LastName, Phone, Email, TripType, AgreeToTerms, SelectedRouteDetail, ReturnSelectedRouteDetail, SpecialRequest, FirstDayExpectingToRide) 
+                        (FirstName, LastName, Phone, Email, TripType, AgreeToTerms, SelectedRouteDetail, ReturnSelectedRouteDetail, SpecialRequest, FirstDayExpectingToRide) 
                         OUTPUT INSERTED.RegistrationID
                         VALUES 
-                        (@RouteID, @UserID, @FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @SelectedRouteDetail, @ReturnSelectedRouteDetail, @SpecialRequest, @FirstDayExpectingToRide)";
+                        (@FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @SelectedRouteDetail, @ReturnSelectedRouteDetail, @SpecialRequest, @FirstDayExpectingToRide)";
 
 
                         // Initialize the command with the command text and connection
                         var command = new SqlCommand(commandText, connection);
 
                         // Add the common parameters that are always included
-                        command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@FirstName", model.FirstName);
                         command.Parameters.AddWithValue("@LastName", model.LastName);
                         command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
@@ -109,29 +109,39 @@ namespace MidStateShuttleService.Controllers
                         }
                     }
 
-                    if (model.TripType == "RoundTrip" && model.SpecialRequest != false)
+                    // Fetch location names
+                    string pickUpLocationName = GetLocationNameById(model.PickUpLocationID);
+                    string dropOffLocationName = GetLocationNameById(model.DropOffLocationID);
+
+                    // Check if either location name is 'Other'
+                    bool isPickUpLocationOther = string.Equals(pickUpLocationName, "Other", StringComparison.OrdinalIgnoreCase);
+                    bool isDropOffLocationOther = string.Equals(dropOffLocationName, "Other", StringComparison.OrdinalIgnoreCase);
+
+                    if (model.TripType == "RoundTrip" && model.SpecialRequest != false || (isPickUpLocationOther || isDropOffLocationOther))
                     {
                         var commandText = @"INSERT INTO [dbo].[Registration] 
-                            (RouteID, UserID, FirstName, LastName, Phone, Email, TripType, SelectedRouteDetail, SpecialRequest, MustArriveTime, CanLeaveTime,
-                            SpecialPickUpLocation, SpecialDropOffLocation, AgreeToTerms, NeedTransportation) 
+                            (FirstName, LastName, Phone, Email, TripType, SpecialRequest, SelectedRouteDetail, MustArriveTime, CanLeaveTime,
+                            SpecialPickUpLocation, SpecialDropOffLocation, AgreeToTerms, NeedTransportation, PickUpLocationID, DropOffLocationID) 
                             OUTPUT INSERTED.RegistrationID
                             VALUES 
-                            (@RouteID, @UserID, @FirstName, @LastName, @Phone, @Email, @TripType, @SelectedRouteDetail, @SpecialRequest, @MustArriveTime, @CanLeaveTime,
-                            @SpecialPickUpLocation, @SpecialDropOffLocation, @AgreeToTerms, @NeedTransportation)";
+                            (@FirstName, @LastName, @Phone, @Email, @TripType,  @SpecialRequest, @SelectedRouteDetail, @MustArriveTime, @CanLeaveTime,
+                            @SpecialPickUpLocation, @SpecialDropOffLocation, @AgreeToTerms, @NeedTransportation, @PickUpLocationID, @DropOffLocationID)";
 
                         // Initialize the command with the command text and connection
                         var command = new SqlCommand(commandText, connection);
 
                         // Add the common parameters that are always included
-                        command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@FirstName", model.FirstName);
                         command.Parameters.AddWithValue("@LastName", model.LastName);
                         command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
                         command.Parameters.AddWithValue("@Email", model.Email);
                         command.Parameters.AddWithValue("@TripType", model.TripType);
-                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
                         command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
+                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@PickUpLocationID", model.PickUpLocationID.HasValue ? (object)model.PickUpLocationID.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID.HasValue ? (object)model.DropOffLocationID.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@MustArriveTime", model.MustArriveTime.HasValue ? (object)model.MustArriveTime.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@CanLeaveTime", model.CanLeaveTime.HasValue ? (object)model.CanLeaveTime.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@SpecialPickUpLocation", string.IsNullOrEmpty(model.SpecialPickUpLocation) ? (object)DBNull.Value : model.SpecialPickUpLocation);
@@ -242,6 +252,32 @@ namespace MidStateShuttleService.Controllers
             }
             return locations;
         }
+
+        private string GetLocationNameById(int? locationId)
+        {
+            if (!locationId.HasValue)
+                return null;
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    var command = new SqlCommand("SELECT Name FROM Location WHERE LocationID = @LocationID", connection);
+                    command.Parameters.AddWithValue("@LocationID", locationId.Value);
+
+                    var result = command.ExecuteScalar();
+                    return result != null ? result.ToString() : null;
+                }
+                catch (SqlException ex)
+                {
+                    _logger.LogError("Database connection error: ", ex);
+                    // Handle exception
+                    return null;
+                }
+            }
+        }
+
 
         //retrieves route options based on selected pick-up and drop-off locations from a database and returns them as JSON.
         [HttpGet]
