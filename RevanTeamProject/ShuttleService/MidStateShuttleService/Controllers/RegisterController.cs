@@ -210,6 +210,53 @@ namespace MidStateShuttleService.Controllers
                         }
                     }
 
+                    if (model.TripType == "OneWay" && model.SpecialRequest != false || (isPickUpLocationOther || isDropOffLocationOther))
+                    {
+                        var commandText = @"INSERT INTO [dbo].[Registration] 
+                            (FirstName, LastName, Phone, Email, TripType, SpecialRequest, SelectedRouteDetail, MustArriveTime, 
+                            SpecialPickUpLocation, SpecialDropOffLocation, AgreeToTerms, NeedTransportation, PickUpLocationID, DropOffLocationID) 
+                            OUTPUT INSERTED.RegistrationID
+                            VALUES 
+                            (@FirstName, @LastName, @Phone, @Email, @TripType,  @SpecialRequest, @SelectedRouteDetail, @MustArriveTime, 
+                            @SpecialPickUpLocation, @SpecialDropOffLocation, @AgreeToTerms, @NeedTransportation,  @PickUpLocationID, @DropOffLocationID)";
+
+                        // Initialize the command with the command text and connection
+                        var command = new SqlCommand(commandText, connection);
+
+                        // Add the common parameters that are always included
+                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                        command.Parameters.AddWithValue("@LastName", model.LastName);
+                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
+                        command.Parameters.AddWithValue("@Email", model.Email);
+                        command.Parameters.AddWithValue("@TripType", model.TripType);
+                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
+                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@MustArriveTime", model.MustArriveTime.HasValue ? (object)model.MustArriveTime.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@SpecialPickUpLocation", string.IsNullOrEmpty(model.SpecialPickUpLocation) ? (object)DBNull.Value : model.SpecialPickUpLocation);
+                        command.Parameters.AddWithValue("@SpecialDropOffLocation", string.IsNullOrEmpty(model.SpecialDropOffLocation) ? (object)DBNull.Value : model.SpecialDropOffLocation);
+                        command.Parameters.AddWithValue("@PickUpLocationID", model.PickUpLocationID.HasValue ? (object)model.PickUpLocationID.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID.HasValue ? (object)model.DropOffLocationID.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
+                        command.Parameters.AddWithValue("@NeedTransportation", model.NeedTransportation ?? string.Empty);
+
+
+
+                        // Execute the command and get the new RegistrationID
+                        var registrationId = ExecuteSqlCommand(command);
+
+                        if (registrationId > 0)
+                        {
+                            TempData["RegistrationSuccess"] = true;
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                        }
+                    }
+
                     // Check if SpecialRequest is No and TripType is not Friday, then ignore the special request related fields
                     if (!(model.SpecialRequest ?? false) && model.TripType != "Friday")
                     {
