@@ -33,57 +33,38 @@
                                     <div id="message-Validation-Message" class="validation-message"></div>
                                 </div>
 
-                            @* Shuttle choosing 
-                            The drop down list should display each shuttle in the database, but uses placeholders for now *@
-                                <div class="select-container">
-                                    
-                                    <div class="select-btn">
-                                        <div class="input-fields">
-                                            <span class="btn-text">Select Message Recipients</span>
-                                            <span class="arrow-dwn">
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </span>
-                                            <div id="shuttle-Validation-Message" class="validation-message"></div>
-                                        </div>
-                                    </div>
-
-                                    <ul class="list-items">
-                                        @*@{
-                                            int count = 0;
-                                            @foreach ())
-                                            {
-                                                <li class="item">
-                                                    <input type="checkbox" class="checkbox" asp-for="shuttles[count].isSelected">
-                                                    <label class="item-text" asp-for="shuttles[count].isSelected">@s.busNo</label>
-                                                    <input type="hidden" asp-for="shuttles[count].id" value="@s.id" />
-                                                </li>
-
-                                                count++;
-                                            }
-                                        }
-                                    <li class="item">
-                                        
-                                         eventually will pass in the shuttles, change the value to the passed in shuttle's id
-                                                so the ids match when in the controller
-                                            x
-                                            <input type="checkbox" class="checkbox" asp-for="shuttles[0].isSelected">
-                                            <label class="item-text" asp-for="shuttles[0].isSelected">Example 1</label>
-                                            <input type="hidden" asp-for="shuttles[0].id" value="1"/>
-                                        </li>
-                                        <li class="item" >
-                                            <input type="checkbox" class="checkbox" asp-for="shuttles[1].isSelected">
-                                            <label class="item-text" asp-for="shuttles[1].isSelected">Example 2</label>
-                                            <input type="hidden" asp-for="shuttles[1].id" value="2" />
-                                        </li>
-                                        <li class="item">
-                                            <input type="checkbox" class="checkbox" asp-for="shuttles[2].isSelected">
-                                            <label class="item-text" asp-for="shuttles[2].isSelected">Example 3</label>
-                                            <input type="hidden" asp-for="shuttles[2].id" value="3"/>
-                                    </li>*@
-                                    </ul>
+                            <div class="col-6">
+                                <div class="input-fields">
+                                    @* @Html.DropDownListFor(model => model.PickLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" }) *@
+                                    @if (Model.LocationNames != null)
+                                    {
+                                        @*@Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })*@
+                                    }
+                                    else
+                                    {
+                                        <p>Error: Location names not loaded.</p>
+                                    }
+                                    <div class="form-line"></div>
+                                    <div id="PickUpLocation-validation-message" class="validation-message">Please select pickup location</div>
                                 </div>
-                                
-                                <p class="trip-info">*Message will be sent to all students registered to the selected shuttles.</p>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-fields">
+                                    @*  @Html.DropDownListFor(model => model.DropOffLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" }) *@
+                                    @if (Model.LocationNames != null)
+                                    {
+                                        @*@Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })*@
+                                    }
+                                    else
+                                    {
+                                        <p>Error: Location names not loaded.</p>
+                                    }
+                                    <div class="form-line"></div>
+                                    <div id="DropOffLocation-validation-message" class="validation-message">Pelase select dropoff location</div>
+                                </div>
+                            </div>
+
+                            <p class="trip-info">*Message will be sent to all students registered to the selected route.</p>
                         </div>
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--submit" type="submit">Send</button>
