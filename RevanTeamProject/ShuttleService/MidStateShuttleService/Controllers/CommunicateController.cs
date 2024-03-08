@@ -45,7 +45,6 @@ namespace MidStateShuttleService.Controllers
 
                         cmdMessage.Parameters.AddWithValue("@Message", c.message);
                         cmdMessage.Parameters.AddWithValue("@BusRiderId", );
-                        // Pull the id from the User?
                         cmdMessage.Parameters.AddWithValue("@DriverId", );
                         cmdMessage.ExecuteNonQuery();
                     }

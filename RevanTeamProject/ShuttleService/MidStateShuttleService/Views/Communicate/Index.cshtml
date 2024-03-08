@@ -1,9 +1,11 @@
-﻿@*
+﻿@using MidStateShuttleService.Service
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 
+@inject IListService listService
 @model MidStateShuttleService.Models.CommuncateModel
 
 @* page stylesheet *@
@@ -46,10 +48,24 @@
                                     </div>
 
                                     <ul class="list-items">
-                                        <li class="item">
-                                            @* eventually will pass in the shuttles, change the value to the passed in shuttle's id
+                                        @*@{
+                                            int count = 0;
+                                            @foreach ())
+                                            {
+                                                <li class="item">
+                                                    <input type="checkbox" class="checkbox" asp-for="shuttles[count].isSelected">
+                                                    <label class="item-text" asp-for="shuttles[count].isSelected">@s.busNo</label>
+                                                    <input type="hidden" asp-for="shuttles[count].id" value="@s.id" />
+                                                </li>
+
+                                                count++;
+                                            }
+                                        }
+                                    <li class="item">
+                                        
+                                         eventually will pass in the shuttles, change the value to the passed in shuttle's id
                                                 so the ids match when in the controller
-                                            *@
+                                            x
                                             <input type="checkbox" class="checkbox" asp-for="shuttles[0].isSelected">
                                             <label class="item-text" asp-for="shuttles[0].isSelected">Example 1</label>
                                             <input type="hidden" asp-for="shuttles[0].id" value="1"/>
@@ -63,7 +79,7 @@
                                             <input type="checkbox" class="checkbox" asp-for="shuttles[2].isSelected">
                                             <label class="item-text" asp-for="shuttles[2].isSelected">Example 3</label>
                                             <input type="hidden" asp-for="shuttles[2].id" value="3"/>
-                                        </li>
+                                    </li>*@
                                     </ul>
                                 </div>
                                 
