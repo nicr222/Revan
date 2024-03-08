@@ -332,6 +332,11 @@
     background: white;
     box-shadow: 0 7px 25px rgba(0,0,0,0.08);
 }
+    
+.recentFeedback table tr {
+    color: #840029;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
 
     .recentFeedback table tr:hover {
         background: #840029;
