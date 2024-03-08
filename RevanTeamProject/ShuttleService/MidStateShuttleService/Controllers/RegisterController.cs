@@ -165,6 +165,51 @@ namespace MidStateShuttleService.Controllers
                         }
                     }
 
+                    if (model.TripType == "OneWay" && model.SpecialRequest == false)
+                    {
+                        var commandText = @"INSERT INTO [dbo].[Registration] 
+                        (FirstName, LastName, Phone, Email, TripType, AgreeToTerms, SelectedRouteDetail, SpecialRequest, FirstDayExpectingToRide) 
+                        OUTPUT INSERTED.RegistrationID
+                        VALUES 
+                        (@FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @SelectedRouteDetail, @SpecialRequest, @FirstDayExpectingToRide)";
+
+
+                        // Initialize the command with the command text and connection
+                        var command = new SqlCommand(commandText, connection);
+
+                        // Add the common parameters that are always included
+                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                        command.Parameters.AddWithValue("@LastName", model.LastName);
+                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
+                        command.Parameters.AddWithValue("@Email", model.Email);
+                        command.Parameters.AddWithValue("@TripType", model.TripType);
+                        command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
+                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
+                        command.Parameters.AddWithValue("@FirstDayExpectingToRide", model.FirstDayExpectingToRide.HasValue ? (object)model.FirstDayExpectingToRide.Value.ToDateTime(TimeOnly.MinValue) : DBNull.Value);
+
+                        // Execute the command and get the new RegistrationID
+                        var registrationId = ExecuteSqlCommand(command);
+
+                        if (registrationId > 0)
+                        {
+                            // Insert the days of the week selected by the user
+                            if (model.SelectedDaysOfWeek != null && model.SelectedDaysOfWeek.Any())
+                            {
+                                InsertSelectedDaysOfWeek(connection, registrationId, model.SelectedDaysOfWeek);
+                            }
+
+                            TempData["RegistrationSuccess"] = true;
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                        }
+                    }
+
                     // Check if SpecialRequest is No and TripType is not Friday, then ignore the special request related fields
                     if (!(model.SpecialRequest ?? false) && model.TripType != "Friday")
                     {
