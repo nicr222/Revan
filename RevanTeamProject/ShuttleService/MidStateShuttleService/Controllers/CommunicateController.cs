@@ -21,7 +21,7 @@ namespace MidStateShuttleService.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new RegisterModel();
+            var model = new CommuncateModel();
             model.LocationNames = GetLocationNames();
             return View(model);
         }
