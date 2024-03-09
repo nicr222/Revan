@@ -35,10 +35,9 @@
 
                             <div class="col-6">
                                 <div class="input-fields">
-                                    @* @Html.DropDownListFor(model => model.PickLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" }) *@
                                     @if (Model.LocationNames != null)
                                     {
-                                        @*@Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })*@
+                                        @Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })
                                     }
                                     else
                                     {
@@ -50,10 +49,9 @@
                             </div>
                             <div class="col-6">
                                 <div class="input-fields">
-                                    @*  @Html.DropDownListFor(model => model.DropOffLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" }) *@
                                     @if (Model.LocationNames != null)
                                     {
-                                        @*@Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })*@
+                                        @Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })
                                     }
                                     else
                                     {

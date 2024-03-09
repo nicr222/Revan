@@ -18,6 +18,10 @@ namespace MidStateShuttleService.Models
         [Required(ErrorMessage = "Please pick message recipiants.")]
         public Route route { get; set; }
 
+        public int PickUpLocationID { get; set; }
+
+        public int DropOffLocationID { get; set; }
+
         public IEnumerable<SelectListItem> LocationNames { get; set; }
     }
 }
