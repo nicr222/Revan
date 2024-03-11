@@ -123,12 +123,13 @@
         <div class="recentItem route">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/RouteTable.cshtml")
         </div>
+        <div class="recentItem location">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/LocationTable.cshtml")
+        </div>
         <div class="recentFeedback">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/MessagesTable.cshtml")
         </div>
-        <div class="recentItem route">
-            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/LocationTable.cshtml")
-        </div>
+        
     </div>
 
 </div>
@@ -136,3 +137,4 @@
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
 <script src="/js/dashboard/Nav.js"></script>
+<script src="/js/dashboard/Table.js"></script>

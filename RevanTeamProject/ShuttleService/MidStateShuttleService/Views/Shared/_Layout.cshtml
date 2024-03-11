@@ -47,8 +47,7 @@
                             <!-- Pulls the Student to Dispatch form -->
                             <a class="nav-item nav-link" asp-area="" asp-controller="Communicate" asp-action="StudentCommunicate">Message</a>
                         }
-                        <a class="nav-item nav-link" asp-area="" asp-controller="Location" asp-action="Create">Add Location</a>
-                        <a class="nav-item nav-link" asp-area="" asp-controller="Routes" asp-action="Create">Add Routes</a>
+                        <a class="nav-item nav-link" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                         <a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">See User Type</a>
                         @if (User.Identity.IsAuthenticated)
                         {
