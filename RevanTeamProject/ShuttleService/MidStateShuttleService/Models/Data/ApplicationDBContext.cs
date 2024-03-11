@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MidStateShuttleService.Models;
 
-public partial class ApplicationDBContext : DbContext
+public partial class ApplicationDbContext : DbContext
 {
-    public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
     }
