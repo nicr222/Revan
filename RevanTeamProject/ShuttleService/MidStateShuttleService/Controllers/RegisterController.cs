@@ -50,6 +50,7 @@ namespace MidStateShuttleService.Controllers
             return View("Index", model);
         }
 
+        //Completed the backend logic for a registration form submission
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
@@ -130,9 +131,6 @@ namespace MidStateShuttleService.Controllers
                         // Initialize the command with the command text and connection
                         var command = new SqlCommand(commandText, connection);
 
-                        // Add the common parameters that are always included
-                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
-                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@FirstName", model.FirstName);
                         command.Parameters.AddWithValue("@LastName", model.LastName);
                         command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
@@ -270,9 +268,6 @@ namespace MidStateShuttleService.Controllers
                         // Initialize the command with the command text and connection
                         var command = new SqlCommand(commandText, connection);
 
-                        // Add the common parameters that are always included
-                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
-                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@FirstName", model.FirstName);
                         command.Parameters.AddWithValue("@LastName", model.LastName);
                         command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
@@ -282,8 +277,6 @@ namespace MidStateShuttleService.Controllers
                         command.Parameters.AddWithValue("@MustArriveTime", model.FridayMustArriveTime.HasValue ? (object)model.FridayMustArriveTime.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@CanLeaveTime", model.FridayCanLeaveTime.HasValue ? (object)model.FridayCanLeaveTime.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@FridayTripType", model.FridayTripType ?? string.Empty);
-                        //command.Parameters.AddWithValue("@SpecialPickUpLocation", string.IsNullOrEmpty(model.SpecialPickUpLocation) ? (object)DBNull.Value : model.SpecialPickUpLocation);
-                        //command.Parameters.AddWithValue("@SpecialDropOffLocation", string.IsNullOrEmpty(model.SpecialDropOffLocation) ? (object)DBNull.Value : model.SpecialDropOffLocation);
                         command.Parameters.AddWithValue("@PickUpLocationID", model.FridayPickUpLocationID.HasValue ? (object)model.FridayPickUpLocationID.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@DropOffLocationID", model.FridayDropOffLocationID.HasValue ? (object)model.FridayDropOffLocationID.Value : DBNull.Value);
                         command.Parameters.AddWithValue("@AgreeToTerms", model.FridayAgreeTerms ?? false);

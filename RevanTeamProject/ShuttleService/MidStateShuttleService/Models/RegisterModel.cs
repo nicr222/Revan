@@ -101,7 +101,6 @@ namespace MidStateShuttleService.Models
         public string? SpecialDropOffLocation { get; set; }
 
         //[Required(ErrorMessage = "Pick Up Location is required")]
-        //public string PickUpLocation { get; set; }
         public int? FridayPickUpLocationID { get; set; }
 
         //[Required(ErrorMessage = "Drop Off Location is required")]
