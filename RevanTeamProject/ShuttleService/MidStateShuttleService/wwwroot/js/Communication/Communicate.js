@@ -2,7 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     const message = document.getElementById('message'); 
-    const shuttles = document.querySelectorAll('.checkbox');
 
     // Form submission event listener
     document.querySelector('#CommunicateForm').addEventListener('submit', function (event) {
