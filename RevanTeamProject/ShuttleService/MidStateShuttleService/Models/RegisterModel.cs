@@ -73,6 +73,9 @@ namespace MidStateShuttleService.Models
         [Required]
         public bool? AgreeTerms { get; set; } = false;//  true/false for agreement
 
+        [Required]
+        public bool? FridayAgreeTerms { get; set; } = false;//  true/false for agreement
+
         public IEnumerable<SelectListItem>? LocationNames { get; set; }
 
         // Add new properties for route details
@@ -88,9 +91,21 @@ namespace MidStateShuttleService.Models
 
         public TimeOnly? CanLeaveTime { get; set; }
 
+
+        public TimeOnly? FridayMustArriveTime { get; set; }
+
+        public TimeOnly? FridayCanLeaveTime { get; set; }
+
         public string? SpecialPickUpLocation { get; set; }
 
         public string? SpecialDropOffLocation { get; set; }
+
+        //[Required(ErrorMessage = "Pick Up Location is required")]
+        //public string PickUpLocation { get; set; }
+        public int? FridayPickUpLocationID { get; set; }
+
+        //[Required(ErrorMessage = "Drop Off Location is required")]
+        public int? FridayDropOffLocationID { get; set; }
     }
     
 }
