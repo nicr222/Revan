@@ -257,28 +257,41 @@ input {
         /* Microsoft Edge */
         color: #555;
     }
-/*
-    First trip yes or no radio buttons which I commented out for now
-*/
-/*.radio-inline-group {
-    display: flex;
-    position: relative;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #ccc;
-    align-items: center;
-    gap: 60px;*/ /* Adjust the spacing between elements */
-    /*padding-bottom: 15px;
+
+/* Mobile Responsive Styles */
+@media (max-width: 767px) {
+    .input-fields select.input--style-1 {
+        font-size: 12px;
+        padding: 9px 0;
+    }
+
+    /* To add the dropdown arrow icon */
+    .input-fields .input--style-1 {
+        position: relative;
+    }
+
+        .input-fields .input--style-1::after {
+            content: '▼';
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none; /* This prevents the pseudo-element from blocking clicks */
+            color: #ccc;
+        }
 }
 
-    .radio-inline-group label {
-        margin-right: 10px;
-        white-space: nowrap;*/ /* Prevents the label from breaking into multiple lines */
-    /*}
+/* This styles the placeholder text */
+.input-fields select.input--style-1::placeholder {
+    color: #555;
+}
 
-    .radio-inline-group .radio-options {
-        display: flex;
-        gap: 10px;*/ /* Adjust the spacing between radio buttons */
-    /*}*/
+/* Adjust the margin of the validation message */
+@media (max-width: 767px) {
+    .validation-message {
+        margin-top: 0;
+    }
+}
 
 /* ==========================================================================
    #Submission Success Message
@@ -612,6 +625,77 @@ input {
     .return-route-schedule {
         padding: 0px 10px; /* Adjust padding for smaller screens */
     }
+}
+
+/* ==========================================================================
+   #Schedule Date Section Styles
+   ========================================================================== */
+.schedule-date {
+    padding-bottom: 15px;
+    margin-right: 10px;
+}
+
+    .schedule-date .form-group {
+        margin-bottom: 20px; /* Space between form groups for clarity */
+    }
+
+        .schedule-date .form-group .input-fields {
+            position: relative;
+        }
+
+        .schedule-date .form-group label {
+            font-weight: bold;
+            color: #333; /* Dark grey color for text */
+            margin-bottom: 10px; /* Space below the label */
+            display: block;
+        }
+
+    /* Customizes the look of checkboxes to match the form style */
+    .schedule-date .daysofweek-checkbox-group label {
+        display: inline-block;
+        margin-right: 15px; /* Space between checkboxes */
+        font-weight: normal;
+        color: #666; /* Slightly lighter text for contrast */
+    }
+
+    .schedule-date .daysofweek-checkbox-group input[type="checkbox"] {
+        margin-right: 5px; /* Space between checkbox and label */
+    }
+
+    /* Enhances the input and select fields to match the form's styling */
+    .schedule-date .input--style-1 {
+        background-color: #fff; /* White background */
+        border: 1px solid #ccc; /* Light grey border */
+        border-radius: 4px; /* Slightly rounded corners */
+        padding: 10px 15px; /* Padding inside the fields */
+        width: 100%; /* Ensures full width */
+        box-sizing: border-box; /* Includes padding and border in the element's width */
+    }
+
+    /* Style adjustments for the date picker */
+    .schedule-date .form-control[type="date"] {
+        font-family: "Roboto", "Arial", sans-serif; /* Consistent font usage */
+        color: #666; /* Text color */
+        font-size: 14px; /* Matching font size with other inputs */
+        cursor: pointer; /* Cursor indicates clickable area */
+    }
+
+    /* Guide text styling for additional information */
+    .schedule-date .days-of-weeks-guide {
+        font-size: 12px; /* Smaller font size for subtlety */
+        color: #666; /* Light grey color for readability */
+        margin-top: 5px; /* Space above the guide text */
+    }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 767px) {
+    .schedule-date {
+        padding: 15px;
+    }
+
+        .schedule-date .form-group {
+            margin-bottom: 15px;
+        }
 }
 
 

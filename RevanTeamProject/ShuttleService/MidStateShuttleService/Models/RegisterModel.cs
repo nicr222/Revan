@@ -78,6 +78,19 @@ namespace MidStateShuttleService.Models
         // Add new properties for route details
         public string? SelectedRouteDetail { get; set; }
         public string? ReturnSelectedRouteDetail { get; set; }
+
+        // New property for selecting days of the week
+        public List<string>? SelectedDaysOfWeek { get; set; } = new List<string>();
+
+        public DateOnly? FirstDayExpectingToRide { get; set; }
+
+        public TimeOnly? MustArriveTime { get; set; }
+
+        public TimeOnly? CanLeaveTime { get; set; }
+
+        public string? SpecialPickUpLocation { get; set; }
+
+        public string? SpecialDropOffLocation { get; set; }
     }
     
 }
