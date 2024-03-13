@@ -13,23 +13,22 @@ namespace MidStateShuttleService.Models;
 public partial class Feedback
 {
     [Key]
-    [Column("FeedbackID")]
     public int FeedbackId { get; set; }
 
-    [Required]
     [StringLength(255)]
     public string Comment { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime DateSubmitted { get; set; }
 
-    [Column("UserID")]
+    [ForeignKey("UserId")]
     public int? UserId { get; set; }
 
+    // One to One relationship with registration
     [InverseProperty("FeedBack")]
-    public virtual ICollection<Registration> Registrations { get; set; } = new List<Registration>();
+    public virtual Registration Registrations { get; set; }
 
-    [ForeignKey("UserId")]
+    // One to one relationship with User
     [InverseProperty("Feedbacks")]
     public virtual User User { get; set; }
 }

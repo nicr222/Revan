@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -9,34 +10,30 @@ using Microsoft.EntityFrameworkCore;
 namespace MidStateShuttleService.Models;
 
 [Table("Bus")]
-[Index("CurrentRouteId", Name = "IX_Bus_CurrentRouteId")]
-[Index("DriverId", Name = "IX_Bus_DriverID")]
 public partial class Bus
 {
     [Key]
     public int BusId { get; set; }
 
-    [Required]
     [StringLength(50)]
     public string BusNo { get; set; }
 
     public int PassengerCapacity { get; set; }
 
-    [Column("DriverID")]
+    [ForeignKey("DriverId")]
     public int? DriverId { get; set; }
 
+    [DefaultValue(false)]
     public bool IsActive { get; set; }
 
-    public int? CurrentRouteId { get; set; }
+    public int? CurrentRouteId { get; set; } // Foreign key for the current route
 
+    // Navigation property representing the current route associated with this bus.
+    // Lets entity know CurrentRouteId is a FK to the route table(Because the FK and PK are named different this is needed).
     [ForeignKey("CurrentRouteId")]
-    [InverseProperty("Buses")]
     public virtual Route CurrentRoute { get; set; }
 
-    [ForeignKey("DriverId")]
-    [InverseProperty("Buses")]
-    public virtual Driver Driver { get; set; }
-
+    // One to many relationship with routes
     [InverseProperty("Bus")]
-    public virtual ICollection<Route> Routes { get; set; } = new List<Route>();
+    public virtual ICollection<Route> Routes { get; set; }
 }

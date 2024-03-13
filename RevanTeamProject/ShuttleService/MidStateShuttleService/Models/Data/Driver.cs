@@ -14,19 +14,11 @@ public partial class Driver
     [Key]
     public int DriverId { get; set; }
 
-    [Required]
     [StringLength(100)]
     public string Name { get; set; }
 
-    [Required]
     [StringLength(20)]
-    public string PhoneNumb { get; set; }
+    public string PhoneNumber { get; set; }
 
     public bool IsActive { get; set; }
-
-    [InverseProperty("Driver")]
-    public virtual ICollection<Bus> Buses { get; set; } = new List<Bus>();
-
-    [InverseProperty("Driver")]
-    public virtual ICollection<Message> Messages { get; set; } = new List<Message>();
 }

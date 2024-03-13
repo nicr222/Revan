@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -14,25 +15,20 @@ namespace MidStateShuttleService.Models;
 public partial class Message
 {
     [Key]
-    [Column("ServiceMessageID")]
-    public int ServiceMessageId { get; set; }
+    public int MessageId { get; set; }
 
-    [Column("RouteID")]
-    public int RouteId { get; set; }
+    [Required(ErrorMessage = "A message is required.")]
+    [StringLength(160, ErrorMessage = "This field must not be more than 50 characters.")]
+    [RegularExpression("^[A-Za-z\\s]{2,}$", ErrorMessage = "Must contain only characters and be at least 2 characters long")]
+    public string Name { get; set; }
 
-    [Column("DriverID")]
-    public int DriverId { get; set; }
+    [Required(ErrorMessage = "A message is required.")]
+    [StringLength(160, ErrorMessage = "This field must not be more than 160 characters.")]
+    public string MessageContent { get; set; }
 
-    [Required]
-    [Column("Message")]
-    [StringLength(155)]
-    public string Message1 { get; set; }
+    [DefaultValue(false)]
+    public bool ResponseRequired { get; set; }
 
-    [ForeignKey("DriverId")]
-    [InverseProperty("Messages")]
-    public virtual Driver Driver { get; set; }
-
-    [ForeignKey("RouteId")]
-    [InverseProperty("Messages")]
-    public virtual Route Route { get; set; }
+    [StringLength(50)]
+    public string? ContactInfo { get; set; }
 }

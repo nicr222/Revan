@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -14,22 +15,22 @@ public partial class CheckIn
     [Key]
     public int CheckInId { get; set; }
 
-    public int? RegisterId { get; set; }
+    public int BusId { get; set; }
 
-    public int RouteId { get; set; }
+    public int? RouteId { get; set; }
 
-    public TimeOnly Date { get; set; }
+    [Column(TypeName = "datetime")]
+    public DateTime Date { get; set; }
 
     [StringLength(255)]
     public string Comments { get; set; }
 
+    [DefaultValue(false)]
     public bool FirstTime { get; set; }
 
-    [ForeignKey("RegisterId")]
-    [InverseProperty("CheckIns")]
-    public virtual Registration Register { get; set; }
-
     [ForeignKey("RouteId")]
-    [InverseProperty("CheckIns")]
     public virtual Route Route { get; set; }
+
+    [ForeignKey("BusId")]
+    public virtual Bus Bus { get; set; }
 }

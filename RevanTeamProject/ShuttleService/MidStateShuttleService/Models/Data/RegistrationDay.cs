@@ -12,16 +12,14 @@ namespace MidStateShuttleService.Models;
 public partial class RegistrationDay
 {
     [Key]
-    [Column("RegistrationDayID")]
     public int RegistrationDayId { get; set; }
 
-    [Column("RegistrationID")]
     public int RegistrationId { get; set; }
 
-    [Required]
     [StringLength(10)]
     public string DayOfWeek { get; set; }
 
+    // many to one relation with Registration
     [ForeignKey("RegistrationId")]
     [InverseProperty("RegistrationDays")]
     public virtual Registration Registration { get; set; }

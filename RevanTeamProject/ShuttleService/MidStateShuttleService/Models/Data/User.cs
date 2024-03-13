@@ -14,6 +14,7 @@ public partial class User
     [Key]
     public int UserId { get; set; }
 
+    // Represents a one to many relationship with feedbacks
     [InverseProperty("User")]
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 }
