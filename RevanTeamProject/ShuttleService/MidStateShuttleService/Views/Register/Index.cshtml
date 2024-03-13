@@ -401,7 +401,7 @@
                                     <div class="col-6">
                                         <div class="input-fields">
                                             <p class="must-arrive-by">Must Arrive the Campus By:</p>
-                                            @Html.EditorFor(model => model.ArrivalTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id="friday-special-arrive" } })
+                                            @Html.EditorFor(model => model.FridayMustArriveTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "friday-special-arrive", name = "FridayMustArriveTime" } })
                                             <div class="form-line"></div>
                                            @*  <div id="ArrivalTime-validation-message" class="validation-message"></div> *@
                                         </div>
@@ -411,7 +411,7 @@
                                         <div class="leave-after">
                                             <div class="input-fields">
                                                 <p class="must-arrive-by">Can Leave the Campus After:</p>
-                                                @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "friday-special-arrive" } })
+                                                @Html.EditorFor(model => model.FridayCanLeaveTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "friday-special-arrive", name = "FridayCanLeaveTime" } })
                                                 <div class="form-line"></div>
                                                @*  <div id="DepartureTime-validation-message" class="validation-message"></div> *@
                                             </div>
@@ -423,35 +423,33 @@
                                 <div class="row row-space">
                                     <div class="col-6">
                                         <div class="input-fields">
-                                           @*  @Html.DropDownListFor(model => model.PickLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Prefer Pick-Up Location", new { @class = "input--style-1" }) *@
                                             @if (Model.LocationNames != null)
                                             {
-                                                @Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })
+                                                @Html.DropDownListFor(model => model.FridayPickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation", name = "FridayPickUpLocationID" })
                                             }
                                             else
                                             {
                                                 <p>Error: Location names not loaded.</p>
                                             }
                                             <div class="form-line"></div>
-                                            @*     <div id="PickUpLocation-validation-message" class="validation-message"></div> *@
+                                            <div id="PickUpLocation-validation-message" class="validation-message">Please select pickup location</div>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-fields">
-                                            @* @Html.DropDownListFor(model => model.DropOffLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Prefer Drop-Off Location", new { @class = "input--style-1" }) *@
                                             @if (Model.LocationNames != null)
                                             {
-                                                @Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })
+                                                @Html.DropDownListFor(model => model.FridayDropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation", name = "FriayDropOffLocationID" })
                                             }
                                             else
                                             {
                                                 <p>Error: Location names not loaded.</p>
                                             }
                                             <div class="form-line"></div>
-                                  @*           <div id="DropOffLocation-validation-message" class="validation-message"></div> *@
+                                            <div id="DropOffLocation-validation-message" class="validation-message">Pelase select dropoff location</div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>     
 
                                 <!-- Which Friday Field -->
                                 <div class="which-friday-container">
@@ -464,7 +462,8 @@
 
                                 <!-- Terms and Conditions Checkbox -->
                                 <div class="checkbox-container">
-                                    <input type="checkbox" id="AgreeTerms" name="AgreeTerms" />
+                                    <input type="checkbox" id="AgreeTerms" name="FridayAgreeTerms" value="true" />
+                                    <input type="hidden" name="AgreeTerms" value="false" />
                                     <label for="AgreeTerms" class="AgreeTerms">I understand my Friday request will be reviewed but is not guaranteed. I will be required to communicate and confirm my request with the shuttle program before it is scheduled. I also understand I must notify the shuttle program if I need to cancel or change my reservation after it is added to the schedule.</label>
                                 </div>
 
