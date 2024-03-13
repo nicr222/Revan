@@ -257,17 +257,50 @@ namespace MidStateShuttleService.Controllers
                         }
                     }
 
-                    // Check if SpecialRequest is No and TripType is not Friday, then ignore the special request related fields
-                    if (!(model.SpecialRequest ?? false) && model.TripType != "Friday")
+                    if (model.TripType == "Friday" && model.SpecialRequest != false)
                     {
-                        // You can set default values or handle the database defaults for the fields you're ignoring
-                        // For example, setting default values for nullable fields that are being ignored
-                        // command.Parameters.AddWithValue("@SomeField", DBNull.Value);
-                    }
-                    else
-                    {
-                        // Handle scenario where none of the conditions are met
-                        ModelState.AddModelError("", "The registration conditions are not met.");
+                        var commandText = @"INSERT INTO [dbo].[Registration] 
+                            (FirstName, LastName, Phone, Email, TripType, SpecialRequest, FridayTripType, MustArriveTime, CanLeaveTime,
+                            AgreeToTerms, WhichFriday, PickUpLocationID, DropOffLocationID) 
+                            OUTPUT INSERTED.RegistrationID
+                            VALUES 
+                            (@FirstName, @LastName, @Phone, @Email, @TripType,  @SpecialRequest, @FridayTripType, @MustArriveTime, @CanLeaveTime,
+                             @AgreeToTerms, @WhichFriday,  @PickUpLocationID, @DropOffLocationID)";
+
+                        // Initialize the command with the command text and connection
+                        var command = new SqlCommand(commandText, connection);
+
+                        // Add the common parameters that are always included
+                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                        command.Parameters.AddWithValue("@LastName", model.LastName);
+                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
+                        command.Parameters.AddWithValue("@Email", model.Email);
+                        command.Parameters.AddWithValue("@TripType", model.TripType);
+                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
+                        command.Parameters.AddWithValue("@MustArriveTime", model.FridayMustArriveTime.HasValue ? (object)model.FridayMustArriveTime.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@CanLeaveTime", model.FridayCanLeaveTime.HasValue ? (object)model.FridayCanLeaveTime.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@FridayTripType", model.FridayTripType ?? string.Empty);
+                        //command.Parameters.AddWithValue("@SpecialPickUpLocation", string.IsNullOrEmpty(model.SpecialPickUpLocation) ? (object)DBNull.Value : model.SpecialPickUpLocation);
+                        //command.Parameters.AddWithValue("@SpecialDropOffLocation", string.IsNullOrEmpty(model.SpecialDropOffLocation) ? (object)DBNull.Value : model.SpecialDropOffLocation);
+                        command.Parameters.AddWithValue("@PickUpLocationID", model.FridayPickUpLocationID.HasValue ? (object)model.FridayPickUpLocationID.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@DropOffLocationID", model.FridayDropOffLocationID.HasValue ? (object)model.FridayDropOffLocationID.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@AgreeToTerms", model.FridayAgreeTerms ?? false);
+                        command.Parameters.AddWithValue("@WhichFriday", model.WhichFriday ?? string.Empty);
+
+                        // Execute the command and get the new RegistrationID
+                        var registrationId = ExecuteSqlCommand(command);
+
+                        if (registrationId > 0)
+                        {
+                            TempData["RegistrationSuccess"] = true;
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                        }
                     }
 
                 }
