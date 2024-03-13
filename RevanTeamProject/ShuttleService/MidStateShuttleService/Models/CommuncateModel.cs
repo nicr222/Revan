@@ -15,11 +15,12 @@ namespace MidStateShuttleService.Models
         [StringLength(160, ErrorMessage = "This field must not be more than 160 characters.")]
         public string message { get; set; }
 
-        [Required(ErrorMessage = "Please pick message recipiants.")]
-        public Route route { get; set; }
+        public int RouteId { get; set; }
 
+        [Required(ErrorMessage = "Pick up location is required.")]
         public int PickUpLocationID { get; set; }
 
+        [Required(ErrorMessage = "Drop location is required.")]
         public int DropOffLocationID { get; set; }
 
         public IEnumerable<SelectListItem> LocationNames { get; set; }

@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const message = document.getElementById('message');
     const pickUp = document.getElementById('PickUpLocation');
     const dropOff = document.getElementById('DropOffLocation');
-    const route = document.getElementById('');
 
     // Form submission event listener
     document.querySelector('#CommunicateForm').addEventListener('submit', function (event) {
@@ -38,6 +37,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!pickUp.value) {
             displayValidationMessage(pickUp, "Please select a location");
             return false;
+        } else {
+            clearValidationMessage(pickUp);
+            return true;
         }
     }
 
@@ -45,11 +47,25 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!dropOff.value) {
             displayValidationMessage(dropOff, "Please select a location");
             return false;
+        } else {
+            clearValidationMessage(dropOff);
+            return true;
         }
     }
 
     function validateRoutes() {
+        var formValid = false;
 
+        var i = 0;
+        while (!formValid && i < route.length) {
+            if (route[i].checked) formValid = true;
+            i++;
+        }
+
+        if (!formValid) {
+            displayValidationMessage(route, "Please select a route")
+        };
+        return formValid;
     }
 
     // Functions are the same as the ones from Phoo's validation just without the Radio options
@@ -69,13 +85,5 @@ document.addEventListener('DOMContentLoaded', function () {
         validationMessageElement.innerText = '';
         validationMessageElement.style.display = 'none'; // Hide validation message
         element.classList.remove('is-invalid');
-    }
-
-    function displayLocationValidation(element, message) {
-        const elementId = element + "-" + "Validation-Message";
-        let validationMessageElement = document.getElementById(elementId);
-        validationMessageElement.innerText = message;
-        validationMessageElement.style.display = 'block'; // Show validation message
-        element.classList.add('is-invalid');
     }
 });

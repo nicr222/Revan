@@ -30,15 +30,18 @@ namespace MidStateShuttleService.Controllers
         [HttpPost]
         public IActionResult Index(CommuncateModel c)
         {
+
+            c.LocationNames = GetLocationNames();
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     // Retrieve passed in list of students from the database.
 
-                    // Send the message to each person registered to the shutte.
+                    // Send the message to each person registered to the route.
 
-                    // Save message to database
+                    // Save message to database -- commented out until Driver table is set up
                     /*using (SqlConnection connection = new SqlConnection(connectionString))
                     {
                         connection.Open();
@@ -62,7 +65,6 @@ namespace MidStateShuttleService.Controllers
                 }
             }
 
-            c.LocationNames = GetLocationNames();
             
             return View(c);
         }
