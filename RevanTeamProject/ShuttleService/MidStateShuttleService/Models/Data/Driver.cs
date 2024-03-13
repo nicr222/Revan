@@ -18,6 +18,9 @@ public partial class Driver
     [StringLength(20)]
     public string PhoneNumb { get; set; } = null!;
 
+    [StringLength(50)]
+    public string Email { get; set; } = null!;
+
     public bool IsActive { get; set; }
 
     [InverseProperty("Driver")]
