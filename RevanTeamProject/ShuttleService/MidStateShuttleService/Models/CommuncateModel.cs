@@ -23,6 +23,6 @@ namespace MidStateShuttleService.Models
         [Required(ErrorMessage = "Drop location is required.")]
         public int DropOffLocationID { get; set; }
 
-        public IEnumerable<SelectListItem> LocationNames { get; set; }
+        public IEnumerable<SelectListItem>? LocationNames { get; set; }
     }
 }
