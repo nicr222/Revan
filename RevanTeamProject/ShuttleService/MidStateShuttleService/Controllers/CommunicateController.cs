@@ -61,6 +61,8 @@ namespace MidStateShuttleService.Controllers
                     return View("Error");
                 }
             }
+
+            c.LocationNames = GetLocationNames();
             
             return View(c);
         }

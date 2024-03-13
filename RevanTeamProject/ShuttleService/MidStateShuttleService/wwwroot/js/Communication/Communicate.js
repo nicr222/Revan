@@ -1,7 +1,10 @@
 // References Phoo's code once again.
 
 document.addEventListener('DOMContentLoaded', function () {
-    const message = document.getElementById('message'); 
+    const message = document.getElementById('message');
+    const pickUp = document.getElementById('PickUpLocation');
+    const dropOff = document.getElementById('DropOffLocation');
+    const route = document.getElementById('');
 
     // Form submission event listener
     document.querySelector('#CommunicateForm').addEventListener('submit', function (event) {
@@ -15,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateForm() {
         let isFormValid = true;
         isFormValid &= validateMessage();
-        isFormValid &= validateShuttles();
+        isFormValid &= validatePickUp();
+        isFormValid &= validateDropOff();
         return isFormValid;
     }
 
@@ -30,23 +34,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function validateShuttles() {
-        var isChecked = false;
-
-        for (var i = 0; i < shuttles.length; i++) {
-            if (shuttles[i].checked) {
-                isChecked = true;
-                break;
-            }
-        }
-
-        if (!isChecked) {
-            displayShuttleValidation("shuttle-Validation-Message", "Please select at least 1 shuttle")
+    function validatePickUp() {
+        if (!pickUp.value) {
+            displayValidationMessage(pickUp, "Please select a location");
             return false;
-        } else {
-            clearShuttleValidation("shuttle-Validation-Message");
-            return true;
         }
+    }
+
+    function validateDropOff() {
+        if (!dropOff.value) {
+            displayValidationMessage(dropOff, "Please select a location");
+            return false;
+        }
+    }
+
+    function validateRoutes() {
+
     }
 
     // Functions are the same as the ones from Phoo's validation just without the Radio options
@@ -68,15 +71,11 @@ document.addEventListener('DOMContentLoaded', function () {
         element.classList.remove('is-invalid');
     }
 
-    function displayShuttleValidation(element, message) {
-        let validationMessageElement = document.getElementById(element);
+    function displayLocationValidation(element, message) {
+        const elementId = element + "-" + "Validation-Message";
+        let validationMessageElement = document.getElementById(elementId);
         validationMessageElement.innerText = message;
         validationMessageElement.style.display = 'block'; // Show validation message
-    }
-
-    function clearShuttleValidation(element) {
-        let validationMessageElement = document.getElementById(element);
-        validationMessageElement.innerText = '';
-        validationMessageElement.style.display = 'none'; // Show validation message
+        element.classList.add('is-invalid');
     }
 });
