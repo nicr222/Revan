@@ -1,36 +1,49 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MidStateShuttleService.Models
 {
 
     // !!**** Temporarily disabled validations, to be addressed in the next sprint. ****!!//
-    public class RegisterModel
+    [Table("Registration")]
+    [Index("RouteID", Name = "IX_Registration_RouteId")]
+    public partial class RegisterModel
     {
+        [Key]
+        public int RegistrationId { get; set; }
+
+        [ForeignKey("Routes")]
         public int? RouteID { get; set; }
-        public int? RiderID { get; set; }
 
         //[Required(ErrorMessage = "User ID is required")]
         //[RegularExpression("^[0-9]{10}$", ErrorMessage = "Must be 10 digits")]
         //public long StudentId { get; set; } // Changed from int to long
+        [ForeignKey("User")]
         public int? UserId { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
         [RegularExpression("^[A-Za-z\\s]{2,}$", ErrorMessage = "Must contain only characters and be at least 2 characters long")]
+        [StringLength(20)]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last Name is required")]
         [RegularExpression("^[A-Za-z\\s]{2,}$", ErrorMessage = "Must contain only characters and be at least 2 characters long")]
+        [StringLength(20)]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Phone Number is required")]
         [RegularExpression("^[0-9]{10}$", ErrorMessage = "Must be 10 digits")]
+        [StringLength(10)]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
+        [StringLength(40)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Trip Type is required")]
+        [StringLength(10)]
         public string TripType { get; set; }// This could be a dropdown in the UI linked to Types available
 
         //[Required(ErrorMessage = "Pick Up Location is required")]
@@ -68,11 +81,13 @@ namespace MidStateShuttleService.Models
         public string? FridayTripType { get; set; }
 
         [Required]
+        [StringLength(20)]
         public string ContactPreference { get; set; }
 
         [Required]
         public bool? AgreeTerms { get; set; } = false;//  true/false for agreement
 
+        [NotMapped]
         public IEnumerable<SelectListItem>? LocationNames { get; set; }
 
         // Add new properties for route details

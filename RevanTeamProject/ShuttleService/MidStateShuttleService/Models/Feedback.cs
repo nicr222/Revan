@@ -21,12 +21,8 @@ public partial class Feedback
     [Column(TypeName = "datetime")]
     public DateTime DateSubmitted { get; set; }
 
-    [ForeignKey("UserId")]
+    [ForeignKey("User")]
     public int? UserId { get; set; }
-
-    // One to One relationship with registration
-    [InverseProperty("FeedBack")]
-    public virtual Registration Registrations { get; set; }
 
     // One to one relationship with User
     [InverseProperty("Feedbacks")]

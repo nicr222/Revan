@@ -29,7 +29,7 @@ public partial class CheckIn
     public bool FirstTime { get; set; }
 
     [ForeignKey("RouteId")]
-    public virtual Route Route { get; set; }
+    public virtual Routes Route { get; set; }
 
     [ForeignKey("BusId")]
     public virtual Bus Bus { get; set; }

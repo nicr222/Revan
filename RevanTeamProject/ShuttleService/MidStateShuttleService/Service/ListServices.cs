@@ -36,7 +36,7 @@ namespace MidStateShuttleService.Service
                 {
                     locationList.Add(new Location
                     {
-                        LocationID = Convert.ToInt32(row["LocationID"]),
+                        LocationId = Convert.ToInt32(row["LocationID"]),
                         Name = row["Name"].ToString(),
                         Address = row["Address"].ToString(),
                         City = row["City"].ToString(),

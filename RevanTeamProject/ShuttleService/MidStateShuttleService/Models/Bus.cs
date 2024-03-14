@@ -20,7 +20,7 @@ public partial class Bus
 
     public int PassengerCapacity { get; set; }
 
-    [ForeignKey("DriverId")]
+    [ForeignKey("Driver")]
     public int? DriverId { get; set; }
 
     [DefaultValue(false)]
@@ -31,9 +31,5 @@ public partial class Bus
     // Navigation property representing the current route associated with this bus.
     // Lets entity know CurrentRouteId is a FK to the route table(Because the FK and PK are named different this is needed).
     [ForeignKey("CurrentRouteId")]
-    public virtual Route CurrentRoute { get; set; }
-
-    // One to many relationship with routes
-    [InverseProperty("Bus")]
-    public virtual ICollection<Route> Routes { get; set; }
+    public virtual Routes CurrentRoute { get; set; }
 }
