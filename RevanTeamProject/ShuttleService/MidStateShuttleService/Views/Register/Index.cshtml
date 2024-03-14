@@ -71,37 +71,35 @@
 
                     <div class="student-info">
                         <p class="student-info-label">Student Information</p>
-
-
-                        <div class="row row-space">
-                            <div class="col-6">
-                                <div class="input-fields">
-                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
-                                    <div class="form-line"></div>
-                                    <div id="FirstName-validation-message" class="validation-message">Must be characters</div>
+                            <div class="row row-space">
+                                <div class="col-6">
+                                    <div class="input-fields">
+                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
+                                        <div class="form-line"></div>
+                                        <div id="FirstName-validation-message" class="validation-message">Must be characters</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-fields">
+                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name" } })
+                                        <div class="form-line"></div>
+                                        <div id="LastName-validation-message" class="validation-message">Must be characters</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="input-fields">
-                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name" } })
-                                    <div class="form-line"></div>
-                                    <div id="LastName-validation-message" class="validation-message">Must be characters</div>
-                                </div>
+
+                            <div class="input-fields">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Email" } })
+                                <div class="form-line"></div>
+                                <div id="Email-validation-message" class="validation-message">Please provide valid email address</div>
                             </div>
-                        </div>
+                            <p class="student-email">*Your shuttle reservation confirmation will be sent to this email address.</p>
 
-                        <div class="input-fields">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Email" } })
-                            <div class="form-line"></div>
-                            <div id="Email-validation-message" class="validation-message">Please provide valid email address</div>
-                        </div>
-                        <p class="student-email">*Your shuttle reservation confirmation will be sent to this email address.</p>
-
-                        <div class="input-fields">
-                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number" } })
-                            <div class="form-line"></div>
-                            <div id="PhoneNumber-validation-message" class="validation-message">Must be 10 digits</div>
-                        </div>
+                            <div class="input-fields">
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number" } })
+                                <div class="form-line"></div>
+                                <div id="PhoneNumber-validation-message" class="validation-message">Must be 10 digits</div>
+                            </div>
                     </div>
 
                     <div class="Route-schedule">
@@ -129,7 +127,6 @@
 
                                     <div class="col-6">
                                         <div class="input-fields">
-                                            @* @Html.DropDownListFor(model => model.PickLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" }) *@
                                             @if (Model.LocationNames != null)
                                             {
                                                 @Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })
@@ -143,8 +140,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="input-fields">
-                                           @*  @Html.DropDownListFor(model => model.DropOffLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" }) *@
+                                        <div class="input-fields">                                       
                                             @if (Model.LocationNames != null)
                                             {
                                                 @Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })
@@ -164,7 +160,6 @@
                                         <div class="input-fields">
                                             <div class="radio-route-type">
                                                 <div id="routeOptions" class="radio-route-options" name="SelectedRouteDetail"></div>
-                                           @*      @Html.HiddenFor(model => model.SelectedRouteDetail, new { id = "SelectedRouteDetail" }) *@
                                             </div>
                                         </div>
                                     </div>
@@ -174,8 +169,7 @@
                                     <div class="row row-space" >
 
                                         <div class="col-6">
-                                            <div class="input-fields">
-                                                @* @Html.DropDownListFor(model => model.PickLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" }) *@
+                                            <div class="input-fields">                                          
                                                 @if (Model.LocationNames != null)
                                                 {
                                                     @Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Return Pick-Up Location", new { @class = "input--style-1", id = "ReturnPickUpLocation" })
@@ -190,7 +184,6 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="input-fields">
-                                                @*  @Html.DropDownListFor(model => model.DropOffLocationID, new SelectList(new[] { "Adams", "BigFlats", "Marshfield", "Nekoosa", "Stevens Point", "Wisconsin Rapids", "Other" }), "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" }) *@
                                                 @if (Model.LocationNames != null)
                                                 {
                                                     @Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Return Drop-Off Location", new { @class = "input--style-1", id = "ReturnDropOffLocation" })
@@ -215,11 +208,38 @@
                                             </div>
                                         </div>
 
+
                                         <!-- Hidden fields for selected route details -->
                                         <input type="hidden" id="hiddenSelectedRouteDetail" name="SelectedRouteDetail" value="">
                                         <input type="hidden" id="hiddenReturnSelectedRouteDetail" name="ReturnSelectedRouteDetail" value="">
 
                                      </div>
+                                </div>
+
+                                <div class="schedule-date" style="display: none;">
+                                    <!-- Multi-select Checkboxes for Days of the Week -->
+                                    <div class="form-group">
+                                        <div class="input-fields">
+                                            <label for="daysofweek">Select the days of the week that this route will be needed.*</label>
+                                            <div class="daysofweek-checkbox-group">
+                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Monday"> Monday</label>
+                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Tuesday"> Tuesday</label>
+                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday"> Wednesday</label>
+                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday"> Thursday</label>
+                                                <div class="form-line"></div>
+                                                <p class="days-of-weeks-guide">*Friday routes MUST be reserved and can be customized for your transportation needs.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Date Field for First Day Expecting to Ride -->
+                                    <div class="form-group">
+                                        <div class="input-fields">
+                                            <label for="FirstDayExpectingToRide">First Day Expecting to Ride?</label>
+                                            @Html.EditorFor(model => model.FirstDayExpectingToRide, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                            @*                                             <div class="validation-message"></div> *@ <!-- Placeholder for validation message -->
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -239,7 +259,7 @@
                                         <div class="col-6">
                                             <div class="input-fields">
                                                 <p class="must-arrive-by">Must Arrive the Campus By:</p>
-                                                @Html.EditorFor(model => model.ArrivalTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id="otherMustArriveBy" } })
+                                                @Html.EditorFor(model => model.MustArriveTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id="otherMustArriveBy" } })
                                                 <div class="form-line"></div>
                                                 @*  <div id="ArrivalTime-validation-message" class="validation-message"></div> *@
                                             </div>
@@ -249,7 +269,7 @@
                                             <div class="other-leave-after">
                                                 <div class="input-fields">
                                                     <p class="must-arrive-by">Can Leave the Campus After:</p>
-                                                    @Html.EditorFor(model => model.DepartureTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "otherCanLeaveAfter" } })
+                                                    @Html.EditorFor(model => model.CanLeaveTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "otherCanLeaveAfter" } })
                                                     <div class="form-line"></div>
                                                   @*   <div id="DepartureTime-validation-message" class="validation-message"></div> *@
                                                 </div>
@@ -309,28 +329,24 @@
                                         </div>
                                     </div>
 
-                                    @* <div class="row row-space">
-                                        <div class="col-6"> *@
-                                        <div class="other-pickup-dropoff-location">
-                                            <div class="other-pickup">
-                                                <div class="input-fields">
-                                                    <input type="text" id="other-pickup-location" class="input--style-1" name="PickUpLocation" placeholder="Pick Up Location" />
-                                                    <div class="form-line"></div>
-                                                  @*   <div id="PickUpLocation-validation-message" class="validation-message"></div> *@
-                                                </div>
-                                                <p class="special-request-guide">Where would you prefer to be picked up?</p>
+                                    <div class="other-pickup-dropoff-location">
+                                        <div class="other-pickup">
+                                            <div class="input-fields">
+                                                <input type="text" id="other-pickup-location" class="input--style-1" name="SpecialPickUpLocation" placeholder="Pick Up Location" />
+                                                <div class="form-line"></div>
+                                                @*   <div id="PickUpLocation-validation-message" class="validation-message"></div> *@
                                             </div>
-                                      @*   <div class="col-6"> *@
-                                            <div class="other-dropoff">
-                                                <div class="input-fields">
-                                                    <input type="text" id="other-dropoff-location" class="input--style-1" name="DropOffLocation" placeholder="Drop Off Location" />
-                                                    <div class="form-line"></div>
-                                            @*         <div id="DropOffLocation-validation-message" class="validation-message"></div> *@
-                                                </div>
-                                                <p class="special-request-guide">Where would you prefer to be dropped off?</p>
-                                            </div>
+                                            <p class="special-request-guide">Where would you prefer to be picked up?</p>
                                         </div>
-                                  @*   </div> *@
+                                        <div class="other-dropoff">
+                                            <div class="input-fields">
+                                                <input type="text" id="other-dropoff-location" class="input--style-1" name="SpecialDropOffLocation" placeholder="Drop Off Location" />
+                                                <div class="form-line"></div>
+                                        @*         <div id="DropOffLocation-validation-message" class="validation-message"></div> *@
+                                            </div>
+                                            <p class="special-request-guide">Where would you prefer to be dropped off?</p>
+                                        </div>
+                                    </div>
 
                                     <!-- days need transportation Field -->
                                     <div class="need-transportation-container">
@@ -344,7 +360,8 @@
 
                                     <!-- Terms and Conditions Checkbox -->
                                     <div class="checkbox-container">
-                                        <input type="checkbox" id="AgreeTerms" name="AgreeTerms" />
+                                        <input type="checkbox" id="AgreeTerms" name="AgreeTerms" value="true" />
+                                        <input type="hidden" name="AgreeTerms" value="false" />
                                         <label for="AgreeTerms" class="AgreeTerms">I understand my transportation request will be reviewed but is not guaranteed. I will be required to communicate and confirm my request with the shuttle program before it is scheduled. I also understand I must notify the shuttle program if I need to cancel or change my reservation after it is added to the schedule.</label>
                                     </div>
 
@@ -500,6 +517,7 @@
 <script src="/js/Registeration/ReturnRouteUpdater.js"></script>
 <script src="/js/Registeration/routeVisibility.js"></script>
 <script src="/js/Registeration/form-reset.js"></script>
+
 
 
 

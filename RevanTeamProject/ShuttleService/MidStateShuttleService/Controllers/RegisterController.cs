@@ -66,40 +66,100 @@ namespace MidStateShuttleService.Controllers
             {
                 using (var connection = new SqlConnection(connectionString))
                 {
-                    var commandText = @"INSERT INTO [dbo].[Registration] 
-                                (RouteID, UserID, FirstName, LastName, Phone, Email, TripType, AgreeToTerms, SelectedRouteDetail, ReturnSelectedRouteDetail, SpecialRequest) 
-                                VALUES 
-                                (@RouteID, @UserID, @FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @SelectedRouteDetail, @ReturnSelectedRouteDetail, @SpecialRequest)";
+                    connection.Open(); // Open connection once for all operations
 
-                    // Initialize the command with the command text and connection
-                    var command = new SqlCommand(commandText, connection);
-
-                    // Add the common parameters that are always included
-                    command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
-                    command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
-                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
-                    command.Parameters.AddWithValue("@LastName", model.LastName);
-                    command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
-                    command.Parameters.AddWithValue("@Email", model.Email);
-                    command.Parameters.AddWithValue("@TripType", model.TripType);
-                    command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
-                    command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@ReturnSelectedRouteDetail", (object)model.ReturnSelectedRouteDetail ?? DBNull.Value);
-                    command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
-
-                    // Check if SpecialRequest is No and TripType is not Friday, then ignore the special request related fields
-                    if (!(model.SpecialRequest ?? false) && model.TripType != "Friday")
+                    if (model.TripType == "RoundTrip" && model.SpecialRequest == false)
                     {
-                        // You can set default values or handle the database defaults for the fields you're ignoring
-                        // For example, setting default values for nullable fields that are being ignored
-                        // command.Parameters.AddWithValue("@SomeField", DBNull.Value);
+                        var commandText = @"INSERT INTO [dbo].[Registration] 
+                        (FirstName, LastName, Phone, Email, TripType, AgreeToTerms, SelectedRouteDetail, ReturnSelectedRouteDetail, SpecialRequest, FirstDayExpectingToRide) 
+                        OUTPUT INSERTED.RegistrationID
+                        VALUES 
+                        (@FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @SelectedRouteDetail, @ReturnSelectedRouteDetail, @SpecialRequest, @FirstDayExpectingToRide)";
+
+
+                        // Initialize the command with the command text and connection
+                        var command = new SqlCommand(commandText, connection);
+
+                        // Add the common parameters that are always included
+                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                        command.Parameters.AddWithValue("@LastName", model.LastName);
+                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
+                        command.Parameters.AddWithValue("@Email", model.Email);
+                        command.Parameters.AddWithValue("@TripType", model.TripType);
+                        command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
+                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@ReturnSelectedRouteDetail", (object)model.ReturnSelectedRouteDetail ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
+                        command.Parameters.AddWithValue("@FirstDayExpectingToRide", model.FirstDayExpectingToRide.HasValue ? (object)model.FirstDayExpectingToRide.Value.ToDateTime(TimeOnly.MinValue) : DBNull.Value);
+
+                        // Execute the command and get the new RegistrationID
+                        var registrationId = ExecuteSqlCommand(command);
+
+                        if (registrationId > 0)
+                        {
+                            // Insert the days of the week selected by the user
+                            if (model.SelectedDaysOfWeek != null && model.SelectedDaysOfWeek.Any())
+                            {
+                                InsertSelectedDaysOfWeek(connection, registrationId, model.SelectedDaysOfWeek);
+                            }
+
+                            TempData["RegistrationSuccess"] = true;
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                        }
                     }
 
-                    try
+                    // Fetch location names
+                    string pickUpLocationName = GetLocationNameById(model.PickUpLocationID);
+                    string dropOffLocationName = GetLocationNameById(model.DropOffLocationID);
+
+                    // Check if either location name is 'Other'
+                    bool isPickUpLocationOther = string.Equals(pickUpLocationName, "Other", StringComparison.OrdinalIgnoreCase);
+                    bool isDropOffLocationOther = string.Equals(dropOffLocationName, "Other", StringComparison.OrdinalIgnoreCase);
+
+                    if (model.TripType == "RoundTrip" && model.SpecialRequest != false || (isPickUpLocationOther || isDropOffLocationOther))
                     {
-                        connection.Open(); 
-                        var result = command.ExecuteNonQuery();
-                        if (result > 0)
+                        var commandText = @"INSERT INTO [dbo].[Registration] 
+                            (FirstName, LastName, Phone, Email, TripType, SpecialRequest, SelectedRouteDetail, MustArriveTime, CanLeaveTime,
+                            SpecialPickUpLocation, SpecialDropOffLocation, AgreeToTerms, NeedTransportation, PickUpLocationID, DropOffLocationID) 
+                            OUTPUT INSERTED.RegistrationID
+                            VALUES 
+                            (@FirstName, @LastName, @Phone, @Email, @TripType,  @SpecialRequest, @SelectedRouteDetail, @MustArriveTime, @CanLeaveTime,
+                            @SpecialPickUpLocation, @SpecialDropOffLocation, @AgreeToTerms, @NeedTransportation, @PickUpLocationID, @DropOffLocationID)";
+
+                        // Initialize the command with the command text and connection
+                        var command = new SqlCommand(commandText, connection);
+
+                        // Add the common parameters that are always included
+                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                        command.Parameters.AddWithValue("@LastName", model.LastName);
+                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
+                        command.Parameters.AddWithValue("@Email", model.Email);
+                        command.Parameters.AddWithValue("@TripType", model.TripType);
+                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
+                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@PickUpLocationID", model.PickUpLocationID.HasValue ? (object)model.PickUpLocationID.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID.HasValue ? (object)model.DropOffLocationID.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@MustArriveTime", model.MustArriveTime.HasValue ? (object)model.MustArriveTime.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@CanLeaveTime", model.CanLeaveTime.HasValue ? (object)model.CanLeaveTime.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@SpecialPickUpLocation", string.IsNullOrEmpty(model.SpecialPickUpLocation) ? (object)DBNull.Value : model.SpecialPickUpLocation);
+                        command.Parameters.AddWithValue("@SpecialDropOffLocation", string.IsNullOrEmpty(model.SpecialDropOffLocation) ? (object)DBNull.Value : model.SpecialDropOffLocation);
+                        command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
+                        command.Parameters.AddWithValue("@NeedTransportation", model.NeedTransportation ?? string.Empty);
+
+
+
+                        // Execute the command and get the new RegistrationID
+                        var registrationId = ExecuteSqlCommand(command);
+
+                        if (registrationId > 0)
                         {
                             TempData["RegistrationSuccess"] = true;
                             return RedirectToAction("Index");
@@ -109,16 +169,150 @@ namespace MidStateShuttleService.Controllers
                             ModelState.AddModelError("", "There was an error saving the registration, please try again.");
                         }
                     }
-                    catch (SqlException ex)
+
+                    if (model.TripType == "OneWay" && model.SpecialRequest == false)
                     {
-                        _logger.LogError("Database insertion error: ", ex);
-                        ModelState.AddModelError("", "There was a database error, please try again.");
+                        var commandText = @"INSERT INTO [dbo].[Registration] 
+                        (FirstName, LastName, Phone, Email, TripType, AgreeToTerms, SelectedRouteDetail, SpecialRequest, FirstDayExpectingToRide) 
+                        OUTPUT INSERTED.RegistrationID
+                        VALUES 
+                        (@FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @SelectedRouteDetail, @SpecialRequest, @FirstDayExpectingToRide)";
+
+
+                        // Initialize the command with the command text and connection
+                        var command = new SqlCommand(commandText, connection);
+
+                        // Add the common parameters that are always included
+                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                        command.Parameters.AddWithValue("@LastName", model.LastName);
+                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
+                        command.Parameters.AddWithValue("@Email", model.Email);
+                        command.Parameters.AddWithValue("@TripType", model.TripType);
+                        command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
+                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
+                        command.Parameters.AddWithValue("@FirstDayExpectingToRide", model.FirstDayExpectingToRide.HasValue ? (object)model.FirstDayExpectingToRide.Value.ToDateTime(TimeOnly.MinValue) : DBNull.Value);
+
+                        // Execute the command and get the new RegistrationID
+                        var registrationId = ExecuteSqlCommand(command);
+
+                        if (registrationId > 0)
+                        {
+                            // Insert the days of the week selected by the user
+                            if (model.SelectedDaysOfWeek != null && model.SelectedDaysOfWeek.Any())
+                            {
+                                InsertSelectedDaysOfWeek(connection, registrationId, model.SelectedDaysOfWeek);
+                            }
+
+                            TempData["RegistrationSuccess"] = true;
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                        }
                     }
+
+                    if (model.TripType == "OneWay" && model.SpecialRequest != false || (isPickUpLocationOther || isDropOffLocationOther))
+                    {
+                        var commandText = @"INSERT INTO [dbo].[Registration] 
+                            (FirstName, LastName, Phone, Email, TripType, SpecialRequest, SelectedRouteDetail, MustArriveTime, 
+                            SpecialPickUpLocation, SpecialDropOffLocation, AgreeToTerms, NeedTransportation, PickUpLocationID, DropOffLocationID) 
+                            OUTPUT INSERTED.RegistrationID
+                            VALUES 
+                            (@FirstName, @LastName, @Phone, @Email, @TripType,  @SpecialRequest, @SelectedRouteDetail, @MustArriveTime, 
+                            @SpecialPickUpLocation, @SpecialDropOffLocation, @AgreeToTerms, @NeedTransportation,  @PickUpLocationID, @DropOffLocationID)";
+
+                        // Initialize the command with the command text and connection
+                        var command = new SqlCommand(commandText, connection);
+
+                        // Add the common parameters that are always included
+                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
+                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                        command.Parameters.AddWithValue("@LastName", model.LastName);
+                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
+                        command.Parameters.AddWithValue("@Email", model.Email);
+                        command.Parameters.AddWithValue("@TripType", model.TripType);
+                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
+                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
+                        command.Parameters.AddWithValue("@MustArriveTime", model.MustArriveTime.HasValue ? (object)model.MustArriveTime.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@SpecialPickUpLocation", string.IsNullOrEmpty(model.SpecialPickUpLocation) ? (object)DBNull.Value : model.SpecialPickUpLocation);
+                        command.Parameters.AddWithValue("@SpecialDropOffLocation", string.IsNullOrEmpty(model.SpecialDropOffLocation) ? (object)DBNull.Value : model.SpecialDropOffLocation);
+                        command.Parameters.AddWithValue("@PickUpLocationID", model.PickUpLocationID.HasValue ? (object)model.PickUpLocationID.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID.HasValue ? (object)model.DropOffLocationID.Value : DBNull.Value);
+                        command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
+                        command.Parameters.AddWithValue("@NeedTransportation", model.NeedTransportation ?? string.Empty);
+
+
+
+                        // Execute the command and get the new RegistrationID
+                        var registrationId = ExecuteSqlCommand(command);
+
+                        if (registrationId > 0)
+                        {
+                            TempData["RegistrationSuccess"] = true;
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                        }
+                    }
+
+                    // Check if SpecialRequest is No and TripType is not Friday, then ignore the special request related fields
+                    if (!(model.SpecialRequest ?? false) && model.TripType != "Friday")
+                    {
+                        // You can set default values or handle the database defaults for the fields you're ignoring
+                        // For example, setting default values for nullable fields that are being ignored
+                        // command.Parameters.AddWithValue("@SomeField", DBNull.Value);
+                    }
+                    else
+                    {
+                        // Handle scenario where none of the conditions are met
+                        ModelState.AddModelError("", "The registration conditions are not met.");
+                    }
+
                 }
             }
 
             //model.LocationNames = GetLocationNames();
             return View("Index", model);
+        }
+
+        private int ExecuteSqlCommand(SqlCommand command)
+        {
+            try
+            {
+                var result = command.ExecuteScalar(); // Assuming your table's INSERT operation has been modified to return the new ID
+                if (result != null)
+                {
+                    return Convert.ToInt32(result);
+                }
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError("Database insertion error: ", ex);
+                ModelState.AddModelError("", "There was a database error, please try again.");
+            }
+
+            return 0; // Return 0 to indicate failure
+        }
+
+        private void InsertSelectedDaysOfWeek(SqlConnection connection, int registrationId, List<string> selectedDaysOfWeek)
+        {
+            foreach (var day in selectedDaysOfWeek)
+            {
+                var commandText = @"INSERT INTO [dbo].[RegistrationDays] (RegistrationID, DayOfWeek) VALUES (@RegistrationID, @DayOfWeek)";
+                using (var command = new SqlCommand(commandText, connection))
+                {
+                    command.Parameters.AddWithValue("@RegistrationID", registrationId);
+                    command.Parameters.AddWithValue("@DayOfWeek", day);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
 
@@ -155,6 +349,32 @@ namespace MidStateShuttleService.Controllers
             }
             return locations;
         }
+
+        private string GetLocationNameById(int? locationId)
+        {
+            if (!locationId.HasValue)
+                return null;
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    var command = new SqlCommand("SELECT Name FROM Location WHERE LocationID = @LocationID", connection);
+                    command.Parameters.AddWithValue("@LocationID", locationId.Value);
+
+                    var result = command.ExecuteScalar();
+                    return result != null ? result.ToString() : null;
+                }
+                catch (SqlException ex)
+                {
+                    _logger.LogError("Database connection error: ", ex);
+                    // Handle exception
+                    return null;
+                }
+            }
+        }
+
 
         //retrieves route options based on selected pick-up and drop-off locations from a database and returns them as JSON.
         [HttpGet]

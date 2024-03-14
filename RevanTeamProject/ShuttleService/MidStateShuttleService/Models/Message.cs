@@ -1,9 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MidStateShuttleService.Models
 {
-    public class Message
+    [Table("Message")]
+    public partial class Message
     {
+        [Key]
+        [Column("MessageId")]
         public int id { get; set; }
 
         [Required(ErrorMessage = "A message is required.")]
@@ -15,8 +21,10 @@ namespace MidStateShuttleService.Models
         [StringLength(160, ErrorMessage = "This field must not be more than 160 characters.")]
         public string message { get; set; }
 
+        [DefaultValue(false)]
         public bool responseRequired { get; set; }
 
+        [StringLength(50)]
         public string? contactInfo { get; set; }
     }
 }

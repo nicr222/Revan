@@ -40,10 +40,10 @@ namespace MidStateShuttleService.Controllers
             }
             else
             {
-                
+
 
                 TempData["SuccessMessage"] = "The location has been successfully created!";
-                
+
             }
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {

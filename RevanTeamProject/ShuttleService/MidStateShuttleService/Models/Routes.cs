@@ -1,14 +1,18 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MidStateShuttleService.Models
 {
+    [Table("Route")]
+    [Index("DropOffLocationID", Name = "IX_Route_DropOffLocationID")]
+    [Index("PickUpLocationID", Name = "IX_Route_PickUpLocationID")]
     public class Routes
     {
-        // Primary Key
+        [Key]
         public int RouteID { get; set; }
-
-        // Route details
 
         [Display(Name = "Pick Up Location")]
         [Required(ErrorMessage = "Please select a pick-up location.")]
@@ -17,9 +21,6 @@ namespace MidStateShuttleService.Models
         [Display(Name = "Drop Off Location")]
         [Required(ErrorMessage = "Please select a drop-off location.")]
         public int DropOffLocationID { get; set; }
-
-        public Location PickLocation { get; set; }
-        public Location DropOffLocation { get; set; }
 
         [Display(Name = "Pick Up Time")]
         [Required(ErrorMessage = "Please enter a valid pick-up time.")]
@@ -37,5 +38,19 @@ namespace MidStateShuttleService.Models
         [StringLength(500, ErrorMessage = "Additional details cannot exceed 500 characters.")]
         [RegularExpression("^[a-zA-Z0-9.,!?'\";:@#$%^&*()_+=\\-\\/]*$", ErrorMessage = "Additional details can only contain letters, numbers, and important special characters.")]
         public string AdditionalDetails { get; set; }
+
+        [DefaultValue(false)]
+        public bool IsArchived { get; set; }
+
+        public int BusId { get; set; }
+
+        [ForeignKey("PickUpLocationID")]
+        public virtual ICollection<Location> PickUpLocation { get; set; } = new List<Location>();
+
+        [ForeignKey("DropOffLocationID")]
+        public virtual ICollection<Location> DropOffLocation { get; set; } = new List<Location>();
+
+        [ForeignKey("BusId")]
+        public virtual Bus Bus { get; set; }
     }
 }
