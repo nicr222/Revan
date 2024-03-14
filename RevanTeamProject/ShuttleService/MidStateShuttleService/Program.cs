@@ -15,7 +15,6 @@ namespace MidStateShuttleService
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var identityConnectionString = builder.Configuration.GetConnectionString("MidStateShuttleServiceContextConnection") ?? throw new InvalidOperationException("Connection string 'MidStateShuttleServiceContextConnection' not found.");
             var appConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(appConnectionString));

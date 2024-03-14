@@ -49,5 +49,8 @@ namespace MidStateShuttleService.Models
 
         [ForeignKey("DropOffLocationID")]
         public virtual ICollection<Location> DropOffLocation { get; set; } = new List<Location>();
+
+        [ForeignKey("BusId")]
+        public virtual Bus Bus { get; set; }
     }
 }

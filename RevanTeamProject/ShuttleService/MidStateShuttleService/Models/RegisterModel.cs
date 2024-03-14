@@ -14,13 +14,11 @@ namespace MidStateShuttleService.Models
         [Key]
         public int RegistrationId { get; set; }
 
-        [ForeignKey("Routes")]
         public int? RouteID { get; set; }
 
         //[Required(ErrorMessage = "User ID is required")]
         //[RegularExpression("^[0-9]{10}$", ErrorMessage = "Must be 10 digits")]
         //public long StudentId { get; set; } // Changed from int to long
-        [ForeignKey("User")]
         public int? UserId { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
@@ -106,6 +104,12 @@ namespace MidStateShuttleService.Models
         public string? SpecialPickUpLocation { get; set; }
 
         public string? SpecialDropOffLocation { get; set; }
+
+        [ForeignKey("RouteID")]
+        public virtual Routes Route { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
     }
-    
+
 }

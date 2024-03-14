@@ -10,10 +10,12 @@ namespace MidStateShuttleService.Models
         [Key]
         public int RegistrationDayID { get; set; }
 
-        [ForeignKey("RegisterModel")]
         public int RegistrationID { get; set; }
 
         [StringLength(10)]
         public string DayOfWeek { get; set; }
+
+        [ForeignKey("RegistrationID")]
+        public virtual RegisterModel RegisterModel { get; set; }
     }
 }

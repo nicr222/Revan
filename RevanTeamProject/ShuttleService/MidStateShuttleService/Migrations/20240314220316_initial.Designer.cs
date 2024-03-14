@@ -12,7 +12,7 @@ using MidStateShuttleService.Models;
 namespace MidStateShuttleService.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240314214800_initial")]
+    [Migration("20240314220316_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -52,6 +52,8 @@ namespace MidStateShuttleService.Migrations
                     b.HasKey("BusId");
 
                     b.HasIndex("CurrentRouteId");
+
+                    b.HasIndex("DriverId");
 
                     b.ToTable("Bus");
                 });
@@ -329,6 +331,8 @@ namespace MidStateShuttleService.Migrations
 
                     b.HasKey("RegistrationId");
 
+                    b.HasIndex("UserId");
+
                     b.HasIndex(new[] { "RouteID" }, "IX_Registration_RouteId");
 
                     b.ToTable("Registration");
@@ -392,6 +396,8 @@ namespace MidStateShuttleService.Migrations
 
                     b.HasKey("RouteID");
 
+                    b.HasIndex("BusId");
+
                     b.HasIndex(new[] { "DropOffLocationID" }, "IX_Route_DropOffLocationID");
 
                     b.HasIndex(new[] { "PickUpLocationID" }, "IX_Route_PickUpLocationID");
@@ -418,7 +424,13 @@ namespace MidStateShuttleService.Migrations
                         .WithMany()
                         .HasForeignKey("CurrentRouteId");
 
+                    b.HasOne("MidStateShuttleService.Models.Driver", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverId");
+
                     b.Navigation("CurrentRoute");
+
+                    b.Navigation("Driver");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.CheckIn", b =>
@@ -456,6 +468,43 @@ namespace MidStateShuttleService.Migrations
                     b.HasOne("MidStateShuttleService.Models.Routes", null)
                         .WithMany("PickUpLocation")
                         .HasForeignKey("PickUpLocationID");
+                });
+
+            modelBuilder.Entity("MidStateShuttleService.Models.RegisterModel", b =>
+                {
+                    b.HasOne("MidStateShuttleService.Models.Routes", "Route")
+                        .WithMany()
+                        .HasForeignKey("RouteID");
+
+                    b.HasOne("MidStateShuttleService.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Route");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MidStateShuttleService.Models.RegistertionDaysModel", b =>
+                {
+                    b.HasOne("MidStateShuttleService.Models.RegisterModel", "RegisterModel")
+                        .WithMany()
+                        .HasForeignKey("RegistrationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RegisterModel");
+                });
+
+            modelBuilder.Entity("MidStateShuttleService.Models.Routes", b =>
+                {
+                    b.HasOne("MidStateShuttleService.Models.Bus", "Bus")
+                        .WithMany()
+                        .HasForeignKey("BusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bus");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Routes", b =>

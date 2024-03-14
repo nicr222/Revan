@@ -20,7 +20,6 @@ public partial class Bus
 
     public int PassengerCapacity { get; set; }
 
-    [ForeignKey("Driver")]
     public int? DriverId { get; set; }
 
     [DefaultValue(false)]
@@ -32,4 +31,7 @@ public partial class Bus
     // Lets entity know CurrentRouteId is a FK to the route table(Because the FK and PK are named different this is needed).
     [ForeignKey("CurrentRouteId")]
     public virtual Routes CurrentRoute { get; set; }
+
+    [ForeignKey("DriverId")]
+    public virtual Driver Driver { get; set; }
 }
