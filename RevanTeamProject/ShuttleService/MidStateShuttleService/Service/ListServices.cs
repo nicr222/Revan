@@ -113,7 +113,7 @@ namespace MidStateShuttleService.Service
             return busList;
         }
 
-        public IEnumerable<Driver> GerDriverList()
+        public IEnumerable<Driver> GetDriverList()
         {
             List<Driver> driverList = new List<Driver>();
 
@@ -133,8 +133,8 @@ namespace MidStateShuttleService.Service
                     driverList.Add(new Driver
                     {
                         DriverId = Convert.ToInt32(row["DriverID"]),
-                        Name = row["FirstName"].ToString(),
-                        PhoneNumber = row["PhoneNumber"].ToString(),
+                        Name = row["Name"].ToString(),
+                        PhoneNumber = row["PhoneNumb"].ToString(),
                         Email = row["Email"].ToString(),
                         IsActive = Convert.ToBoolean(row["IsActive"])
                     });

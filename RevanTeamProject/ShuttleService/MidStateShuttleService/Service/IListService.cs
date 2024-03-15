@@ -10,6 +10,6 @@ namespace MidStateShuttleService.Service
 
         IEnumerable<Bus> GetBusList();
 
-        IEnumerable<Driver> GerDriverList();
+        IEnumerable<Driver> GetDriverList();
     }
 }
