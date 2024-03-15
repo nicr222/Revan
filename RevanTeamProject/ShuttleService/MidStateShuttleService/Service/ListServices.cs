@@ -48,5 +48,99 @@ namespace MidStateShuttleService.Service
             }
             return locationList;
         }
+
+        public IEnumerable<Routes> GetRoutes()
+        {
+            List<Routes> routesList = new List<Routes>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                DataTable dataTable = new DataTable();
+
+                string sql = "SELECT * FROM [Routes]";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dataTable);
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    routesList.Add(new Routes
+                    {
+                        RouteID = Convert.ToInt32(row["RouteID"]),
+                        PickUpLocationID = Convert.ToInt32(row["PickUpLocationID"]),
+                        DropOffLocationID = Convert.ToInt32(row["DropOffLocationID"]),
+                        PickUpTime = TimeSpan.Parse(row["PickUpTime"].ToString()),
+                        DropOffTime = TimeSpan.Parse(row["DropOffTime"].ToString()),
+                        AdditionalDetails = row["AdditionalDetails"].ToString(),
+                        IsArchived = Convert.ToBoolean(row["IsArchived"])
+                    });
+                }
+            }
+            return routesList;
+        }
+
+        public IEnumerable<Bus> GetBusList()
+        {
+            List<Bus> busList = new List<Bus>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                DataTable dataTable = new DataTable();
+
+                string sql = "SELECT * FROM [Bus]";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dataTable);
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    busList.Add(new Bus
+                    {
+                        BusId = Convert.ToInt32(row["BusID"]),
+                        BusNo = row["BusNumber"].ToString(),
+                        PassengerCapacity = Convert.ToInt32(row["PassengerCapacity"]),
+                        DriverId = Convert.ToInt32(row["DriverID"]),
+                        CurrentRouteId = Convert.ToInt32(row["CurrentRouteID"]),
+                        IsActive = Convert.ToBoolean(row["IsActive"]),
+
+                    });
+                }
+            }   
+            return busList;
+        }
+
+        public IEnumerable<Driver> GerDriverList()
+        {
+            List<Driver> driverList = new List<Driver>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                DataTable dataTable = new DataTable();
+
+                string sql = "SELECT * FROM [Driver]";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dataTable);
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    driverList.Add(new Driver
+                    {
+                        DriverId = Convert.ToInt32(row["DriverID"]),
+                        Name = row["FirstName"].ToString(),
+                        PhoneNumber = row["PhoneNumber"].ToString(),
+                        Email = row["Email"].ToString(),
+                        IsActive = Convert.ToBoolean(row["IsActive"])
+                    });
+                }
+            }
+            return driverList;
+        }
     }
 }
