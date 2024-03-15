@@ -15,8 +15,7 @@ public partial class Bus
     [Key]
     public int BusId { get; set; }
 
-    [StringLength(50)]
-    public string BusNo { get; set; }
+    public int BusNo { get; set; }
 
     public int PassengerCapacity { get; set; }
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using MidStateShuttleService.Models;
-using MidStateShuttleService.Models.Data;
+using MidStateShuttleService.Models;
 using System.Diagnostics;
 using System.Net.Mail;
 using System.Net;
@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using MidStateShuttleService.Service;
-using Route = MidStateShuttleService.Models.Data.Route;
 using System.Data;
 
 namespace MidStateShuttleService.Controllers
@@ -504,36 +503,6 @@ namespace MidStateShuttleService.Controllers
             }
 
             return Json(routesList);
-        }
-
-        [HttpGet]
-        public IActionResult CheckInByShuttle(int shuttleID)
-        {
-            // first check for user and see if they have any 
-            RouteServices rs = new RouteServices(_context);
-            Route route = rs.GetCurrentRouteByBusId(shuttleID);
-
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult CheckInByRegistration(int registrationID)
-        {
-            // Your logic for getting information related to registrationID
-            return View();
-        }
-
-        public IActionResult CheckIn()
-        {
-            // Your logic for the empty CheckIn
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult CheckIn(Registration registration)
-        {
-            // Your logic for handling the POST request
-            return RedirectToAction("Index", "Home");
         }
     }
 }

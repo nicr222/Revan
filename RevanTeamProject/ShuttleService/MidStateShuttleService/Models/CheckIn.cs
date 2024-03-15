@@ -17,7 +17,12 @@ public partial class CheckIn
 
     public int BusId { get; set; }
 
+    [NotMapped]
+    public int BusNumber { get; set; }
+
     public int? RouteId { get; set; }
+
+    public int? UserId { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime Date { get; set; }
@@ -33,4 +38,7 @@ public partial class CheckIn
 
     [ForeignKey("BusId")]
     public virtual Bus Bus { get; set; }
+
+    [ForeignKey("UserId")]
+    public virtual User User { get; set; }
 }

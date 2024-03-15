@@ -1,4 +1,4 @@
-﻿using MidStateShuttleService.Models.Data;
+﻿using MidStateShuttleService.Models;
 using System.Xml;
 
 namespace MidStateShuttleService.Service

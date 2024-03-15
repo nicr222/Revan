@@ -1,9 +1,8 @@
 ﻿using MidStateShuttleService.Models;
-using MidStateShuttleService.Models.Data;
+using MidStateShuttleService.Models;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Configuration;
-using Route = MidStateShuttleService.Models.Data.Route;
 using Location = MidStateShuttleService.Models.Location;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 

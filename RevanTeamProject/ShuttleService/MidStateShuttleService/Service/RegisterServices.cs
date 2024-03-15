@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MidStateShuttleService.Models.Data;
+using MidStateShuttleService.Models;
 
 namespace MidStateShuttleService.Service
 {
-    public class RegisterServices : IDbService<Registration>
+    public class RegisterServices : IDbService<RegisterModel>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -12,23 +12,23 @@ namespace MidStateShuttleService.Service
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Registration> GetAllEntities()
+        public IEnumerable<RegisterModel> GetAllEntities()
         {
-            return _dbContext.Registrations.ToList();
+            return _dbContext.RegisterModels.ToList();
         }
 
-        public Registration GetEntityById(int id)
+        public RegisterModel GetEntityById(int id)
         {
-            return _dbContext.Registrations.Find(id);
+            return _dbContext.RegisterModels.Find(id);
         }
 
-        public void AddEntity(Registration entity)
+        public void AddEntity(RegisterModel entity)
         {
-            _dbContext.Registrations.Add(entity);
+            _dbContext.RegisterModels.Add(entity);
             _dbContext.SaveChanges();
         }
 
-        public void UpdateEntity(Registration entity)
+        public void UpdateEntity(RegisterModel entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             _dbContext.SaveChanges();

@@ -1,13 +1,12 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using MidStateShuttleService.Models.Data;
+using MidStateShuttleService.Models;
 using System.Data;
 using System.Xml;
-using Route = MidStateShuttleService.Models.Data.Route;
 
 namespace MidStateShuttleService.Service
 {
-    public class RouteServices : IDbService<Route>
+    public class RouteServices : IDbService<Routes>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -16,23 +15,23 @@ namespace MidStateShuttleService.Service
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Route> GetAllEntities()
+        public IEnumerable<Routes> GetAllEntities()
         {
             return _dbContext.Routes.ToList();
         }
 
-        public Route GetEntityById(int id)
+        public Routes GetEntityById(int id)
         {
             return _dbContext.Routes.Find(id);
         }
 
-        public void AddEntity(Route entity)
+        public void AddEntity(Routes entity)
         {
             _dbContext.Routes.Add(entity);
             _dbContext.SaveChanges();
         }
 
-        public void UpdateEntity(Route entity)
+        public void UpdateEntity(Routes entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             _dbContext.SaveChanges();
@@ -46,32 +45,6 @@ namespace MidStateShuttleService.Service
                 _dbContext.Routes.Remove(entity);
                 _dbContext.SaveChanges();
             }
-        }
-        public Route GetCurrentRouteByBusId(int id)
-        {
-            Route currentRoute = null;
-
-            // finds routes linked to the bus ID
-            var routeIds = _dbContext.BusRoutes
-                .Where(br => br.BusId == id)
-                .Select(br => br.RouteId)
-                .ToList();
-
-            if (routeIds.Any())
-            {
-                // creates a list of routes
-                List<Route> routes = new List<Route>();
-                foreach (var routeId in routeIds)
-                {
-                    routes.Add(GetEntityById(routeId));
-                }
-
-                // Find the route with the pick-up time closest to the current time
-                TimeOnly currentTime = new TimeOnly(DateTime.Now.Hour, DateTime.Now.Minute);
-                currentRoute = routes.OrderBy(route => Math.Abs(route.PickUpTime.CompareTo(currentTime))).FirstOrDefault();
-            }
-
-            return currentRoute;
         }
     }
 }

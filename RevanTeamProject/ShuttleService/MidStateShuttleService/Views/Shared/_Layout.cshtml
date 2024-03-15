@@ -30,7 +30,7 @@
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         <a class="nav-item nav-link" asp-area="" asp-controller="Register" asp-action="Register">Register</a>
-                        <a class="nav-item nav-link" asp-area="" asp-controller="Register" asp-action="CheckIn">Check In</a>
+                        <a class="nav-item nav-link" asp-area="" asp-controller="CheckIn" asp-action="CheckIn">Check In</a>
                         @if (User.IsInRole("Admin"))
                         {
                             <!-- Pulls the Dispatch to Student form -->
