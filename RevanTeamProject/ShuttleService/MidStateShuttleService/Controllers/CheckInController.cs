@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
 
@@ -8,6 +9,12 @@ namespace MidStateShuttleService.Controllers
     public class CheckInController : Controller
     {
         private readonly ApplicationDbContext _context;
+
+        // Inject ApplicationDbContext into the controller constructor
+        public CheckInController(ApplicationDbContext context)
+        {
+            _context = context; // Assign the injected ApplicationDbContext to the _context field
+        }
 
         // GET: CheckInController/Create
         public ActionResult CheckIn()
@@ -20,26 +27,33 @@ namespace MidStateShuttleService.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckIn(CheckIn checkIn)
         {
-            //busid
             //get bus id buy bus number
             BusServices bs = new BusServices(_context);
-            checkIn.Bus = bs.FindBusByNumber(checkIn.BusNumber);
+            var result = bs.FindBusByNumber(checkIn.BusNumber);
+
+            if (result == null)
+                return View(FailedCheckIn("Could Not Find Shuttle"));
+
+            checkIn.Bus = result;
             checkIn.BusId = checkIn.Bus.BusId;
 
-            //routeid
-            //get route id by shuttle
-            RouteServices rs = new RouteServices(_context);
-            
+
+            //Need to find current route
 
             //date
             checkIn.Date = DateTime.Now;
 
-            //maybe set nav properties
-            
-
+            _context.CheckIns.Add(checkIn);
+            _context.SaveChanges();
 
             return RedirectToAction(nameof(Index));
-            
+
+        }
+
+        public ActionResult FailedCheckIn(string errorMessage)
+        {
+
+            return View();
         }
     }
 }
