@@ -10,7 +10,7 @@
 
         public RegisterModel Register { get; set; }
 
-        public ReservationModel Reservation { get; set; }
+        //public ReservationModel Reservation { get; set; }
 
         public Route Route { get; set; }
     }

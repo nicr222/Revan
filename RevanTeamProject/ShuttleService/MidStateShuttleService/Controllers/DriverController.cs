@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using MidStateShuttleService.Models.Data;
+using MidStateShuttleService.Models;
 using System.Data;
 
 namespace MidStateShuttleService.Controllers
@@ -72,7 +72,7 @@ namespace MidStateShuttleService.Controllers
                     parameter = new SqlParameter
                     {
                         ParameterName = "@PhoneNumb",
-                        Value = driver.PhoneNumb,
+                        Value = driver.PhoneNumber,
                         SqlDbType = SqlDbType.NVarChar,
                         Size = 20
                     };
