@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Create Bus";
+    ViewData["Title"] = "Create Shuttle";
 }
 
 @inject MidStateShuttleService.Service.IListService ListServices
@@ -12,12 +12,12 @@
     <div class="wrapper wrapper--w680 mt-5">
         <div class="form form-1">
             <div class="form-body">
-                <h2 class="title">Create Bus</h2>
+                <h2 class="title">Create Shuttle</h2>
                 <form asp-action="Create" method="post">
 
                     <div class="input-fields">
-                        <label>Bus Number</label>
-                        <input asp-for="BusNo" type="text" class="form-control input--style-1" placeholder="Bus Number" required />
+                        <label>Shuttle Number</label>
+                        <input asp-for="BusNo" type="text" class="form-control input--style-1" placeholder="SHuttle Number" required />
                         <div class="div-line"></div>
                         <div id="BusNo-validation-message" class="validation-message">Please enter a valid bus number.</div>
                     </div>
