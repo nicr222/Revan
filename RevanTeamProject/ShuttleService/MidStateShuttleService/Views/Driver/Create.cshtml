@@ -1,0 +1,50 @@
+﻿@model MidStateShuttleService.Models.Data.Driver
+
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/Driver.css" />
+
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<body>
+    <div>
+        <div class="wrapper wrapper--w680 mt-5">
+            <div class="form form-1">
+                <div class="form-body">
+                    <h2 class="title">Create Driver</h2>
+                    <form asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <div>
+                            <div class="input-fields">
+                                <input asp-for="Name" type="text" class="input--style-1" placeholder="Name" required />
+                                <div class="div-line"></div>
+                                <div id="Name-validation-message" class="validation-message">Please enter a valid name.</div>
+                            </div>
+
+                            <div class="input-fields">
+                                <input asp-for="PhoneNumb" type="text" class="input--style-1" placeholder="Phone Number" required />
+                                <div class="div-line"></div>
+                                <div id="PhoneNumb-validation-message" class="validation-message">Please enter a valid phone number.</div>
+                            </div>
+
+                            <div class="input-fields">
+                                <input asp-for="Email" type="email" class="input--style-1" placeholder="Email" required />
+                                <div class="div-line"></div>
+                                <div id="Email-validation-message" class="validation-message">Please enter a valid email address.</div>
+                            </div>
+
+                            <div class="p-t-20">
+                                <button class="btn btn--radius btn--submit" type="submit">Submit</button>
+                                <button class="btn btn--radius btn--cancel" type="button" onclick="location.href='yourCancelPage.html'">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/driver.js"></script>
+</body>
