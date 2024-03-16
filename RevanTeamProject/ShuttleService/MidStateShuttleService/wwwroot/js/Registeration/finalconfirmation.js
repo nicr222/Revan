@@ -45,15 +45,14 @@ $(document).ready(function () {
         e.preventDefault(); // Prevent form submit
 
         // Gather form data
-        var tripType = $('[name="TripType"]:checked').val();
-/*        var specialRequest = $('input[name="SpecialRequest"]:checked').val() === 'true';*/
-        var otherSpecialRequest = $('#otherSpecialYes').is(':checked') ? 'Yes' : 'No'; 
-        var pickUpLocationID = $('#PickUpLocationID').val() || 'Not specified';
-        var dropOffLocationID = $('#DropOffLocationID').val() || 'Not specified';
         var firstName = $('#FirstName').val();
         var lastName = $('#LastName').val();
         var email = $('#Email').val();
         var phoneNumber = $('#PhoneNumber').val();
+        var tripType = $('[name="TripType"]:checked').val();
+
+        //Round Trip variables
+        var otherSpecialRequest = $('#otherSpecialYes').is(':checked') ? 'Yes' : 'No'; 
         var specialPickUpLocation = $('#other-pickup-location').val() || 'Not specified';
         var specialDropOffLocation = $('#other-dropoff-location').val() || 'Not specified';
         var otherMustArriveBy = $('#otherMustArriveBy').val() || 'Not specified';
@@ -79,6 +78,24 @@ $(document).ready(function () {
         var daysOfWeekFormatted = selectedDaysOfWeek.join(', ');
 
         var firstDayExpectingToRide = $('#FirstDayExpectingToRide').val() || 'Not specified';
+
+        //Friday Speical Request Variables
+        var fridaySpecialRequest = $('#specialYes').is(':checked') ? 'Yes' : 'No'; // Assuming you have a similar ID for the Friday special request radio button
+        var fridayTripType = $('[name="FridayTripType"]:checked').val(); // Fetching the value for the Friday trip type
+
+        // Fetch selected Friday location names directly from the option text
+        var fridayPickUpLocationName = $('#PickUpLocation[name="FridayPickUpLocationID"] option:selected').text();
+        var fridayDropOffLocationName = $('#DropOffLocation[name="FridayDropOffLocationID"] option:selected').text();
+
+        // Ensure "Select Pick-Up Location" or "Select Drop-Off Location" is not treated as valid selections for Friday locations
+        fridayPickUpLocationName = fridayPickUpLocationName === "Select Pick-Up Location" ? "Not specified" : fridayPickUpLocationName;
+        fridayDropOffLocationName = fridayDropOffLocationName === "Select Drop-Off Location" ? "Not specified" : fridayDropOffLocationName;
+
+
+        var fridayMustArriveTime = $('#friday-special-arrive').val() || 'Not specified';
+        var fridayCanLeaveTime = $('#friday-special-leave').val() || 'Not specified';
+        var whichFriday = $('#WhichFriday').val() || 'Not specified';
+
 
         // Start building the confirmationContent
         var confirmationContent = `
@@ -107,7 +124,7 @@ $(document).ready(function () {
                 <p>Can Leave Time: ${otherCanLeaveAfter}</p>
                 <p>Special Pick Up Location: ${specialPickUpLocation}</p>
                 <p>Drop Off Location: ${dropOffLocationName}</p>
-                <p>Need Transportation: ${needTransportation}</p>
+                <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
             else if (otherSpecialRequest === "Yes" && dropOffLocationName === 'Other' && pickUpLocationName !== 'Other') {
@@ -117,7 +134,7 @@ $(document).ready(function () {
                 <p>Can Leave Time: ${otherCanLeaveAfter}</p>
                 <p>Pick Up Location: ${pickUpLocationName}</p>
                 <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
-                <p>Need Transportation: ${needTransportation}</p>
+                <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
             else if (otherSpecialRequest === "Yes" && pickUpLocationName === 'Other' && dropOffLocationName === 'Other') {
@@ -127,7 +144,7 @@ $(document).ready(function () {
                 <p>Can Leave Time: ${otherCanLeaveAfter}</p>
                 <p>Speical Pick Up Location: ${specialPickUpLocation}</p>
                 <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
-                <p>Need Transportation: ${needTransportation}</p>
+                <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
             else if (otherSpecialRequest === "Yes" && (pickUpLocationName && dropOffLocationName) && !initialRoute) {
@@ -137,7 +154,7 @@ $(document).ready(function () {
                 <p>Drop Off Location: ${dropOffLocationName}</p>
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
                 <p>Can Leave Time: ${otherCanLeaveAfter}</p>
-                <p>Need Transportation: ${needTransportation}</p>
+                <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
             else if (otherSpecialRequest === "Yes" && initialRoute && !returnRoute) {
@@ -146,17 +163,13 @@ $(document).ready(function () {
                 <p>Initial Route: ${initialRoute}</p>
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
                 <p>Can Leave Time: ${otherCanLeaveAfter}</p>
-                <p>Need Transportation: ${needTransportation}</p>
+                <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
         }
 
         //One Way No Speical Request
         if (tripType === 'OneWay') {
-            confirmationContent += `
-                <p>Pick Up Location ID: ${pickUpLocationID}</p>
-                <p>Drop Off Location ID: ${dropOffLocationID}</p>
-            `;
             if (otherSpecialRequest === "No") {
                 confirmationContent += `
                     <p>Initial Route: ${initialRoute}</p>
@@ -170,7 +183,7 @@ $(document).ready(function () {
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
                 <p>Special Pick Up Location: ${specialPickUpLocation}</p>
                 <p>Drop Off Location: ${dropOffLocationName}</p>
-                <p>Need Transportation: ${needTransportation}</p>
+                <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
             else if (otherSpecialRequest === "Yes" && dropOffLocationName === 'Other' && pickUpLocationName !== 'Other') {
@@ -179,7 +192,7 @@ $(document).ready(function () {
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
                 <p>Pick Up Location: ${pickUpLocationName}</p>
                 <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
-                <p>Need Transportation: ${needTransportation}</p>
+                <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
             else if (otherSpecialRequest === "Yes" && pickUpLocationName === 'Other' && dropOffLocationName === 'Other') {
@@ -188,11 +201,35 @@ $(document).ready(function () {
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
                 <p>Speical Pick Up Location: ${specialPickUpLocation}</p>
                 <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
-                <p>Need Transportation: ${needTransportation}</p>
+                <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
         }
 
+        //One Way No Speical Request
+        if (tripType === 'Friday') {
+            if (fridaySpecialRequest === "Yes" && fridayTripType == "RoundTrip") {
+                confirmationContent += `
+                    <p>Special Request: ${fridaySpecialRequest}</p>
+                    <p>Friday Trip Choice: ${fridayTripType}</p>
+                    <p>Must Arrive Time: ${fridayMustArriveTime}</p>
+                    <p>Can Leave After: ${fridayCanLeaveTime}</p>
+                    <p>Pick Up Location: ${fridayPickUpLocationName}</p>
+                    <p>Drop Off Location: ${fridayDropOffLocationName}</p>
+                    <p>Which Friday Detail: ${whichFriday}</p>
+                `;
+            }
+            else if (fridaySpecialRequest === "Yes" && fridayTripType == "OneWay") {
+                confirmationContent += `
+                    <p>Special Request: ${fridaySpecialRequest}</p>
+                    <p>Friday Trip Choice: ${fridayTripType}</p>
+                    <p>Must Arrive Time: ${fridayMustArriveTime}</p>
+                    <p>Pick Up Location: ${fridayPickUpLocationName}</p>
+                    <p>Drop Off Location: ${fridayDropOffLocationName}</p>
+                    <p>Which Friday Detail: ${whichFriday}</p>
+                `;
+            }
+        }
 
         confirmationContent += `<p>Contact Preference: ${contactPreference}</p>`;
 
