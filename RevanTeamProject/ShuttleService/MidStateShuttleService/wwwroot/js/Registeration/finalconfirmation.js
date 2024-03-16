@@ -120,6 +120,35 @@ $(document).ready(function () {
                 <p>Need Transportation: ${needTransportation}</p>
             `;
             }
+            else if (otherSpecialRequest === "Yes" && pickUpLocationName === 'Other' && dropOffLocationName === 'Other') {
+                confirmationContent += `
+                <p>Special Request: ${otherSpecialRequest}</p>
+                <p>Must Arrive Time: ${otherMustArriveBy}</p>
+                <p>Can Leave Time: ${otherCanLeaveAfter}</p>
+                <p>Speical Pick Up Location: ${specialPickUpLocation}</p>
+                <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
+                <p>Need Transportation: ${needTransportation}</p>
+            `;
+            }
+            else if (otherSpecialRequest === "Yes" && (pickUpLocationName && dropOffLocationName) && !initialRoute) {
+                confirmationContent += `
+                <p>Special Request: ${otherSpecialRequest}</p>
+                <p>Pick Up Location: ${pickUpLocationName}</p>
+                <p>Drop Off Location: ${dropOffLocationName}</p>
+                <p>Must Arrive Time: ${otherMustArriveBy}</p>
+                <p>Can Leave Time: ${otherCanLeaveAfter}</p>
+                <p>Need Transportation: ${needTransportation}</p>
+            `;
+            }
+            else if (otherSpecialRequest === "Yes" && initialRoute && !returnRoute) {
+                confirmationContent += `
+                <p>Special Request: ${otherSpecialRequest}</p>
+                <p>Initial Route: ${initialRoute}</p>
+                <p>Must Arrive Time: ${otherMustArriveBy}</p>
+                <p>Can Leave Time: ${otherCanLeaveAfter}</p>
+                <p>Need Transportation: ${needTransportation}</p>
+            `;
+            }
         }
 
         //One Way No Speical Request
