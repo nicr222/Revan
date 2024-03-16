@@ -110,6 +110,16 @@ $(document).ready(function () {
                 <p>Need Transportation: ${needTransportation}</p>
             `;
             }
+            else if (otherSpecialRequest === "Yes" && dropOffLocationName === 'Other') {
+                confirmationContent += `
+                <p>Special Request: ${otherSpecialRequest}</p>
+                <p>Must Arrive Time: ${otherMustArriveBy}</p>
+                <p>Can Leave Time: ${otherCanLeaveAfter}</p>
+                <p>Pick Up Location: ${pickUpLocationName}</p>
+                <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
+                <p>Need Transportation: ${needTransportation}</p>
+            `;
+            }
         }
 
         //One Way No Speical Request
