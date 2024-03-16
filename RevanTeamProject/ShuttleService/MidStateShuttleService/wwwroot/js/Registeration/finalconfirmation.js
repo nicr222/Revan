@@ -100,7 +100,7 @@ $(document).ready(function () {
                     <p>First Day Expecting to Ride: ${firstDayExpectingToRide}</p>
                 `;
             }
-            else if (otherSpecialRequest === "Yes" && pickUpLocationName === 'Other') {
+            else if (otherSpecialRequest === "Yes" && pickUpLocationName === 'Other' && dropOffLocationName !== 'Other') {
                 confirmationContent += `
                 <p>Special Request: ${otherSpecialRequest}</p>
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
@@ -110,7 +110,7 @@ $(document).ready(function () {
                 <p>Need Transportation: ${needTransportation}</p>
             `;
             }
-            else if (otherSpecialRequest === "Yes" && dropOffLocationName === 'Other') {
+            else if (otherSpecialRequest === "Yes" && dropOffLocationName === 'Other' && pickUpLocationName !== 'Other') {
                 confirmationContent += `
                 <p>Special Request: ${otherSpecialRequest}</p>
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
@@ -157,12 +157,39 @@ $(document).ready(function () {
                 <p>Pick Up Location ID: ${pickUpLocationID}</p>
                 <p>Drop Off Location ID: ${dropOffLocationID}</p>
             `;
-            if (!specialRequest) {
+            if (otherSpecialRequest === "No") {
                 confirmationContent += `
                     <p>Initial Route: ${initialRoute}</p>
                     <p>Days of the Week Needed: ${daysOfWeekFormatted}</p>
                     <p>First Day Expecting to Ride: ${firstDayExpectingToRide}</p>
                 `;
+            }
+            else if (otherSpecialRequest === "Yes" && pickUpLocationName === 'Other' && dropOffLocationName !== 'Other') {
+                confirmationContent += `
+                <p>Special Request: ${otherSpecialRequest}</p>
+                <p>Must Arrive Time: ${otherMustArriveBy}</p>
+                <p>Special Pick Up Location: ${specialPickUpLocation}</p>
+                <p>Drop Off Location: ${dropOffLocationName}</p>
+                <p>Need Transportation: ${needTransportation}</p>
+            `;
+            }
+            else if (otherSpecialRequest === "Yes" && dropOffLocationName === 'Other' && pickUpLocationName !== 'Other') {
+                confirmationContent += `
+                <p>Special Request: ${otherSpecialRequest}</p>
+                <p>Must Arrive Time: ${otherMustArriveBy}</p>
+                <p>Pick Up Location: ${pickUpLocationName}</p>
+                <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
+                <p>Need Transportation: ${needTransportation}</p>
+            `;
+            }
+            else if (otherSpecialRequest === "Yes" && pickUpLocationName === 'Other' && dropOffLocationName === 'Other') {
+                confirmationContent += `
+                <p>Special Request: ${otherSpecialRequest}</p>
+                <p>Must Arrive Time: ${otherMustArriveBy}</p>
+                <p>Speical Pick Up Location: ${specialPickUpLocation}</p>
+                <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
+                <p>Need Transportation: ${needTransportation}</p>
+            `;
             }
         }
 
