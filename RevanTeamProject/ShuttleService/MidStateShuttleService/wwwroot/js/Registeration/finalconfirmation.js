@@ -46,18 +46,28 @@ $(document).ready(function () {
 
         // Gather form data
         var tripType = $('[name="TripType"]:checked').val();
-        var specialRequest = $('input[name="SpecialRequest"]:checked').val() === 'true';
+/*        var specialRequest = $('input[name="SpecialRequest"]:checked').val() === 'true';*/
+        var otherSpecialRequest = $('#otherSpecialYes').is(':checked') ? 'Yes' : 'No'; 
         var pickUpLocationID = $('#PickUpLocationID').val() || 'Not specified';
         var dropOffLocationID = $('#DropOffLocationID').val() || 'Not specified';
         var firstName = $('#FirstName').val();
         var lastName = $('#LastName').val();
         var email = $('#Email').val();
         var phoneNumber = $('#PhoneNumber').val();
-        var specialPickUpLocation = $('#SpecialPickUpLocation').val() || 'Not specified';
-        var specialDropOffLocation = $('#SpecialDropOffLocation').val() || 'Not specified';
-        var mustArriveTime = $('#MustArriveTime').val() || 'Not specified';
-        var canLeaveTime = $('#CanLeaveTime').val() || 'Not specified';
+        var specialPickUpLocation = $('#other-pickup-location').val() || 'Not specified';
+        var specialDropOffLocation = $('#other-dropoff-location').val() || 'Not specified';
+        var otherMustArriveBy = $('#otherMustArriveBy').val() || 'Not specified';
+        var otherCanLeaveAfter = $('#otherCanLeaveAfter').val() || 'Not specified';
+        var needTransportation = $('#NeedTransportation').val() || 'Not specified';
         var contactPreference = $('[name="ContactPreference"]:checked').val();
+
+        // Fetch selected location names directly from the option text
+        var pickUpLocationName = $('#PickUpLocation option:selected').text();
+        var dropOffLocationName = $('#DropOffLocation option:selected').text();
+
+        // Ensure "Select Pick-Up Location" or "Select Drop-Off Location" is not treated as valid selections
+        pickUpLocationName = pickUpLocationName === "Select Pick-Up Location" ? "Not specified" : pickUpLocationName;
+        dropOffLocationName = dropOffLocationName === "Select Drop-Off Location" ? "Not specified" : dropOffLocationName;
 
         var initialRoute = $('input[name="SelectedRouteDetail"]:checked').val();
         var returnRoute = $('input[name="ReturnSelectedRouteDetail"]:checked').val();
@@ -77,22 +87,28 @@ $(document).ready(function () {
             <p>Email: ${email}</p>
             <p>Phone Number: ${phoneNumber}</p>
             <p>Trip Type: ${tripType}</p>
-            <p>Special Request: ${specialRequest ? 'Yes' : 'No'}</p>
         `;
 
         //Round trip No Speical Request
         if (tripType === 'RoundTrip') {
-            confirmationContent += `
-                <p>Pick Up Location ID: ${pickUpLocationID}</p>
-                <p>Drop Off Location ID: ${dropOffLocationID}</p>
-            `;
-            if (!specialRequest) {
+            if (otherSpecialRequest === "No") {
                 confirmationContent += `
+                    <p>Special Request: ${otherSpecialRequest}</p>
                     <p>Initial Route: ${initialRoute}</p>
                     <p>Return Route: ${returnRoute}</p>
                     <p>Days of the Week Needed: ${daysOfWeekFormatted}</p>
                     <p>First Day Expecting to Ride: ${firstDayExpectingToRide}</p>
                 `;
+            }
+            else if (otherSpecialRequest === "Yes" && pickUpLocationName === 'Other') {
+                confirmationContent += `
+                <p>Special Request: ${otherSpecialRequest}</p>
+                <p>Must Arrive Time: ${otherMustArriveBy}</p>
+                <p>Can Leave Time: ${otherCanLeaveAfter}</p>
+                <p>Special Pick Up Location: ${specialPickUpLocation}</p>
+                <p>Drop Off Location: ${dropOffLocationName}</p>
+                <p>Need Transportation: ${needTransportation}</p>
+            `;
             }
         }
 
@@ -111,14 +127,6 @@ $(document).ready(function () {
             }
         }
 
-        if (specialRequest) {
-            confirmationContent += `
-                <p>Special Pick Up Location: ${specialPickUpLocation}</p>
-                <p>Special Drop Off Location: ${specialDropOffLocation}</p>
-                <p>Must Arrive Time: ${mustArriveTime}</p>
-                <p>Can Leave Time: ${canLeaveTime}</p>
-            `;
-        }
 
         confirmationContent += `<p>Contact Preference: ${contactPreference}</p>`;
 
