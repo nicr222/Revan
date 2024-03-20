@@ -91,7 +91,7 @@
                             <div class="input-fields">
                                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Email" } })
                                 <div class="form-line"></div>
-                                <div id="Email-validation-message" class="validation-message">Please provide valid email address</div>
+                                <div id="Email-validation-message" class="validation-message">Must be characters</div>
                             </div>
                             <p class="student-email">*Your shuttle reservation confirmation will be sent to this email address.</p>
 
@@ -477,7 +477,21 @@
                             </div>
                         </div>
 
+                        <div class="contact-preference">
+                            <div class="input-fields">
+                                <p class="contact-preference-label">Contact Preference</p>
+                                <div class="radio-options">
+                                    @Html.RadioButtonFor(model => model.ContactPreference, "Email", new { id = "Email" }) <label for="Email">Email</label>
+                                    @Html.RadioButtonFor(model => model.ContactPreference, "Phone", new { id = "Phone" }) <label for="Phone">Phone</label>
+                                    @Html.RadioButtonFor(model => model.ContactPreference, "Text", new { id = "Text" }) <label for="Text">Text</label>
+                                </div>
+                                <div class="form-line"></div>
+                                @*                                 <div id="ContactPreference-validation-message" class="validation-message"></div> *@
+                                <p class="contact-preference-guide">*Any communication would be directly related to the shuttle service or route updates.</p>
+                            </div>
+                        </div>
                     </div>
+
 
 
                     <div class="p-t-20">
