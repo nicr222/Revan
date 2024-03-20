@@ -264,9 +264,9 @@
                                                 <p class="must-arrive-by">Must Arrive the Campus By:</p>
                                                 @Html.EditorFor(model => model.MustArriveTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id="otherMustArriveBy" } })
                                                 <div class="form-line"></div>
+                                                <div id="otherMustArriveBy-validation-message" class="validation-message">Please select must arrive by time</div>
                                             </div>
                                             <p class="special-request-guide">*eg, first class start time</p>
-                                            <div id="otherMustArriveBy-validation-message" class="validation-message">Please select must arrive by time</div>
                                         </div>
                                         <div class="col-6">
                                             <div class="other-leave-after">
@@ -274,9 +274,9 @@
                                                     <p class="must-arrive-by">Can Leave the Campus After:</p>
                                                     @Html.EditorFor(model => model.CanLeaveTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "otherCanLeaveAfter" } })
                                                     <div class="form-line"></div>
+                                                    <div id="otherCanLeaveAfter-validation-message" class="validation-message">Please select can leave after time</div>
                                                 </div>
                                                 <p class="special-request-guide">*eg, last class end time</p>
-                                                <div id="otherCanLeaveAfter-validation-message" class="validation-message">Please select can leave after time</div>
                                             </div>
                                         </div>
                                     </div>
