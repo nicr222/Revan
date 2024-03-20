@@ -161,6 +161,24 @@ $(document).ready(function () {
             isValid = validateLocation('#ReturnPickUpLocation', '#ReturnDropOffLocation') && isValid;
         }
 
+        // Days of the Week validation
+        if ($('.daysofweek-checkbox-group :checkbox:checked').length === 0) {
+            $('#daysofweek-validation-message').show();
+            isValid = false;
+        }
+
+        // First Day Expecting to Ride validation
+        if (!$('#FirstDayExpectingToRide').val()) {
+            $('#FirstDayExpectingToRide-validation-message').show();
+            isValid = false;
+        }
+
+        // Special Request validation
+        if (!$('input[name="SpecialRequest"]:checked').val()) {
+            $('#OtherSpecialRequest-validation-message').show();
+            isValid = false;
+        }
+
         return isValid;
     }
 
