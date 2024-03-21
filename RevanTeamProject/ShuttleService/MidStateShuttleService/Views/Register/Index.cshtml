@@ -417,7 +417,7 @@
                                         <div class="leave-after">
                                             <div class="input-fields">
                                                 <p class="must-arrive-by">Can Leave the Campus After:</p>
-                                                @Html.EditorFor(model => model.FridayCanLeaveTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "friday-special-arrive", name = "FridayCanLeaveTime" } })
+                                                @Html.EditorFor(model => model.FridayCanLeaveTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "friday-special-leave", name = "FridayCanLeaveTime" } })
                                                 <div class="form-line"></div>
                                             </div>
                                             <p class="special-request-guide">*eg, last class end time</p>
@@ -431,7 +431,7 @@
                                         <div class="input-fields">
                                             @if (Model.LocationNames != null)
                                             {
-                                                @Html.DropDownListFor(model => model.FridayPickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation", name = "FridayPickUpLocationID" })
+                                                @Html.DropDownListFor(model => model.FridayPickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "FridayPickUpLocation", name = "FridayPickUpLocationID" })
                                             }
                                             else
                                             {
@@ -445,7 +445,7 @@
                                         <div class="input-fields">
                                             @if (Model.LocationNames != null)
                                             {
-                                                @Html.DropDownListFor(model => model.FridayDropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation", name = "FriayDropOffLocationID" })
+                                                @Html.DropDownListFor(model => model.FridayDropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "FridayDropOffLocation", name = "FriayDropOffLocationID" })
                                             }
                                             else
                                             {
@@ -468,7 +468,7 @@
 
                                 <!-- Terms and Conditions Checkbox -->
                                 <div class="checkbox-container">
-                                    <input type="checkbox" id="AgreeTerms" name="FridayAgreeTerms" value="true" />
+                                    <input type="checkbox" id="FridayAgreeTerms" name="FridayAgreeTerms" value="true" />
                                     <input type="hidden" name="AgreeTerms" value="false" />
                                     <label for="AgreeTerms" class="AgreeTerms">I understand my Friday request will be reviewed but is not guaranteed. I will be required to communicate and confirm my request with the shuttle program before it is scheduled. I also understand I must notify the shuttle program if I need to cancel or change my reservation after it is added to the schedule.</label>
                                     <div id="FridayAgreeTerms-validation-message" class="validation-message">You must agree to terms</div>

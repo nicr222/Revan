@@ -204,6 +204,57 @@
                         isValid = false;
                     }
                 }
+
+                // Validate Friday Must Arrive Time and Can Leave Time if Special Request is Yes for Friday
+                if (isFridaySpecialRequestYes) {
+                    var fridayMustArriveTime = $('#friday-special-arrive').val().trim();
+                    var fridayCanLeaveTime = $('#friday-special-leave').val().trim(); // Assuming you have a similar ID for the Can Leave Time input
+
+                    // Validate Friday Must Arrive Time
+                    if (!fridayMustArriveTime) {
+                        $('#FridayMustArriveTime-validation-message').text('Please pick an arrival time').show();
+                        isValid = false;
+                    }
+
+                    // Validate Friday Can Leave Time
+                    if (!fridayCanLeaveTime) {
+                        $('#FridayCanLeaveTime-validation-message').text('Please pick a departure time').show();
+                        isValid = false;
+                    }
+
+                    // Check if times are the same (only if both times are provided)
+                    if (fridayMustArriveTime && fridayCanLeaveTime && fridayMustArriveTime === fridayCanLeaveTime) {
+                        $('#FridayMustArriveTime-validation-message').text('Times cannot be the same').show();
+                        $('#FridayCanLeaveTime-validation-message').text('Times cannot be the same').show();
+                        isValid = false;
+                    }
+                }
+
+                // Custom validation for Friday Special Request Locations if Special Request is Yes for Friday
+                if (isFridaySpecialRequestYes) {
+                    var fridayPickUpLocation = $('#FridayPickUpLocation').val(); // Ensure this ID matches your Friday Pick-Up Location field
+                    var fridayDropOffLocation = $('#FridayDropOffLocation').val(); // Ensure this ID matches your Friday Drop-Off Location field
+
+                    // Validate Friday Pick-Up Location
+                    if (!fridayPickUpLocation || fridayPickUpLocation === "Select Pick-Up Location") { // Assuming the placeholder value is used for validation
+                        $('#FridayPickUpLocationID-validation-message').text('Please select a pick-up location').show();
+                        isValid = false;
+                    }
+
+                    // Validate Friday Drop-Off Location
+                    if (!fridayDropOffLocation || fridayDropOffLocation === "Select Drop-Off Location") { // Assuming the placeholder value is used for validation
+                        $('#FriayDropOffLocationID-validation-message').text('Please select a drop-off location').show();
+                        isValid = false;
+                    }
+
+                    // Check if locations are the same (only if both locations are selected)
+                    if (fridayPickUpLocation && fridayDropOffLocation && fridayPickUpLocation === fridayDropOffLocation) {
+                        $('#FridayPickUpLocationID-validation-message').text('Locations cannot be the same').show();
+                        $('#FriayDropOffLocationID-validation-message').text('Locations cannot be the same').show();
+                        isValid = false;
+                    }
+                }
+
             }
 
 
@@ -228,7 +279,7 @@
         let skipReturnLocationsValidation = shouldSkipReturnLocationsValidation();
 
         // If trip type is "RoundTrip" or "Friday", validate Return Locations as well
-        if (tripType !== 'OneWay' && !skipReturnLocationsValidation || routeOptionSelected) {
+        if (tripType !== 'OneWay' && !skipReturnLocationsValidation || tripType !== 'OneWay' && routeOptionSelected) {
             isValid = validateLocation('#ReturnPickUpLocation', '#ReturnDropOffLocation') && isValid;
         }
 
