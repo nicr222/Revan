@@ -102,6 +102,28 @@
                 }
             }
 
+            // Trip Type selection validation
+            if (!$('input[name="TripType"]:checked').val()) {
+                $('#TripType-validation-message').text('Please select trip type').show();
+                isValid = false;
+            }
+
+            // Determine if either or both pick-up and drop-off location are 'Other'
+            var isPickUpOrDropOffOther = pickUpLocationText === 'Other' || dropOffLocationText === 'Other';
+
+            // Validate Pick-Up and Drop-Off Locations only if both are not 'Other'
+            if (!isPickUpOrDropOffOther && tripType !== 'Friday') {
+                isValid = validateLocation('#PickUpLocation', '#DropOffLocation') && isValid;
+            }
+
+            // Determine if validation for Return Locations should be skipped
+            let skipReturnLocationsValidation = shouldSkipReturnLocationsValidation();
+
+            // If trip type is "RoundTrip" or "Friday", validate Return Locations as well
+            if (tripType !== 'OneWay' && !skipReturnLocationsValidation || tripType !== 'OneWay' && routeOptionSelected) {
+                isValid = validateLocation('#ReturnPickUpLocation', '#ReturnDropOffLocation') && isValid;
+            }
+
 
             // Validate otherCanLeaveAfter if Other Special Request is Yes and trip type is RoundTrip
             if (isOtherSpecialRequestYes && tripType === 'RoundTrip') {
@@ -194,19 +216,19 @@
                     isValid = false;
                 }
 
-                // Validate Friday Special Request Trip Type if Special Request is Yes for Friday
                 if (isFridaySpecialRequestYes) {
+
+                    // Validate Friday Special Request Trip Type if Special Request is Yes for Friday
                     var isFridayTripTypeSelected = $('#FridayRoundTrip').is(':checked') || $('#FridayOneWay').is(':checked');
+                    var isFridayOneWaySelected = $('#FridayOneWay').is(':checked');
 
                     // If no Friday Trip Type is selected, show validation message
                     if (!isFridayTripTypeSelected) {
                         $('#FridayTripType-validation-message').text('Please select a trip type for your Friday special request').show();
                         isValid = false;
                     }
-                }
 
-                // Validate Friday Must Arrive Time and Can Leave Time if Special Request is Yes for Friday
-                if (isFridaySpecialRequestYes) {
+                    // Validate Friday Must Arrive Time and Can Leave Time if Special Request is Yes for Friday
                     var fridayMustArriveTime = $('#friday-special-arrive').val().trim();
                     var fridayCanLeaveTime = $('#friday-special-leave').val().trim(); // Assuming you have a similar ID for the Can Leave Time input
 
@@ -216,22 +238,23 @@
                         isValid = false;
                     }
 
-                    // Validate Friday Can Leave Time
-                    if (!fridayCanLeaveTime) {
-                        $('#FridayCanLeaveTime-validation-message').text('Please pick a departure time').show();
-                        isValid = false;
+                    // Validate Friday Can Leave Time only if Round Trip is selected
+                    var fridayCanLeaveTime = $('#friday-special-leave').val().trim(); // ID for the Can Leave Time input
+                    if (!isFridayOneWaySelected) { // Skip this validation if One Way is selected
+                        if (!fridayCanLeaveTime) {
+                            $('#FridayCanLeaveTime-validation-message').text('Please pick a departure time').show();
+                            isValid = false;
+                        }
+
+                        // Check if times are the same (only if both times are provided and Round Trip is selected)
+                        if (fridayMustArriveTime && fridayCanLeaveTime && fridayMustArriveTime === fridayCanLeaveTime) {
+                            $('#FridayMustArriveTime-validation-message').text('Times cannot be the same').show();
+                            $('#FridayCanLeaveTime-validation-message').text('Times cannot be the same').show();
+                            isValid = false;
+                        }
                     }
 
-                    // Check if times are the same (only if both times are provided)
-                    if (fridayMustArriveTime && fridayCanLeaveTime && fridayMustArriveTime === fridayCanLeaveTime) {
-                        $('#FridayMustArriveTime-validation-message').text('Times cannot be the same').show();
-                        $('#FridayCanLeaveTime-validation-message').text('Times cannot be the same').show();
-                        isValid = false;
-                    }
-                }
-
-                // Custom validation for Friday Special Request Locations if Special Request is Yes for Friday
-                if (isFridaySpecialRequestYes) {
+                    // Custom validation for Friday Special Request Locations if Special Request is Yes for Friday
                     var fridayPickUpLocation = $('#FridayPickUpLocation').val(); // Ensure this ID matches your Friday Pick-Up Location field
                     var fridayDropOffLocation = $('#FridayDropOffLocation').val(); // Ensure this ID matches your Friday Drop-Off Location field
 
@@ -253,35 +276,36 @@
                         $('#FriayDropOffLocationID-validation-message').text('Locations cannot be the same').show();
                         isValid = false;
                     }
-                }
 
+                    // Custom validation for "Which Friday" if Friday Special Request is Yes
+                    var whichFridayInput = $('#WhichFriday').val().trim();
+                    var whichFridayWords = whichFridayInput.split(/\s+/); // Split input into words
+                    var wordCount = whichFridayWords.filter(function (word) {
+                        return word.length > 0;
+                    }).length;
+
+                    // Validate "Which Friday" is not empty
+                    if (!whichFridayInput) {
+                        $('#WhichFriday-validation-message').text('Please add comment with 200 max words').show();
+                        isValid = false;
+                    }
+                    // Validate word count does not exceed 200 words
+                    else if (wordCount > 200) {
+                        $('#WhichFriday-validation-message').text('Comment must not exceed 200 words. Currently: ' + wordCount + ' words.').show();
+                        isValid = false;
+                    }
+
+                    // Custom validation for "AgreeTerms" if Friday Special Request is Yes
+                    if (isFridaySpecialRequestYes && !$('#FridayAgreeTerms').is(':checked')) {
+                        $('#FridayAgreeTerms-validation-message').text('You must agree to terms').show();
+                        isValid = false;
+                    }
+                }
             }
 
 
             // Add other specific field validations here as needed...
         });
-
-        // Trip Type selection validation
-        if (!$('input[name="TripType"]:checked').val()) {
-            $('#TripType-validation-message').text('Please select trip type').show();
-            isValid = false;
-        }
-
-        // Determine if either or both pick-up and drop-off location are 'Other'
-        var isPickUpOrDropOffOther = pickUpLocationText === 'Other' || dropOffLocationText === 'Other';
-
-        // Validate Pick-Up and Drop-Off Locations only if both are not 'Other'
-        if (!isPickUpOrDropOffOther && tripType !== 'Friday') {
-            isValid = validateLocation('#PickUpLocation', '#DropOffLocation') && isValid;
-        }
-
-        // Determine if validation for Return Locations should be skipped
-        let skipReturnLocationsValidation = shouldSkipReturnLocationsValidation();
-
-        // If trip type is "RoundTrip" or "Friday", validate Return Locations as well
-        if (tripType !== 'OneWay' && !skipReturnLocationsValidation || tripType !== 'OneWay' && routeOptionSelected) {
-            isValid = validateLocation('#ReturnPickUpLocation', '#ReturnDropOffLocation') && isValid;
-        }
 
         return isValid;
     }
