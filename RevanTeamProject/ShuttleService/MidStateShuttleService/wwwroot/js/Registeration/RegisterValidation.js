@@ -3,7 +3,7 @@
     function validateForm() {
         let isValid = true;
         let tripType = $('input[name="TripType"]:checked').val();
-        let specialRequest = $('#otherSpecialYes').is(':checked')
+        var otherSpecialRequestDisplay = $('.other-special-request').css('display');
 
         // Hide all previous validation messages
         $('.validation-message').hide();
@@ -39,11 +39,19 @@
                 isValid = false;
             }
 
-            // Special Request validation
-            let specialRequestSelected = $('#otherSpecialYes').is(':checked') || $('#otherSpecialNo').is(':checked');
-            if (!specialRequestSelected) {
-                $('#OtherSpecialRequest-validation-message').text('Please select a special request option.').show();
-                isValid = false;
+            // Special Request validation based on trip types
+            if (tripType === 'RoundTrip' && otherSpecialRequestDisplay !== 'none') {
+                if (!($('#otherSpecialYes').is(':checked') || $('#otherSpecialNo').is(':checked'))) {
+                    $('#OtherSpecialRequest-validation-message').show();
+                    isValid = false;
+                }
+            }
+
+            if (tripType === 'OneWay' && otherSpecialRequestDisplay !== 'none') {
+                if (!($('#otherSpecialYes').is(':checked') || $('#otherSpecialNo').is(':checked'))) {
+                    $('#OtherSpecialRequest-validation-message').show();
+                    isValid = false;
+                }
             }
 
             // Validation for routeOptions - Check if any radio within the group is checked
@@ -79,49 +87,6 @@
                 }
             }
 
-            // Conditional validation for Special Request related fields
-            if (specialRequest) {
-                // Validate 'otherMustArriveBy' and 'otherCanLeaveAfter' fields
-                let arriveTime = $('#otherMustArriveBy').val();
-                let leaveTime = $('#otherCanLeaveAfter').val();
-
-                // Check if fields are filled out
-                if (!arriveTime) {
-                    $('#otherMustArriveBy-validation-message').text('This field is required.').show();
-                    isValid = false;
-                }
-
-                // For 'otherCanLeaveAfter', check if empty and tripType is not 'OneWay'
-                if (tripType !== 'OneWay' && !leaveTime) {
-                    $('#otherCanLeaveAfter-validation-message').text('This field is required.').show();
-                    isValid = false;
-                }
-
-                // Check if times are the same
-                if (arriveTime && leaveTime && arriveTime === leaveTime) {
-                    $('#otherMustArriveBy-validation-message, #otherCanLeaveAfter-validation-message').text('Arrival and departure times cannot be the same.').show();
-                    isValid = false;
-                }
-
-                // Validate 'other-pickup-location' and 'other-dropoff-location' fields
-                if (fieldId === 'other-pickup-location' || fieldId === 'other-dropoff-location') {
-                    let fieldValue = $field.val().trim();
-                    let charCount = fieldValue.length;
-
-                    // Check if character count exceeds limit
-                    if (charCount > 25) {
-                        $(validationMessageId).text('Cannot exceed 25 characters.').show();
-                        isValid = false;
-                    }
-                }
-
-                // Check if pickup and dropoff locations are the same
-                if ($('#other-pickup-location').val().trim() === $('#other-dropoff-location').val().trim()) {
-                    $('#SpecialPickUpLocation-validation-message, #SpecialDropOffLocation-validation-message').text('Pickup and drop off locations cannot be the same.').show();
-                    isValid = false;
-                }
-            }
-
             // Add other specific field validations here as needed...
         });
 
@@ -130,7 +95,6 @@
             $('#TripType-validation-message').text('Please select trip type').show();
             isValid = false;
         }
-
 
         // Validate Pick-Up and Drop-Off Locations
         isValid = validateLocation('#PickUpLocation', '#DropOffLocation') && isValid;
@@ -160,12 +124,12 @@
 
         return isValid;
     }
+
     function validateLocation(pickUpId, dropOffId) {
-        let pickUpLocation = $(pickUpId).find(":selected").text(); // Get the selected text
-        let dropOffLocation = $(dropOffId).find(":selected").text(); // Get the selected text
+        let pickUpLocation = $(pickUpId).val();
+        let dropOffLocation = $(dropOffId).val();
         let isValid = true;
 
-        // Check for empty selections
         if (!pickUpLocation) {
             $(pickUpId + '-validation-message').text('Please select pickup location').show();
             isValid = false;
@@ -176,8 +140,7 @@
             isValid = false;
         }
 
-        // Allow both to be 'Other', but not the same any other case
-        if (pickUpLocation !== 'Other' && dropOffLocation !== 'Other' && pickUpLocation === dropOffLocation) {
+        if (pickUpLocation && dropOffLocation && pickUpLocation === dropOffLocation) {
             $(dropOffId + '-validation-message').text('Locations cannot be the same').show();
             isValid = false;
         }
