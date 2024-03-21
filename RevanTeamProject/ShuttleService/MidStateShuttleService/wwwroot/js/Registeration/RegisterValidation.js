@@ -266,14 +266,14 @@
 
                     // Validate Friday Drop-Off Location
                     if (!fridayDropOffLocation || fridayDropOffLocation === "Select Drop-Off Location") { // Assuming the placeholder value is used for validation
-                        $('#FriayDropOffLocationID-validation-message').text('Please select a drop-off location').show();
+                        $('#FridayDropOffLocationID-validation-message').text('Please select a drop-off location').show();
                         isValid = false;
                     }
 
                     // Check if locations are the same (only if both locations are selected)
                     if (fridayPickUpLocation && fridayDropOffLocation && fridayPickUpLocation === fridayDropOffLocation) {
                         $('#FridayPickUpLocationID-validation-message').text('Locations cannot be the same').show();
-                        $('#FriayDropOffLocationID-validation-message').text('Locations cannot be the same').show();
+                        $('#FridayDropOffLocationID-validation-message').text('Locations cannot be the same').show();
                         isValid = false;
                     }
 

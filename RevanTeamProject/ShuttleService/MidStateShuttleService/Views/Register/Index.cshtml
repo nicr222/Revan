@@ -445,14 +445,14 @@
                                         <div class="input-fields">
                                             @if (Model.LocationNames != null)
                                             {
-                                                @Html.DropDownListFor(model => model.FridayDropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "FridayDropOffLocation", name = "FriayDropOffLocationID" })
+                                                @Html.DropDownListFor(model => model.FridayDropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "FridayDropOffLocation", name = "FridayDropOffLocationID" })
                                             }
                                             else
                                             {
                                                 <p>Error: Location names not loaded.</p>
                                             }
                                             <div class="form-line"></div>
-                                            <div id="FriayDropOffLocationID-validation-message" class="validation-message">Pelase select dropoff location</div>
+                                            <div id="FridayDropOffLocationID-validation-message" class="validation-message">Pelase select dropoff location</div>
                                         </div>
                                     </div>
                                 </div>     
