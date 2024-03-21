@@ -4,6 +4,12 @@
         let isValid = true;
         let tripType = $('input[name="TripType"]:checked').val();
         var otherSpecialRequestDisplay = $('.other-special-request').css('display');
+        var isOtherSpecialRequestYes = $('#otherSpecialYes').is(':checked');
+        var otherMustArriveBy = $('#otherMustArriveBy').val();
+        var otherCanLeaveAfter = $('#otherCanLeaveAfter').val();
+        var otherCanLeaveAfterDisplay = $('.other-leave-after').css('display');
+        var isOtherSpecialRequestVisible = $('.other-special-request').css('display') !== 'none';
+
 
         // Hide all previous validation messages
         $('.validation-message').hide();
@@ -60,19 +66,33 @@
                 isValid = false;
             }
 
-            // Validation for returnRouteOptions - Check if any radio within the group is checked
-            if ($field.attr('name') === 'ReturnSelectedRouteDetail' && !$('input[name="ReturnSelectedRouteDetail"]:checked').val()) {
+            // Check if either initial or return route details are required based on trip type
+            var isSelectedRouteDetailRequired = tripType === 'RoundTrip' || tripType === 'OneWay';
+            var isReturnSelectedRouteDetailRequired = tripType === 'RoundTrip';
+
+            // Initial route selection validation (applies for both OneWay and RoundTrip)
+            if (isSelectedRouteDetailRequired && !$('input[name="SelectedRouteDetail"]:checked').val() && isOtherSpecialRequestVisible) {
+                $('#routeOptions-validation-message').text('Please select a route option').show();
+                isValid = false;
+            }
+
+            // Return route selection validation (only applies for RoundTrip)
+            if (isReturnSelectedRouteDetailRequired && !$('input[name="ReturnSelectedRouteDetail"]:checked').val() && isOtherSpecialRequestVisible) {
                 $('#returnRouteOptions-validation-message').text('Please select a return route option').show();
                 isValid = false;
             }
 
-            // Directly integrating the new validation requirements
-            if (fieldId === 'otherMustArriveBy' || fieldId === 'otherCanLeaveAfter') {
-                let arriveTime = $('#otherMustArriveBy').val();
-                let leaveTime = $('#otherCanLeaveAfter').val();
+            // Validate otherCanLeaveAfter if Other Special Request is Yes and trip type is RoundTrip
+            if (isOtherSpecialRequestYes && tripType === 'RoundTrip') {
+                // Validate otherCanLeaveAfter only if it's visible
+                if (otherCanLeaveAfterDisplay !== 'none' && !otherCanLeaveAfter) {
+                    $('#otherCanLeaveAfter-validation-message').text('Please select can leave after time').show();
+                    isValid = false;
+                }
 
-                if (arriveTime && leaveTime && arriveTime === leaveTime) {
-                    $('#otherMustArriveBy-validation-message, #otherCanLeaveAfter-validation-message').text('Times cannot be the same.').show();
+                // Check if times are not the same (only if both times are provided and valid)
+                if (otherMustArriveBy && otherCanLeaveAfter && otherMustArriveBy === otherCanLeaveAfter && otherCanLeaveAfterDisplay !== 'none') {
+                    $('#otherMustArriveBy-validation-message, #otherCanLeaveAfter-validation-message').text('Times cannot be the same').show();
                     isValid = false;
                 }
             }
