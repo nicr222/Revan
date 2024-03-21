@@ -4,15 +4,12 @@ using System.ComponentModel.DataAnnotations;
 namespace MidStateShuttleService.Models
 {
 
-    // !!**** Temporarily disabled validations, to be addressed in the next sprint. ****!!//
+    // !!**** Temporarily disabled server validations becuase of complexity, to be addressed in the next sprint  ****!!//
     public class RegisterModel
     {
         public int? RouteID { get; set; }
         public int? RiderID { get; set; }
 
-        //[Required(ErrorMessage = "User ID is required")]
-        //[RegularExpression("^[0-9]{10}$", ErrorMessage = "Must be 10 digits")]
-        //public long StudentId { get; set; } // Changed from int to long
         public int? UserId { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
