@@ -352,6 +352,22 @@
         return isAnyLocationOther || shouldSkipBecauseOfRouteOption;
     }
 
+    // Real-time validation logic
+    function realTimeValidation() {
+        // Attach change event listeners to inputs, selects, and checkboxes for immediate validation
+        $('#registrationForm input, #registrationForm select, #registrationForm textarea').on('input change', function () {
+            validateForm(); // Call the main validation function to check all fields
+        });
+
+        // For checkboxes and radio buttons, specifically, because 'change' sometimes behaves differently across browsers
+        $('#registrationForm input[type="checkbox"], #registrationForm input[type="radio"]').on('change', function () {
+            validateForm();
+        });
+    }
+
+    // Call the function to activate real-time validation
+    realTimeValidation();
+
 
     // Attach validation to form submission event
     $('#registrationForm').on('submit', function (e) {
