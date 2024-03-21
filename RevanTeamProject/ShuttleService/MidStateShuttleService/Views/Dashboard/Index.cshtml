@@ -1,6 +1,6 @@
-﻿
+﻿@model MidStateShuttleService.Models.AllModels
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Dashboard";
     <link rel="stylesheet" href="~/css/Dashboard.css"/>
 }
 
@@ -41,6 +41,13 @@
                 <a href="#" id="shuttle">
                     <span class="icon"><i class="bi bi-bus-front"></i></span>
                     <span class="title">Shuttles</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="driver">
+                    <span class="icon"><i class="bi bi-file-earmark-person-fill"></i></span>
+                    <span class="title">Drivers</span>
                 </a>
             </li>
 
@@ -125,6 +132,9 @@
         </div>
         <div class="recentItem location">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/LocationTable.cshtml")
+        </div>
+        <div class="recentItem driver">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/DriverTable.cshtml")
         </div>
         <div class="recentFeedback">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/MessagesTable.cshtml")
