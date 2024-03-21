@@ -38,7 +38,4 @@ public partial class CheckIn
 
     [ForeignKey("BusId")]
     public virtual Bus Bus { get; set; }
-
-    [ForeignKey("UserId")]
-    public virtual User User { get; set; }
 }

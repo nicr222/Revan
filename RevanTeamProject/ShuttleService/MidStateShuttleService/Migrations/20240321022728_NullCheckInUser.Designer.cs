@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MidStateShuttleService.Models;
 
@@ -11,9 +12,11 @@ using MidStateShuttleService.Models;
 namespace MidStateShuttleService.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240321022728_NullCheckInUser")]
+    partial class NullCheckInUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,6 +89,8 @@ namespace MidStateShuttleService.Migrations
                     b.HasIndex("BusId");
 
                     b.HasIndex("RouteId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("CheckIn");
                 });
@@ -451,9 +456,15 @@ namespace MidStateShuttleService.Migrations
                         .WithMany()
                         .HasForeignKey("RouteId");
 
+                    b.HasOne("MidStateShuttleService.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Bus");
 
                     b.Navigation("Route");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.Feedback", b =>
