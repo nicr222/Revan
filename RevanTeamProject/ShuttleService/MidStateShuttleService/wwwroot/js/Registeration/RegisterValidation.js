@@ -10,6 +10,7 @@
         var otherCanLeaveAfter = $('#otherCanLeaveAfter').val();
         var otherCanLeaveAfterDisplay = $('.other-leave-after').css('display');
         var isOtherSpecialRequestVisible = $('.other-special-request').css('display') !== 'none';
+
         var returnRouteOptionsDisplay = $('.return-route-location-schedule').css('display');
 
         var needTransportationText = $('#NeedTransportation').val().trim();
@@ -63,11 +64,6 @@
             let $field = $(this);
             let fieldId = $field.attr('id');
             let validationMessageId = '#' + fieldId + '-validation-message';
-
-            //// Skip validation for return fields if trip type is "One Way"
-            //if (tripType === 'OneWay' && (fieldId === 'ReturnPickUpLocation' || fieldId === 'ReturnDropOffLocation' || $field.attr('name') === 'ReturnSelectedRouteDetail')) {
-            //    return true; // Skip to next field
-            //}
 
             // Required field validation
             if ($field.attr('required') && !$field.val()) {
@@ -164,7 +160,7 @@
             }
 
             // Validation for NeedTransportation field based on CSS display and other conditions
-            if (needTransportationDisplay && isOtherSpecialRequestYes)) {
+            if (needTransportationDisplay && isOtherSpecialRequestYes) {
                 let wordCount = needTransportationText.split(/\s+/).filter(function (n) { return n != '' }).length;
                 if (!needTransportationText) {
                     $('#NeedTransportation-validation-message').text('This field is required').show();
@@ -176,14 +172,12 @@
             }
 
             // Validation for AgreeTerms checkbox based on CSS display
-            if (agreeTermsDisplay && isOtherSpecialRequestYes)) {
+            if (agreeTermsDisplay && isOtherSpecialRequestYes) {
                 if (!agreeTermsChecked) {
                     $('#OtherAgreeTerms-validation-message').text('You must agree to terms and conditions').show();
                     isValid = false;
                 }
             }
-
-
 
             // Add other specific field validations here as needed...
         });
@@ -242,9 +236,19 @@
         var returnPickUpLocationText = $('#ReturnPickUpLocation option:selected').text().trim();
         var returnDropOffLocationText = $('#ReturnDropOffLocation option:selected').text().trim();
 
+        var tripType = $('input[name="TripType"]:checked').val();
+        var routeOptionsDisplay = $('#routeOptions').css('display') !== 'none'; // Checks if the route options are visible
+        var isRouteOptionSelected = $('#routeOptions input[type="radio"]:checked').length > 0 || $('#routeOptions input[type="checkbox"]:checked').length > 0;
+
         // Check if any location is 'Other'
-        return pickUpLocationText === 'Other' || dropOffLocationText === 'Other' || returnPickUpLocationText === 'Other' || returnDropOffLocationText === 'Other';
+        var isAnyLocationOther = pickUpLocationText === 'Other' || dropOffLocationText === 'Other' || returnPickUpLocationText === 'Other' || returnDropOffLocationText === 'Other';
+
+        // Determine if conditions are met to skip validation for Return Locations
+        var shouldSkipBecauseOfRouteOption = tripType !== 'OneWay' || !isRouteOptionSelected;
+
+        return isAnyLocationOther || shouldSkipBecauseOfRouteOption;
     }
+
 
     // Attach validation to form submission event
     $('#registrationForm').on('submit', function (e) {
