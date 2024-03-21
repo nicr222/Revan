@@ -27,6 +27,7 @@ namespace MidStateShuttleService.Controllers
             List<Location> locations = GetLocationList();
             List<Routes> routes = GetRoutes();
             List<Driver> drivers = GetDrivers();
+            List<Bus> buss = GetBus();
 
 
 
@@ -36,7 +37,7 @@ namespace MidStateShuttleService.Controllers
             allModels.Location = locations;
             allModels.Route = routes;
             allModels.Driver = drivers;
-            
+            allModels.Bus = buss;
 
             return View(allModels);
             
@@ -146,6 +147,37 @@ namespace MidStateShuttleService.Controllers
                 }
             }
             return drivers;
+        }
+
+        public List<Bus> GetBus()
+        {
+            List<Bus> buss = new List<Bus>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+
+                connection.Open();
+
+                string sql = "SELECT * FROM [Bus]";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+
+                using (SqlDataReader dataReader = cmd.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        Bus bus = new Bus();
+
+                        bus.BusId = Convert.ToInt32(dataReader["BusID"]);
+                        bus.BusNo = dataReader["BusNo"].ToString();
+                        bus.PassengerCapacity = Convert.ToInt32(dataReader["PassengerCapacity"]);
+                        bus.DriverId = Convert.ToInt32(dataReader["DriverID"]);
+
+
+                        buss.Add(bus);
+                    }
+                }
+            }   
+            return buss;
         }
         
     }

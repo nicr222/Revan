@@ -1,5 +1,39 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
 }
+@model MidStateShuttleService.Models.AllModels
+
+<div class="cardHeader">
+    <h2>Shuttles</h2>
+    <a asp-controller="Shuttles" asp-action="Create" class="btn">Add Shuttle</a>
+</div>
+<table>
+    <thead>
+        <tr>
+            <td>Shuttle Number</td>
+            <td>Passenger Capacity</td>
+            
+            <td>Update</td>
+            <td>Delete</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null)
+        {
+            <tr><td colspan="4" class="text-center">There are Currently No Routes</td></tr>
+        }
+        else
+        {
+            @foreach (var b in Model.Bus)
+            {
+                <tr>
+                    <td>@b.BusNo</td>
+                    <td>@b.PassengerCapacity</td>
+                    
+                    <td><a asp-controller="Shuttles" asp-action="Edit" asp-route-id="@b.BusId">Edit</a></td>
+                    <td><a asp-controller="Shuttles" asp-action="Delete" asp-route-id="@b.BusId">Delete</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

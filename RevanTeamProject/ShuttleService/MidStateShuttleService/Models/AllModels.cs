@@ -15,5 +15,7 @@
         public IEnumerable<Routes> Route { get; set; }
 
         public IEnumerable<Driver> Driver { get; set; }
+
+        public IEnumerable<Bus> Bus { get; set; }
     }
 }

@@ -34,17 +34,17 @@
         return false;
     });
 
-    // Click event for the Shuttles button
-    $('#shuttle').click(function () {
-        hideAllTables();
-        // Code to show shuttle table if available
-        return false;
-    });
 
     // Click event for the Drivers button
     $('#driver').click(function () {
         hideAllTables();
         $('.recentItem.driver').show(); // Show the driver table
+        return false;
+    });
+
+    $('#shuttle').click(function () {
+        hideAllTables();
+        $('.recentItem.shuttle').show();
         return false;
     });
 
