@@ -134,7 +134,7 @@
                     isValid = false;
                 }
 
-                // Here's where you should add or fix the condition to ensure it handles the case where both locations are the same
+                // Here's where to add or fix the condition to ensure it handles the case where both locations are the same
                 // If both fields are visible and required, ensure they are not the same
                 if (specialPickUpLocationDisplay !== 'none' && specialDropOffLocationDisplay !== 'none' && specialPickUpLocation === specialDropOffLocation && specialPickUpLocation && specialDropOffLocation) {
                     $('#SpecialPickUpLocation-validation-message').text('Pick up and drop off locations cannot be the same').show();
