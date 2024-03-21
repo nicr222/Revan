@@ -42,8 +42,8 @@
         var fridayTripType = $('[name="FridayTripType"]:checked').val(); // Fetching the value for the Friday trip type
 
         // Fetch selected Friday location names directly from the option text
-        var fridayPickUpLocationName = $('#PickUpLocation[name="FridayPickUpLocationID"] option:selected').text();
-        var fridayDropOffLocationName = $('#DropOffLocation[name="FridayDropOffLocationID"] option:selected').text();
+        var fridayPickUpLocationName = $('#FridayPickUpLocation option:selected').text();
+        var fridayDropOffLocationName = $('#FridayDropOffLocation option:selected').text();
 
         // Ensure "Select Pick-Up Location" or "Select Drop-Off Location" is not treated as valid selections for Friday locations
         fridayPickUpLocationName = fridayPickUpLocationName === "Select Pick-Up Location" ? "Not specified" : fridayPickUpLocationName;
@@ -134,6 +134,15 @@
                     <p>Days of the Week Needed: ${daysOfWeekFormatted}</p>
                     <p>First Day Expecting to Ride: ${firstDayExpectingToRide}</p>
                 `;
+            }
+            else if (otherSpecialRequest === "Yes" && pickUpLocationName && dropOffLocationName && !initialRoute) {
+                confirmationContent += `
+                <p>Special Request: ${otherSpecialRequest}</p>
+                <p>Pick Up Location: ${pickUpLocationName}</p>
+                <p>Drop Off Location: ${dropOffLocationName}</p>
+                <p>Must Arrive Time: ${otherMustArriveBy}</p>
+                <p>Need Transportation Detail: ${needTransportation}</p>
+            `;
             }
             else if (otherSpecialRequest === "Yes" && pickUpLocationName === 'Other' && dropOffLocationName !== 'Other') {
                 confirmationContent += `
