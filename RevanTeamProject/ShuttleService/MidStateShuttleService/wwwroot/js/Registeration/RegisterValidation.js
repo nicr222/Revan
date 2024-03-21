@@ -5,14 +5,42 @@
         let tripType = $('input[name="TripType"]:checked').val();
         var otherSpecialRequestDisplay = $('.other-special-request').css('display');
         var isOtherSpecialRequestYes = $('#otherSpecialYes').is(':checked');
+        var isOtherSpecialRequestNo = $('#otherSpecialNo').is(':checked');
         var otherMustArriveBy = $('#otherMustArriveBy').val();
         var otherCanLeaveAfter = $('#otherCanLeaveAfter').val();
         var otherCanLeaveAfterDisplay = $('.other-leave-after').css('display');
         var isOtherSpecialRequestVisible = $('.other-special-request').css('display') !== 'none';
+        var returnRouteOptionsDisplay = $('.return-route-location-schedule').css('display');
+
+
+        // Determine if either or both pick-up and drop-off location are not 'Other'
+        var pickUpLocationText = $('#PickUpLocation option:selected').text().trim();
+        var dropOffLocationText = $('#DropOffLocation option:selected').text().trim();
+        var isAtLeastOneLocationNotOther = pickUpLocationText !== 'Other' || dropOffLocationText !== 'Other';
+
+        // Determine if either or both return pick-up and return drop-off location are not 'Other' (for RoundTrip)
+        var returnPickUpLocation = $('#PickUpLocation').val();
+        var returnDropOffLocation = $('#DropOffLocation').val();
+        var returnPickUpLocationText = $('#ReturnPickUpLocation option:selected').text().trim();
+        var returnDropOffLocationText = $('#ReturnDropOffLocation option:selected').text().trim();
+        var isReturnPickUporDropOffOther = returnPickUpLocationText === 'Other' || returnDropOffLocationText === 'Other';
+
 
         // Check for visibility of Days of the Week and First Day Expecting to Ride
         var daysOfWeekDisplay = $('.daysofweek-checkbox-group').css('display');
         var firstDayExpectingToRideDisplay = $('#FirstDayExpectingToRide').parent().css('display');
+
+        // Check for selected PickUpLocation and DropOffLocation
+        var pickUpLocation = $('#PickUpLocation').val();
+        var dropOffLocation = $('#DropOffLocation').val();
+        var pickUpLocationText = $('#PickUpLocation option:selected').text().trim();
+        var dropOffLocationText = $('#DropOffLocation option:selected').text().trim();
+
+        // Determine if either or both pick-up and drop-off location are 'Other'
+        var isPickUpOrDropOffOther = pickUpLocationText === 'Other' || dropOffLocationText === 'Other';
+
+        // Add a new condition to check if both pick-up and drop-off location are 'Other'
+        var areBothLocationsOther = pickUpLocationText === 'Other' && dropOffLocationText === 'Other';
 
         // Check for visibility of SpecialPickUpLocation and SpecialDropOffLocation
         var specialPickUpLocationDisplay = $('.other-pickup').css('display');
@@ -71,28 +99,7 @@
                 }
             }
 
-            //// Validation for routeOptions - Check if any radio within the group is checked
-            //if ($field.attr('name') === 'SelectedRouteDetail' && !$('input[name="SelectedRouteDetail"]:checked').val()) {
-            //    $('#routeOptions-validation-message').text('Please select a route option').show();
-            //    isValid = false;
-            //}
-
-            //// Check if either initial or return route details are required based on trip type
-            //var isSelectedRouteDetailRequired = tripType === 'RoundTrip' || tripType === 'OneWay';
-            //var isReturnSelectedRouteDetailRequired = tripType === 'RoundTrip';
-
-            //// Initial route selection validation (applies for both OneWay and RoundTrip)
-            //if (isSelectedRouteDetailRequired && !$('input[name="SelectedRouteDetail"]:checked').val() && isOtherSpecialRequestVisible) {
-            //    $('#routeOptions-validation-message').text('Please select a route option').show();
-            //    isValid = false;
-            //}
-
-            //// Return route selection validation (only applies for RoundTrip)
-            //if (isReturnSelectedRouteDetailRequired && !$('input[name="ReturnSelectedRouteDetail"]:checked').val() && isOtherSpecialRequestVisible) {
-            //    $('#returnRouteOptions-validation-message').text('Please select a return route option').show();
-            //    isValid = false;
-            //}
-
+            
             // Validate otherCanLeaveAfter if Other Special Request is Yes and trip type is RoundTrip
             if (isOtherSpecialRequestYes && tripType === 'RoundTrip') {
 
@@ -114,24 +121,27 @@
                 }
             }
 
-            // Validate SpecialPickUpLocation if visible
-            if (specialPickUpLocationDisplay !== 'none' && !specialPickUpLocation) {
-                $('#SpecialPickUpLocation-validation-message').text('Please add a specific pick up location').show();
-                isValid = false;
+            // Validate SpecialPickUpLocation and SpecialDropOffLocation only if PickUpLocation or DropOffLocation is not 'Other'
+            if (isPickUpOrDropOffOther || isReturnPickUporDropOffOther) {
+                // Existing validation for visibility and non-empty values
+                if (specialPickUpLocationDisplay !== 'none' && !specialPickUpLocation) {
+                    $('#SpecialPickUpLocation-validation-message').text('Please add a specific pick up location').show();
+                    isValid = false;
+                }
+                if (specialDropOffLocationDisplay !== 'none' && !specialDropOffLocation) {
+                    $('#SpecialDropOffLocation-validation-message').text('Please add a specific drop off location').show();
+                    isValid = false;
+                }
+
+                // Here's where you should add or fix the condition to ensure it handles the case where both locations are the same
+                // If both fields are visible and required, ensure they are not the same
+                if (specialPickUpLocationDisplay !== 'none' && specialDropOffLocationDisplay !== 'none' && specialPickUpLocation === specialDropOffLocation && specialPickUpLocation && specialDropOffLocation) {
+                    $('#SpecialPickUpLocation-validation-message').text('Pick up and drop off locations cannot be the same').show();
+                    $('#SpecialDropOffLocation-validation-message').text('Pick up and drop off locations cannot be the same').show();
+                    isValid = false;
+                }
             }
 
-            // Validate SpecialDropOffLocation if visible
-            if (specialDropOffLocationDisplay !== 'none' && !specialDropOffLocation) {
-                $('#SpecialDropOffLocation-validation-message').text('Please add a specific drop off location').show();
-                isValid = false;
-            }
-
-            // If both fields are visible and required, ensure they are not the same
-            if (specialPickUpLocationDisplay !== 'none' && specialDropOffLocationDisplay !== 'none' && specialPickUpLocation === specialDropOffLocation && specialPickUpLocation && specialDropOffLocation) {
-                $('#SpecialPickUpLocation-validation-message').text('Pick up and drop off locations cannot be the same').show();
-                $('#SpecialDropOffLocation-validation-message').text('Pick up and drop off locations cannot be the same').show();
-                isValid = false;
-            }
 
             if (!isOtherSpecialRequestVisible) {
 
@@ -158,31 +168,19 @@
             isValid = false;
         }
 
-        // Validate Pick-Up and Drop-Off Locations
-        isValid = validateLocation('#PickUpLocation', '#DropOffLocation') && isValid;
+        // Determine if either or both pick-up and drop-off location are 'Other'
+        var isPickUpOrDropOffOther = pickUpLocationText === 'Other' || dropOffLocationText === 'Other';
+
+        // Validate Pick-Up and Drop-Off Locations only if both are not 'Other'
+        if (!isPickUpOrDropOffOther) {
+            isValid = validateLocation('#PickUpLocation', '#DropOffLocation') && isValid;
+        }
+        //// Determine if validation for Return Locations should be skipped
+        //let skipReturnLocationsValidation = shouldSkipReturnLocationsValidation();
 
         //// If trip type is "RoundTrip" or "Friday", validate Return Locations as well
-        //if (tripType !== 'OneWay') {
+        //if (tripType !== 'OneWay' && !skipReturnLocationsValidation) {
         //    isValid = validateLocation('#ReturnPickUpLocation', '#ReturnDropOffLocation') && isValid;
-        //}
-
-
-        //// Days of the Week validation
-        //if ($('.daysofweek-checkbox-group :checkbox:checked').length === 0) {
-        //    $('#daysofweek-validation-message').show();
-        //    isValid = false;
-        //}
-
-        //// First Day Expecting to Ride validation
-        //if (!$('#FirstDayExpectingToRide').val()) {
-        //    $('#FirstDayExpectingToRide-validation-message').show();
-        //    isValid = false;
-        //}
-
-        //// Special Request validation
-        //if (!$('input[name="SpecialRequest"]:checked').val()) {
-        //    $('#OtherSpecialRequest-validation-message').show();
-        //    isValid = false;
         //}
 
         return isValid;
@@ -209,6 +207,16 @@
         }
 
         return isValid;
+    }
+
+    function shouldSkipReturnLocationsValidation() {
+        var pickUpLocationText = $('#PickUpLocation option:selected').text().trim();
+        var dropOffLocationText = $('#DropOffLocation option:selected').text().trim();
+        var returnPickUpLocationText = $('#ReturnPickUpLocation option:selected').text().trim();
+        var returnDropOffLocationText = $('#ReturnDropOffLocation option:selected').text().trim();
+
+        // Check if any location is 'Other'
+        return pickUpLocationText === 'Other' || dropOffLocationText === 'Other' || returnPickUpLocationText === 'Other' || returnDropOffLocationText === 'Other';
     }
 
     // Attach validation to form submission event
