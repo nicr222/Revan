@@ -12,6 +12,11 @@
         var isOtherSpecialRequestVisible = $('.other-special-request').css('display') !== 'none';
         var returnRouteOptionsDisplay = $('.return-route-location-schedule').css('display');
 
+        var needTransportationText = $('#NeedTransportation').val().trim();
+        var agreeTermsChecked = $('#AgreeTerms').is(':checked');
+        var needTransportationDisplay = $('#NeedTransportation').parent().css('display') !== 'none';
+        var agreeTermsDisplay = $('#AgreeTerms').parent().css('display') !== 'none';
+
 
         // Determine if either or both pick-up and drop-off location are not 'Other'
         var pickUpLocationText = $('#PickUpLocation option:selected').text().trim();
@@ -158,6 +163,27 @@
                 }
             }
 
+            // Validation for NeedTransportation field based on CSS display and other conditions
+            if (needTransportationDisplay && isOtherSpecialRequestYes)) {
+                let wordCount = needTransportationText.split(/\s+/).filter(function (n) { return n != '' }).length;
+                if (!needTransportationText) {
+                    $('#NeedTransportation-validation-message').text('This field is required').show();
+                    isValid = false;
+                } else if (wordCount > 200) {
+                    $('#NeedTransportation-validation-message').text('Field must not exceed 200 words').show();
+                    isValid = false;
+                }
+            }
+
+            // Validation for AgreeTerms checkbox based on CSS display
+            if (agreeTermsDisplay && isOtherSpecialRequestYes)) {
+                if (!agreeTermsChecked) {
+                    $('#OtherAgreeTerms-validation-message').text('You must agree to terms and conditions').show();
+                    isValid = false;
+                }
+            }
+
+
 
             // Add other specific field validations here as needed...
         });
@@ -175,13 +201,14 @@
         if (!isPickUpOrDropOffOther) {
             isValid = validateLocation('#PickUpLocation', '#DropOffLocation') && isValid;
         }
-        //// Determine if validation for Return Locations should be skipped
-        //let skipReturnLocationsValidation = shouldSkipReturnLocationsValidation();
 
-        //// If trip type is "RoundTrip" or "Friday", validate Return Locations as well
-        //if (tripType !== 'OneWay' && !skipReturnLocationsValidation) {
-        //    isValid = validateLocation('#ReturnPickUpLocation', '#ReturnDropOffLocation') && isValid;
-        //}
+        // Determine if validation for Return Locations should be skipped
+        let skipReturnLocationsValidation = shouldSkipReturnLocationsValidation();
+
+        // If trip type is "RoundTrip" or "Friday", validate Return Locations as well
+        if (tripType !== 'OneWay' && !skipReturnLocationsValidation) {
+            isValid = validateLocation('#ReturnPickUpLocation', '#ReturnDropOffLocation') && isValid;
+        }
 
         return isValid;
     }
