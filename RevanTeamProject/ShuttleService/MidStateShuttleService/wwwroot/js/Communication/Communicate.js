@@ -1,8 +1,9 @@
 // References Phoo's code once again.
 
 document.addEventListener('DOMContentLoaded', function () {
-    const message = document.getElementById('message'); 
-    const shuttles = document.querySelectorAll('.checkbox');
+    const message = document.getElementById('message');
+    const pickUp = document.getElementById('PickUpLocation');
+    const dropOff = document.getElementById('DropOffLocation');
 
     // Form submission event listener
     document.querySelector('#CommunicateForm').addEventListener('submit', function (event) {
@@ -16,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateForm() {
         let isFormValid = true;
         isFormValid &= validateMessage();
-        isFormValid &= validateShuttles();
+        isFormValid &= validatePickUp();
+        isFormValid &= validateDropOff();
         return isFormValid;
     }
 
@@ -31,23 +33,39 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function validateShuttles() {
-        var isChecked = false;
-
-        for (var i = 0; i < shuttles.length; i++) {
-            if (shuttles[i].checked) {
-                isChecked = true;
-                break;
-            }
-        }
-
-        if (!isChecked) {
-            displayShuttleValidation("shuttle-Validation-Message", "Please select at least 1 shuttle")
+    function validatePickUp() {
+        if (!pickUp.value) {
+            displayValidationMessage(pickUp, "Please select a location");
             return false;
         } else {
-            clearShuttleValidation("shuttle-Validation-Message");
+            clearValidationMessage(pickUp);
             return true;
         }
+    }
+
+    function validateDropOff() {
+        if (!dropOff.value) {
+            displayValidationMessage(dropOff, "Please select a location");
+            return false;
+        } else {
+            clearValidationMessage(dropOff);
+            return true;
+        }
+    }
+
+    function validateRoutes() {
+        var formValid = false;
+
+        var i = 0;
+        while (!formValid && i < route.length) {
+            if (route[i].checked) formValid = true;
+            i++;
+        }
+
+        if (!formValid) {
+            displayValidationMessage(route, "Please select a route")
+        };
+        return formValid;
     }
 
     // Functions are the same as the ones from Phoo's validation just without the Radio options
@@ -67,17 +85,5 @@ document.addEventListener('DOMContentLoaded', function () {
         validationMessageElement.innerText = '';
         validationMessageElement.style.display = 'none'; // Hide validation message
         element.classList.remove('is-invalid');
-    }
-
-    function displayShuttleValidation(element, message) {
-        let validationMessageElement = document.getElementById(element);
-        validationMessageElement.innerText = message;
-        validationMessageElement.style.display = 'block'; // Show validation message
-    }
-
-    function clearShuttleValidation(element) {
-        let validationMessageElement = document.getElementById(element);
-        validationMessageElement.innerText = '';
-        validationMessageElement.style.display = 'none'; // Show validation message
     }
 });

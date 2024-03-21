@@ -1,5 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Eventing.Reader;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MidStateShuttleService.Controllers;
+using MidStateShuttleService.Models.Data;
+using Route = MidStateShuttleService.Models.Data.Route;
 
 namespace MidStateShuttleService.Models
 {
@@ -11,14 +15,14 @@ namespace MidStateShuttleService.Models
         [StringLength(160, ErrorMessage = "This field must not be more than 160 characters.")]
         public string message { get; set; }
 
-        [Required(ErrorMessage = "Please pick message recipiants.")]
-        public Shuttle[] shuttles { get; set; }
-    }
+        public int RouteId { get; set; }
 
-    public class Shuttle
-    {
-        public int id {  set; get; }
+        [Required(ErrorMessage = "Pick up location is required.")]
+        public int PickUpLocationID { get; set; }
 
-        public bool isSelected { get; set; }
+        [Required(ErrorMessage = "Drop location is required.")]
+        public int DropOffLocationID { get; set; }
+
+        public IEnumerable<SelectListItem>? LocationNames { get; set; }
     }
 }

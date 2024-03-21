@@ -1,16 +1,20 @@
-﻿@*
+﻿@using MidStateShuttleService.Service
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 
+@inject IListService listService
 @model MidStateShuttleService.Models.CommuncateModel
 
 @* page stylesheet *@
 <link rel="stylesheet" href="css/Communication/Communicate.css" />
 
-@* fontawesome link for dropdown arrow *@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <body>
     <div>
@@ -23,54 +27,56 @@
                         @Html.AntiForgeryToken()
                         <div>
 
-                           @* Message input box 
-                               I don't quite know if I like the styling for this as of right now
-                           *@
+
                                 <div class="input-fields">
                                     <textarea type="text" id="message" asp-for="message" class="input--style-1 text-box single-line p-2" placeholder="Enter message..." maxlength="160"></textarea>
                                     <div id="message-Validation-Message" class="validation-message"></div>
                                 </div>
 
-                            @* Shuttle choosing 
-                            The drop down list should display each shuttle in the database, but uses placeholders for now *@
-                                <div class="select-container">
-                                    
-                                    <div class="select-btn">
-                                        <div class="input-fields">
-                                            <span class="btn-text">Select Message Recipients</span>
-                                            <span class="arrow-dwn">
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </span>
-                                            <div id="shuttle-Validation-Message" class="validation-message"></div>
+                            <div class="row row-space">
+                                <div class="col-6">
+                                    <div class="input-fields">
+                                        @if (Model.LocationNames != null)
+                                        {
+                                            @Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })
+                                        }
+                                        else
+                                        {
+                                            <p>Error: Location names not loaded.</p>
+                                        }
+                                        <div class="form-line"></div>
+                                        <div id="PickUpLocation-Validation-Message" class="validation-message">Please select pickup location</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-fields">
+                                        @if (Model.LocationNames != null)
+                                        {
+                                            @Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })
+                                        }
+                                        else
+                                        {
+                                            <p>Error: Location names not loaded.</p>
+                                        }
+                                        <div class="form-line"></div>
+                                        <div id="DropOffLocation-Validation-Message" class="validation-message">Please select dropoff location</div>
+                                    </div>
+                                </div>
+
+                                <div class="route-location-schedule">
+                                    <div class="input-fields">
+                                        <div class="radio-route-type">
+                                            <div id="routeOptions" class="radio-route-options"></div>
                                         </div>
                                     </div>
-
-                                    <ul class="list-items">
-                                        <li class="item">
-                                            @* eventually will pass in the shuttles, change the value to the passed in shuttle's id
-                                                so the ids match when in the controller
-                                            *@
-                                            <input type="checkbox" class="checkbox" asp-for="shuttles[0].isSelected">
-                                            <label class="item-text" asp-for="shuttles[0].isSelected">Example 1</label>
-                                            <input type="hidden" asp-for="shuttles[0].id" value="1"/>
-                                        </li>
-                                        <li class="item" >
-                                            <input type="checkbox" class="checkbox" asp-for="shuttles[1].isSelected">
-                                            <label class="item-text" asp-for="shuttles[1].isSelected">Example 2</label>
-                                            <input type="hidden" asp-for="shuttles[1].id" value="2" />
-                                        </li>
-                                        <li class="item">
-                                            <input type="checkbox" class="checkbox" asp-for="shuttles[2].isSelected">
-                                            <label class="item-text" asp-for="shuttles[2].isSelected">Example 3</label>
-                                            <input type="hidden" asp-for="shuttles[2].id" value="3"/>
-                                        </li>
-                                    </ul>
                                 </div>
-                                
-                                <p class="trip-info">*Message will be sent to all students registered to the selected shuttles.</p>
+                            </div>
+
+                            <p class="trip-info">*Message will be sent to all students registered to the selected route.</p>
                         </div>
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--submit" type="submit">Send</button>
+                            <button class="btn btn--radius btn--cancel" type="button" onclick="location.href=''">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -81,3 +87,6 @@
 
 <script src="~/js/Communication/Communicate.js"></script>
 <script src="~/js/Communication/shuttleSelect.js"></script>
+<script src="~/js/Registeration/routeVisibility.js"></script>
+<script src="~/js/Registeration/RouteUpdater.js"></script>
+<script src="~/js/Registeration/ReturnRouteUpdater.js"></script>
