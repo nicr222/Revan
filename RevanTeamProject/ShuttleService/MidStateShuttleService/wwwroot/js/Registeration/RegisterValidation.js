@@ -13,6 +13,8 @@
 
         var returnRouteOptionsDisplay = $('.return-route-location-schedule').css('display');
 
+        var routeOptionSelected = $('#routeOptions input[type="radio"]:checked').length > 0 || $('#routeOptions input[type="checkbox"]:checked').length > 0;
+
         var needTransportationText = $('#NeedTransportation').val().trim();
         var agreeTermsChecked = $('#AgreeTerms').is(':checked');
         var needTransportationDisplay = $('#NeedTransportation').parent().css('display') !== 'none';
@@ -100,7 +102,7 @@
                 }
             }
 
-            
+
             // Validate otherCanLeaveAfter if Other Special Request is Yes and trip type is RoundTrip
             if (isOtherSpecialRequestYes && tripType === 'RoundTrip') {
 
@@ -144,7 +146,7 @@
             }
 
 
-            if (!isOtherSpecialRequestVisible) {
+            if (!isOtherSpecialRequestVisible && tripType !== 'Friday') {
 
                 // Days of the Week validation if visible
                 if (daysOfWeekDisplay !== 'none' && $('.daysofweek-checkbox-group :checkbox:checked').length === 0) {
@@ -179,6 +181,32 @@
                 }
             }
 
+
+            // Custom validation for Friday Special Request
+            if (tripType === 'Friday') {
+                var isFridaySpecialRequestVisible = $('.special-request').css('display') !== 'none';
+                var isFridaySpecialRequestYes = $('#specialYes').is(':checked');
+                var isFridaySpecialRequestNo = $('#specialNo').is(':checked');
+
+                // If the special request section is visible and neither 'Yes' nor 'No' is selected, show validation message
+                if (isFridaySpecialRequestVisible && !(isFridaySpecialRequestYes || isFridaySpecialRequestNo)) {
+                    $('#FridaySpecialRequest-validation-message').text('Please select a special request option').show();
+                    isValid = false;
+                }
+
+                // Validate Friday Special Request Trip Type if Special Request is Yes for Friday
+                if (isFridaySpecialRequestYes) {
+                    var isFridayTripTypeSelected = $('#FridayRoundTrip').is(':checked') || $('#FridayOneWay').is(':checked');
+
+                    // If no Friday Trip Type is selected, show validation message
+                    if (!isFridayTripTypeSelected) {
+                        $('#FridayTripType-validation-message').text('Please select a trip type for your Friday special request').show();
+                        isValid = false;
+                    }
+                }
+            }
+
+
             // Add other specific field validations here as needed...
         });
 
@@ -192,7 +220,7 @@
         var isPickUpOrDropOffOther = pickUpLocationText === 'Other' || dropOffLocationText === 'Other';
 
         // Validate Pick-Up and Drop-Off Locations only if both are not 'Other'
-        if (!isPickUpOrDropOffOther) {
+        if (!isPickUpOrDropOffOther && tripType !== 'Friday') {
             isValid = validateLocation('#PickUpLocation', '#DropOffLocation') && isValid;
         }
 
@@ -200,7 +228,7 @@
         let skipReturnLocationsValidation = shouldSkipReturnLocationsValidation();
 
         // If trip type is "RoundTrip" or "Friday", validate Return Locations as well
-        if (tripType !== 'OneWay' && !skipReturnLocationsValidation) {
+        if (tripType !== 'OneWay' && !skipReturnLocationsValidation || routeOptionSelected) {
             isValid = validateLocation('#ReturnPickUpLocation', '#ReturnDropOffLocation') && isValid;
         }
 
