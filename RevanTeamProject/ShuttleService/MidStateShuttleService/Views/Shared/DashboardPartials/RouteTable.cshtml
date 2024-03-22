@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model MidStateShuttleService.Models.AllModels
+
+<div class="cardHeader">
+    <h2>Routes</h2>
+    <a asp-controller="Routes" asp-action="Create" class="btn">Add Route</a>
+</div>
+<table>
+    <thead>
+        <tr>
+            <td>Pick Up Location</td>
+            <td>Drop Off Location</td>
+            <td>Pick Up Time</td>
+            <td>Drop Off Time</td>
+            <td>Additional Details</td>
+            <td>Update</td>
+            <td>Delete</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null)
+        {
+            <tr><td colspan="7" class="text-center">There are Currently No Routes</td></tr>
+        }
+        else
+        {
+            @foreach (var r in Model.Route)
+            {
+                <tr>
+                    <td>@r.PickUpLocation.ToStringPickup()</td>
+                    <td>@r.DropOffLocation.ToStringDropoff()</td>
+                    <td>@r.PickUpTime</td>
+                    <td>@r.DropOffTime</td>
+                    <td>@r.AdditionalDetails</td>
+                    <td><a asp-controller="Routes" asp-action="Edit" asp-route-id="@r.RouteID">Edit</a></td>
+                    <td><a asp-controller="Routes" asp-action="Delete" asp-route-id="@r.RouteID">Delete</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

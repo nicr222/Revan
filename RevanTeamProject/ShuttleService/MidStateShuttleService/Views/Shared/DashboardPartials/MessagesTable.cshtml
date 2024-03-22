@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model MidStateShuttleService.Models.AllModels
+
+<div class="cardHeader">
+    <h2>Messages</h2>
+</div>
+<table>
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Message</td>
+            <td>Response Required</td>
+            <td>Contact Info</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null)
+        {
+            <tr><td colspan="4" class="text-center">There are Currently No Messages</td></tr>
+        }
+        else
+        {
+            
+        }
+    </tbody>
+</table>

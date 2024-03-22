@@ -318,87 +318,70 @@ input {
 }
 
 /* ==========================================================================
-   #Select Button
+   #Select Route Section Styles
    ========================================================================== */
 
-.select-btn{
-    display: flex;
-    cursor: pointer;
+.route-location-schedule {
+    padding: 0px 15px;
 }
 
-.select-btn .btn-text{
-    font-weight: 400;
+/* Styling for the route selection title */
+.radio-route-type .route-type {
+    font-size: 14px;
+    font-weight: bold;
     margin-bottom: 10px;
-    color: #666;
+    color: #333;
 }
 
-.select-btn .arrow-dwn {
-    display: inline-flex;
-    height: 21px;
-    width: 21px;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
+/* General styling for radio button options within the route selection */
+#routeOptions {
+    display: flex;
+    flex-direction: column; /* Stack options vertically for clarity */
+    margin-bottom: 15px; /* Space below the options */
+    font-size: 13px;
 }
 
-.select-btn.open .arrow-dwn {
-    transform: rotate(-180deg);
+/* Style for individual radio buttons - assuming you add class 'route-option' to each radio input */
+.route-option {
+    margin: 5px 0; /* Space between radio buttons */
+    cursor: pointer;
+    position: relative;
 }
 
-/* ==========================================================================
-#Select Items
-========================================================================== */
-    .list-items {
-        position: relative;
-        margin-top: 15px;
-        padding: 16px;
-        display: none;
+/* Styling for the route information text to match other form info texts */
+.radio-route-type .route-info {
+    display: none;
+}
+
+/* Style for individual radio buttons and labels */
+.radio-route-options label {
+    display: flex;
+    align-items: center; /* Aligns the radio button and label text vertically */
+    margin-bottom: 1px;
+}
+
+.radio-route-options input[type="radio"] {
+    margin-right: 10px; /* Space between radio button and label text */
+}
+
+/* Ensure that the label text wraps correctly next to the radio button */
+.radio-route-options label span {
+    display: inline-block;
+    margin-right: auto;
+}
+
+
+/* Adjustments for smaller screens, if necessary */
+@media (max-width: 767px) {
+    #routeOptions {
+        flex-direction: column; /* Ensure vertical stacking on small screens */
     }
 
-.select-btn.open ~ .list-items{
-    display: block;
+    .route-schedule {
+        padding: 0px 10px; /* Adjust padding for smaller screens */
+    }
 }
 
-.list-items .item {
-    display: flex;
-    align-items: center;
-    list-style: none;
-    height: 50px;
-    cursor: pointer;
-}
-
-.item .item-text{
-    font-weight: 400;
-    margin-bottom: 0px;
-}
-
-.item .checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 16px;
-    width: 16px;
-    border-radius: 4px;
-    margin-right: 12px;
-    border: 1.5px solid #c0c0c0;
-    transition: all 0.3s ease-in-out;
-}
-
-.item.checked .checkbox {
-    background-color: #840029;
-    border-color: #840029;
-}
-
-.checkbox .check-icon {
-    color: #ffffff;
-    font-size: 11px;
-    transform: scale(0);
-    transition: all 0.3s ease-in-out;
-}
-
-.item.checked .check-icon {
-    transform: scale(1);
-}
 
 /* For the response request */
     .typetrip {

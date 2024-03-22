@@ -6,48 +6,55 @@ using System.Data;
 
 namespace MidStateShuttleService.Controllers
 {
-    public class LocationController : Controller
+    public class DriverController : Controller
     {
+
         private readonly string connectionString;
-        private readonly ILogger<LocationController> _logger;
+        private readonly ILogger<DriverController> _logger;
 
-
-        public LocationController(IConfiguration configuration, ILogger<LocationController> logger)
+        public DriverController(IConfiguration configuration, ILogger<DriverController> logger)
         {
             this.connectionString = configuration.GetConnectionString("DefaultConnection");
             _logger = logger;
         }
 
-        // GET: LocationController
+        // GET: DriverController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: LocationController/Create
+        // GET: DriverController/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: DriverController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: LocationController/Create
+        // POST: DriverController/Create
         [HttpPost]
-        public ActionResult Create(Location location)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Driver driver)
         {
             if (!ModelState.IsValid)
             {
-                return View(location);
+                return View(driver);
             }
             else
             {
 
 
-                TempData["SuccessMessage"] = "The location has been successfully created!";
+                TempData["SuccessMessage"] = "The driver has been successfully created!";
 
             }
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                string sql = "INSERT INTO [Location] (Name, Address, City, State, ZipCode, Abbreviation) VALUES (@Name, @Address, @City, @State, @ZipCode, @Abbreviation)";
+                string sql = "INSERT INTO [Driver] (Name, PhoneNumb, Email, IsActive) VALUES (@Name, @PhoneNumb, @Email, 1)";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
@@ -56,7 +63,7 @@ namespace MidStateShuttleService.Controllers
                     SqlParameter parameter = new SqlParameter
                     {
                         ParameterName = "@Name",
-                        Value = location.Name,
+                        Value = driver.Name,
                         SqlDbType = SqlDbType.NVarChar,
                         Size = 100
                     };
@@ -64,48 +71,22 @@ namespace MidStateShuttleService.Controllers
 
                     parameter = new SqlParameter
                     {
-                        ParameterName = "@Address",
-                        Value = location.Address,
+                        ParameterName = "@PhoneNumb",
+                        Value = driver.PhoneNumber,
                         SqlDbType = SqlDbType.NVarChar,
-                        Size = 255
+                        Size = 20
                     };
                     command.Parameters.Add(parameter);
 
                     parameter = new SqlParameter
                     {
-                        ParameterName = "@City",
-                        Value = location.City,
+                        ParameterName = "@Email",
+                        Value = driver.Email,
                         SqlDbType = SqlDbType.NVarChar,
-                        Size = 100
+                        Size = 50
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@State",
-                        Value = location.State,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 2
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@ZipCode",
-                        Value = location.ZipCode,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 10
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@Abbreviation",
-                        Value = location.Abbreviation,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 5
-                    };
-                    command.Parameters.Add(parameter);
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -113,17 +94,17 @@ namespace MidStateShuttleService.Controllers
 
                 }
             }
-            return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
+            return RedirectToAction("Index", "Dashboard"); // Assuming "Home" is the controller where you want to redirect
         }
+        
 
-
-        // GET: LocationController/Edit/5
+        // GET: DriverController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: LocationController/Edit/5
+        // POST: DriverController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -138,13 +119,13 @@ namespace MidStateShuttleService.Controllers
             }
         }
 
-        // GET: LocationController/Delete/5
+        // GET: DriverController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: LocationController/Delete/5
+        // POST: DriverController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

@@ -18,7 +18,7 @@
                     <div class="input-fields">
                         <label>Pick Up Location</label>
                         <select asp-for="PickUpLocationID"
-                                asp-items="ListServices.GetLocationList().Select(x => new SelectListItem{ Text = x.Name, Value = x.LocationID.ToString()})"
+                                asp-items="ListServices.GetLocationList().Select(x => new SelectListItem{ Text = x.Name, Value = x.LocationId.ToString()})"
                                 class="form-control input--style-1" required>
                             <option selected="selected" value="" required>--Select--</option>
                         </select>
@@ -29,7 +29,7 @@
                     <div class="input-fields">
                         <label>Drop Off Location</label>
                         <select asp-for="DropOffLocationID"
-                                asp-items="ListServices.GetLocationList().Select(x => new SelectListItem{ Text = x.Name, Value = x.LocationID.ToString()})"
+                                asp-items="ListServices.GetLocationList().Select(x => new SelectListItem{ Text = x.Name, Value = x.LocationId.ToString()})"
                                 class="form-control input--style-1" required>
                             <option selected="selected" value="" required>--Select--</option>
                         </select>
