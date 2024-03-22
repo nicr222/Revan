@@ -1,9 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Eventing.Reader;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MidStateShuttleService.Controllers;
-using MidStateShuttleService.Models.Data;
-using Route = MidStateShuttleService.Models.Data.Route;
 
 namespace MidStateShuttleService.Models
 {
