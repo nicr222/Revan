@@ -11,14 +11,11 @@ namespace MidStateShuttleService.Models
     [Index("RouteID", Name = "IX_Registration_RouteId")]
     public partial class RegisterModel
     {
-        [Key]
-        public int RegistrationId { get; set; }
+        //[Key]
+        //public int RegistrationId { get; set; }
 
         public int? RouteID { get; set; }
 
-        //[Required(ErrorMessage = "User ID is required")]
-        //[RegularExpression("^[0-9]{10}$", ErrorMessage = "Must be 10 digits")]
-        //public long StudentId { get; set; } // Changed from int to long
         public int? UserId { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
@@ -79,13 +76,14 @@ namespace MidStateShuttleService.Models
         public string? FridayTripType { get; set; }
 
         [Required]
-        [StringLength(20)]
         public string ContactPreference { get; set; }
 
         [Required]
         public bool? AgreeTerms { get; set; } = false;//  true/false for agreement
 
-        [NotMapped]
+        [Required]
+        public bool? FridayAgreeTerms { get; set; } = false;//  true/false for agreement
+
         public IEnumerable<SelectListItem>? LocationNames { get; set; }
 
         // Add new properties for route details
@@ -101,15 +99,26 @@ namespace MidStateShuttleService.Models
 
         public TimeOnly? CanLeaveTime { get; set; }
 
+
+        public TimeOnly? FridayMustArriveTime { get; set; }
+
+        public TimeOnly? FridayCanLeaveTime { get; set; }
+
         public string? SpecialPickUpLocation { get; set; }
 
         public string? SpecialDropOffLocation { get; set; }
 
         [ForeignKey("RouteID")]
-        public virtual Routes Route { get; set; }
+        public virtual Routes? Route { get; set; }
 
         [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
+
+        //[Required(ErrorMessage = "Pick Up Location is required")]
+        public int? FridayPickUpLocationID { get; set; }
+
+        //[Required(ErrorMessage = "Drop Off Location is required")]
+        public int? FridayDropOffLocationID { get; set; }
     }
 
 }
