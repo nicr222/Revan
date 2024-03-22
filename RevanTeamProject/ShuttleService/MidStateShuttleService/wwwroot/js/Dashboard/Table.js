@@ -34,10 +34,24 @@
         return false;
     });
 
+
+    // Click event for the Drivers button
+    $('#driver').click(function () {
+        hideAllTables();
+        $('.recentItem.driver').show(); // Show the driver table
+        return false;
+    });
+
+    $('#shuttle').click(function () {
+        hideAllTables();
+        $('.recentItem.shuttle').show();
+        return false;
+    });
+
     // Click event for the Messages button
     $('#messages').click(function () {
         hideAllTables();
-        $('.recentItem.recentFeedback').show(); // You can adjust this based on your actual structure
+        $('.recentItem.recentFeedback').show(); // Show the messages table
         return false;
     });
 });

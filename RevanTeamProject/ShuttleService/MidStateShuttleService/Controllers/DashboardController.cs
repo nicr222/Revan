@@ -1,83 +1,184 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using MidStateShuttleService.Models;
+using MidStateShuttleService.Service;
+using System.Data;
 
 namespace MidStateShuttleService.Controllers
 {
     public class DashboardController : Controller
     {
+        private readonly ILogger<DashboardController> _logger;
+        private readonly string connectionString;
+
+        public DashboardController(ILogger<DashboardController> logger, IConfiguration configuration)
+        {
+            _logger = logger;
+            Configuration = configuration;
+            connectionString = configuration["ConnectionStrings:DefaultConnection"];
+        }
+
+        public IConfiguration Configuration { get; }
+
         // GET: DashboardController
         public ActionResult Index()
         {
-            return View();
+            List<Location> locations = GetLocationList();
+            List<Routes> routes = GetRoutes();
+            List<Driver> drivers = GetDrivers();
+            List<Bus> buss = GetBus();
+
+
+
+            AllModels allModels = new AllModels();
+
+
+            allModels.Location = locations;
+            allModels.Route = routes;
+            allModels.Driver = drivers;
+            allModels.Bus = buss;
+
+            return View(allModels);
+            
         }
 
-        // GET: DashboardController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
-        // GET: DashboardController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: DashboardController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public List<Location> GetLocationList()
         {
-            try
+            List<Location> locationList = new List<Location>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                return RedirectToAction(nameof(Index));
+                DataTable dataTable = new DataTable();
+
+                string sql = "SELECT * FROM [Location]";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dataTable);
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    locationList.Add(new Location
+                    {
+                        LocationId = Convert.ToInt32(row["LocationID"]),
+                        Name = row["Name"].ToString(),
+                        Address = row["Address"].ToString(),
+                        City = row["City"].ToString(),
+                        State = row["State"].ToString(),
+                        ZipCode = row["ZipCode"].ToString(),
+                        Abbreviation = row["Abbreviation"].ToString()
+                    });
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return locationList;
         }
 
-        // GET: DashboardController/Edit/5
-        public ActionResult Edit(int id)
+        public List<Routes> GetRoutes()
         {
-            return View();
+            List<Routes> routeList = new List<Routes>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                var location = GetLocationList();
+
+                connection.Open();
+
+                string sql = "SELECT * FROM [Routes]";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+
+                using (SqlDataReader dataReader = cmd.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        Routes routes = new Routes();
+
+                        routes.RouteID = Convert.ToInt32(dataReader["RouteID"]);
+
+                        routes.PickUpLocationID = Convert.ToInt32(dataReader["PickUpLocationID"]);
+                        routes.PickUpLocation = location.Where(x => x.LocationId == routes.PickUpLocationID).FirstOrDefault();
+                        routes.DropOffLocationID = Convert.ToInt32(dataReader["DropOffLocationID"]);
+                        routes.DropOffLocation = location.Where(x => x.LocationId == routes.DropOffLocationID).FirstOrDefault();
+                        routes.PickUpTime = TimeSpan.Parse(dataReader["PickUpTime"].ToString());
+                        routes.DropOffTime = TimeSpan.Parse(dataReader["DropOffTime"].ToString());
+                        routes.AdditionalDetails = dataReader["AdditionalDetails"].ToString();
+                        routes.IsArchived = Convert.ToBoolean(dataReader["IsArchived"]);
+
+                        routeList.Add(routes);
+                    }
+                }
+                connection.Close();
+            }
+            
+            
+            
+            return routeList;
         }
 
-        // POST: DashboardController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public List<Driver> GetDrivers()
         {
-            try
+            List<Driver> drivers = new List<Driver>();
+
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                return RedirectToAction(nameof(Index));
+
+                connection.Open();
+
+                string sql = "SELECT * FROM [Driver]";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+
+                using (SqlDataReader dataReader = cmd.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        Driver driver = new Driver();
+
+                        driver.DriverId = Convert.ToInt32(dataReader["DriverID"]);
+                        driver.Name = dataReader["Name"].ToString();
+                        driver.PhoneNumber = dataReader["PhoneNumb"].ToString();
+                        driver.Email = dataReader["Email"].ToString();
+                        driver.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
+
+                        drivers.Add(driver);
+                    }
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return drivers;
         }
 
-        // GET: DashboardController/Delete/5
-        public ActionResult Delete(int id)
+        public List<Bus> GetBus()
         {
-            return View();
-        }
+            List<Bus> buss = new List<Bus>();
 
-        // POST: DashboardController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+
+                connection.Open();
+
+                string sql = "SELECT * FROM [Bus]";
+                SqlCommand cmd = new SqlCommand(sql, connection);
+
+                using (SqlDataReader dataReader = cmd.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        Bus bus = new Bus();
+
+                        bus.BusId = Convert.ToInt32(dataReader["BusID"]);
+                        bus.BusNo = dataReader["BusNo"].ToString();
+                        bus.PassengerCapacity = Convert.ToInt32(dataReader["PassengerCapacity"]);
+                        bus.DriverId = Convert.ToInt32(dataReader["DriverID"]);
+
+
+                        buss.Add(bus);
+                    }
+                }
+            }   
+            return buss;
         }
+        
     }
 }
