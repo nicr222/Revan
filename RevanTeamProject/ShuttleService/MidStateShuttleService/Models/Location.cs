@@ -42,5 +42,15 @@ namespace MidStateShuttleService.Models
 
         [DefaultValue(false)]
         public bool IsArchived { get; set; }
+
+        public string ToStringPickup()
+        {
+            return Name;
+        }
+
+        public string ToStringDropoff()
+        {
+            return Name;
+        }
     }
 }

@@ -31,13 +31,14 @@ namespace MidStateShuttleService.Models
         [Display(Name = "Drop Off Time")]
         [Required(ErrorMessage = "Please enter a valid drop-off time.")]
         [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm tt}", ApplyFormatInEditMode = true)]
         [RegularExpression("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$", ErrorMessage = "Please enter a valid time.")]
         public TimeSpan? DropOffTime { get; set; }
 
         [Display(Name = "Additional Details")]
         [StringLength(500, ErrorMessage = "Additional details cannot exceed 500 characters.")]
         [RegularExpression("^[a-zA-Z0-9.,!?'\";:@#$%^&*()_+=\\-\\/]*$", ErrorMessage = "Additional details can only contain letters, numbers, and important special characters.")]
-        public string AdditionalDetails { get; set; }
+        public string? AdditionalDetails { get; set; }
 
         [DefaultValue(false)]
         public bool IsArchived { get; set; }
@@ -45,12 +46,14 @@ namespace MidStateShuttleService.Models
         public int BusId { get; set; }
 
         [ForeignKey("PickUpLocationID")]
-        public virtual ICollection<Location> PickUpLocation { get; set; } = new List<Location>();
+        public virtual Location PickUpLocation { get; set; }
 
         [ForeignKey("DropOffLocationID")]
-        public virtual ICollection<Location> DropOffLocation { get; set; } = new List<Location>();
+        public virtual Location DropOffLocation { get; set; }
 
         [ForeignKey("BusId")]
         public virtual Bus Bus { get; set; }
+
+           
     }
 }

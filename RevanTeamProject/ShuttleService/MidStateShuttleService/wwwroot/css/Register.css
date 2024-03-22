@@ -133,7 +133,7 @@ sup {
    #WRAPPER
    ========================================================================== */
 .wrapper {
-    margin: 0 auto;
+    margin: 80px auto;
 }
 
 .wrapper--w680 {
@@ -989,6 +989,19 @@ input[type=checkbox]:not(:checked) ~ .toggle-label#toggleNo {
     cursor: pointer;
 }
 
+#FridayAgreeTerms {
+    flex-shrink: 0; /* Prevent checkbox from shrinking */
+    margin-right: 10px; /* Space between the checkbox and the label text */
+    cursor: pointer;
+}
+
+.FridayAgreeTerms {
+    flex-grow: 1;
+    font-size: 14px; /* Readable text size */
+    color: red; /* Distinctive font color */
+    line-height: 1.5; /* Space between lines */
+    cursor: pointer;
+}
 /* Styling for the checkbox input */
 input[type=checkbox] {
     appearance: none; /* Remove default checkbox appearance */
@@ -998,7 +1011,7 @@ input[type=checkbox] {
     line-height: 1; /* Aligns the checkbox symbol vertically */
     width: 20px;
     height: 20px;
-    border: 2px solid #808080; 
+    border: 2px solid #808080;
     border-radius: 3px; /* Slightly rounded corners for the checkbox */
     vertical-align: middle;
     cursor: pointer;
