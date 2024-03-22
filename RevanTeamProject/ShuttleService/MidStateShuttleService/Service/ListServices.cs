@@ -104,7 +104,7 @@ namespace MidStateShuttleService.Service
                     busList.Add(new Bus
                     {
                         BusId = Convert.ToInt32(row["BusID"]),
-                        BusNo = row["BusNumber"].ToString(),
+                        BusNo = Convert.ToInt32(row["BusNumber"]),
                         PassengerCapacity = Convert.ToInt32(row["PassengerCapacity"]),
                         DriverId = Convert.ToInt32(row["DriverID"]),
                         CurrentRouteId = Convert.ToInt32(row["CurrentRouteID"]),

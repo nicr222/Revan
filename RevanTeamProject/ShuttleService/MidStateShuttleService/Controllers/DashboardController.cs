@@ -168,7 +168,7 @@ namespace MidStateShuttleService.Controllers
                         Bus bus = new Bus();
 
                         bus.BusId = Convert.ToInt32(dataReader["BusID"]);
-                        bus.BusNo = dataReader["BusNo"].ToString();
+                        bus.BusNo = Convert.ToInt32(dataReader["BusNumber"]);
                         bus.PassengerCapacity = Convert.ToInt32(dataReader["PassengerCapacity"]);
                         bus.DriverId = Convert.ToInt32(dataReader["DriverID"]);
 
