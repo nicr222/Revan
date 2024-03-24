@@ -22,7 +22,7 @@ public partial class Bus
     public int? DriverId { get; set; }
 
     [DefaultValue(false)]
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
 
     public int? CurrentRouteId { get; set; } // Foreign key for the current route
 

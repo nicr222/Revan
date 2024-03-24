@@ -11,8 +11,8 @@ namespace MidStateShuttleService.Models
     [Index("RouteID", Name = "IX_Registration_RouteId")]
     public partial class RegisterModel
     {
-        //[Key]
-        //public int RegistrationId { get; set; }
+        [Key]
+        public int RegistrationId { get; set; }
 
         public int? RouteID { get; set; }
 
@@ -84,6 +84,7 @@ namespace MidStateShuttleService.Models
         [Required]
         public bool? FridayAgreeTerms { get; set; } = false;//  true/false for agreement
 
+        [NotMapped]
         public IEnumerable<SelectListItem>? LocationNames { get; set; }
 
         // Add new properties for route details

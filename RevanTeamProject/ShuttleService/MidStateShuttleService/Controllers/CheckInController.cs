@@ -54,7 +54,7 @@ namespace MidStateShuttleService.Controllers
             _context.CheckIns.Add(checkIn);
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult FailedCheckIn(string errorMessage)
