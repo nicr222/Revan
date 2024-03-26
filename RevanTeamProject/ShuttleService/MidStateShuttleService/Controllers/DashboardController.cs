@@ -11,7 +11,13 @@ namespace MidStateShuttleService.Controllers
     {
         private readonly ILogger<DashboardController> _logger;
         private readonly string connectionString;
+        private readonly ApplicationDbContext _context;
 
+        // Inject ApplicationDbContext into the controller constructor
+        public DashboardController(ApplicationDbContext context)
+        {
+            _context = context; // Assign the injected ApplicationDbContext to the _context field
+        }
         public DashboardController(ILogger<DashboardController> logger, IConfiguration configuration)
         {
             _logger = logger;

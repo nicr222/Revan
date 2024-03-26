@@ -11,6 +11,13 @@ namespace MidStateShuttleService.Controllers
         private readonly string connectionString;
         private readonly ILogger<LocationController> _logger;
 
+        private readonly ApplicationDbContext _context;
+
+        // Inject ApplicationDbContext into the controller constructor
+        public LocationController(ApplicationDbContext context)
+        {
+            _context = context; // Assign the injected ApplicationDbContext to the _context field
+        }
 
         public LocationController(IConfiguration configuration, ILogger<LocationController> logger)
         {

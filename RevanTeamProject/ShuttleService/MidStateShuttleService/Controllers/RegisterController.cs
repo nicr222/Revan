@@ -22,6 +22,11 @@ namespace MidStateShuttleService.Controllers
 
         private readonly ILogger<RegisterController> _logger;
 
+        // Inject ApplicationDbContext into the controller constructor
+        public RegisterController(ApplicationDbContext context)
+        {
+            _context = context; // Assign the injected ApplicationDbContext to the _context field
+        }
         public RegisterController(ILogger<RegisterController> logger, IConfiguration configuration)
         {
             this.connectionString = configuration.GetConnectionString("DefaultConnection");

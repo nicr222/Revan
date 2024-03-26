@@ -1,7 +1,7 @@
 ﻿@model MidStateShuttleService.Models.AllModels
 @{
     ViewData["Title"] = "Dashboard";
-    <link rel="stylesheet" href="~/css/Dashboard.css"/>
+    <link rel="stylesheet" href="~/css/Dashboard.css" />
 }
 
 <div class="container1">
@@ -52,7 +52,7 @@
             </li>
 
             <li>
-                <a href="#" id="messages">
+                <a href="@Url.Action("Index", "Communicate")" id="messages">
                     <span class="icon"><i class="bi bi-send-arrow-down-fill"></i></span>
                     <span class="title">Messages</span>
                 </a>
@@ -123,7 +123,7 @@
             </div>
         </div>
         <!--Sections-->
-        
+
     </div>
     <div class="details">
         <!--Tables to hide-->
@@ -142,7 +142,7 @@
         <div class="recentFeedback">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/MessagesTable.cshtml")
         </div>
-        
+
     </div>
 
 </div>

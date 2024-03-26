@@ -11,7 +11,13 @@ namespace MidStateShuttleService.Controllers
 
         private readonly string connectionString;
         private readonly ILogger<DriverController> _logger;
+        private readonly ApplicationDbContext _context;
 
+        // Inject ApplicationDbContext into the controller constructor
+        public ShuttlesController(ApplicationDbContext context)
+        {
+            _context = context; // Assign the injected ApplicationDbContext to the _context field
+        }
         public ShuttlesController(IConfiguration configuration, ILogger<DriverController> logger)
         {
             this.connectionString = configuration.GetConnectionString("DefaultConnection");

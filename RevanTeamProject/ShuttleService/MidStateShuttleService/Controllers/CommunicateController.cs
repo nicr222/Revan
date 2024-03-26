@@ -12,6 +12,13 @@ namespace MidStateShuttleService.Controllers
 
         private readonly ILogger<CommunicateController> _logger;
 
+        private readonly ApplicationDbContext _context;
+
+        // Inject ApplicationDbContext into the controller constructor
+        public CommunicateController(ApplicationDbContext context)
+        {
+            _context = context; // Assign the injected ApplicationDbContext to the _context field
+        }
         public CommunicateController(ILogger<CommunicateController> logger, IConfiguration configuration)
         {
             this.connectionString = configuration.GetConnectionString("DefaultConnection");
