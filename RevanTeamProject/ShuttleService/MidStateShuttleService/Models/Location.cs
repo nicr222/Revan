@@ -40,9 +40,6 @@ namespace MidStateShuttleService.Models
         [StringLength(5)]
         public string Abbreviation { get; set; }
 
-        [DefaultValue(false)]
-        public bool IsArchived { get; set; }
-
         public string ToStringPickup()
         {
             return Name;

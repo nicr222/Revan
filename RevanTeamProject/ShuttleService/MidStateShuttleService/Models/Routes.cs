@@ -40,9 +40,6 @@ namespace MidStateShuttleService.Models
         [RegularExpression("^[a-zA-Z0-9.,!?'\";:@#$%^&*()_+=\\-\\/]*$", ErrorMessage = "Additional details can only contain letters, numbers, and important special characters.")]
         public string? AdditionalDetails { get; set; }
 
-        [DefaultValue(false)]
-        public bool IsArchived { get; set; }
-
         public int BusId { get; set; }
 
         [ForeignKey("PickUpLocationID")]

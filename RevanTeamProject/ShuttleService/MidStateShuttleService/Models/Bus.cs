@@ -21,16 +21,7 @@ public partial class Bus
 
     public int? DriverId { get; set; }
 
-    [DefaultValue(false)]
     public bool IsActive { get; set; }
 
-    public int? CurrentRouteId { get; set; } // Foreign key for the current route
-
-    // Navigation property representing the current route associated with this bus.
-    // Lets entity know CurrentRouteId is a FK to the route table(Because the FK and PK are named different this is needed).
-    [ForeignKey("CurrentRouteId")]
-    public virtual Routes CurrentRoute { get; set; }
-
-    [ForeignKey("DriverId")]
     public virtual Driver Driver { get; set; }
 }

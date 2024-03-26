@@ -25,7 +25,5 @@ namespace MidStateShuttleService.Models
         [StringLength(50)]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
-
-        public bool IsActive { get; set; }
     }
 }

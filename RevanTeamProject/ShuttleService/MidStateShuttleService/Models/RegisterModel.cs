@@ -11,12 +11,10 @@ namespace MidStateShuttleService.Models
     [Index("RouteID", Name = "IX_Registration_RouteId")]
     public partial class RegisterModel
     {
-        //[Key]
-        //public int RegistrationId { get; set; }
+        [Key]
+        public int RegistrationId { get; set; }
 
         public int? RouteID { get; set; }
-
-        public int? UserId { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
         [RegularExpression("^[A-Za-z\\s]{2,}$", ErrorMessage = "Must contain only characters and be at least 2 characters long")]
@@ -110,9 +108,6 @@ namespace MidStateShuttleService.Models
 
         [ForeignKey("RouteID")]
         public virtual Routes? Route { get; set; }
-
-        [ForeignKey("UserId")]
-        public virtual User? User { get; set; }
 
         //[Required(ErrorMessage = "Pick Up Location is required")]
         public int? FridayPickUpLocationID { get; set; }

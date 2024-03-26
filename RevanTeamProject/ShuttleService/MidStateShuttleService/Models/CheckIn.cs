@@ -17,20 +17,17 @@ public partial class CheckIn
 
     public int BusId { get; set; }
 
-    [NotMapped]
     public int BusNumber { get; set; }
 
     public int? RouteId { get; set; }
 
     public int? UserId { get; set; }
 
-    [Column(TypeName = "datetime")]
     public DateTime Date { get; set; }
 
     [StringLength(255)]
     public string Comments { get; set; }
 
-    [DefaultValue(false)]
     public bool FirstTime { get; set; }
 
     [ForeignKey("RouteId")]
