@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
+using MidStateShuttleService.Service;
 using System.Data;
 
 namespace MidStateShuttleService.Controllers
@@ -18,35 +19,50 @@ namespace MidStateShuttleService.Controllers
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
         }
-        public DashboardController(ILogger<DashboardController> logger, IConfiguration configuration)
+        /*public DashboardController(ILogger<DashboardController> logger, IConfiguration configuration)
         {
             _logger = logger;
             Configuration = configuration;
             connectionString = configuration["ConnectionStrings:DefaultConnection"];
-        }
+        }*/
 
         public IConfiguration Configuration { get; }
 
         // GET: DashboardController
         public ActionResult Index()
         {
-            List<Location> locations = GetLocationList();
+            /*List<Location> locations = GetLocationList();
             List<Routes> routes = GetRoutes();
             List<Driver> drivers = GetDrivers();
-            List<Bus> buss = GetBus();
-
-
-
+            List<Bus> buss = GetBus();*/
             AllModels allModels = new AllModels();
 
+            LocationServices ls = new LocationServices(_context);
+            allModels.Location = ls.GetAllEntities();
 
-            allModels.Location = locations;
+            RouteServices rs = new RouteServices(_context);
+            allModels.Route = rs.GetAllEntities();
+
+            DriverServices ds = new DriverServices(_context);
+            allModels.Driver = ds.GetAllEntities();
+
+            BusServices bs = new BusServices(_context);
+            allModels.Bus = bs.GetAllEntities();
+
+
+
+
+
+
+
+
+            /*allModels.Location = locations;
             allModels.Route = routes;
             allModels.Driver = drivers;
-            allModels.Bus = buss;
+            allModels.Bus = buss;*/
 
             return View(allModels);
-            
+
         }
 
 
@@ -117,9 +133,9 @@ namespace MidStateShuttleService.Controllers
                 }
                 connection.Close();
             }
-            
-            
-            
+
+
+
             return routeList;
         }
 
@@ -180,9 +196,9 @@ namespace MidStateShuttleService.Controllers
                         buss.Add(bus);
                     }
                 }
-            }   
+            }
             return buss;
         }
-        
+
     }
 }

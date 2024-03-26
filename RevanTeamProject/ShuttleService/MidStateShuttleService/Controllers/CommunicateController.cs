@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
 using Microsoft.Data.SqlClient;
 using MidStateShuttleService.Models;
+using MidStateShuttleService.Service;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -19,11 +20,11 @@ namespace MidStateShuttleService.Controllers
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
         }
-        public CommunicateController(ILogger<CommunicateController> logger, IConfiguration configuration)
+        /*public CommunicateController(ILogger<CommunicateController> logger, IConfiguration configuration)
         {
             this.connectionString = configuration.GetConnectionString("DefaultConnection");
             _logger = logger;
-        }
+        }*/
 
         [HttpGet]
         public IActionResult Index()
@@ -62,6 +63,9 @@ namespace MidStateShuttleService.Controllers
                         cmdMessage.ExecuteNonQuery();
                     }*/
 
+                    CommunicationServices cs = new CommunicationServices(_context);
+                    cs.AddEntity(c);
+
                     return RedirectToAction("MessageSent");
                 }
                 catch (Exception ex)
@@ -98,7 +102,7 @@ namespace MidStateShuttleService.Controllers
             {
                 try
                 {
-                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    /*using (SqlConnection connection = new SqlConnection(connectionString))
                     {
                         connection.Open();
 
@@ -117,7 +121,9 @@ namespace MidStateShuttleService.Controllers
                             cmdMessage.Parameters.AddWithValue("@ContactInfo", c.contactInfo);
                         }
                         cmdMessage.ExecuteNonQuery();
-                    }
+                    }*/
+                    MessageServices ms = new MessageServices(_context);
+                    ms.AddEntity(c);
 
                     return RedirectToAction("MessageSent");
                 }
@@ -135,7 +141,10 @@ namespace MidStateShuttleService.Controllers
         //The method which will get the location names from the database
         private IEnumerable<SelectListItem> GetLocationNames()
         {
-            var locations = new List<SelectListItem>();
+            LocationServices ls = new LocationServices(_context);
+            var locations = ls.GetLocationNames();
+
+            /*var locations = new List<SelectListItem>();
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -161,7 +170,7 @@ namespace MidStateShuttleService.Controllers
                     _logger.LogError("Database connection error: ", ex);
                     // Handle exception
                 }
-            }
+            }*/
             return locations;
         }
     }

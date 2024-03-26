@@ -32,7 +32,7 @@
                     <div class="input-fields">
                         <label>Driver</label>
                         <select asp-for="DriverId"
-                                asp-items="ListServices.GetDriverList().Select(x => new SelectListItem{ Text = x.Name, Value = x.DriverId.ToString()})"
+                                asp-items="ViewBag.Drivers"
                                 class="form-control input--style-1" required>
                             <option value="" disabled selected>--Select Driver--</option>
                         </select>

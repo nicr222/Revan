@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using MidStateShuttleService.Models;
+using MidStateShuttleService.Service;
 using System.Data;
 
 namespace MidStateShuttleService.Controllers
@@ -18,11 +19,11 @@ namespace MidStateShuttleService.Controllers
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
         }
-        public DriverController(IConfiguration configuration, ILogger<DriverController> logger)
+        /*public DriverController(IConfiguration configuration, ILogger<DriverController> logger)
         {
             this.connectionString = configuration.GetConnectionString("DefaultConnection");
             _logger = logger;
-        }
+        }*/
 
         // GET: DriverController
         public ActionResult Index()
@@ -58,7 +59,7 @@ namespace MidStateShuttleService.Controllers
                 TempData["SuccessMessage"] = "The driver has been successfully created!";
 
             }
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            /*using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 string sql = "INSERT INTO [Driver] (Name, PhoneNumb, Email, IsActive) VALUES (@Name, @PhoneNumb, @Email, 1)";
                 using (SqlCommand command = new SqlCommand(sql, connection))
@@ -99,7 +100,11 @@ namespace MidStateShuttleService.Controllers
                     connection.Close();
 
                 }
-            }
+            }*/
+
+            DriverServices ds = new DriverServices(_context);
+            ds.AddEntity(driver);
+
             return RedirectToAction("Index", "Dashboard"); // Assuming "Home" is the controller where you want to redirect
         }
         

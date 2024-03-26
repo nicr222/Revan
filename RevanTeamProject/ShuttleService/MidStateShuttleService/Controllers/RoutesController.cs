@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.SqlClient;
 using MidStateShuttleService.Models;
+using MidStateShuttleService.Service;
 using System.Data;
 
 namespace MidStateShuttleService.Controllers
@@ -19,11 +21,11 @@ namespace MidStateShuttleService.Controllers
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
         }
-        public RoutesController(IConfiguration configuration, ILogger<LocationController> logger)
+        /*public RoutesController(IConfiguration configuration, ILogger<LocationController> logger)
         {
             this.connectionString = configuration.GetConnectionString("DefaultConnection");
             _logger = logger;
-        }
+        }*/
 
 
         // GET: RoutesController
@@ -41,6 +43,12 @@ namespace MidStateShuttleService.Controllers
         // GET: RoutesController/Create
         public ActionResult Create()
         {
+            LocationServices ls = new LocationServices(_context);
+            ViewBag.Locations = ls.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.LocationId.ToString() });
+
+            BusServices bs = new BusServices(_context);
+            ViewBag.Buses = bs.GetAllEntities().Select(x => new SelectListItem { Text = "Shuttle: " + x.BusNo, Value = x.BusId.ToString() });
+
             return View();
         }
 
@@ -49,9 +57,9 @@ namespace MidStateShuttleService.Controllers
 [HttpPost]
         public ActionResult Create(Routes route)
         {
-            
 
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
+
+            /*using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 string sql = "INSERT INTO [Routes] (PickUpLocationID, DropOffLocationID, PickUpTime, DropOffTime, AdditionalDetails) VALUES (@PickUpLocationID, @DropOffLocationID, @PickUpTime, @DropOffTime, @AdditionalDetails)";
                 using (SqlCommand command = new SqlCommand(sql, connection))
@@ -104,7 +112,10 @@ namespace MidStateShuttleService.Controllers
                     command.ExecuteNonQuery();
                     connection.Close();
                 }
-            }
+            }*/
+
+            RouteServices rs = new RouteServices(_context);
+            rs.AddEntity(route);
 
             return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
         }

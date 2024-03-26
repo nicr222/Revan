@@ -1,7 +1,7 @@
 ﻿using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
 
-namespace MidStateShuttleService.Services
+namespace MidStateShuttleService.Service
 {
     public class FeedbackServices : BaseDbServices<Feedback>
     {

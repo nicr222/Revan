@@ -23,6 +23,7 @@ namespace MidStateShuttleService.Service
         public IEnumerable<Location> GetLocationList()
         {
             List<Location> locationList = new List<Location>();
+            
 
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {

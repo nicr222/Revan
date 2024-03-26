@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using MidStateShuttleService.Models;
+using MidStateShuttleService.Service;
 using System.Data;
 
 namespace MidStateShuttleService.Controllers
@@ -18,11 +20,11 @@ namespace MidStateShuttleService.Controllers
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
         }
-        public ShuttlesController(IConfiguration configuration, ILogger<DriverController> logger)
+        /*public ShuttlesController(IConfiguration configuration, ILogger<DriverController> logger)
         {
             this.connectionString = configuration.GetConnectionString("DefaultConnection");
             _logger = logger;
-        }
+        }*/
         // GET: ShuttlesController
         public ActionResult Index()
         {
@@ -38,6 +40,9 @@ namespace MidStateShuttleService.Controllers
         // GET: ShuttlesController/Create
         public ActionResult Create()
         {
+            DriverServices ds = new DriverServices(_context);
+            ViewBag.Drivers = ds.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.DriverId.ToString() });
+
             return View();
         }
 
@@ -55,7 +60,7 @@ namespace MidStateShuttleService.Controllers
                 TempData["SuccessMessage"] = "The bus has been successfully created!";
             }
 
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            /*using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 string sql = "INSERT INTO [Bus] (BusNo, PassengerCapacity, DriverID) VALUES (@BusNo, @PassengerCapacity, @DriverID)";
                 using (SqlCommand command = new SqlCommand(sql, connection))
@@ -94,7 +99,10 @@ namespace MidStateShuttleService.Controllers
                     command.ExecuteNonQuery();
                     connection.Close();
                 }
-            }
+            }*/
+
+            BusServices bs = new BusServices(_context);
+            bs.AddEntity(bus);
 
             return RedirectToAction("Index", "Dashboard");
 
