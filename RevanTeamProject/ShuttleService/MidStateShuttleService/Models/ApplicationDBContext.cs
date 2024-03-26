@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace MidStateShuttleService.Models;
@@ -43,6 +44,7 @@ public partial class ApplicationDbContext : DbContext
             entity.HasKey(b => b.BusId);
 
             entity.Property(b => b.BusId)
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             entity.Property(b => b.BusNo)
@@ -71,6 +73,7 @@ public partial class ApplicationDbContext : DbContext
             entity.HasKey(e => e.DriverId);
 
             entity.Property(e => e.DriverId)
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             entity.Property(e => e.Name)
@@ -98,6 +101,7 @@ public partial class ApplicationDbContext : DbContext
             entity.HasKey(e => e.LocationId);
 
             entity.Property(e => e.LocationId)
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             entity.Property(e => e.Name)
@@ -120,7 +124,8 @@ public partial class ApplicationDbContext : DbContext
 
             entity.Property(e => e.State)
                 .IsRequired()
-                .HasMaxLength(2);
+                .HasMaxLength(2)
+                .HasDefaultValue("WI");
 
             entity.Property(e => e.ZipCode)
                 .IsRequired()
@@ -138,11 +143,12 @@ public partial class ApplicationDbContext : DbContext
         // Routes Table
         modelBuilder.Entity<Routes>(entity =>
         {
-            entity.ToTable("Route");
+            entity.ToTable("Routes");
 
             entity.HasKey(e => e.RouteID);
 
             entity.Property(e => e.RouteID)
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             entity.Property(e => e.PickUpLocationID)
@@ -152,20 +158,26 @@ public partial class ApplicationDbContext : DbContext
                 .IsRequired();
 
             entity.Property(e => e.PickUpTime)
+                .HasColumnName("PickUpTime") // Match column name in SQL
                 .IsRequired()
+                .HasColumnType("TIME")
+                .HasAnnotation("SqlDbType", SqlDbType.Time) // Map to SqlDbType for database specific type
                 .HasAnnotation("DataType", "Time")
                 .HasAnnotation("RegularExpression", "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")
                 .HasAnnotation("ErrorMessage", "Please enter a valid time.");
 
             entity.Property(e => e.DropOffTime)
+                .HasColumnName("DropOffTime") // Match column name in SQL
                 .IsRequired()
+                .HasColumnType("TIME")
+                .HasAnnotation("SqlDbType", SqlDbType.Time) // Map to SqlDbType for database specific type
                 .HasAnnotation("DataType", "Time")
                 .HasAnnotation("RegularExpression", "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")
                 .HasAnnotation("DisplayFormat", "{0:hh\\:mm tt}")
                 .HasAnnotation("ErrorMessage", "Please enter a valid time.");
 
             entity.Property(e => e.AdditionalDetails)
-                .HasMaxLength(500)
+                .HasMaxLength(300)
                 .HasAnnotation("RegularExpression", "^[a-zA-Z0-9.,!?'\";:@#$%^&*()_+=\\-\\/]*$")
                 .HasAnnotation("ErrorMessage", "Additional details can only contain letters, numbers, and important special characters.");
 
@@ -196,6 +208,7 @@ public partial class ApplicationDbContext : DbContext
             entity.HasKey(e => e.CheckInId);
 
             entity.Property(e => e.CheckInId)
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             entity.Property(e => e.BusId)
@@ -237,6 +250,7 @@ public partial class ApplicationDbContext : DbContext
             entity.HasKey(e => e.FeedbackId);
 
             entity.Property(e => e.FeedbackId)
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             entity.Property(e => e.Comment)
@@ -260,6 +274,7 @@ public partial class ApplicationDbContext : DbContext
 
             entity.Property(e => e.id)
                 .HasColumnName("MessageId")
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             entity.Property(e => e.name)
@@ -291,6 +306,7 @@ public partial class ApplicationDbContext : DbContext
 
             entity.Property(e => e.id)
                 .HasColumnName("DispatchMessageId")
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             entity.Property(e => e.message)
@@ -332,6 +348,7 @@ public partial class ApplicationDbContext : DbContext
             entity.HasKey(e => e.RegistrationId);
 
             entity.Property(e => e.RegistrationId)
+                .ValueGeneratedOnAdd()
                 .IsRequired();
 
             entity.Property(e => e.FirstName)
