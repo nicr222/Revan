@@ -105,7 +105,6 @@ namespace MidStateShuttleService.Controllers
                         routes.PickUpTime = TimeSpan.Parse(dataReader["PickUpTime"].ToString());
                         routes.DropOffTime = TimeSpan.Parse(dataReader["DropOffTime"].ToString());
                         routes.AdditionalDetails = dataReader["AdditionalDetails"].ToString();
-                        routes.IsArchived = Convert.ToBoolean(dataReader["IsArchived"]);
 
                         routeList.Add(routes);
                     }
@@ -140,7 +139,6 @@ namespace MidStateShuttleService.Controllers
                         driver.Name = dataReader["Name"].ToString();
                         driver.PhoneNumber = dataReader["PhoneNumb"].ToString();
                         driver.Email = dataReader["Email"].ToString();
-                        driver.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
 
                         drivers.Add(driver);
                     }

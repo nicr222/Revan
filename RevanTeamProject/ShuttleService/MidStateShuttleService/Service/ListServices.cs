@@ -76,8 +76,7 @@ namespace MidStateShuttleService.Service
                         DropOffLocationID = Convert.ToInt32(row["DropOffLocationID"]),
                         PickUpTime = TimeSpan.Parse(row["PickUpTime"].ToString()),
                         DropOffTime = TimeSpan.Parse(row["DropOffTime"].ToString()),
-                        AdditionalDetails = row["AdditionalDetails"].ToString(),
-                        IsArchived = Convert.ToBoolean(row["IsArchived"])
+                        AdditionalDetails = row["AdditionalDetails"].ToString()
                     });
                 }
             }
@@ -107,8 +106,7 @@ namespace MidStateShuttleService.Service
                         BusNo = Convert.ToInt32(row["BusNumber"]),
                         PassengerCapacity = Convert.ToInt32(row["PassengerCapacity"]),
                         DriverId = Convert.ToInt32(row["DriverID"]),
-                        CurrentRouteId = Convert.ToInt32(row["CurrentRouteID"]),
-                        IsActive = Convert.ToBoolean(row["IsActive"]),
+                        IsActive = Convert.ToBoolean(row["IsActive"])
 
                     });
                 }
@@ -138,8 +136,7 @@ namespace MidStateShuttleService.Service
                         DriverId = Convert.ToInt32(row["DriverID"]),
                         Name = row["Name"].ToString(),
                         PhoneNumber = row["PhoneNumb"].ToString(),
-                        Email = row["Email"].ToString(),
-                        IsActive = Convert.ToBoolean(row["IsActive"])
+                        Email = row["Email"].ToString()
                     });
                 }
             }

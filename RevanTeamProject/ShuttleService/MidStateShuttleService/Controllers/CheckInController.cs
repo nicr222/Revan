@@ -40,12 +40,12 @@ namespace MidStateShuttleService.Controllers
 
             //Need to find current route
             RouteServices rs = new RouteServices(_context);
-            if (checkIn.Bus.CurrentRouteId != null)
-            {
-                var routeResult = rs.GetEntityById((int)checkIn.Bus.CurrentRouteId);
-                checkIn.Route = routeResult;
-                checkIn.RouteId = checkIn.Route.RouteID;
-            }
+            //if (checkIn.Bus.CurrentRouteId != null)
+           // {
+             //   var routeResult = rs.GetEntityById((int)checkIn.Bus.CurrentRouteId);
+             //   checkIn.Route = routeResult;
+            //    checkIn.RouteId = checkIn.Route.RouteID;
+           // }
 
 
             //date
