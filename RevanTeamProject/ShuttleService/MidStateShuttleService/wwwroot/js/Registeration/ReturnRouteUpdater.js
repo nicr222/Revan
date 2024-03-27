@@ -8,7 +8,7 @@ $(document).ready(function () {
         // Check if both pick-up and drop-off locations are selected.
         if (returnPickUpLocationId && returnDropOffLocationId) {
             // Perform a fetch request to get routes based on selected locations
-            fetch('/Register/ReturnGetRoutes?returnpickUpLocationId=' + returnPickUpLocationId + '&returndropOffLocationId=' + returnDropOffLocationId)
+            fetch('/Register/GetRoutes?pickUpLocationId=' + returnPickUpLocationId + '&dropOffLocationId=' + returnDropOffLocationId)
                 .then(response => {
                     // Check if the response is ok (status in the range 200-299).
                     if (!response.ok) {

@@ -26,5 +26,10 @@ namespace MidStateShuttleService.Service
 
             return locations;
         }
+
+        public string getLocationNameById(int id)
+        {
+            return GetEntityById(id).Name;
+        }
     }
 }

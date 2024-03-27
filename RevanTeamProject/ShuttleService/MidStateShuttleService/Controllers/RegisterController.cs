@@ -23,20 +23,22 @@ namespace MidStateShuttleService.Controllers
         private readonly ILogger<RegisterController> _logger;
 
         // Inject ApplicationDbContext into the controller constructor
-        /*public RegisterController(ApplicationDbContext context)
+        public RegisterController(ApplicationDbContext context)
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
-        }*/
-        public RegisterController(ILogger<RegisterController> logger, IConfiguration configuration)
+        }
+        /*public RegisterController(ILogger<RegisterController> logger, IConfiguration configuration)
         {
             this.connectionString = configuration.GetConnectionString("DefaultConnection");
             _logger = logger;
-        }
+        }*/
 
         public IActionResult Index()
         {
+            LocationServices ls = new LocationServices(_context);
+
             var model = new RegisterModel();
-            model.LocationNames = GetLocationNames();
+            model.LocationNames = ls.GetLocationNames();
             return View(model);
         }
 
@@ -54,8 +56,10 @@ namespace MidStateShuttleService.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+            LocationServices ls = new LocationServices(_context);
+
             var model = new RegisterModel();
-            model.LocationNames = GetLocationNames();
+            model.LocationNames = ls.GetLocationNames();
             return View("Index", model);
         }
 
@@ -63,13 +67,15 @@ namespace MidStateShuttleService.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
+            LocationServices ls = new LocationServices(_context);
+            RegisterServices rs = new RegisterServices(_context);
 
             // Repopulate LocationNames for the model in case of return to View due to invalid model state or any error.
-            model.LocationNames = GetLocationNames();
+            model.LocationNames = ls.GetLocationNames();
 
             if (ModelState.IsValid)
             {
-                using (var connection = new SqlConnection(connectionString))
+                /*using (var connection = new SqlConnection(connectionString))
                 {
                     connection.Open(); // Open connection once for all operations
 
@@ -305,7 +311,9 @@ namespace MidStateShuttleService.Controllers
                         }
                     }
 
-                }
+                }*/
+
+                rs.AddEntity(model);
             }
 
             //model.LocationNames = GetLocationNames();
@@ -410,9 +418,24 @@ namespace MidStateShuttleService.Controllers
         [HttpGet]
         public ActionResult GetRoutes(int pickUpLocationId, int dropOffLocationId)
         {
-            var routesList = new List<object>(); // List to hold the route options
+            RouteServices rs = new RouteServices(_context);
+            var routesList = rs.GetRoutesByLocations(pickUpLocationId, dropOffLocationId); // List to hold the route options
+            LocationServices ls = new LocationServices(_context);
 
-            using (var connection = new SqlConnection(connectionString))
+            var formattedRoutesList = new List<object>();
+            foreach( var r in routesList)
+            {
+                if (r.AdditionalDetails != null)
+                    formattedRoutesList.Add(new {
+                        RouteID = r.RouteID,
+                        Detail = $"Leave {ls.getLocationNameById(r.PickUpLocationID)} at {r.PickUpTime} ({r.AdditionalDetails}), Arrive at {ls.getLocationNameById(r.DropOffLocationID)} at {r.DropOffTime}" });
+                else
+                    formattedRoutesList.Add(new {
+                        RouteID = r.RouteID,
+                        Detail = $"Leave {ls.getLocationNameById(r.PickUpLocationID)} at {r.PickUpTime}, Arrive at {ls.getLocationNameById(r.DropOffLocationID)} at {r.DropOffTime}"
+                    });
+            }
+            /*using (var connection = new SqlConnection(connectionString))
             {
                 try
                 {
@@ -466,13 +489,13 @@ namespace MidStateShuttleService.Controllers
                     // Handle exception appropriately
                     return Json(new { error = "Error loading routes. Please try again." });
                 }
-            }
+            }*/
 
-            return Json(routesList);
+            return Json(formattedRoutesList);
         }
 
         //retrieves route options based on selected pick-up and drop-off locations from a database and returns them as JSON.
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult ReturnGetRoutes(int returnpickUpLocationId, int returndropOffLocationId)
         {
             var routesList = new List<object>(); // List to hold the route options
@@ -534,7 +557,7 @@ namespace MidStateShuttleService.Controllers
             }
 
             return Json(routesList);
-        }
+        }*/
     }
 }
 
