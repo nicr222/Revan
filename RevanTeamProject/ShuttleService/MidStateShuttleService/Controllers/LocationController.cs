@@ -9,7 +9,6 @@ namespace MidStateShuttleService.Controllers
 {
     public class LocationController : Controller
     {
-        private readonly string connectionString;
         private readonly ILogger<LocationController> _logger;
 
         private readonly ApplicationDbContext _context;
@@ -19,12 +18,6 @@ namespace MidStateShuttleService.Controllers
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
         }
-
-        /*public LocationController(IConfiguration configuration, ILogger<LocationController> logger)
-        {
-            this.connectionString = configuration.GetConnectionString("DefaultConnection");
-            _logger = logger;
-        }*/
 
         // GET: LocationController
         public ActionResult Index()
@@ -53,74 +46,6 @@ namespace MidStateShuttleService.Controllers
                 TempData["SuccessMessage"] = "The location has been successfully created!";
 
             }
-            /*using (SqlConnection connection = new SqlConnection(this.connectionString))
-            {
-                string sql = "INSERT INTO [Location] (Name, Address, City, State, ZipCode, Abbreviation) VALUES (@Name, @Address, @City, @State, @ZipCode, @Abbreviation)";
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    command.CommandType = CommandType.Text;
-
-                    // Adding parameters
-                    SqlParameter parameter = new SqlParameter
-                    {
-                        ParameterName = "@Name",
-                        Value = location.Name,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 100
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@Address",
-                        Value = location.Address,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 255
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@City",
-                        Value = location.City,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 100
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@State",
-                        Value = location.State,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 2
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@ZipCode",
-                        Value = location.ZipCode,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 10
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@Abbreviation",
-                        Value = location.Abbreviation,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 5
-                    };
-                    command.Parameters.Add(parameter);
-
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    connection.Close();
-
-                }
-            }*/
 
             LocationServices ls = new LocationServices(_context);
             ls.AddEntity(location);

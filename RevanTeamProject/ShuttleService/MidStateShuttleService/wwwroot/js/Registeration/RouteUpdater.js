@@ -106,7 +106,7 @@ $(document).ready(function () {
                     var routeInfoHtml = '<p class="route-info">If these routes do not meet your needs, please submit a special request.</p>';
 
                     routes.forEach(function (route) {
-                        routeOptionsHtml += '<label><input type="radio" name="SelectedRouteDetail" value="' + route.detail + '">' +
+                        routeOptionsHtml += '<label><input asp-for="RouteID" type="radio" name="SelectedRouteDetail" value="' + route.RouteID + '">' +
                             '<span>' + route.detail + '</span></label><br>';
                     });
 

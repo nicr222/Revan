@@ -9,8 +9,6 @@ namespace MidStateShuttleService.Controllers
 {
     public class CommunicateController : Controller
     {
-        private readonly string connectionString;
-
         private readonly ILogger<CommunicateController> _logger;
 
         private readonly ApplicationDbContext _context;
@@ -20,11 +18,6 @@ namespace MidStateShuttleService.Controllers
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
         }
-        /*public CommunicateController(ILogger<CommunicateController> logger, IConfiguration configuration)
-        {
-            this.connectionString = configuration.GetConnectionString("DefaultConnection");
-            _logger = logger;
-        }*/
 
         [HttpGet]
         public IActionResult Index()
@@ -45,24 +38,6 @@ namespace MidStateShuttleService.Controllers
             {
                 try
                 {
-                    // Retrieve passed in list of students from the database.
-
-                    // Send the message to each person registered to the route.
-
-                    // Save message to database -- commented out until Driver table is set up
-                    /*using (SqlConnection connection = new SqlConnection(connectionString))
-                    {
-                        connection.Open();
-
-                        string sendMessageQuery = "INSERT INTO [dbo].[Message] (Message, BusRiderId, DriverId) VALUES (@Message, @BusRiderId, @DriverId); SELECT SCOPE_IDENTITY();";
-                        SqlCommand cmdMessage = new SqlCommand(sendMessageQuery, connection);
-
-                        cmdMessage.Parameters.AddWithValue("@Message", c.message);
-                        cmdMessage.Parameters.AddWithValue("@BusRiderId", );
-                        cmdMessage.Parameters.AddWithValue("@DriverId", );
-                        cmdMessage.ExecuteNonQuery();
-                    }*/
-
                     CommunicationServices cs = new CommunicationServices(_context);
                     cs.AddEntity(c);
 
@@ -102,26 +77,6 @@ namespace MidStateShuttleService.Controllers
             {
                 try
                 {
-                    /*using (SqlConnection connection = new SqlConnection(connectionString))
-                    {
-                        connection.Open();
-
-                        string sendMessageQuery = "INSERT INTO [dbo].[DispatchMessage] (Message, Name, ResponseRequired, ContactInfo) VALUES (@Message, @Name, @ResponseRequired, @ContactInfo); SELECT SCOPE_IDENTITY();";
-                        SqlCommand cmdMessage = new SqlCommand(sendMessageQuery, connection);
-
-                        cmdMessage.Parameters.AddWithValue("@Message", c.message);
-                        cmdMessage.Parameters.AddWithValue("@Name", c.name);
-                        cmdMessage.Parameters.AddWithValue("@ResponseRequired", c.responseRequired);
-                        if (c.responseRequired == false)
-                        {
-                            cmdMessage.Parameters.AddWithValue("@ContactInfo", "null");
-                        }
-                        else
-                        {
-                            cmdMessage.Parameters.AddWithValue("@ContactInfo", c.contactInfo);
-                        }
-                        cmdMessage.ExecuteNonQuery();
-                    }*/
                     MessageServices ms = new MessageServices(_context);
                     ms.AddEntity(c);
 
@@ -144,33 +99,6 @@ namespace MidStateShuttleService.Controllers
             LocationServices ls = new LocationServices(_context);
             var locations = ls.GetLocationNames();
 
-            /*var locations = new List<SelectListItem>();
-
-            using (var connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    var command = new SqlCommand("SELECT LocationID, Name FROM Location", connection);
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            locations.Add(new SelectListItem
-                            {
-                                Value = reader["LocationID"].ToString(),
-                                Text = reader["Name"].ToString()
-                            });
-                        }
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    _logger.LogError("Database connection error: ", ex);
-                    // Handle exception
-                }
-            }*/
             return locations;
         }
     }

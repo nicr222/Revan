@@ -11,7 +11,6 @@ namespace MidStateShuttleService.Controllers
 {
     public class RoutesController : Controller
     {
-        private readonly string connectionString;
         private readonly ILogger<LocationController> _logger;
 
         private readonly ApplicationDbContext _context;
@@ -21,12 +20,6 @@ namespace MidStateShuttleService.Controllers
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
         }
-        /*public RoutesController(IConfiguration configuration, ILogger<LocationController> logger)
-        {
-            this.connectionString = configuration.GetConnectionString("DefaultConnection");
-            _logger = logger;
-        }*/
-
 
         // GET: RoutesController
         public ActionResult Index()
@@ -57,63 +50,6 @@ namespace MidStateShuttleService.Controllers
 [HttpPost]
         public ActionResult Create(Routes route)
         {
-
-
-            /*using (SqlConnection connection = new SqlConnection(this.connectionString))
-            {
-                string sql = "INSERT INTO [Routes] (PickUpLocationID, DropOffLocationID, PickUpTime, DropOffTime, AdditionalDetails) VALUES (@PickUpLocationID, @DropOffLocationID, @PickUpTime, @DropOffTime, @AdditionalDetails)";
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    command.CommandType = CommandType.Text;
-
-                    // Adding parameters
-                    SqlParameter parameter = new SqlParameter
-                    {
-                        ParameterName = "@PickUpLocationID",
-                        Value = route.PickUpLocationID,
-                        SqlDbType = SqlDbType.Int
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@DropOffLocationID",
-                        Value = route.DropOffLocationID,
-                        SqlDbType = SqlDbType.Int
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@PickUpTime",
-                        Value = route.PickUpTime,
-                        SqlDbType = SqlDbType.Time
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@DropOffTime",
-                        Value = route.DropOffTime,
-                        SqlDbType = SqlDbType.Time
-                    };
-                    command.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter
-                    {
-                        ParameterName = "@AdditionalDetails",
-                        Value = (object)route.AdditionalDetails ?? DBNull.Value,
-                        SqlDbType = SqlDbType.NVarChar,
-                        Size = 255 // You can adjust the size based on your requirements
-                    };
-                    command.Parameters.Add(parameter);
-
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    connection.Close();
-                }
-            }*/
-
             RouteServices rs = new RouteServices(_context);
             rs.AddEntity(route);
 
