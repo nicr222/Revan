@@ -35,7 +35,7 @@
         isValidForm &= validateInput($('#ZipCode'), /^[0-9]{5}(-[0-9]{4})?$/, 'ZipCode-validation-message');
 
         // Validate Abbreviation
-        isValidForm &= validateInput($('#Abbreviation'), /^[A-Za-z]{3}$/, 'Abbreviation-validation-message');
+        isValidForm &= validateInput($('#Abbreviation'), /^[A-Za-z]{2}$/, 'Abbreviation-validation-message');
 
         return isValidForm;
     }
