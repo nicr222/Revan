@@ -14,9 +14,10 @@ namespace MidStateShuttleService.Controllers
         private readonly ApplicationDbContext _context;
 
         // Inject ApplicationDbContext into the controller constructor
-        public CommunicateController(ApplicationDbContext context)
+        public CommunicateController(ApplicationDbContext context, ILogger<CommunicateController> logger)
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _logger = logger; // Assign the injected ILogger to the _logger field
         }
 
         [HttpGet]

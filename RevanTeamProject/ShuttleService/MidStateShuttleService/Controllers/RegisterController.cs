@@ -18,13 +18,12 @@ namespace MidStateShuttleService.Controllers
     public class RegisterController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         private readonly ILogger<RegisterController> _logger;
 
-        // Inject ApplicationDbContext into the controller constructor
-        public RegisterController(ApplicationDbContext context)
+        public RegisterController(ApplicationDbContext context, ILogger<RegisterController> logger)
         {
-            _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _context = context;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -309,13 +308,23 @@ namespace MidStateShuttleService.Controllers
 
 
 
-                if (rs.AddEntity(model))
+                try
                 {
-                    TempData["RegistrationSuccess"] = true;
-                    return RedirectToAction("Index");
-                } else
+                    if (rs.AddEntity(model))
+                    {
+                        TempData["RegistrationSuccess"] = true;
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                    }
+                }
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                    LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                    _logger.LogError(ex, "An error occurred while registering.");
+                    ModelState.AddModelError("", "An unexpected error occurred, please try again.");
                 }
             }
 

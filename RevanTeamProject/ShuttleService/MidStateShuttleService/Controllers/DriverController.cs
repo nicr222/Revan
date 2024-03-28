@@ -13,9 +13,10 @@ namespace MidStateShuttleService.Controllers
         private readonly ApplicationDbContext _context;
 
         // Inject ApplicationDbContext into the controller constructor
-        public DriverController(ApplicationDbContext context)
+        public DriverController(ApplicationDbContext context, ILogger<DriverController> logger)
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _logger = logger; // Assign the injected ILogger to the _logger field
         }
 
         // GET: DriverController
@@ -45,16 +46,22 @@ namespace MidStateShuttleService.Controllers
             {
                 return View(driver);
             }
-            else
-            {
 
+            try
+            {
+                DriverServices ds = new DriverServices(_context);
+                ds.AddEntity(driver);
 
                 TempData["SuccessMessage"] = "The driver has been successfully created!";
-
+                return RedirectToAction("Index", "Dashboard");
             }
-
-            DriverServices ds = new DriverServices(_context);
-            ds.AddEntity(driver);
+            catch (Exception ex)
+            {
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context); // Log SQL exception
+                _logger.LogError(ex, "An error occurred while creating driver.");
+                ModelState.AddModelError("", "An unexpected error occurred, please try again.");
+                return View(driver);
+            }
 
             return RedirectToAction("Index", "Dashboard"); // Assuming "Home" is the controller where you want to redirect
         }
