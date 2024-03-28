@@ -1,4 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace MidStateShuttleService.Models
 {
@@ -6,37 +9,31 @@ namespace MidStateShuttleService.Models
     {
         public static void LogToFile(LogLevel level, string logMessage, IWebHostEnvironment env)
         {
-            bool exists = Directory.Exists(env.WebRootPath + "\\" + "LogFolder");
+            bool exists = Directory.Exists(Path.Combine(env.WebRootPath, "LogFolder"));
             if (!exists)
             {
-                Directory.CreateDirectory(env.WebRootPath + "\\" + "LogFolder");
+                Directory.CreateDirectory(Path.Combine(env.WebRootPath, "LogFolder"));
             }
-                
-            StreamWriter swLog;
-            string logPath = "";
 
-            string FileName = DateTime.Now.ToString("ddMMyyyy") + ".txt";
+            string logPath = Path.Combine(env.WebRootPath, "LogFolder", $"{DateTime.Now:ddMMyyyy}.txt");
 
-            logPath = Path.Combine(env.WebRootPath + "\\" + "LogFolder", FileName);
-
-            if (!File.Exists(logPath))
+            using (StreamWriter swLog = File.AppendText(logPath))
             {
-                swLog = new StreamWriter(logPath);
+                swLog.WriteLine("Log Entry");
+                swLog.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString());
+                swLog.WriteLine("Message Title : {0}", level);
+                swLog.WriteLine("Message : {0}", logMessage);
+                swLog.WriteLine("-------------------------------");
+                swLog.WriteLine("");
             }
-            else
-            {
-                swLog = File.AppendText(logPath);
-            }
+        }
 
-            swLog.WriteLine("Log Entry");
-            swLog.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString());
-            swLog.WriteLine("Message Title : {0}", level);
-            swLog.WriteLine("Message : {0}", logMessage);
-            swLog.WriteLine("-------------------------------");
-            swLog.WriteLine("");
+        public static void LogSqlException(Exception ex, IWebHostEnvironment env)
+        {
+            LogLevel level = LogLevel.Error;
+            string logMessage = "SQL Exception occurred: " + ex.Message;
 
-
-            swLog.Close();
+            LogToFile(level, logMessage, env);
         }
     }
 }
