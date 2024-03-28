@@ -384,16 +384,8 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.NeedTransportation)
                 .HasMaxLength(300);
 
-            entity.Property(e => e.PickUpTime);
-
-            entity.Property(e => e.DropOffTime);
-
             entity.Property(e => e.SpecialRequest)
                 .IsRequired();
-
-            entity.Property(e => e.ArrivalTime);
-
-            entity.Property(e => e.DepartureTime);
 
             entity.Property(e => e.WhichFriday)
                 .HasMaxLength(300);

@@ -49,23 +49,8 @@ namespace MidStateShuttleService.Models
         //[StringLength(300, ErrorMessage = "Need transportation cannot exceed 300 characters")]
         public string? NeedTransportation { get; set; }
 
-        //[Required(ErrorMessage = "Time is required")]
-        public TimeSpan? PickUpTime { get; set; }
-
-        //[Required(ErrorMessage = "Time is required")]
-        public TimeSpan? DropOffTime { get; set; }
-
         //[Required(ErrorMessage = "Special request is required")]
         public bool? SpecialRequest { get; set; } = false; // Assuming this is mandatory for registration
-
-        // New Properties for the Friday request form fields
-        //[Required(ErrorMessage = "Arrival Time is required")]
-        //[DataType(DataType.Time)]
-        public TimeSpan? ArrivalTime { get; set; }
-
-        //[Required(ErrorMessage = "Departure Time is required")]
-        //[DataType(DataType.Time)]
-        public TimeSpan? DepartureTime { get; set; }
 
         //[StringLength(300, ErrorMessage = "Which Friday cannot exceed 300 characters")]
         public string? WhichFriday { get; set; }
