@@ -33,7 +33,7 @@ $(document).ready(function () {
                         routeOptionsHtml +=
                             //'<label><input type="radio" name="ReturnSelectedRouteDetail" value="' + route.routeID + '">' +
                         //'<span>' + route.detail + '</span></label><br>';
-                            '<label><input asp-for="RouteID" type="radio" name="ReturnSelectedRouteDetail" value="' + route.RouteID + '">' +
+                            '<label><input asp-for="RouteID" type="radio" name="ReturnSelectedRouteDetail" value="' + route.routeID + '">' +
                             '<span>' + route.detail + '</span></label><br>';
 
 

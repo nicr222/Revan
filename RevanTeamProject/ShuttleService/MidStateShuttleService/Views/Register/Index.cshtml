@@ -363,8 +363,8 @@
 
                                     <!-- Terms and Conditions Checkbox -->
                                     <div class="checkbox-container">
-                                        <input type="checkbox" id="AgreeTerms" name="AgreeTerms" value="true" />
-                                        <input type="hidden" name="AgreeTerms" value="false" />
+                                        <input asp-for="AgreeTerms" type="checkbox" id="AgreeTerms" name="AgreeTerms" value="true" />
+                                 
                                         <label for="AgreeTerms" class="AgreeTerms">I understand my transportation request will be reviewed but is not guaranteed. I will be required to communicate and confirm my request with the shuttle program before it is scheduled. I also understand I must notify the shuttle program if I need to cancel or change my reservation after it is added to the schedule.</label>
                                     </div>
                                     <div id="OtherAgreeTerms-validation-message" class="validation-message">You must agree to terms</div>

@@ -25,26 +25,66 @@ namespace MidStateShuttleService.Service
             return _dbSet.Find(id);
         }
 
-        public virtual void AddEntity(T entity)
+        public virtual bool AddEntity(T entity)
         {
-            _dbSet.Add(entity);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbSet.Add(entity);
+                _dbContext.SaveChanges();
+                // Log success message
+                Console.WriteLine("Entity added successfully.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine("Error occurred while adding entity: " + ex.Message);
+                return false;
+            }
         }
 
-        public virtual void UpdateEntity(T entity)
+        public virtual bool UpdateEntity(T entity)
         {
-            _dbSet.Update(entity);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbSet.Update(entity);
+                _dbContext.SaveChanges();
+                // Log success message
+                Console.WriteLine("Entity added successfully.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine("Error occurred while adding entity: " + ex.Message);
+                return false;
+            }
         }
 
-        public virtual void DeleteEntity(int id)
+        public virtual bool DeleteEntity(int id)
         {
             var entity = _dbSet.Find(id);
             if (entity != null)
             {
-                _dbSet.Remove(entity);
-                _dbContext.SaveChanges();
+                try
+                {
+                    _dbSet.Remove(entity);
+                    _dbContext.SaveChanges();
+                    // Log success message
+                    Console.WriteLine("Entity added successfully.");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception
+                    Console.WriteLine("Error occurred while adding entity: " + ex.Message);
+                    return false;
+                }
             }
+
+            // Log the exception
+            Console.WriteLine("Entity was not found in DB");
+            return false;
         }
     }
 }

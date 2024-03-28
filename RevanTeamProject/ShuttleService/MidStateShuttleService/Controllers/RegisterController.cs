@@ -307,10 +307,29 @@ namespace MidStateShuttleService.Controllers
 
                 }*/
 
-                rs.AddEntity(model);
+
+
+                if (rs.AddEntity(model))
+                {
+                    TempData["RegistrationSuccess"] = true;
+                    return RedirectToAction("RegisterConfirmation", model);
+                } else
+                {
+                    ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                }
             }
 
             //model.LocationNames = GetLocationNames();
+            return View("Index", model);
+        }
+
+        public ActionResult RegisterConfirmation(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             return View("Index", model);
         }
 
@@ -360,11 +379,11 @@ namespace MidStateShuttleService.Controllers
             {
                 if (r.AdditionalDetails != null)
                     formattedRoutesList.Add(new {
-                        RouteID = r.RouteID,
+                        r.RouteID,
                         Detail = $"Leave {ls.getLocationNameById(r.PickUpLocationID)} at {r.PickUpTime} ({r.AdditionalDetails}), Arrive at {ls.getLocationNameById(r.DropOffLocationID)} at {r.DropOffTime}" });
                 else
                     formattedRoutesList.Add(new {
-                        RouteID = r.RouteID,
+                        r.RouteID,
                         Detail = $"Leave {ls.getLocationNameById(r.PickUpLocationID)} at {r.PickUpTime}, Arrive at {ls.getLocationNameById(r.DropOffLocationID)} at {r.DropOffTime}"
                     });
             }

@@ -77,7 +77,7 @@ namespace MidStateShuttleService.Models
         public string ContactPreference { get; set; }
 
         [Required]
-        public bool? AgreeTerms { get; set; } = false;//  true/false for agreement
+        public bool AgreeTerms { get; set; } = false;//  true/false for agreement
 
         [Required]
         public bool? FridayAgreeTerms { get; set; } = false;//  true/false for agreement

@@ -25,9 +25,9 @@
         // Ensure "Select Pick-Up Location" or "Select Drop-Off Location" is not treated as valid selections
         pickUpLocationName = pickUpLocationName === "Select Pick-Up Location" ? "Not specified" : pickUpLocationName;
         dropOffLocationName = dropOffLocationName === "Select Drop-Off Location" ? "Not specified" : dropOffLocationName;
-
-        var initialRoute = $('input[name="SelectedRouteDetail"]:checked').val();
-        var returnRoute = $('input[name="ReturnSelectedRouteDetail"]:checked').val();
+        
+        var initialRoute = $('input[name="SelectedRouteDetail"]:checked + span').text();
+        var returnRoute = $('input[name="ReturnSelectedRouteDetail"]:checked + span').text();
 
         var selectedDaysOfWeek = [];
         $('input[name="SelectedDaysOfWeek"]:checked').each(function () {
