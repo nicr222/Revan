@@ -47,10 +47,13 @@ namespace MidStateShuttleService.Controllers
 
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
-                string sql = "INSERT INTO [Routes] (PickUpLocationID, DropOffLocationID, PickUpTime, DropOffTime, AdditionalDetails) VALUES (@PickUpLocationID, @DropOffLocationID, @PickUpTime, @DropOffTime, @AdditionalDetails)";
+                string sql = "INSERT INTO [Routes] (PickUpLocationID, DropOffLocationID, PickUpTime, DropOffTime, AdditionalDetails, BusId) VALUES (@PickUpLocationID, @DropOffLocationID, @PickUpTime, @DropOffTime, @AdditionalDetails, @BusId)";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
                     command.CommandType = CommandType.Text;
+
+
+                    
 
                     // Adding parameters
                     SqlParameter parameter = new SqlParameter
@@ -82,6 +85,14 @@ namespace MidStateShuttleService.Controllers
                         ParameterName = "@DropOffTime",
                         Value = route.DropOffTime,
                         SqlDbType = SqlDbType.Time
+                    };
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter
+                    {
+                        ParameterName = "@BusId",
+                        Value = route.BusId,
+                        SqlDbType = SqlDbType.Int
                     };
                     command.Parameters.Add(parameter);
 
