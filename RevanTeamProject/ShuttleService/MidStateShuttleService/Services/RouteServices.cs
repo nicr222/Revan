@@ -13,7 +13,7 @@ namespace MidStateShuttleService.Service
         }
 
         public List<Routes> GetRoutesByLocations(int pickUpId, int dropOffId) {
-            return _dbSet.Where(x => x.PickUpLocationID == pickUpId || x.DropOffLocationID == dropOffId).ToList();
+            return _dbSet.Where(x => x.PickUpLocationID == pickUpId && x.DropOffLocationID == dropOffId).ToList();
         }
     }
 }
