@@ -312,7 +312,7 @@ namespace MidStateShuttleService.Controllers
                 if (rs.AddEntity(model))
                 {
                     TempData["RegistrationSuccess"] = true;
-                    return RedirectToAction("RegisterConfirmation", model);
+                    return RedirectToAction("Index");
                 } else
                 {
                     ModelState.AddModelError("", "There was an error saving the registration, please try again.");
