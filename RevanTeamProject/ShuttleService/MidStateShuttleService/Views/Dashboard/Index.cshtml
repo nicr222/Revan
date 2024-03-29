@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" id="product">
+                <a href="#" id="check">
                     <span class="icon"><i class="bi bi-clipboard2-check"></i></span>
                     <span class="title">Check Ins</span>
                 </a>
@@ -52,7 +52,7 @@
             </li>
 
             <li>
-                <a href="@Url.Action("Index", "Communicate")" id="messages">
+                <a href="@Url.Action("Index", "Communicate")">
                     <span class="icon"><i class="bi bi-send-arrow-down-fill"></i></span>
                     <span class="title">Messages</span>
                 </a>
@@ -130,6 +130,9 @@
         <div class="recentItem route">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/RouteTable.cshtml")
         </div>
+        <div class="recentItem shuttle">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/CheckInTable.cshtml")
+        </div>
         <div class="recentItem location">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/LocationTable.cshtml")
         </div>
@@ -139,9 +142,7 @@
         <div class="recentItem shuttle">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/ShuttleTable.cshtml")
         </div>
-        <div class="recentItem shuttle">
-            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/CheckInTable.cshtml")
-        </div>
+        
         <div class="recentFeedback">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/MessagesTable.cshtml")
         </div>
