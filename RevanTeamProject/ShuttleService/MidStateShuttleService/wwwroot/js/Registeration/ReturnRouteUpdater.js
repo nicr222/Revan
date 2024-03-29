@@ -1,6 +1,7 @@
 ﻿
 $(document).ready(function () {
-    function updateRoutes() {
+        // Define updateRoutes on the window object to make it globally accessible
+        window.updateRoutes = function () {
         // Get the value of the selected pick-up and drop-off location from the dropdown.
         var returnPickUpLocationId = $('#ReturnPickUpLocation').val();
         var returnDropOffLocationId = $('#ReturnDropOffLocation').val();
