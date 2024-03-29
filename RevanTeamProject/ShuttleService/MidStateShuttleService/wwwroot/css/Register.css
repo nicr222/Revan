@@ -442,7 +442,9 @@ input {
     margin-bottom: 10px;
 }
 
-/*Stops Available*/
+/* ==========================================================================
+   Additional stop list styles
+   ========================================================================== */
 .section-title {
     margin-bottom: 20px;
     color: #333;
