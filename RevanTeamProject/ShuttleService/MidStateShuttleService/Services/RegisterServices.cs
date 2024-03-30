@@ -12,7 +12,7 @@ namespace MidStateShuttleService.Service
 
         public List<RegisterModel> GetEmailsByRoute(string pickUpId, string dropOffId)
         {
-            return _dbSet.Where(x => x.SelectedRouteDetail == pickUpId && x.ReturnSelectedRouteDetail == dropOffId).ToList();
+            return _dbSet.Where(x => x.SelectedRouteDetail == pickUpId || x.ReturnSelectedRouteDetail == dropOffId).ToList();
         }
     }
 }
