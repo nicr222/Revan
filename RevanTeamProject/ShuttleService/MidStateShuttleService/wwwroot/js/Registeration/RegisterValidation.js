@@ -145,6 +145,28 @@
                 isValid = validateLocation('#ReturnPickUpLocation', '#ReturnDropOffLocation') && isValid;
             }
 
+            // Validation to ensure at least one return location is different from the initial ones for a RoundTrip
+            if (tripType === 'RoundTrip' && routeOptionSelected) {
+                // Check if initial and return locations are selected
+                var initialPickUpLocation = $('#PickUpLocation').val();
+                var initialDropOffLocation = $('#DropOffLocation').val();
+                var returnPickUpLocation = $('#ReturnPickUpLocation').val();
+                var returnDropOffLocation = $('#ReturnDropOffLocation').val();
+
+                // Validate that at least one return location is not the same as its corresponding initial one
+                // This will pass the validation if either return location is different
+                if (initialPickUpLocation === returnPickUpLocation && initialDropOffLocation === returnDropOffLocation && initialPickUpLocation !== '' && initialDropOffLocation !== '') {
+                    // If both return locations are the same as the initial ones, display validation message
+                    $('#ReturnPickUpLocation-validation-message').text('At least one return location must be different from the initial locations').show();
+                    $('#ReturnDropOffLocation-validation-message').text('At least one return location must be different from the initial locations').show();
+                    isValid = false;
+                } else {
+                    // If the condition is met (at least one location is different), hide the validation messages
+                    $('#ReturnPickUpLocation-validation-message').hide();
+                    $('#ReturnDropOffLocation-validation-message').hide();
+                }
+            }
+
 
             // Validate otherCanLeaveAfter if Other Special Request is Yes and trip type is RoundTrip
             if (isOtherSpecialRequestYes && tripType === 'RoundTrip') {
