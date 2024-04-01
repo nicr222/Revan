@@ -9,11 +9,13 @@ namespace MidStateShuttleService.Controllers
     public class CheckInController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<CheckInController> _logger;
 
         // Inject ApplicationDbContext into the controller constructor
-        public CheckInController(ApplicationDbContext context)
+        public CheckInController(ApplicationDbContext context, ILogger<CheckInController> logger)
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _logger = logger;
         }
 
         // GET: CheckInController/Create

@@ -9,14 +9,14 @@ namespace MidStateShuttleService.Controllers
 {
     public class LocationController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly ILogger<LocationController> _logger;
 
-        private readonly ApplicationDbContext _context;
-
-        // Inject ApplicationDbContext into the controller constructor
-        public LocationController(ApplicationDbContext context)
+        // Inject ApplicationDbContext and ILogger into the controller constructor
+        public LocationController(ApplicationDbContext context, ILogger<LocationController> logger)
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _logger = logger; // Assign the injected ILogger to the _logger field
         }
 
         // GET: LocationController
@@ -39,18 +39,22 @@ namespace MidStateShuttleService.Controllers
             {
                 return View(location);
             }
-            else
-            {
 
+            try
+            {
+                LocationServices ls = new LocationServices(_context);
+                ls.AddEntity(location);
 
                 TempData["SuccessMessage"] = "The location has been successfully created!";
-
+                return RedirectToAction("Index", "Home");
             }
-
-            LocationServices ls = new LocationServices(_context);
-            ls.AddEntity(location);
-
-            return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
+            catch (Exception ex)
+            {
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context); // Log SQL exception
+                _logger.LogError(ex, "An error occurred while creating location.");
+                ModelState.AddModelError("", "An unexpected error occurred, please try again.");
+                return View(location);
+            }
         }
 
 

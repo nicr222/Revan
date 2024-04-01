@@ -10,13 +10,14 @@ namespace MidStateShuttleService.Controllers
 {
     public class ShuttlesController : Controller
     {
-        private readonly ILogger<DriverController> _logger;
+        private readonly ILogger<ShuttlesController> _logger;
         private readonly ApplicationDbContext _context;
 
-        // Inject ApplicationDbContext into the controller constructor
-        public ShuttlesController(ApplicationDbContext context)
+        // Inject ApplicationDbContext and ILogger into the controller constructor
+        public ShuttlesController(ApplicationDbContext context, ILogger<ShuttlesController> logger)
         {
-            _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _context = context;
+            _logger = logger;
         }
 
         // GET: ShuttlesController
@@ -49,16 +50,22 @@ namespace MidStateShuttleService.Controllers
             {
                 return View(bus);
             }
-            else
+
+            try
             {
+                BusServices bs = new BusServices(_context);
+                bs.AddEntity(bus);
+
                 TempData["SuccessMessage"] = "The bus has been successfully created!";
+                return RedirectToAction("Index", "Dashboard");
             }
-
-            BusServices bs = new BusServices(_context);
-            bs.AddEntity(bus);
-
-            return RedirectToAction("Index", "Dashboard");
-
+            catch (Exception ex)
+            {
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while creating the bus.");
+                // You can return a specific view indicating failure or redirect to a generic error page
+                return RedirectToAction("Index", "Dashboard");
+            }
         }
 
         // GET: ShuttlesController/Edit/5
