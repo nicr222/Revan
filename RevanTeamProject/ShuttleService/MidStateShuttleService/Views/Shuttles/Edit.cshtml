@@ -14,6 +14,7 @@
             <div class="form-body">
                 <h2 class="title">Edit Shuttle</h2>
                 <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="BusId" /> <!-- Include hidden field for driver ID -->
 
                     <div class="input-fields">
                         <label>Shuttle Number</label>
@@ -41,7 +42,7 @@
                     </div>
 
                     <div class="p-t-20">
-                        <button type="submit" class="btn btn--radius btn--submit">Create Bus</button>
+                        <button type="submit" class="btn btn--radius btn--submit">Update Shuttle Info</button>
                         <button class="btn btn--radius btn--cancel" type="button" onclick="location.href='yourCancelPage.html'">Cancel</button>
                     </div>
 
