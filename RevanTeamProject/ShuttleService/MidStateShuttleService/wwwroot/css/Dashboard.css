@@ -336,26 +336,7 @@
             border-top: none;
             border-left: none;
         }
-/*
 
-        .notification-item .bi-exclamation-circle::before {
-            width: 13px;
-            height: 13px;
-            border-top: none;
-            border-left: none;
-        }
-*/
-        /*.notification-item .bi-exclamation-circle::before {
-            content: "\f333";
-            width: 13px !important;
-            height: 13px !important;
-            top: 30px !important;*/ /*half the height of the pointer to align it with the dropdown top */
-            /*right: 295px !important;
-            transform: none !important;
-            position: absolute !important;
-            border-top: none !important;
-            border-left: none !important;
-        }*/
 
     .dropdown-menu .notification-item h4 {
             font-size: 16px;
