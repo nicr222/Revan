@@ -43,7 +43,13 @@ namespace MidStateShuttleService.Controllers
 
                     RegisterServices rs = new RegisterServices(_context);
 
-                    var emails = rs.GetEmailsByRoute(c.PickUpLocationID.ToString(), c.DropOffLocationID.ToString());
+                    var registeredStudents = rs.GetEmailsByRoute(c.PickUpLocationID.ToString(), c.DropOffLocationID.ToString());
+
+                    foreach (var student in registeredStudents)
+                    {
+                        // send email
+                            
+                    }
 
                     return RedirectToAction("MessageSent");
                 }
