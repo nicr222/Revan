@@ -122,8 +122,18 @@ namespace MidStateShuttleService.Controllers
         // GET: ShuttlesController/Delete/5
         public ActionResult Delete(int id)
         {
-            
-            return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+            var shuttle = _context.Buses.Find(id);
+
+            if (shuttle == null)
+            {
+                return NotFound(); // Return 404 if shuttle not found
+            }
+
+            shuttle.IsActive = !shuttle.IsActive; // Toggle IsActive value
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful toggle
         }
 
         // POST: ShuttlesController/Delete/5
