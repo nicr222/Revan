@@ -71,21 +71,50 @@ namespace MidStateShuttleService.Controllers
         // GET: ShuttlesController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            // Retrieve the bus from the database based on the id
+            var bus = _context.Buses.Find(id);
+
+            if (bus == null)
+            {
+                return NotFound(); // Return 404 if bus not found
+            }
+
+            // Load drivers for dropdown list
+            DriverServices ds = new DriverServices(_context);
+            ViewBag.Drivers = ds.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.DriverId.ToString() });
+
+            return View(bus);
         }
 
         // POST: ShuttlesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Bus bus)
         {
+            if (id != bus.BusId)
+            {
+                return BadRequest(); // Return bad request if IDs don't match
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(bus); // Return view with errors if model is invalid
+            }
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                _context.Update(bus);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "The bus has been successfully updated!";
+                return RedirectToAction("Index", "Dashboard");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while updating the bus.");
+                // Redirect to error page or handle the error appropriately
+                return RedirectToAction("Index", "Dashboard");
             }
         }
 
