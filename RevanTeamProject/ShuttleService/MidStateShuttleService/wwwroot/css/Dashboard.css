@@ -212,6 +212,53 @@
         object-fit: cover;
     }
 
+.notification-bell {
+    position: relative;
+    margin-left: 60%;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+    .notification-bell .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: #840029;
+        color: white;
+        font-size: 0.7em;
+    }
+
+    .notification-bell i {
+        font-size: 1.5em;
+        color: #840029;
+    }
+
+.notification-message {
+    position: relative;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+    .notification-message .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: #840029;
+        color: white;
+        font-size: 0.7em;
+        font-weight: bold;
+    }
+
+    .notification-message i {
+        font-size: 1.5em;
+        color: #840029;
+    }
+
+
 .cardBox {
     position: relative;
     width: 100%;
