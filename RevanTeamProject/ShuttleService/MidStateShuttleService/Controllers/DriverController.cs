@@ -119,8 +119,31 @@ namespace MidStateShuttleService.Controllers
         // GET: DriverController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                var driver = _context.Drivers.Find(id);
+
+               
+
+                _context.Drivers.Remove(driver);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+            }
+            catch (Exception ex)
+            {
+                // Log the SQL exception and any other exceptions
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while deleting driver.");
+
+                // Optionally add a model error for displaying an error message to the user
+                ModelState.AddModelError("", "An unexpected error occurred while deleting the driver, please try again.");
+
+                // Return the view with an error message
+                return View();
+            }
         }
+
 
         // POST: DriverController/Delete/5
         [HttpPost]
