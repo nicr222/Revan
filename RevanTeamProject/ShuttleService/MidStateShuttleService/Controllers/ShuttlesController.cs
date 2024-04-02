@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
 using System.Data;
@@ -121,7 +122,8 @@ namespace MidStateShuttleService.Controllers
         // GET: ShuttlesController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            
+            return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
         }
 
         // POST: ShuttlesController/Delete/5
