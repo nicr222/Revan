@@ -41,6 +41,10 @@ namespace MidStateShuttleService.Controllers
                     CommunicationServices cs = new CommunicationServices(_context);
                     cs.AddEntity(c);
 
+                    RegisterServices rs = new RegisterServices(_context);
+
+                    var emails = rs.GetEmailsByRoute(c.PickUpLocationID.ToString(), c.DropOffLocationID.ToString());
+
                     return RedirectToAction("MessageSent");
                 }
                 catch (Exception ex)
