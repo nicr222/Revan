@@ -1,0 +1,52 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<MidStateShuttleService.Models.RegisterModel> // Assuming RegisterModel is used for registrations
+@{
+    ViewData["Title"] = "Passenger List";
+    <link rel="stylesheet" href="~/css/Dashboard.css" />
+}
+<div class="details">
+    <div class="recentItem">
+        <div class="cardHeader">
+            <h2>Passenger List</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Passenger Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>First Day Expected to Ride</th>
+
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || Model.Count == 0)
+                {
+                    <tr><td colspan="8" class="text-center">There are currently no registrations</td></tr>
+                }
+                else
+                {
+                    @foreach (var registration in Model)
+                    {
+                        <tr>
+                            <td>@(registration.FirstName) @(registration.LastName)</td>
+                            <td>@registration.PhoneNumber</td>
+                            <td>@registration.Email</td>
+                            <td>@registration.FirstDayExpectingToRide</td>
+                            <td><a asp-controller="Routes" asp-action="Edit" asp-route-id="@registration.RouteID">Edit</a></td>
+                            <td><a asp-controller="Routes" asp-action="Delete" asp-route-id="@registration.RouteID">Delete</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

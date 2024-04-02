@@ -41,5 +41,21 @@ namespace MidStateShuttleService.Controllers
             return View(allModels);
 
         }
+
+        public ActionResult PassengerList(int id)
+        {
+            var route = _context.Routes.FirstOrDefault(r => r.RouteID == id);
+
+            if (route == null)
+            {
+                return NotFound(); // Handle the case where the route is not found
+            }
+
+            // Fetch passengers related to this route
+            var passengers = _context.RegisterModels.Where(p => p.RouteID == id).ToList();
+
+            // Pass the passengers list to the view
+            return View();
+        }
     }
 }
