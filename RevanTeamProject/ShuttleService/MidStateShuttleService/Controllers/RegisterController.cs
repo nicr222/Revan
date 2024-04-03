@@ -1,17 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using MidStateShuttleService.Models;
 using MidStateShuttleService.Models;
 using System.Diagnostics;
-using System.Net.Mail;
-using System.Net;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 using MidStateShuttleService.Service;
-using System.Data;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -71,7 +61,17 @@ namespace MidStateShuttleService.Controllers
             {
                 if (rs.AddEntity(model))
                 {
+                    // Increment the registration count in the session
+                    int registrationCount = HttpContext.Session.GetInt32("RegistrationCount") ?? 0;
+                    registrationCount++;
+
+                    HttpContext.Session.SetString("RegistrationSuccess", "true"); // Using session to set registration success.
+                    HttpContext.Session.SetInt32("RegistrationCount", registrationCount); 
+
                     TempData["RegistrationSuccess"] = true;
+
+                    Debug.WriteLine(TempData["RegistrationSuccess"]);
+
                     return RedirectToAction("Index");
                 } else
                 {
