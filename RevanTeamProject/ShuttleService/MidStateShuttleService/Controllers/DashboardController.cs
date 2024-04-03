@@ -5,6 +5,7 @@ using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
 using MidStateShuttleService.Service;
 using System.Data;
+using System.Diagnostics;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -14,9 +15,10 @@ namespace MidStateShuttleService.Controllers
         private readonly ApplicationDbContext _context;
 
         // Inject ApplicationDbContext into the controller constructor
-        public DashboardController(ApplicationDbContext context)
+        public DashboardController(ApplicationDbContext context, ILogger<DashboardController> logger)
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -37,6 +39,17 @@ namespace MidStateShuttleService.Controllers
 
             BusServices bs = new BusServices(_context);
             allModels.Bus = bs.GetAllEntities();
+
+            //ViewData["RegistrationSuccess"] = TempData["RegistrationSuccess"];
+
+            // Retrieve the registration success flag and count from the session
+            var registrationSuccess = HttpContext.Session.GetString("RegistrationSuccess") == "true";
+            int registrationCountFromSession = HttpContext.Session.GetInt32("RegistrationCount") ?? 0;
+
+            // You can now use registrationSuccess and registrationCountFromSession as needed
+            // For instance, passing them to the view via ViewData or ViewBag, if your view logic depends on these values
+            ViewData["RegistrationSuccess"] = registrationSuccess;
+            ViewData["RegistrationCount"] = registrationCountFromSession;
 
             return View(allModels);
 
