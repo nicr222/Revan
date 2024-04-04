@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Edit Route";
+}
+
+@inject MidStateShuttleService.Service.IListService ListServices
+@model MidStateShuttleService.Models.Routes
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/routes.css" />
+
+<body>
+    <div class="wrapper wrapper--w680 mt-5">
+        <div class="form form-1">
+            <div class="form-body">
+                <h2 class="title">Edit Route</h2>
+                <form asp-action="Edit" method="post">
+
+                    <div class="input-fields">
+                        <label>Pick Up Location</label>
+                        <select asp-for="PickUpLocationID"
+                                asp-items="ViewBag.Locations"
+                                class="form-control input--style-1" required>
+                            <option selected="selected" value="" required>--Select--</option>
+                        </select>
+                        <div class="div-line"></div>
+                        <div id="PickUpLocationID-validation-message" class="validation-message">Please select a pick-up location.</div>
+                    </div>
+
+                    <div class="input-fields">
+                        <label>Drop Off Location</label>
+                        <select asp-for="DropOffLocationID"
+                                asp-items="ViewBag.Locations"
+                                class="form-control input--style-1" required>
+                            <option selected="selected" value="" required>--Select--</option>
+                        </select>
+                        <div class="div-line"></div>
+                        <div id="DropOffLocationID-validation-message" class="validation-message">Please select a drop-off location.</div>
+                    </div>
+
+                    <div class="input-fields">
+                        <label>Pick Up Time</label>
+                        <input asp-for="PickUpTime" type="time" class="form-control input--style-1" required />
+                        <div class="div-line"></div>
+                        <div id="PickUpTime-validation-message" class="validation-message">Please enter a valid pick-up time.</div>
+                    </div>
+
+                    <div class="input-fields">
+                        <label>Drop Off Time</label>
+                        <input asp-for="DropOffTime" type="time" class="form-control input--style-1" required />
+                        <div class="div-line"></div>
+                        <div id="DropOffTime-validation-message" class="validation-message">Please enter a valid drop-off time.</div>
+                    </div>
+
+                    <div class="input-fields">
+                        <label>Assigned Shuttle</label>
+                        <select asp-for="BusId"
+                                asp-items="ViewBag.Buses"
+                                class="form-control input--style-1" required>
+                            <option selected="selected" value="" required>--Select--</option>
+                        </select>
+                        <div class="div-line"></div>
+                        <div id="BusId-validation-message" class="validation-message">Please select a Shuttle.</div>
+                    </div>
+
+                    <div class="input-fields">
+                        <label>Additional Details</label>
+                        <textarea asp-for="AdditionalDetails" class="form-control input--style-1" placeholder="Enter additional details"></textarea>
+                        <div class="div-line"></div>
+                        <div id="AdditionalDetails-validation-message" class="validation-message">Please enter valid additional details.</div>
+                    </div>
+
+                    <div class="p-t-20">
+                        <button type="submit" class="btn btn--radius btn--submit">Create Route</button>
+                        <button class="btn btn--radius btn--cancel" type="button" onclick="location.href='yourCancelPage.html'">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/Routes.js"></script>
+</body>
