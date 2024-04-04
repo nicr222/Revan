@@ -83,55 +83,26 @@
         <div class="icons-container">
             <div class="notification-container">
 
-                <div class="notification-bell" onclick="toggleNotifications('notificationBellDropdown')">
-                    <span class="badge">3</span>
+                <div class="notification-bell" onclick="toggleNotifications('notificationBellDropdown')"
+                     data-registration-count="@ViewData["RegistrationCount"].ToString()"
+                     data-check-in-count="@ViewData["CheckInCount"]">
+                    <span class="badge"></span>
                     <i class="bi bi-bell"></i>
                 </div>
                 <div class="dropdown-menu notifications dropdown-menu-arrow" id="notificationBellDropdown" style="display: none;">
-                    <!-- Notifications go here -->
-                    <div class="notification-item">
-                        <i class="bi bi-exclamation-circle text-warning"></i>
-                        <div>
-                            <h4>Lorem Ipsum</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>30 min. ago</p>
-                        </div>
-                    </div>
-                    <div class="notification-item">
-                        <i class="bi bi-exclamation-circle text-warning"></i>
-                        <div>
-                            <h4>Lorem Ipsum</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>30 min. ago</p>
-                        </div>
-                    </div>
-                    <!-- Add more notifications as needed -->
+                     <!-- Notifications go here -->
                 </div>
             </div>
             <div class="notification-container">
-                <div class="notification-message" onclick="toggleNotifications('notificationMessageDropdown')">
-                    <span class="badge">3</span>
+                <div class="notification-message" onclick="toggleNotifications('notificationMessageDropdown')"
+                     data-message-count="@ViewData["MessageCount"]"
+                     data-last-message="@ViewData["LastMessage"]">
+                    <span class="badge">@ViewData["MessageCount"].ToString()</span>
                     <i class="bi bi-chat-left-text"></i>
                 </div>
+
                 <div class="dropdown-menu notifications dropdown-menu-arrow" id="notificationMessageDropdown" style="display: none;">
                     <!-- Notifications go here -->
-                    <div class="notification-item">
-                        <i class="bi bi-exclamation-circle text-warning"></i>
-                        <div>
-                            <h4>Lorem Ipsum</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>30 min. ago</p>
-                        </div>
-                    </div>
-                    <div class="notification-item">
-                        <i class="bi bi-exclamation-circle text-warning"></i>
-                        <div>
-                            <h4>Lorem Ipsum</h4>
-                            <p>Quae dolorem earum veritatis oditseno</p>
-                            <p>30 min. ago</p>
-                        </div>
-                    </div>
-                    <!-- Add more notifications as needed -->
                 </div>
             </div>
         </div>
@@ -204,9 +175,12 @@
     </div>
 
 </div>
+
 <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
+
+<script src="/js/Dashboard/DisplayNotification.js"></script>
 <script src="/js/dashboard/Nav.js"></script>
 <script src="/js/Dashboard/notification.js"></script>
 <script src="/js/dashboard/Table.js"></script>
