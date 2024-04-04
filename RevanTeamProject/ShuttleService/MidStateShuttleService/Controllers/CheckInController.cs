@@ -26,7 +26,7 @@ namespace MidStateShuttleService.Controllers
         {
             CheckInServices cs = new CheckInServices(_context);
             CheckIn model = cs.GetEntityById(checkInId);
-     
+
             if (model == null)
                 return FailedCheckIn("Check In Not Found");
 
@@ -52,11 +52,11 @@ namespace MidStateShuttleService.Controllers
             //Need to find current route
             RouteServices rs = new RouteServices(_context);
             //if (checkIn.Bus.CurrentRouteId != null)
-           // {
-             //   var routeResult = rs.GetEntityById((int)checkIn.Bus.CurrentRouteId);
-             //   checkIn.Route = routeResult;
+            // {
+            //   var routeResult = rs.GetEntityById((int)checkIn.Bus.CurrentRouteId);
+            //   checkIn.Route = routeResult;
             //    checkIn.RouteId = checkIn.Route.RouteID;
-           // }
+            // }
 
 
             //date
@@ -76,6 +76,30 @@ namespace MidStateShuttleService.Controllers
                 return FailedCheckIn("Updates to check in could not be applied");
 
             cs.UpdateEntity(checkIn);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            CheckInServices cs = new CheckInServices(_context);
+            CheckIn model = cs.GetEntityById(id);
+
+            if (model == null)
+                return FailedCheckIn("Check In Not Found");
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(CheckIn model)
+        {
+            CheckInServices cs = new CheckInServices(_context);
+            if (model == null)
+                return FailedCheckIn("Updates to check in could not be applied");
+
+            cs.UpdateEntity(model);
 
             return RedirectToAction("Index", "Home");
         }
