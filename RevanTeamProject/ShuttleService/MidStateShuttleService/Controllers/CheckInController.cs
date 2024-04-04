@@ -22,6 +22,17 @@ namespace MidStateShuttleService.Controllers
             return View();
         }
 
+        public ActionResult EditCheckIn(int checkInId)
+        {
+            CheckInServices cs = new CheckInServices(_context);
+            CheckIn model = cs.GetEntityById(checkInId);
+     
+            if (model == null)
+                return FailedCheckIn("Check In Not Found");
+
+            return View(model);
+        }
+
         // POST: CheckInController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -50,9 +61,21 @@ namespace MidStateShuttleService.Controllers
 
             //date
             checkIn.Date = DateTime.Now;
+            CheckInServices cs = new CheckInServices(_context);
+            cs.AddEntity(checkIn);
 
-            _context.CheckIns.Add(checkIn);
-            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCheckIn(CheckIn checkIn)
+        {
+            CheckInServices cs = new CheckInServices(_context);
+            if (checkIn == null)
+                return FailedCheckIn("Updates to check in could not be applied");
+
+            cs.UpdateEntity(checkIn);
 
             return RedirectToAction("Index", "Home");
         }
