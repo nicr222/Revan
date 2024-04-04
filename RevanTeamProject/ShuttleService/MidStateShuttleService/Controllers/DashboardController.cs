@@ -51,11 +51,45 @@ namespace MidStateShuttleService.Controllers
                 return NotFound(); // Handle the case where the route is not found
             }
 
-            // Fetch passengers related to this route
-            var passengers = _context.RegisterModels.Where(p => p.RouteID == id).ToList();
+            // Initialize a HashSet to store unique register IDs
+            var uniqueRegisterIds = new HashSet<int>();
 
-            // Pass the passengers list to the view
-            return View();
+            // Initialize a list to store unique passengers
+            var uniquePassengers = new List<RegisterModel>();
+
+            // Fetch passengers related to this route's selected route details
+            var selectedRoutePassengers = _context.RegisterModels
+                                    .Where(p => p.SelectedRouteDetail == route.RouteID.ToString())
+                                    .ToList();
+
+            // Fetch passengers related to this route's return route details
+            var returnRoutePassengers = _context.RegisterModels
+                                    .Where(p => p.SelectedRouteDetail == route.RouteID.ToString())
+                                    .ToList();
+
+            // Add passengers from selected route details
+            foreach (var passenger in selectedRoutePassengers)
+            {
+                if (!uniqueRegisterIds.Contains(passenger.RegistrationId))
+                {
+                    uniquePassengers.Add(passenger);
+                    uniqueRegisterIds.Add(passenger.RegistrationId);
+                }
+            }
+
+            // Add passengers from return route details
+            foreach (var passenger in returnRoutePassengers)
+            {
+                if (!uniqueRegisterIds.Contains(passenger.RegistrationId))
+                {
+                    uniquePassengers.Add(passenger);
+                    uniqueRegisterIds.Add(passenger.RegistrationId);
+                }
+            }
+
+            // Pass the list of unique passengers and the route to the view
+            ViewBag.Route = route;
+            return View(uniquePassengers);
         }
     }
 }
