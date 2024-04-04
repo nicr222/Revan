@@ -63,7 +63,7 @@ namespace MidStateShuttleService.Controllers
                 return View(driver);
             }
 
-            return RedirectToAction("Index", "Dashboard"); // Assuming "Home" is the controller where you want to redirect
+            
         }
 
 

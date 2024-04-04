@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
 using System.Data;
@@ -14,11 +15,14 @@ namespace MidStateShuttleService.Controllers
         private readonly ILogger<LocationController> _logger;
 
         private readonly ApplicationDbContext _context;
+        
 
         // Inject ApplicationDbContext into the controller constructor
-        public RoutesController(ApplicationDbContext context)
+        public RoutesController(ApplicationDbContext context, ILogger<LocationController> logger)
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
+            
+            _logger = logger;
         }
 
         // GET: RoutesController
@@ -59,23 +63,53 @@ namespace MidStateShuttleService.Controllers
         // GET: RoutesController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var route = _context.Routes.Find(id);
+
+            if (route == null)
+            {
+                return NotFound();
+            }
+
+            route.PickUpTime = null;
+            route.DropOffTime = null;
+
+            LocationServices ls = new LocationServices(_context);
+            ViewBag.Locations = ls.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.LocationId.ToString() });
+
+            BusServices bs = new BusServices(_context);
+            ViewBag.Buses = bs.GetAllEntities().Select(x => new SelectListItem { Text = "Shuttle: " + x.BusNo, Value = x.BusId.ToString() });
+
+            return View(route);
         }
 
         // POST: RoutesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Routes updatedRoute)
         {
+            if(id != updatedRoute.RouteID)
+            {
+                return BadRequest();
+            }
+
+            
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                _context.Update(updatedRoute);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "The route has been successfully updated!";
+                return RedirectToAction("Index", "Dashboard");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while updating the route.");
+                return RedirectToAction("Index", "Dashboard");
             }
         }
+
 
 
         // GET: RoutesController/Delete/5
