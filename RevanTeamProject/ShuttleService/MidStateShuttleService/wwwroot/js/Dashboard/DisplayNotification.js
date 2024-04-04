@@ -5,6 +5,9 @@
 
     var checkInCount = parseInt($('.notification-bell').data('check-in-count')) || 0;
 
+    var messageCount = parseInt($('.notification-message').data('message-count')) || 0;
+    var lastMessage = $('.notification-message').data('last-message') || 'You have a new message!';
+
     // Update the badge with the new counts from the server
     updateNotificationBadge(registrationCount, checkInCount);
 
@@ -14,6 +17,10 @@
     
     if (checkInCount > 0) {
         addCheckInNotification(checkInCount);
+    }
+
+    if (messageCount > 0) {
+        addMessageNotification(messageCount, lastMessage);
     }
 });
 
@@ -53,3 +60,22 @@ function addCheckInNotification(count) {
         </div>`;
     notificationDropdown.prepend(newNotificationHtml);
 }
+
+function addMessageNotification(count, message = 'You have a new message!') {
+    console.log('Adding message notification with count:', count);
+    let notificationDropdown = $('#notificationMessageDropdown');
+    let newNotificationHtml = `
+        <div class="notification-item">
+            <i class="bi bi-exclamation-circle text-warning"></i>
+            <div>
+                <h4>New Message (${count})</h4>
+                <p>${message}</p>
+            </div>
+        </div>`;
+    notificationDropdown.prepend(newNotificationHtml);
+    // Update the message icon badge count
+    $('.notification-message .badge').text(count);
+    // Make sure the dropdown is visible if it was hidden
+    notificationDropdown.show();
+}
+
