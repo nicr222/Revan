@@ -18,13 +18,23 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model == null)
+        @if (Model.Message == null)
         {
             <tr><td colspan="4" class="text-center">There are Currently No Messages</td></tr>
         }
         else
         {
-            
+            @foreach (var message in Model.Message)
+            {
+                <tr>
+                    <td>@message.name</td>
+                    <td>@message.message</td>
+                    <td>@(message.responseRequired ? "Yes" : "No")</td>
+                    <td>@(string.IsNullOrEmpty(message.contactInfo) ? "N/A" : message.contactInfo)</td>
+                    <td><a asp-controller="Message" asp-action="Edit" asp-route-id="@message.id">Edit</a></td>
+                    <td><a asp-controller="Message" asp-action="Delete" asp-route-id="@message.id">Delete</a></td>
+                </tr>
+            }
         }
     </tbody>
 </table>
