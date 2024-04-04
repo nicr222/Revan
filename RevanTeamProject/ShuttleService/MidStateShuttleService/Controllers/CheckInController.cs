@@ -56,6 +56,11 @@ namespace MidStateShuttleService.Controllers
             _context.CheckIns.Add(checkIn);
             _context.SaveChanges();
 
+            // Increment the check-in count in the session
+            int checkInCount = HttpContext.Session.GetInt32("CheckInCount") ?? 0;
+            checkInCount++;
+            HttpContext.Session.SetInt32("CheckInCount", checkInCount);
+
             return RedirectToAction("Index", "Home");
         }
 
