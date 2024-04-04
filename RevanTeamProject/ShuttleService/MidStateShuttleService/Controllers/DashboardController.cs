@@ -41,6 +41,9 @@ namespace MidStateShuttleService.Controllers
             CheckInServices cis = new CheckInServices(_context);
             allModels.CheckIn = cis.GetAllEntities();
 
+            MessageServices ms = new MessageServices(_context);
+            allModels.Message = ms.GetAllEntities();
+
             return View(allModels);
 
         }
