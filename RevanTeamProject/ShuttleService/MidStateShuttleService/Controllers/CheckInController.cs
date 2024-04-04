@@ -99,7 +99,7 @@ namespace MidStateShuttleService.Controllers
             if (model == null)
                 return FailedCheckIn("Updates to check in could not be applied");
 
-            cs.UpdateEntity(model);
+            cs.DeleteEntity(model.CheckInId);
 
             return RedirectToAction("Index", "Home");
         }
