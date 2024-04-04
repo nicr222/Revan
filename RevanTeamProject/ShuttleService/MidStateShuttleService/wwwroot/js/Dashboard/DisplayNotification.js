@@ -1,23 +1,27 @@
 ﻿$(document).ready(function () {
-    var registrationSuccess = $('.notification-bell').data('registration-success') === 'true';
-    console.log("Registration Success:", registrationSuccess);
 
     // The server will set this data attribute to the updated count
     var registrationCount = parseInt($('.notification-bell').data('registration-count')) || 0;
 
+    var checkInCount = parseInt($('.notification-bell').data('check-in-count')) || 0;
+
+    // Update the badge with the new counts from the server
+    updateNotificationBadge(registrationCount, checkInCount);
 
     if (registrationCount > 0) {
-        // Update the badge with the new count from the server
-        updateNotificationBadge(registrationCount);
         addRegistrationNotification(registrationCount);
     }
-
-
+    
+    if (checkInCount > 0) {
+        addCheckInNotification(checkInCount);
+    }
 });
 
-function updateNotificationBadge(count) {
+function updateNotificationBadge(registrationCount, checkInCount) {
+    // Sum the registration and check-in counts for the badge
+    let totalNotifications = registrationCount + checkInCount;
     let badge = $('.notification-bell .badge');
-    badge.text(count);
+    badge.text(totalNotifications); // Set the badge text to the sum of both counts
 }
 
 function addRegistrationNotification(count) {
@@ -36,3 +40,16 @@ function addRegistrationNotification(count) {
     notificationDropdown.show();
 }
 
+function addCheckInNotification(count) {
+    console.log('Adding check-in notification with count:', count);
+    let notificationDropdown = $('#notificationBellDropdown');
+    let newNotificationHtml = `
+        <div class="notification-item">
+            <i class="bi bi-exclamation-circle text-warning"></i>
+            <div>
+                <h4>New Check-In (${count})</h4>
+                <p>New check-in processed!</p>
+            </div>
+        </div>`;
+    notificationDropdown.prepend(newNotificationHtml);
+}
