@@ -39,8 +39,8 @@
                     <td>@(checkIn.Route != null ? checkIn.Route.ToString() : "N/A")</td>
                     <td>@checkIn.Comments</td>
                     <td>@(checkIn.FirstTime ? "Yes" : "No")</td>
-                    <td><a asp-controller="CheckIn" asp-action="Edit" asp-route-id="@checkIn.CheckInId">Edit</a></td>
-                    <td><a asp-controller="CheckIn" asp-action="Delete" asp-route-id="@checkIn.CheckInId">Delete</a></td>
+                    <td><a asp-controller="CheckIn" asp-action="EditCheckIn" asp-route-id="@checkIn.CheckInId">Edit</a></td>
+                    <td><a asp-controller="CheckIn" asp-action="DeleteCheckIn" asp-route-id="@checkIn.CheckInId">Delete</a></td>
                 </tr>
             }
         }

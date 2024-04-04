@@ -53,8 +53,11 @@
                     </div>
                 </div>
 
+                <input hidden asp-for="CheckInId" value="@Model.CheckInId"/>
+                <input hidden asp-for="Date" value="@Model.Date" />
+
                 <div class="p-t-20">
-                    <button type="submit" class="btn btn--radius btn--green">Check In</button>
+                    <button type="submit" class="btn btn--radius btn--green">Save</button>
                 </div>
             </div>
         </form>

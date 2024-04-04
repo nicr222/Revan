@@ -22,10 +22,10 @@ namespace MidStateShuttleService.Controllers
             return View();
         }
 
-        public ActionResult EditCheckIn(int checkInId)
+        public ActionResult EditCheckIn(int id)
         {
             CheckInServices cs = new CheckInServices(_context);
-            CheckIn model = cs.GetEntityById(checkInId);
+            CheckIn model = cs.GetEntityById(id);
 
             if (model == null)
                 return FailedCheckIn("Check In Not Found");
@@ -74,13 +74,14 @@ namespace MidStateShuttleService.Controllers
             CheckInServices cs = new CheckInServices(_context);
             if (checkIn == null)
                 return FailedCheckIn("Updates to check in could not be applied");
-
+            
+            //not all values comming over from form
             cs.UpdateEntity(checkIn);
 
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Delete(int id)
+        public ActionResult DeleteCheckIn(int id)
         {
             CheckInServices cs = new CheckInServices(_context);
             CheckIn model = cs.GetEntityById(id);
@@ -91,13 +92,12 @@ namespace MidStateShuttleService.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(CheckIn model)
+        public ActionResult Delete(int id)
         {
             CheckInServices cs = new CheckInServices(_context);
+            CheckIn model = cs.GetEntityById(id);
             if (model == null)
-                return FailedCheckIn("Updates to check in could not be applied");
+                return FailedCheckIn("Check In Could not be found");
 
             cs.DeleteEntity(model.CheckInId);
 

@@ -8,13 +8,10 @@ namespace MidStateShuttleService.Models
 
     // !!**** Temporarily disabled validations, to be addressed in the next sprint. ****!!//
     [Table("Registration")]
-    [Index("RouteID", Name = "IX_Registration_RouteId")]
     public partial class RegisterModel
     {
         [Key]
         public int RegistrationId { get; set; }
-
-        public int? RouteID { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
         [RegularExpression("^[A-Za-z\\s]{2,}$", ErrorMessage = "Must contain only characters and be at least 2 characters long")]
@@ -90,9 +87,6 @@ namespace MidStateShuttleService.Models
         public string? SpecialPickUpLocation { get; set; }
 
         public string? SpecialDropOffLocation { get; set; }
-
-        [ForeignKey("RouteID")]
-        public virtual Routes? Route { get; set; }
 
         //[Required(ErrorMessage = "Pick Up Location is required")]
         public int? FridayPickUpLocationID { get; set; }
