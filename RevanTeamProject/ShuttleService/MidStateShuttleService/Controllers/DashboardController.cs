@@ -38,8 +38,11 @@ namespace MidStateShuttleService.Controllers
             BusServices bs = new BusServices(_context);
             allModels.Bus = bs.GetAllEntities();
 
-            CheckInServices cs = new CheckInServices(_context);
-            allModels.CheckIn = cs.GetAllEntities();
+            CheckInServices cis = new CheckInServices(_context);
+            allModels.CheckIn = cis.GetAllEntities();
+
+            MessageServices ms = new MessageServices(_context);
+            allModels.Message = ms.GetAllEntities();
 
             return View(allModels);
 
