@@ -12,6 +12,8 @@ using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using MidStateShuttleService.Service;
 using System.Data;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using MidStateShuttleService.Services;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -63,6 +65,7 @@ namespace MidStateShuttleService.Controllers
         {
             LocationServices ls = new LocationServices(_context);
             RegisterServices rs = new RegisterServices(_context);
+            EmailServices es = new EmailServices();
 
             // Repopulate LocationNames for the model in case of return to View due to invalid model state or any error.
             model.LocationNames = ls.GetLocationNames();
@@ -312,6 +315,11 @@ namespace MidStateShuttleService.Controllers
                 if (rs.AddEntity(model))
                 {
                     TempData["RegistrationSuccess"] = true;
+                    es.SendEmail(
+                        model.Email,
+                        "MSTC Shuttle Service Registration",
+                        "Your registration for the MSTC shuttle service was confirmed!"
+                        );
                     return RedirectToAction("Index");
                 } else
                 {
