@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
+using MidStateShuttleService.Services;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -45,27 +47,13 @@ namespace MidStateShuttleService.Controllers
 
                     RegisterServices rs = new RegisterServices(_context);
 
-                    // SMTP2GO Client
-                    SmtpClient client = new SmtpClient("mail.smtp2go.com")
-                    {
-                        Port = 2525, // SMTP2GO port number
-                        Credentials = new NetworkCredential("Username", "Password"),
-                        EnableSsl = true // SMTP2GO requires SSL
-                    };
-
+                    EmailServices es = new EmailServices();
 
                     var registeredStudents = rs.GetEmailsByRoute(c.PickUpLocationID.ToString(), c.DropOffLocationID.ToString());
 
                     foreach (var student in registeredStudents)
                     {
-                        MailMessage message = new MailMessage("SenderEmail", student.Email)
-                        {
-                            Subject = "MSTC Shuttle Service Message",
-                            Body = c.message
-                        };
-
-                        // Send the email
-                        client.Send(message);
+                        es.SendEmail(student.Email, "Mid State Shuttle Service Update", c.message);
 
                         _logger.LogInformation("Email sent successfully!");
                     }
