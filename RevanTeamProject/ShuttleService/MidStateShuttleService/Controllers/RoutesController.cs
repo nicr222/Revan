@@ -115,7 +115,29 @@ namespace MidStateShuttleService.Controllers
         // GET: RoutesController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                var route = _context.Routes.Find(id);
+
+
+
+                _context.Routes.Remove(route);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+            }
+            catch (Exception ex)
+            {
+                // Log the SQL exception and any other exceptions
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while deleting route.");
+
+                // Optionally add a model error for displaying an error message to the user
+                ModelState.AddModelError("", "An unexpected error occurred while deleting the route, please try again.");
+
+                // Return the view with an error message
+                return View();
+            }
         }
 
         // POST: RoutesController/Delete/5
@@ -125,6 +147,7 @@ namespace MidStateShuttleService.Controllers
         {
             try
             {
+
                 return RedirectToAction(nameof(Index));
             }
             catch
