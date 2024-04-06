@@ -81,6 +81,14 @@ namespace MidStateShuttleService.Controllers
                     MessageServices ms = new MessageServices(_context);
                     ms.AddEntity(c);
 
+                    // Increment the message count in the session
+                    int messageCount = HttpContext.Session.GetInt32("MessageCount") ?? 0;
+                    messageCount++;
+
+                    HttpContext.Session.SetInt32("MessageCount", messageCount);
+                    // Optionally, save the last message or a summary
+                    HttpContext.Session.SetString("LastMessage", "You have a new message!");
+
                     return RedirectToAction("MessageSent");
                 }
                 catch (Exception ex)

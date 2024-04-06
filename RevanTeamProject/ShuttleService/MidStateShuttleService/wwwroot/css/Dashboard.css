@@ -201,16 +201,159 @@
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
+    margin-right: 20px;
 }
 
     .user img {
         position: absolute;
         top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
+
+.icons-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 40px; /* Controls spacing between icons */
+    margin-left: 55%;
+}
+
+
+.notification-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+.notification-bell {
+    position: relative;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+    .notification-bell .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: #840029;
+        color: white;
+        font-size: 0.7em;
+    }
+
+    .notification-bell i {
+        font-size: 1.5em;
+        color: #840029;
+    }
+
+.notification-message {
+    position: relative;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+    .notification-message .badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: #840029;
+        color: white;
+        font-size: 0.7em;
+        font-weight: bold;
+    }
+
+    .notification-message i {
+        font-size: 1.5em;
+        color: #840029;
+    }
+
+.dropdown-menu {
+    position: absolute;
+    top: 50px; /* Adjust if needed to control vertical offset */
+    left: auto; /* Reset left position */
+    right: -5px; /* Align the dropdown's right edge with the notification icon's right edge */
+    z-index: 1000;
+    display: none;
+    min-width: 320px; /* Minimum width of the dropdown */
+    padding: 0.5rem 0;
+    font-size: 13px;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 0.25rem;
+    box-shadow: 0 3px 5px rgba(0,0,0,.2);
+    padding-top: 15px;
+}
+
+    .dropdown-menu-arrow ::before {
+        content: "";
+        width: 13px;
+        height: 13px;
+        background: #fff;
+        position: absolute;
+        top: -6px; /*half the height of the pointer to align it with the dropdown top */
+        right: 10px;
+        transform: rotate(45deg);
+        border-top: 1px solid #eaedf1;
+        border-left: 1px solid #eaedf1;
+    }
+
+    /* Styling for individual notification items */
+    .dropdown-menu .notification-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 10px;
+        border-bottom: 1px solid #ccc;
+        
+    }
+
+        .dropdown-menu .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-menu .notification-item i {
+            margin: 0 20px 0 10px;
+            font-size: 20px;
+            position: relative;
+        }
+
+        .bi-exclamation-circle::before {
+            content: "\f333";
+            position: absolute;
+            bottom: 0; /* Position it at the bottom of the notification item */
+            left: 3px; /* Start from the left */
+            top: -10px;
+            transform: translateX(-100%); /* Move it to the left by 100% of its width */
+            width: 13px;
+            height: 13px;
+            border-top: none;
+            border-left: none;
+        }
+
+
+    .dropdown-menu .notification-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .dropdown-menu .notification-item p {
+            font-size: 13px;
+            margin-bottom: 3px;
+            color: #919191;
+        }
+
+        .dropdown-menu .notification-item:hover {
+            background-color: #f6f9ff;
+        }
+
 
 .cardBox {
     position: relative;
