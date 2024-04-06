@@ -66,6 +66,11 @@ namespace MidStateShuttleService.Controllers
             CheckInServices cs = new CheckInServices(_context);
             cs.AddEntity(checkIn);
 
+            // Increment the check-in count in the session
+            int checkInCount = HttpContext.Session.GetInt32("CheckInCount") ?? 0;
+            checkInCount++;
+            HttpContext.Session.SetInt32("CheckInCount", checkInCount);
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -102,11 +107,6 @@ namespace MidStateShuttleService.Controllers
                 return FailedCheckIn("Check In Could not be found");
 
             cs.DeleteEntity(model.CheckInId);
-
-            // Increment the check-in count in the session
-            int checkInCount = HttpContext.Session.GetInt32("CheckInCount") ?? 0;
-            checkInCount++;
-            HttpContext.Session.SetInt32("CheckInCount", checkInCount);
 
             return RedirectToAction("Index", "Home");
         }

@@ -40,6 +40,12 @@ namespace MidStateShuttleService.Controllers
             BusServices bs = new BusServices(_context);
             allModels.Bus = bs.GetAllEntities();
 
+            CheckInServices cis = new CheckInServices(_context);
+            allModels.CheckIn = cis.GetAllEntities();
+
+            MessageServices ms = new MessageServices(_context);
+            allModels.Message = ms.GetAllEntities();
+
             // Retrieve the registration success flag and count from the session
             var registrationSuccess = HttpContext.Session.GetString("RegistrationSuccess") == "true";
             int registrationCountFromSession = HttpContext.Session.GetInt32("RegistrationCount") ?? 0;
@@ -62,13 +68,6 @@ namespace MidStateShuttleService.Controllers
             // Pass them to the view
             ViewData["MessageCount"] = messageCountFromSession;
             ViewData["LastMessage"] = lastMessage;
-
-
-            CheckInServices cis = new CheckInServices(_context);
-            allModels.CheckIn = cis.GetAllEntities();
-
-            MessageServices ms = new MessageServices(_context);
-            allModels.Message = ms.GetAllEntities();
 
             return View(allModels);
 
