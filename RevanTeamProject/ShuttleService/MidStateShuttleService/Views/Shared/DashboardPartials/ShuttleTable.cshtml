@@ -12,7 +12,7 @@
         <tr>
             <td>Shuttle Number</td>
             <td>Passenger Capacity</td>
-            
+            <td>Is Active</td>
             <td>Update</td>
             <td>Delete</td>
         </tr>
@@ -29,9 +29,9 @@
                 <tr>
                     <td>@b.BusNo</td>
                     <td>@b.PassengerCapacity</td>
-                    
+                    <td>@b.IsActive.ToString()</td>
                     <td><a asp-controller="Shuttles" asp-action="Edit" asp-route-id="@b.BusId">Edit</a></td>
-                    <td><a asp-controller="Shuttles" asp-action="Delete" asp-route-id="@b.BusId">Delete</a></td>
+                    <td><a asp-controller="Shuttles" asp-action="Delete" asp-route-id="@b.BusId">Active</a></td>
                 </tr>
             }
         }

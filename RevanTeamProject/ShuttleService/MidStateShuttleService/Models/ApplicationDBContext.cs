@@ -32,8 +32,6 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<CommuncateModel> CommuncateModels { get; set; }
 
-    public virtual DbSet<RegistertionDaysModel> RegistertionDaysModels { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Bus table
@@ -315,9 +313,6 @@ public partial class ApplicationDbContext : DbContext
                 .HasAnnotation("MaxLength", 160)
                 .HasAnnotation("ErrorMessage", "This field must not be more than 160 characters.");
 
-            entity.Property(e => e.RouteId)
-                .IsRequired();
-
             entity.Property(e => e.PickUpLocationID)
                 .IsRequired();
 
@@ -432,41 +427,6 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(e => e.FridayDropOffLocationID)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_Registration_FridayDropOffLocation");
-
-            // Configure foreign key relationship for RouteID
-            entity.HasOne<Routes>()
-                .WithMany()
-                .HasForeignKey(e => e.RouteID)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Registration_Route");
-        });
-
-        // RegistrationDays Table
-        modelBuilder.Entity<RegistertionDaysModel>(entity =>
-        {
-            entity.ToTable("RegistrationDays");
-
-            entity.HasKey(e => e.RegistrationDayID);
-
-            entity.Property(e => e.RegistrationDayID)
-                .IsRequired()
-                .HasColumnName("RegistrationDayID")
-                .ValueGeneratedOnAdd();
-
-            entity.Property(e => e.RegistrationID)
-                .IsRequired()
-                .HasColumnName("RegistrationID");
-
-            entity.Property(e => e.DayOfWeek)
-                .IsRequired()
-                .HasMaxLength(10)
-                .HasColumnName("DayOfWeek");
-
-            entity.HasOne(e => e.RegisterModel)
-                .WithMany()
-                .HasForeignKey(e => e.RegistrationID)
-                .HasConstraintName("FK_RegistertionDaysModel_Registration")
-                .OnDelete(DeleteBehavior.Cascade); // Depending on your requirements, you may change the delete behavior.
         });
     }
 }

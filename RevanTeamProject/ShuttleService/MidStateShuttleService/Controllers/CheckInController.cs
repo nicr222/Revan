@@ -24,6 +24,17 @@ namespace MidStateShuttleService.Controllers
             return View();
         }
 
+        public ActionResult EditCheckIn(int id)
+        {
+            CheckInServices cs = new CheckInServices(_context);
+            CheckIn model = cs.GetEntityById(id);
+
+            if (model == null)
+                return FailedCheckIn("Check In Not Found");
+
+            return View(model);
+        }
+
         // POST: CheckInController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -43,18 +54,54 @@ namespace MidStateShuttleService.Controllers
             //Need to find current route
             RouteServices rs = new RouteServices(_context);
             //if (checkIn.Bus.CurrentRouteId != null)
-           // {
-             //   var routeResult = rs.GetEntityById((int)checkIn.Bus.CurrentRouteId);
-             //   checkIn.Route = routeResult;
+            // {
+            //   var routeResult = rs.GetEntityById((int)checkIn.Bus.CurrentRouteId);
+            //   checkIn.Route = routeResult;
             //    checkIn.RouteId = checkIn.Route.RouteID;
-           // }
+            // }
 
 
             //date
             checkIn.Date = DateTime.Now;
+            CheckInServices cs = new CheckInServices(_context);
+            cs.AddEntity(checkIn);
 
-            _context.CheckIns.Add(checkIn);
-            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCheckIn(CheckIn checkIn)
+        {
+            CheckInServices cs = new CheckInServices(_context);
+            if (checkIn == null)
+                return FailedCheckIn("Updates to check in could not be applied");
+            
+            //not all values comming over from form
+            cs.UpdateEntity(checkIn);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult DeleteCheckIn(int id)
+        {
+            CheckInServices cs = new CheckInServices(_context);
+            CheckIn model = cs.GetEntityById(id);
+
+            if (model == null)
+                return FailedCheckIn("Check In Not Found");
+
+            return View(model);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            CheckInServices cs = new CheckInServices(_context);
+            CheckIn model = cs.GetEntityById(id);
+            if (model == null)
+                return FailedCheckIn("Check In Could not be found");
+
+            cs.DeleteEntity(model.CheckInId);
 
             // Increment the check-in count in the session
             int checkInCount = HttpContext.Session.GetInt32("CheckInCount") ?? 0;

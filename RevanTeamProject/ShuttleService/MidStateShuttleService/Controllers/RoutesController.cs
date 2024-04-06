@@ -11,14 +11,13 @@ namespace MidStateShuttleService.Controllers
 {
     public class RoutesController : Controller
     {
-        private readonly ILogger<LocationController> _logger;
-
+        private readonly ILogger<RoutesController> _logger;
         private readonly ApplicationDbContext _context;
 
-        // Inject ApplicationDbContext into the controller constructor
-        public RoutesController(ApplicationDbContext context)
+        public RoutesController(ApplicationDbContext context, ILogger<RoutesController> logger)
         {
-            _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _context = context;
+            _logger = logger;
         }
 
         // GET: RoutesController
@@ -50,10 +49,19 @@ namespace MidStateShuttleService.Controllers
 [HttpPost]
         public ActionResult Create(Routes route)
         {
-            RouteServices rs = new RouteServices(_context);
-            rs.AddEntity(route);
-
-            return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
+            try
+            {
+                RouteServices rs = new RouteServices(_context);
+                rs.AddEntity(route);
+                return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
+            }
+            catch (Exception ex)
+            {
+                //LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while creating route.");
+                // You can return a specific view indicating failure or redirect to a generic error page
+                return RedirectToAction("Index", "Home");
+            }
         }
 
 
