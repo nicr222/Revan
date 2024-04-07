@@ -50,17 +50,6 @@ namespace MidStateShuttleService.Controllers
             checkIn.Bus = busResult;
             checkIn.BusId = checkIn.Bus.BusId;
 
-
-            //Need to find current route
-            RouteServices rs = new RouteServices(_context);
-            //if (checkIn.Bus.CurrentRouteId != null)
-            // {
-            //   var routeResult = rs.GetEntityById((int)checkIn.Bus.CurrentRouteId);
-            //   checkIn.Route = routeResult;
-            //    checkIn.RouteId = checkIn.Route.RouteID;
-            // }
-
-
             //date
             checkIn.Date = DateTime.Now;
             CheckInServices cs = new CheckInServices(_context);
@@ -81,7 +70,16 @@ namespace MidStateShuttleService.Controllers
             CheckInServices cs = new CheckInServices(_context);
             if (checkIn == null)
                 return FailedCheckIn("Updates to check in could not be applied");
-            
+
+            BusServices bs = new BusServices(_context);
+            var busResult = bs.FindBusByNumber(checkIn.BusNumber);
+
+            if (busResult == null)
+                return FailedCheckIn("Could Not Find Shuttle");
+
+            checkIn.Bus = busResult;
+            checkIn.BusId = checkIn.Bus.BusId;
+
             //not all values comming over from form
             cs.UpdateEntity(checkIn);
 
