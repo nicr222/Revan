@@ -61,43 +61,77 @@ namespace MidStateShuttleService.Controllers
         // GET: LocationController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            LocationServices ls = new LocationServices(_context);
+            Location model = ls.GetEntityById(id);
+
+            if (model == null)
+                return FailedLocation("Check In Not Found");
+
+            return View(model);
         }
 
         // POST: LocationController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Location model)
         {
+            LocationServices ls = new LocationServices(_context);
+            if (model == null)
+                return FailedLocation("Updates to location could not be applied");
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                ls.UpdateEntity(model);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                _logger.LogError(e.Message);
+
+                return FailedLocation("Updates to location could not be applied");
             }
+
+            return RedirectToAction("Index", "Dashboard");
         }
 
         // GET: LocationController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteLocation(int id)
         {
-            return View();
+            LocationServices ls = new LocationServices(_context);
+            Location model = ls.GetEntityById(id);
+
+            if (model == null)
+                return FailedLocation("Check In Not Found");
+
+            return View(model);
         }
 
         // POST: LocationController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                LocationServices ls = new LocationServices(_context);
+                Location model = ls.GetEntityById(id);
+
+                if (model == null)
+                    return FailedLocation("Check In Not Found");
+
+                ls.DeleteEntity(model.LocationId);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                _logger.LogError(e.Message);
+
+                return FailedLocation("Updates to location could not be applied");
             }
+
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+        public ActionResult FailedLocation(string errorMessage)
+        {
+            ViewBag.ErrorMessage = errorMessage;
+            return View("FailedLocation");
         }
     }
 }

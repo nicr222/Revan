@@ -22,66 +22,58 @@
             <div class="form form-1">
 
                 <div class="form-body">
-                    <h2 class="title">Edit Location</h2>
-                    <form asp-action="Edit" method="post">
+                    <h2 class="title">Delete Location</h2>
+                    <div>
                         @Html.AntiForgeryToken()
                         <div>
 
 
                             <div class="input-fields">
-                                <input asp-for="Name" type="text" class="input--style-1" placeholder="Stop Name" required />
+                                <div class="input--style-1">@Model.Name</div>
                                 <div class="div-line"></div>
                                 <div id="Name-validation-message" class="validation-message">Please enter a valid stop name.</div>
                             </div>
 
                             <div class="input-fields">
-                                <input asp-for="Address" type="text" class="input--style-1" placeholder="Enter Address" required />
+                                <div class="input--style-1">@Model.Address</div>
                                 <div class="div-line"></div>
                                 <div id="Address-validation-message" class="validation-message">Please enter a valid address.</div>
                             </div>
 
                             <div class="input-fields">
-                                <input asp-for="City" type="text" class="input--style-1" placeholder="City" required />
+                            <div class="input--style-1">@Model.City</div>
                                 <div class="div-line"></div>
                                 <div id="City-validation-message" class="validation-message">Please enter a valid city.</div>
                             </div>
 
                             <div class="input-fields">
-                                <input asp-for="State" type="text" class="input--style-1" placeholder="State" maxlength="2" required />
+                                <div class="input--style-1">@Model.State</div>
                                 <div class="div-line"></div>
                                 <div id="State-validation-message" class="validation-message">Please enter a valid State.</div>
                             </div>
 
                             <div class="input-fields">
-                                <input asp-for="ZipCode" type="text" class="input--style-1" placeholder="Zip Code" required />
+                                <div class="input--style-1">@Model.ZipCode</div>
                                 <div class="div-line"></div>
                                 <div id="ZipCode-validation-message" class="validation-message">Please enter a valid zip code.</div>
                             </div>
 
                             <div class="input-fields">
-                                <input asp-for="Abbreviation" type="text" class="input--style-1" placeholder="Stop Abbreviation" required />
+                                <div class="input--style-1">@Model.Abbreviation</div>
                                 <div class="div-line"></div>
                                 <div id="Abbreviation-validation-message" class="validation-message">Please enter a 3 digit easy to understand abbreviation.</div>
                             </div>
 
-                            <input hidden asp-for="LocationId" value="@Model.LocationId" />
-
                             <div class="p-t-20">
                                 <div class="p-t-20">
-                                    <button class="btn btn--radius btn--submit" type="submit">Save</button>
-                                    <button class="btn btn--radius btn--cancel" type="button" onclick="location.href='yourCancelPage.html'">Cancel</button>
+                                    <a asp-controller="Location" asp-action="Delete" asp-route-id="@Model.LocationId" class="btn btn--radius btn--green">Delete</a>
+                                    <a asp-controller="Dashboard" asp-action="Index" class="btn btn--radius btn--cancel">Cancel</a>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-    <script src="~/js/location.js"></script>
 </body>
