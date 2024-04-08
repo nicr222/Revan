@@ -150,6 +150,98 @@ namespace MidStateShuttleService.Controllers
 
             return Json(formattedRoutesList);
         }
+
+        // GET: RegisterController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            // Retrieve the student to be edited from the database
+            var student = _context.RegisterModels.Find(id);
+
+            if (student == null)
+            {
+                return NotFound(); // Or handle the case where the student is not found
+            }
+
+            return View(student);
+        }
+
+        // POST: RegisterController/Edit/5
+        // POST: RegisterController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, RegisterModel student)
+        {
+            if (id != student.RegistrationId)
+            {
+                return BadRequest(); // Or handle the case where IDs do not match
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(student); // Return the view with validation errors
+            }
+
+            try
+            {
+                // Update the student in the database
+                _context.Update(student);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "The student has been successfully updated!";
+                return RedirectToAction("Index", "Dashboard");
+            }
+            catch (Exception ex)
+            {
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context); // Log SQL exception
+                _logger.LogError(ex, "An error occurred while updating student.");
+                ModelState.AddModelError("", "An unexpected error occurred, please try again.");
+                return View(student); // Return the view with an error message
+            }
+        }
+
+        // GET: RegisterController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var student = _context.RegisterModels.Find(id);
+
+
+
+                _context.RegisterModels.Remove(student);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+            }
+            catch (Exception ex)
+            {
+                // Log the SQL exception and any other exceptions
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while deleting student.");
+
+                // Optionally add a model error for displaying an error message to the user
+                ModelState.AddModelError("", "An unexpected error occurred while deleting the student, please try again.");
+
+                // Return the view with an error message
+                return View();
+            }
+        }
+
+
+        // POST: RegisterController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
 
