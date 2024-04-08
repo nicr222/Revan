@@ -322,15 +322,6 @@
                                         <div id="NeedTransportation-validation-message" class="validation-message">Please add comment with max words of 300</div>
                                     </div>
 
-
-                                    <!-- Terms and Conditions Checkbox -->
-                                    <div class="checkbox-container">
-                                        <input asp-for="AgreeTerms" type="checkbox" id="AgreeTerms" name="AgreeTerms" value="true" />
-
-                                        <label for="AgreeTerms" class="AgreeTerms">I understand my transportation request will be reviewed but is not guaranteed. I will be required to communicate and confirm my request with the shuttle program before it is scheduled. I also understand I must notify the shuttle program if I need to cancel or change my reservation after it is added to the schedule.</label>
-                                    </div>
-                                    <div id="OtherAgreeTerms-validation-message" class="validation-message">You must agree to terms</div>
-
                                 </div>
                             </div>
 
@@ -414,27 +405,10 @@
                                                 <p>Error: Location names not loaded.</p>
                                             }
                                             <div class="form-line"></div>
-                                            <div id="FridayDropOffLocationID-validation-message" class="validation-message">Pelase select dropoff location</div>
+                                            <div id="FridayDropOffLocationID-validation-message" class="validation-message">Please select dropoff location</div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Which Friday Field -->
-                                <div class="which-friday-container">
-                                    <label for="WhichFriday" class="which-friday-label">Which Friday</label>
-                                    <textarea id="WhichFriday" name="WhichFriday" class="which-friday-input"></textarea>
-                                    <p class="special-request-guide which-friday-guide">*Please enter which Friday(s) you need transportation for and other additional information that might be important to our scheduler, who will respond to this request.</p>
-                                    <div id="WhichFriday-validation-message" class="validation-message">Please add comment with 300 max words</div>
-                                </div>
-
-
-                                <!-- Terms and Conditions Checkbox -->
-                                <div class="checkbox-container">
-                                    <input type="checkbox" id="FridayAgreeTerms" name="FridayAgreeTerms" value="true" />
-                                    <input type="hidden" name="AgreeTerms" value="false" />
-                                    <label for="AgreeTerms" class="AgreeTerms">I understand my Friday request will be reviewed but is not guaranteed. I will be required to communicate and confirm my request with the shuttle program before it is scheduled. I also understand I must notify the shuttle program if I need to cancel or change my reservation after it is added to the schedule.</label>
-                                </div>
-                                <div id="FridayAgreeTerms-validation-message" class="validation-message">You must agree to terms</div>
 
                             </div>
                         </div>
@@ -458,7 +432,7 @@
 
                     <div class="p-t-20">
                         <div class="p-t-20">
-                            <button class="btn btn--radius btn--submit" type="submit">Submit</button>
+                            <button class="btn btn--radius btn--submit" type="submit">Edit</button>
                             <button class="btn btn--radius btn--cancel" type="button" onclick="resetForm()">Cancel</button>
                         </div>
                     </div>
