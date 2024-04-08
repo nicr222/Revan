@@ -154,6 +154,8 @@ namespace MidStateShuttleService.Controllers
         // GET: RegisterController/Edit/5
         public ActionResult Edit(int id)
         {
+            LocationServices ls = new LocationServices(_context);
+
             // Retrieve the student to be edited from the database
             var student = _context.RegisterModels.Find(id);
 
@@ -161,6 +163,9 @@ namespace MidStateShuttleService.Controllers
             {
                 return NotFound(); // Or handle the case where the student is not found
             }
+
+            // Return the location names for the page
+            student.LocationNames = ls.GetLocationNames();
 
             return View(student);
         }
