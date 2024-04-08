@@ -21,7 +21,7 @@
         <div class="form form-1">
             <div class="form-body">
                 <h2 class="title">Registration Info</h2>
-                @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { id = "registrationForm" }))
+                @using (Html.BeginForm("Edit", "Register", FormMethod.Post, new { id = "registrationForm" }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -291,43 +291,6 @@
                                                 </label>
                                                 <span id="toggleYes" class="toggle-label">Yes</span>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="stops-available">
-                                        <div class="input-fields">
-                                            <h2 class="section-title">Between Wisconsin Rapids & Adams</h2>
-                                            <ul class="stops-list">
-                                                <li>Wisconsin Rapids south (Highway 13/Highway 73 intersection)</li>
-                                                <li>Nekoosa (Highway 73/173 intersection)</li>
-                                                <li>Port Edwards (along Highway 73)</li>
-                                                <li>Rome (Highway 13/Highway D intersection)</li>
-                                                <li>Friendship (Highway 13/Highway 21 intersection)</li>
-                                                <li>Villa Pines Living Center (Adams-Friendship)</li>
-                                                <li>Big Flats Fire Department (1104 County Road C, Arkdale)</li>
-                                            </ul>
-                                        </div>
-                                        <div class="input-fields">
-                                            <h2 class="section-title">Between Wisconsin Rapids & Marshfield</h2>
-                                            <ul class="stops-list">
-                                                <li>Rudolph (along Highway 34)</li>
-                                                <li>Vesper (along Highway 186)</li>
-                                                <li>Arpin (along Highway 186)</li>
-                                                <li>Auburndale (Highway 10/Highway K intersection)</li>
-                                                <li>Pittsville (along Highway 73)</li>
-                                                <li>Mid-State on Central (1619 North Central Avenue, Marshfield)</li>
-                                                <li>marshfield Clinic (Marshfield clinicals site)</li>
-                                                <li>Family Health Center Marshfield(Dental Asst site)</li>
-                                            </ul>
-                                        </div>
-                                        <div class="input-fields">
-                                            <h2 class="section-title">Between Wisconsin Rapids & Stevens Point</h2>
-                                            <ul class="stops-list">
-                                                <li>Whiting (along Business Highway 51 or Hoover Ave)</li>
-                                                <li>Plover (along Business Highway 51 or Hoover Ave)</li>
-                                                <li>UWSP Dorms</li>
-                                                <li>AMETA&trade; Center (5000 Coye Drive, Steven Point)</li>
-                                            </ul>
                                         </div>
                                     </div>
 
