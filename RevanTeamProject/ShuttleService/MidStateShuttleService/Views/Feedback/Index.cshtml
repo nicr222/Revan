@@ -1,0 +1,73 @@
+﻿@model MidStateShuttleService.Models.Feedback
+
+@{
+    ViewBag.Title = "Shuttle Service Feedback";
+}
+
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/Feedback.css" />
+
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<body>
+
+    <div class="container mt-5">
+        <h2>Customer Testimonial</h2>
+        <form id="feedbackForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Your full name">
+                <div class="form-line"></div>
+            </div>
+            <div class="form-group">
+                <label for="testimonial">Your Testimonial</label>
+                <textarea class="form-control" id="testimonial" rows="3" placeholder="Share your experience with us..." required></textarea>
+                <div class="form-line"></div>
+            </div>
+            <div class="form-group">
+                <label for="rating">Overall Rating</label>
+                <div id="rating" class="star-rating">
+                    <input id="star-1" type="radio" name="rating" value="1"><label for="star-1" title="1 star">★</label>
+                    <input id="star-2" type="radio" name="rating" value="2"><label for="star-2" title="2 stars">★</label>
+                    <input id="star-3" type="radio" name="rating" value="3"><label for="star-3" title="3 stars">★</label>
+                    <input id="star-4" type="radio" name="rating" value="4"><label for="star-4" title="4 stars">★</label>
+                    <input id="star-5" type="radio" name="rating" value="5"><label for="star-5" title="5 stars">★</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="emojiRating">Satisfaction Level</label>
+                <div id="emojiRating" class="emoji-rating">
+                    <input id="emoji-1" type="radio" name="satisfaction" value="1"><label for="emoji-1">😡</label>
+                    <input id="emoji-2" type="radio" name="satisfaction" value="2"><label for="emoji-2">😠</label>
+                    <input id="emoji-3" type="radio" name="satisfaction" value="3"><label for="emoji-3">😐</label>
+                    <input id="emoji-4" type="radio" name="satisfaction" value="4"><label for="emoji-4">😊</label>
+                    <input id="emoji-5" type="radio" name="satisfaction" value="5"><label for="emoji-5">😄</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Would you recommend us?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="recommend" id="recommendYes" value="yes" checked>
+                    <label class="form-check-label" for="recommendYes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="recommend" id="recommendNo" value="no">
+                    <label class="form-check-label" for="recommendNo">No</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn--radius btn--submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+                    <script src="/js/"
