@@ -103,7 +103,7 @@
                                                 <p>Error: Location names not loaded.</p>
                                             }
                                             <div class="form-line"></div>
-                                            <div id="DropOffLocation-validation-message" class="validation-message">Pelase select dropoff location</div>
+                                            <div id="DropOffLocation-validation-message" class="validation-message">Please select dropoff location</div>
                                         </div>
                                     </div>
 
@@ -181,7 +181,6 @@
                                                 <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday"> Wednesday</label>
                                                 <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday"> Thursday</label>
                                                 <div class="form-line"></div>
-                                                <p class="days-of-weeks-guide">*Friday routes MUST be reserved and can be customized for your transportation needs.</p>
                                                 <div id="daysofweek-validation-message" class="validation-message">Please select days of week</div>
                                             </div>
                                         </div>
@@ -197,54 +196,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Other Special Request Section -->
-                            <div class="other-special-request" style="display: none;">
-                                <p class="other-special-request-label">Special Request?</p>
-                                <div class="other-special-request-options">
-                                    @Html.RadioButtonFor(model => model.SpecialRequest, true, new { id = "otherSpecialYes", @class = "other-special-request-input" }) <label for="otherSpecialYes">Yes</label>
-                                    @Html.RadioButtonFor(model => model.SpecialRequest, false, new { id = "otherSpecialNo", @class = "other-special-request-input" }) <label for="otherSpecialNo">No</label>
-                                </div>
-                                <p class="other-special-request-info">Your selection of 'Other' requires a special request. Would you like to provide additional information and submit a request to the Shuttle Coordinator?</p>
-                                <div id="OtherSpecialRequest-validation-message" class="validation-message">Please select special request</div>
-
-                                <!--Other Speical Request Time Preferences -->
-                                <div class="other-special-request-time-preferences" style="display: none;">
-
-                                    <div class="row row-space">
-                                        <div class="col-6">
-                                            <div class="input-fields">
-                                                <p class="must-arrive-by">Must Arrive the Campus By:</p>
-                                                @Html.EditorFor(model => model.MustArriveTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "otherMustArriveBy" } })
-                                                <div class="form-line"></div>
-                                                <div id="otherMustArriveBy-validation-message" class="validation-message">Please select must arrive by time</div>
-                                            </div>
-                                            <p class="special-request-guide">*eg, first class start time</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="other-leave-after">
-                                                <div class="input-fields">
-                                                    <p class="must-arrive-by">Can Leave the Campus After:</p>
-                                                    @Html.EditorFor(model => model.CanLeaveTime, new { htmlAttributes = new { @class = "input--style-1", type = "time", id = "otherCanLeaveAfter" } })
-                                                    <div class="form-line"></div>
-                                                    <div id="otherCanLeaveAfter-validation-message" class="validation-message">Please select can leave after time</div>
-                                                </div>
-                                                <p class="special-request-guide">*eg, last class end time</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- days need transportation Field -->
-                                    <div class="need-transportation-container">
-                                        <label for="NeedTransportation" class="need-transportation-label">Enter the day(s) you need transportation<sup>*</sup></label>
-                                        <textarea id="NeedTransportation" name="NeedTransportation" class="need-transportation-input"></textarea>
-                                        <div class="form-line"></div>
-                                        <div id="NeedTransportation-validation-message" class="validation-message">Please add comment with max words of 300</div>
-                                    </div>
-
-                                </div>
-                            </div>
-
                         </div>
 
                         <!-- Friday Special Request Section -->
@@ -271,7 +222,7 @@
 
                     <div class="p-t-20">
                         <div class="p-t-20">
-                            <button class="btn btn--radius btn--submit" type="submit">Edit</button>
+                            <button class="btn btn--radius btn--submit" type="submit">Submit</button>
                             <button class="btn btn--radius btn--cancel" type="button" onclick="resetForm()">Cancel</button>
                         </div>
                     </div>
