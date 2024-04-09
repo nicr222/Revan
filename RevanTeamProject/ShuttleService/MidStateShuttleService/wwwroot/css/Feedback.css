@@ -89,33 +89,35 @@ input {
         }
 }
 
+
 /* Star Rating */
 .star-rating {
-    line-height: 32px;
-    font-size: 3em;
-    direction: rtl; /* Right to left direction */
-    text-align: left; /* Align text to the left */
+    direction: ltr; /* Reverse the direction of the stars */
+    font-size: 0; /* Remove space between inline-block elements */
 }
 
-    .star-rating :checked,
-    .star-rating .hover {
-        color: #fde16d; /* gold color */
-    }
-
-    .star-rating input {
-        display: none; /* Removing the default radio button styles */
+    .star-rating .star {
+        display: none; /* Hide radio buttons */
     }
 
     .star-rating label {
-        color: #ddd; /* gray color */
+        font-size: 47px; /* Size of stars */
+        color: #ccc; /* Color of stars (not selected) */
         cursor: pointer;
     }
 
-        .star-rating label:hover,
-        .star-rating label:hover ~ label,
-        .star-rating input:focus ~ label {
-            color: #fde16d; /* gold color on hover/focus */
+        .star-rating label:before {
+            content: "\2605"; /* Unicode star character */
         }
+
+    .star-rating .star:checked ~ label {
+        color: #f5a623; /* Color of selected stars */
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: #f5a623; /* Color of stars on hover */
+    }
 
 /* Emoji Rating */
 .emoji-rating {
