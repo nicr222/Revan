@@ -93,38 +93,6 @@ namespace MidStateShuttleService.Controllers
             return View("Index", model);
         }
 
-        //private int ExecuteSqlCommand(SqlCommand command)
-        //{
-        //    try
-        //    {
-        //        var result = command.ExecuteScalar(); // Assuming your table's INSERT operation has been modified to return the new ID
-        //        if (result != null)
-        //        {
-        //            return Convert.ToInt32(result);
-        //        }
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        _logger.LogError("Database insertion error: ", ex);
-        //        ModelState.AddModelError("", "There was a database error, please try again.");
-        //    }
-
-        //    return 0; // Return 0 to indicate failure
-        //}
-
-        //private void InsertSelectedDaysOfWeek(SqlConnection connection, int registrationId, List<string> selectedDaysOfWeek)
-        //{
-        //    foreach (var day in selectedDaysOfWeek)
-        //    {
-        //        var commandText = @"INSERT INTO [dbo].[RegistrationDays] (RegistrationID, DayOfWeek) VALUES (@RegistrationID, @DayOfWeek)";
-        //        using (var command = new SqlCommand(commandText, connection))
-        //        {
-        //            command.Parameters.AddWithValue("@RegistrationID", registrationId);
-        //            command.Parameters.AddWithValue("@DayOfWeek", day);
-        //            command.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
 
         //retrieves route options based on selected pick-up and drop-off locations from a database and returns them as JSON.
         [HttpGet]

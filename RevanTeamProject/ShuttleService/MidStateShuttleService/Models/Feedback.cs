@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 namespace MidStateShuttleService.Models;
 
 [Table("Feedback")]
-[Index("UserId", Name = "IX_Feedback_UserID")]
 public partial class Feedback
 {
     [Key]
@@ -21,5 +20,8 @@ public partial class Feedback
     [Column(TypeName = "datetime")]
     public DateTime DateSubmitted { get; set; }
 
-    public int? UserId { get; set; }
+    [StringLength(50)] // Set the maximum length to 50
+    public string CustomerName { get; set; } // Changed from UserId
+
+    public int Rating { get; set; } // Added Rating property
 }
