@@ -64,9 +64,9 @@
                             <div class="radio-trip-type">
                                 <p class="typetrip">Route Schedule</p>
                                 <div class="radio-options">
-                                    @Html.RadioButtonFor(model => model.TripType, "RoundTrip", new { id = "RoundTrip" }) <label for="RoundTrip">Round Trip</label>
-                                    @Html.RadioButtonFor(model => model.TripType, "OneWay", new { id = "OneWay" }) <label for="OneWay">One Way</label>
-                                    @Html.RadioButtonFor(model => model.TripType, "Friday", new { id = "Friday" }) <label for="Friday">Friday<sup>*</sup></label>
+                                    <input type="radio" id="RoundTrip" asp-for="TripType" value="RoundTrip"/><label for="RoundTrip">Round Trip</label>
+                                    <input type="radio" id="OneWay" asp-for="TripType" value="OneWay" /> <label for="OneWay">One Way</label>
+                                    <input type="radio" id="Friday" asp-for="TripType" value="Friday" /> <label for="Friday">Friday<sup>*</sup></label>
                                 </div>
                                 <div class="form-line"></div>
                                 <div id="TripType-validation-message" class="validation-message">Please select trip type</div> <!-- Placeholder for Trip Type validation message -->
@@ -119,9 +119,10 @@
                                     </div>
                                 </div>
 
-                                <div class="return-select-route">
-                                    <div class="row row-space">
+                                <div class="return-select-route radio-trip-type">
 
+                                    <p class="typetrip">Return Route</p>
+                                    <div class="row row-space">
                                         <div class="col-6">
                                             <div class="input-fields">
                                                 @if (Model.LocationNames != null)
@@ -170,23 +171,27 @@
                                     </div>
                                 </div>
 
-                                <div class="schedule-date" style="display: none;">
-                                    <!-- Multi-select Checkboxes for Days of the Week -->
-                                    <div class="form-group">
-                                        <div class="input-fields">
-                                            <label for="daysofweek">Select the days of the week that this route will be needed.*</label>
-                                            <!-- Hidden label to make sure days of the week is selected -->
-                                            <input type="hidden" asp-for="SelectedDaysOfWeek"/>
-                                            <div class="daysofweek-checkbox-group">
-                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Monday"> Monday</label>
-                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Tuesday"> Tuesday</label>
-                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday"> Wednesday</label>
-                                                <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday"> Thursday</label>
-                                                <div class="form-line"></div>
-                                                <div id="daysofweek-validation-message" class="validation-message">Please select days of week</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+
+                        <!-- Friday Special Request Section -->
+                        <div class="special-request">
+                            <div>
+                                <p>For any special request changes, please instruct the student to create a new special request.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Multi-select Checkboxes for Days of the Week -->
+                        <div class="form-group">
+                            <div class="input-fields">
+                                <label for="daysofweek">Select the days of the week that this route will be needed.*</label>
+                                <div class="daysofweek-checkbox-group">
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Monday"> Monday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Tuesday"> Tuesday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday"> Wednesday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday"> Thursday</label>
+                                    <div class="form-line"></div>
+                                    <div id="daysofweek-validation-message" class="validation-message">Please select days of week</div>
                                 </div>
                             </div>
                         </div>
@@ -194,18 +199,12 @@
                         <!-- Date Field for First Day Expecting to Ride -->
                         <div class="form-group">
                             <div class="input-fields">
-                                <label for="FirstDayExpectingToRide">First Day Expecting to Ride?</label>
-                                @Html.EditorFor(model => model.FirstDayExpectingToRide, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                <label for="FirstDayExpectingToRide" class="contact-preference-label">First Day Expecting to Ride?</label>
+                                <input type="date" asp-for="FirstDayExpectingToRide" class = "form-control"/>
                                 <div id="FirstDayExpectingToRide-validation-message" class="validation-message">Please select the first day expecting to ride</div> <!-- Placeholder for validation message -->
                             </div>
                         </div>
 
-                        <!-- Friday Special Request Section -->
-                        <div class="special-request" style="display: none;">
-                            <div>
-                                <p>For any special request changes, please instruct the student to create a new special request.</p>
-                            </div>
-                        </div>
                         <div class="contact-preference">
                             <div class="input-fields">
                                 <p class="contact-preference-label">Contact Preference</p>
@@ -222,7 +221,7 @@
                     <div class="p-t-20">
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--submit" type="submit">Submit</button>
-                            <button class="btn btn--radius btn--cancel" type="button" onclick="resetForm()">Cancel</button>
+                            <button class="btn btn--radius btn--cancel" type="button" onclick="">Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -233,9 +232,7 @@
 </body>
 
 <script src="/js/Registeration/RegisterValidation.js"></script>
-<script src="/js/Registeration/Registeration.js"></script>
 <script src="/js/Registeration/RouteUpdater.js"></script>
 <script src="/js/Registeration/ReturnRouteUpdater.js"></script>
-<script src="/js/Registeration/routeVisibility.js"></script>
 <script src="/js/Registeration/form-reset.js"></script>
 <script src="/js/Registeration/autoFlipLocations.js"></script>
