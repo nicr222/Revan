@@ -147,7 +147,7 @@
                                                     <p>Error: Location names not loaded.</p>
                                                 }
                                                 <div class="form-line"></div>
-                                                <div id="ReturnDropOffLocation-validation-message" class="validation-message">Pelase select dropoff location</div>
+                                                <div id="ReturnDropOffLocation-validation-message" class="validation-message">Please select dropoff location</div>
                                             </div>
                                         </div>
 
@@ -175,6 +175,8 @@
                                     <div class="form-group">
                                         <div class="input-fields">
                                             <label for="daysofweek">Select the days of the week that this route will be needed.*</label>
+                                            <!-- Hidden label to make sure days of the week is selected -->
+                                            <input type="hidden" asp-for="SelectedDaysOfWeek"/>
                                             <div class="daysofweek-checkbox-group">
                                                 <label><input type="checkbox" name="SelectedDaysOfWeek" value="Monday"> Monday</label>
                                                 <label><input type="checkbox" name="SelectedDaysOfWeek" value="Tuesday"> Tuesday</label>
@@ -185,16 +187,16 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- Date Field for First Day Expecting to Ride -->
-                                    <div class="form-group">
-                                        <div class="input-fields">
-                                            <label for="FirstDayExpectingToRide">First Day Expecting to Ride?</label>
-                                            @Html.EditorFor(model => model.FirstDayExpectingToRide, new { htmlAttributes = new { @class = "form-control", type = "date" } })
-                                            <div id="FirstDayExpectingToRide-validation-message" class="validation-message">Please select the first day expecting to ride</div> <!-- Placeholder for validation message -->
-                                        </div>
-                                    </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Date Field for First Day Expecting to Ride -->
+                        <div class="form-group">
+                            <div class="input-fields">
+                                <label for="FirstDayExpectingToRide">First Day Expecting to Ride?</label>
+                                @Html.EditorFor(model => model.FirstDayExpectingToRide, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                <div id="FirstDayExpectingToRide-validation-message" class="validation-message">Please select the first day expecting to ride</div> <!-- Placeholder for validation message -->
                             </div>
                         </div>
 
@@ -202,9 +204,6 @@
                         <div class="special-request" style="display: none;">
                             <div>
                                 <p>For any special request changes, please instruct the student to create a new special request.</p>
-                                <input type="hidden" asp-for="AgreeTerms" />
-                                <input type="hidden" asp-for="FridayPickUpLocationID" />
-                                <input type="hidden" asp-for="FridayDropOffLocationID" />
                             </div>
                         </div>
                         <div class="contact-preference">
@@ -235,7 +234,6 @@
 
 <script src="/js/Registeration/RegisterValidation.js"></script>
 <script src="/js/Registeration/Registeration.js"></script>
-<script src="/js/Registeration/finalconfirmation.js"></script>
 <script src="/js/Registeration/RouteUpdater.js"></script>
 <script src="/js/Registeration/ReturnRouteUpdater.js"></script>
 <script src="/js/Registeration/routeVisibility.js"></script>
