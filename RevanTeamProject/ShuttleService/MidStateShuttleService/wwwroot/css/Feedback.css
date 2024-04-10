@@ -90,6 +90,20 @@ input {
 }
 
 
+
+.name-info {
+    font-size: 12px; /* Font size of the description text */
+    color: #666; /* Color of the description text */
+    text-align: left; /* Align text to the left */
+    padding: 0 15px; /* Padding around the text */
+}
+
+@media (max-width: 767px) {
+    .name-info {
+        padding: 0 10px; /* Adjust padding for smaller screens */
+    }
+}
+
 /* Star Rating */
 .star-rating {
     direction: ltr; /* Reverse the direction of the stars */
@@ -114,10 +128,10 @@ input {
         color: #f5a623; /* Color of selected stars */
     }
 
-    .star-rating label:hover,
+    /*.star-rating label:hover,
     .star-rating label:hover ~ label {
-        color: #f5a623; /* Color of stars on hover */
-    }
+        color: #f5a623;*/ /* Color of stars on hover */
+    /*}*/
 
 /* Emoji Rating */
 .emoji-rating {
@@ -190,3 +204,22 @@ input {
     background-color: #840029;
     color: white;
 }
+
+/* ==========================================================================
+   #Validation
+   ========================================================================== */
+
+
+.validation-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: none; /* Hide by default */
+}
+
+    .validation-message:before {
+        content: "\26A0";
+        color: red;
+        font-weight: bold;
+        margin-right: 5px;
+    }

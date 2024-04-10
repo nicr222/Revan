@@ -7,6 +7,7 @@
 <!-- Include Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/Feedback.css" />
+<link rel="stylesheet" href="/css/site.css" />
 
 <!-- Include jQuery and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -18,16 +19,39 @@
 
     <div class="container mt-5">
         <h2>Customer Testimonial</h2>
-        <form id="feedbackForm">
+        <form id="feedbackForm" asp-action="Create" method="post">
+
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successModalLabel">Feedback Successful</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Your feedback has been successfully submitted. Thank you!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn--radius btn--submit" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Your full name">
+                <input type="text" class="form-control" id="name" name="CustomerName" placeholder="Your full name">
                 <div class="form-line"></div>
+                <p class="name-info">* If you prefer to remain anonymous, simply leave the name field blank.</p>
             </div>
             <div class="form-group">
                 <label for="testimonial">Your Testimonial</label>
-                <textarea class="form-control" id="testimonial" rows="3" placeholder="Share your experience with us..." required></textarea>
-                <div class="form-line"></div>
+                <textarea class="form-control" id="testimonial" name="Comment" rows="3" placeholder="Share your experience with us..." ></textarea>
+                <div id="comment-validation-message" class="validation-message">Comment is required and should not exceed 255 characters.</div>
             </div>
             <div class="form-group">
                 <label for="rating">Overall Rating</label>
@@ -46,6 +70,8 @@
 
                     <input id="star5" name="rating" type="radio" value="5" class="star" />
                     <label for="star5" title="5 stars"></label>
+
+                    <div id="Star-validation-message" class="validation-message">Please select a rating.</div>
                 </div>
             </div>
 
@@ -57,6 +83,7 @@
                     <input id="emoji-3" type="radio" name="satisfaction" value="3"><label for="emoji-3">😐</label>
                     <input id="emoji-4" type="radio" name="satisfaction" value="4"><label for="emoji-4">😊</label>
                     <input id="emoji-5" type="radio" name="satisfaction" value="5"><label for="emoji-5">😄</label>
+                    <div id="satisfaction-validation-message" class="validation-message">Please select your satisfaction level.</div>
                 </div>
             </div>
             <div class="form-group">
@@ -76,7 +103,19 @@
 
 </body>
 
+<!-- Include success custom JS files -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        var registrationSuccess = '@TempData["FeedbackSuccess"]';
+        if (registrationSuccess === 'True') {
+            $('#successModal').modal('show');
+        }
+    });
+</script>
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="/js/starRating.js"></script>
+<script src="/js/feedbackvalidation.js"></script>
