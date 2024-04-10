@@ -45,6 +45,18 @@ namespace MidStateShuttleService.Controllers
                     _logger.LogError(ex, "Error saving feedback.");
                 }
             }
+            else
+            {
+                // Debugging code to log ModelState errors
+                foreach (var modelStateKey in ViewData.ModelState.Keys)
+                {
+                    var modelStateVal = ViewData.ModelState[modelStateKey];
+                    foreach (var error in modelStateVal.Errors)
+                    {
+                        _logger.LogError(error.ErrorMessage);
+                    }
+                }
+            }
             // If we got this far, something failed, redisplay form
             return View("Index", feedback);
         }
