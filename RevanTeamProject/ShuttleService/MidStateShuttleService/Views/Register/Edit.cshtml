@@ -10,7 +10,7 @@
 
 <!-- Include jQuery and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
+<script src="/js/Registeration/editRegister.js"></script>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
@@ -64,16 +64,16 @@
                             <div class="radio-trip-type">
                                 <p class="typetrip">Route Schedule</p>
                                 <div class="radio-options">
-                                    <input type="radio" id="RoundTrip" asp-for="TripType" value="RoundTrip"/><label for="RoundTrip">Round Trip</label>
-                                    <input type="radio" id="OneWay" asp-for="TripType" value="OneWay" /> <label for="OneWay">One Way</label>
-                                    <input type="radio" id="Friday" asp-for="TripType" value="Friday" /> <label for="Friday">Friday<sup>*</sup></label>
+                                    <input type="radio" id="RoundTrip" asp-for="TripType" value="RoundTrip" onclick="ToggleRoundTrip()" /><label for="RoundTrip">Round Trip</label>
+                                    <input type="radio" id="OneWay" asp-for="TripType" value="OneWay" onclick="ToggleOneWay()" /> <label for="OneWay">One Way</label>
+                                    <input type="radio" id="Friday" asp-for="TripType" value="Friday" onclick="ToggleFriday()" /> <label for="Friday">Friday<sup>*</sup></label>
                                 </div>
                                 <div class="form-line"></div>
                                 <div id="TripType-validation-message" class="validation-message">Please select trip type</div> <!-- Placeholder for Trip Type validation message -->
                             </div>
                         </div>
 
-                        <div class="additional-fields">
+                        <div class="additional-fields" id="TheBigOne">
 
                             <div class="initial-select-route">
                                 <div class="row row-space">
@@ -119,7 +119,7 @@
                                     </div>
                                 </div>
 
-                                <div class="return-select-route radio-trip-type">
+                                <div class="return-select-route radio-trip-type" id="ReturnDiv">
 
                                     <p class="typetrip">Return Route</p>
                                     <div class="row row-space">
@@ -175,7 +175,7 @@
                         </div>
 
                         <!-- Friday Special Request Section -->
-                        <div class="special-request">
+                        <div class="special-request" id="FridayDiv">
                             <div>
                                 <p>For any special request changes, please instruct the student to create a new special request.</p>
                             </div>
