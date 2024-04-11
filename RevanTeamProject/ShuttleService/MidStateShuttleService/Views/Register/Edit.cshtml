@@ -185,10 +185,11 @@
                             <div class="input-fields">
                                 <label for="daysofweek">Select the days of the week that this route will be needed.*</label>
                                 <div class="daysofweek-checkbox-group">
-                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Monday" id="MondayToggle"> Monday</label>
-                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Tuesday" id="TuesdayToggle"> Tuesday</label>
-                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday" id="WednesdayToggle"> Wednesday</label>
-                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday" id="ThursdayToggle"> Thursday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Monday" id="MondayToggle" @(ViewBag.SelectedDaysOfWeek.Contains("Monday") ? "checked" : "")> Monday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Tuesday" id="TuesdayToggle" @(ViewBag.SelectedDaysOfWeek.Contains("Tuesday") ? "checked" : "")> Tuesday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday" id="WednesdayToggle" @(ViewBag.SelectedDaysOfWeek.Contains("Wednesday") ? "checked" : "")> Wednesday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday" id="ThursdayToggle" @(ViewBag.SelectedDaysOfWeek.Contains("Thursday") ? "checked" : "")> Thursday</label>
+
                                     <div class="form-line"></div>
                                     <div id="daysofweek-validation-message" class="validation-message">Please select days of week</div>
                                 </div>

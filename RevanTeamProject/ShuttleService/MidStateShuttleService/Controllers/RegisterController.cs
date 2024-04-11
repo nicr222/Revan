@@ -164,11 +164,21 @@ namespace MidStateShuttleService.Controllers
                 return NotFound(); // Or handle the case where the student is not found
             }
 
+            // Retrieve the days of the week selected for the student
+            var selectedDaysOfWeek = _context.RegisterModels
+                                              .Where(s => s.RegistrationId == id)
+                                              .Select(s => s.SelectedDaysOfWeek)
+                                              .FirstOrDefault();
+
+            // Pass the selected days of the week to the view
+            ViewBag.SelectedDaysOfWeek = selectedDaysOfWeek;
+
             // Return the location names for the page
             student.LocationNames = ls.GetLocationNames();
 
             return View(student);
         }
+
 
         // POST: RegisterController/Edit/5
         // POST: RegisterController/Edit/5
