@@ -81,7 +81,19 @@
 
                                         <!-- Dropdown lisst for routes -->
                                         <div class="return-route-location-schedule">
-                                            <p>Route Selector Goes here</p>
+                                            <select asp-for="SelectedRouteDetail" class="col-12">
+                                                @foreach(Routes route in ViewBag.RouteList)
+                                                {
+                                                    if (ViewBag.SelectedPickupRoute == route.RouteID.ToString())
+                                                    {
+                                                        <option value="@route.RouteID" selected>Leave @route.PickUpLocation.Name.ToString() at @route.PickUpTime, Arrive at @route.DropOffLocation.Name.ToString() at @route.DropOffTime</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@route.RouteID">Leave @route.PickUpLocation.Name.ToString() at @route.PickUpTime, Arrive at @route.DropOffLocation.Name.ToString() at @route.DropOffTime</option>
+                                                    }
+                                                }
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +105,19 @@
                                         
                                         <!-- Placeholder for Return Select Route radio buttons -->
                                         <div class="return-route-location-schedule">
-                                            <p>Route Selector Goes here</p>
+                                            <select asp-for="ReturnSelectedRouteDetail" class="col-12">
+                                                @foreach (Routes route in ViewBag.RouteList)
+                                                {
+                                                    if (ViewBag.SelectedReturnRoute == route.RouteID.ToString())
+                                                    {
+                                                        <option value="@route.RouteID" selected>Leave @route.PickUpLocation.Name.ToString() at @route.PickUpTime, Arrive at @route.DropOffLocation.Name.ToString() at @route.DropOffTime</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@route.RouteID">Leave @route.PickUpLocation.Name.ToString() at @route.PickUpTime, Arrive at @route.DropOffLocation.Name.ToString() at @route.DropOffTime</option>
+                                                    }
+                                                }
+                                            </select>
                                         </div>
 
 
@@ -115,7 +139,7 @@
                         </div>
                         
                         <!-- Multi-select Checkboxes for Days of the Week -->
-                        <div class="form-group">
+                        <div class="form-group pt-5">
                             <div class="input-fields">
                                 <label for="daysofweek">Select the days of the week that this route will be needed.*</label>
                                 <div class="daysofweek-checkbox-group">
@@ -166,9 +190,5 @@
 </body>
 
 <script src="/js/Registeration/RegisterValidation.js"></script>
-<script src="/js/Registeration/RouteUpdater.js"></script>
-<script src="/js/Registeration/ReturnRouteUpdater.js"></script>
 <script src="/js/Registeration/form-reset.js"></script>
-<script src="/js/Registeration/autoFlipLocations.js"></script>
 <script src="/js/Registeration/editRegister.js"></script>
-<script src="/js/Registeration/editDays.js"></script>

@@ -155,6 +155,7 @@ namespace MidStateShuttleService.Controllers
         public ActionResult Edit(int id)
         {
             LocationServices ls = new LocationServices(_context);
+            RouteServices rs = new RouteServices(_context);
 
             // Retrieve the student to be edited from the database
             var student = _context.RegisterModels.Find(id);
@@ -173,8 +174,17 @@ namespace MidStateShuttleService.Controllers
             // Pass the selected days of the week to the view
             ViewBag.SelectedDaysOfWeek = selectedDaysOfWeek;
 
-            // Return the location names for the page
-            student.LocationNames = ls.GetLocationNames();
+            ViewBag.RouteList = rs.GetAllEntities();
+
+            ViewBag.SelectedPickupRoute = student.SelectedRouteDetail;
+            ViewBag.SelectedReturnRoute = student.ReturnSelectedRouteDetail;
+
+            // Return the location names for each route
+            foreach(Routes route in ViewBag.RouteList)
+            {
+                route.PickUpLocation = ls.GetEntityById(route.PickUpLocationID);
+                route.DropOffLocation = ls.GetEntityById(route.DropOffLocationID);
+            }
 
             return View(student);
         }
