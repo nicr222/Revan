@@ -4,6 +4,7 @@
     var oneWaySelect = document.getElementById('OneWay');
     var fridaySelect = document.getElementById('Friday');
 
+    // check if each element is checked
     if (roundTripSelect.checked) {
         ToggleRoundTrip();
     }

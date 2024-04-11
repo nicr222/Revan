@@ -10,7 +10,6 @@
 
 <!-- Include jQuery and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="/js/Registeration/editRegister.js"></script>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
@@ -186,10 +185,10 @@
                             <div class="input-fields">
                                 <label for="daysofweek">Select the days of the week that this route will be needed.*</label>
                                 <div class="daysofweek-checkbox-group">
-                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Monday"> Monday</label>
-                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Tuesday"> Tuesday</label>
-                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday"> Wednesday</label>
-                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday"> Thursday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Monday" id="MondayToggle"> Monday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Tuesday" id="TuesdayToggle"> Tuesday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday" id="WednesdayToggle"> Wednesday</label>
+                                    <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday" id="ThursdayToggle"> Thursday</label>
                                     <div class="form-line"></div>
                                     <div id="daysofweek-validation-message" class="validation-message">Please select days of week</div>
                                 </div>
@@ -236,3 +235,5 @@
 <script src="/js/Registeration/ReturnRouteUpdater.js"></script>
 <script src="/js/Registeration/form-reset.js"></script>
 <script src="/js/Registeration/autoFlipLocations.js"></script>
+<script src="/js/Registeration/editRegister.js"></script>
+<script src="/js/Registeration/editDays.js"></script>
