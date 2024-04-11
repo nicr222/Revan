@@ -75,45 +75,13 @@
                         <div class="additional-fields" id="TheBigOne">
 
                             <div class="initial-select-route">
-                                <div class="row row-space">
+                                <div class="return-select-route radio-trip-type">
+                                    <p class="typetrip">Select Route </p>
+                                    <div class="row row-space">
 
-                                    <div class="col-6">
-                                        <div class="input-fields">
-                                            @if (Model.LocationNames != null)
-                                            {
-                                                @Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Select Pick-Up Location", new { @class = "input--style-1", id = "PickUpLocation" })
-                                            }
-                                            else
-                                            {
-                                                <p>Error: Location names not loaded.</p>
-                                            }
-                                            <div class="form-line"></div>
-                                            <div id="PickUpLocation-validation-message" class="validation-message">Please select pickup location</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="input-fields">
-                                            @if (Model.LocationNames != null)
-                                            {
-                                                @Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Select Drop-Off Location", new { @class = "input--style-1", id = "DropOffLocation" })
-                                            }
-                                            else
-                                            {
-                                                <p>Error: Location names not loaded.</p>
-                                            }
-                                            <div class="form-line"></div>
-                                            <div id="DropOffLocation-validation-message" class="validation-message">Please select dropoff location</div>
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Placeholder for Select Route radio buttons -->
-                                    <div class="route-location-schedule">
-                                        <div class="input-fields">
-                                            <div class="radio-route-type">
-                                                <div id="routeOptions" class="radio-route-options" name="SelectedRouteDetail"></div>
-                                                <div id="routeOptions-validation-message" class="validation-message">Please select route option</div>
-                                            </div>
+                                        <!-- Dropdown lisst for routes -->
+                                        <div class="return-route-location-schedule">
+                                            <p>Route Selector Goes here</p>
                                         </div>
                                     </div>
                                 </div>
@@ -122,44 +90,10 @@
 
                                     <p class="typetrip">Return Route</p>
                                     <div class="row row-space">
-                                        <div class="col-6">
-                                            <div class="input-fields">
-                                                @if (Model.LocationNames != null)
-                                                {
-                                                    @Html.DropDownListFor(model => model.PickUpLocationID, Model.LocationNames, "Return Pick-Up Location", new { @class = "input--style-1", id = "ReturnPickUpLocation" })
-                                                }
-                                                else
-                                                {
-                                                    <p>Error: Location names not loaded.</p>
-                                                }
-                                                <div class="form-line"></div>
-                                                <div id="ReturnPickUpLocation-validation-message" class="validation-message">Please select pickup location</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="input-fields">
-                                                @if (Model.LocationNames != null)
-                                                {
-                                                    @Html.DropDownListFor(model => model.DropOffLocationID, Model.LocationNames, "Return Drop-Off Location", new { @class = "input--style-1", id = "ReturnDropOffLocation" })
-                                                }
-                                                else
-                                                {
-                                                    <p>Error: Location names not loaded.</p>
-                                                }
-                                                <div class="form-line"></div>
-                                                <div id="ReturnDropOffLocation-validation-message" class="validation-message">Please select dropoff location</div>
-                                            </div>
-                                        </div>
-
-
+                                        
                                         <!-- Placeholder for Return Select Route radio buttons -->
                                         <div class="return-route-location-schedule">
-                                            <div class="input-fields">
-                                                <div class="return-radio-route-type">
-                                                    <div id="returnRouteOptions" class="return-radio-route-options" name="SelectedRouteDetail"></div>
-                                                    <div id="returnRouteOptions-validation-message" class="validation-message">Please select return route option</div>
-                                                </div>
-                                            </div>
+                                            <p>Route Selector Goes here</p>
                                         </div>
 
 
@@ -175,8 +109,8 @@
 
                         <!-- Friday Special Request Section -->
                         <div class="special-request" id="FridayDiv">
-                            <div>
-                                <p>For any special request changes, please instruct the student to create a new special request.</p>
+                            <div class="radio-trip-type">
+                                <p class="typetrip">For any special request changes, please instruct the student to create a new special request.</p>
                             </div>
                         </div>
                         
