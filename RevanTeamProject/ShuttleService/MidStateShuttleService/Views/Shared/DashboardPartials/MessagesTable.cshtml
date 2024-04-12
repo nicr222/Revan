@@ -15,6 +15,7 @@
             <td>Message</td>
             <td>Response Required</td>
             <td>Contact Info</td>
+
         </tr>
     </thead>
     <tbody>
@@ -28,13 +29,59 @@
             {
                 <tr>
                     <td>@message.name</td>
-                    <td>@message.message</td>
+                    <td>
+                        @if (message.message.Length > 10)
+                        {
+                            @message.message.Substring(0, 10) <!-- Displaying only the first 10 characters -->
+                            <span class="ellipsis">...</span> <!-- Ellipsis span, hidden visually -->
+                        }
+                        else
+                        {
+                            @message.message
+                        }
+                    </td>
+                    <!-- Displaying only the first 10 characters of the message -->
                     <td>@(message.responseRequired ? "Yes" : "No")</td>
                     <td>@(string.IsNullOrEmpty(message.contactInfo) ? "N/A" : message.contactInfo)</td>
-                    <td><a asp-controller="Message" asp-action="Edit" asp-route-id="@message.id">Edit</a></td>
-                    <td><a asp-controller="Message" asp-action="Delete" asp-route-id="@message.id">Delete</a></td>
+                    <td>
+                        <a class="viewButton" href="#"
+                           data-toggle="modal"
+                           data-target="#messageDetailsModal"
+                           data-message-id="@message.id"
+                           data-full-message="@message.message">View</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Message" asp-action="Delete" asp-route-id="@message.id">Read</a>
+                    </td>
                 </tr>
             }
+
         }
     </tbody>
 </table>
+<div class="modal fade" id="messageDetailsModal" tabindex="-1" role="dialog" aria-labelledby="messageDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageDetailsModalLabel">Message Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="messageDetailsContent">
+                    <!-- Message details will be displayed here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="~/js/Dashboard/MessageModal.js"></script>

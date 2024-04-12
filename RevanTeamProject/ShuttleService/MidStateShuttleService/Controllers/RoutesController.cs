@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
 using System.Data;
@@ -11,12 +12,16 @@ namespace MidStateShuttleService.Controllers
 {
     public class RoutesController : Controller
     {
-        private readonly ILogger<RoutesController> _logger;
-        private readonly ApplicationDbContext _context;
+        private readonly ILogger<LocationController> _logger;
 
-        public RoutesController(ApplicationDbContext context, ILogger<RoutesController> logger)
+        private readonly ApplicationDbContext _context;
+        
+
+        // Inject ApplicationDbContext into the controller constructor
+        public RoutesController(ApplicationDbContext context, ILogger<LocationController> logger)
         {
-            _context = context;
+            _context = context; // Assign the injected ApplicationDbContext to the _context field
+            
             _logger = logger;
         }
 
@@ -49,26 +54,90 @@ namespace MidStateShuttleService.Controllers
 [HttpPost]
         public ActionResult Create(Routes route)
         {
+            RouteServices rs = new RouteServices(_context);
+            rs.AddEntity(route);
+
+            return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
+        }
+
+        // GET: RoutesController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            var route = _context.Routes.Find(id);
+
+            if (route == null)
+            {
+                return NotFound();
+            }
+
+            route.PickUpTime = null;
+            route.DropOffTime = null;
+
+            LocationServices ls = new LocationServices(_context);
+            ViewBag.Locations = ls.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.LocationId.ToString() });
+
+            BusServices bs = new BusServices(_context);
+            ViewBag.Buses = bs.GetAllEntities().Select(x => new SelectListItem { Text = "Shuttle: " + x.BusNo, Value = x.BusId.ToString() });
+
+            return View(route);
+        }
+
+        // POST: RoutesController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, Routes updatedRoute)
+        {
+            if(id != updatedRoute.RouteID)
+            {
+                return BadRequest();
+            }
+
+            
+
             try
             {
-                RouteServices rs = new RouteServices(_context);
-                rs.AddEntity(route);
-                return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
+                _context.Update(updatedRoute);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "The route has been successfully updated!";
+                return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception ex)
             {
-                //LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
-                _logger.LogError(ex, "An error occurred while creating route.");
-                // You can return a specific view indicating failure or redirect to a generic error page
-                return RedirectToAction("Index", "Home");
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while updating the route.");
+                return RedirectToAction("Index", "Dashboard");
             }
         }
+
 
 
         // GET: RoutesController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                var route = _context.Routes.Find(id);
+
+
+
+                _context.Routes.Remove(route);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+            }
+            catch (Exception ex)
+            {
+                // Log the SQL exception and any other exceptions
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while deleting route.");
+
+                // Optionally add a model error for displaying an error message to the user
+                ModelState.AddModelError("", "An unexpected error occurred while deleting the route, please try again.");
+
+                // Return the view with an error message
+                return View();
+            }
         }
 
         // POST: RoutesController/Delete/5
@@ -78,6 +147,7 @@ namespace MidStateShuttleService.Controllers
         {
             try
             {
+
                 return RedirectToAction(nameof(Index));
             }
             catch

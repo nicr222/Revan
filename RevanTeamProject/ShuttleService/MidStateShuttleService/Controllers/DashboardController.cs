@@ -5,6 +5,7 @@ using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
 using MidStateShuttleService.Service;
 using System.Data;
+using System.Diagnostics;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -14,9 +15,10 @@ namespace MidStateShuttleService.Controllers
         private readonly ApplicationDbContext _context;
 
         // Inject ApplicationDbContext into the controller constructor
-        public DashboardController(ApplicationDbContext context)
+        public DashboardController(ApplicationDbContext context, ILogger<DashboardController> logger)
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -44,8 +46,42 @@ namespace MidStateShuttleService.Controllers
             MessageServices ms = new MessageServices(_context);
             allModels.Message = ms.GetAllEntities();
 
+            // Retrieve the registration success flag and count from the session
+            var registrationSuccess = HttpContext.Session.GetString("RegistrationSuccess") == "true";
+            int registrationCountFromSession = HttpContext.Session.GetInt32("RegistrationCount") ?? 0;
+
+            // You can now use registrationSuccess and registrationCountFromSession as needed
+            // For instance, passing them to the view via ViewData or ViewBag, if your view logic depends on these values
+            ViewData["RegistrationSuccess"] = registrationSuccess;
+            ViewData["RegistrationCount"] = registrationCountFromSession;
+
+            // Retrieve the check-in count from the session
+            int checkInCountFromSession = HttpContext.Session.GetInt32("CheckInCount") ?? 0;
+
+            // Pass it to the view
+            ViewData["CheckInCount"] = checkInCountFromSession;
+
+            // Retrieve the message count and last message from the session
+            int messageCountFromSession = HttpContext.Session.GetInt32("MessageCount") ?? 0;
+            string lastMessage = HttpContext.Session.GetString("LastMessage") ?? "You have a new message!";
+
+            // Pass them to the view
+            ViewData["MessageCount"] = messageCountFromSession;
+            ViewData["LastMessage"] = lastMessage;
+
             return View(allModels);
 
         }
+
+        public ActionResult GetMessageDetails(int messageId)
+        {
+            // Fetch message details from the database based on the messageId
+            var message = _context.Messages.Find(messageId);
+
+            // Return a partial view with the message details
+            return PartialView("_MessageDetails", message);
+        }
+
+
     }
 }

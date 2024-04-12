@@ -15,7 +15,7 @@ namespace MidStateShuttleService
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var appConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var appConnectionString = builder.Configuration.GetConnectionString("Connection") ?? throw new InvalidOperationException("Connection string 'Connection' not found.");
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(appConnectionString));
 
@@ -29,6 +29,14 @@ namespace MidStateShuttleService
             // Add services to the container.
             builder.Services.AddRazorPages();
 
+            //Add session services to the container
+            builder.Services.AddSession(options =>
+                           {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // It will expire after 30 minutes
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -41,8 +49,11 @@ namespace MidStateShuttleService
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
+
             app.UseRouting();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapRazorPages();
