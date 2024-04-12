@@ -83,7 +83,7 @@ namespace MidStateShuttleService.Controllers
             //not all values comming over from form
             cs.UpdateEntity(checkIn);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Dashboard");
         }
 
         public ActionResult DeleteCheckIn(int id)
@@ -106,7 +106,7 @@ namespace MidStateShuttleService.Controllers
 
             cs.DeleteEntity(model.CheckInId);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Dashboard");
         }
 
         public ActionResult FailedCheckIn(string errorMessage)

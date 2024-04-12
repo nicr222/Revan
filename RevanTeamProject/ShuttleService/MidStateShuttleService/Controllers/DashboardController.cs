@@ -72,5 +72,16 @@ namespace MidStateShuttleService.Controllers
             return View(allModels);
 
         }
+
+        public ActionResult GetMessageDetails(int messageId)
+        {
+            // Fetch message details from the database based on the messageId
+            var message = _context.Messages.Find(messageId);
+
+            // Return a partial view with the message details
+            return PartialView("_MessageDetails", message);
+        }
+
+
     }
 }
