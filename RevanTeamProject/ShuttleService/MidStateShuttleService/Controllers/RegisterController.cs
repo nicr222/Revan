@@ -201,6 +201,12 @@ namespace MidStateShuttleService.Controllers
                 return BadRequest(); // Or handle the case where IDs do not match
             }
 
+            // Make sure the return route is null if the student selected one way
+            if (student.TripType == "OneWay")
+            {
+                student.ReturnSelectedRouteDetail = null;
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(student); // Return the view with validation errors

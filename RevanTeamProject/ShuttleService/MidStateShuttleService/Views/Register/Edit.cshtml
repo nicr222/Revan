@@ -19,7 +19,7 @@
         <div class="form form-1">
             <div class="form-body">
                 <h2 class="title">Edit Student</h2>
-                <form asp-action="Edit" method="post">
+                <form asp-action="Edit" method="post" id="editForm">
                     @Html.AntiForgeryToken()
 
                     <!-- Inputs for the unchanging feilds -->
@@ -30,30 +30,30 @@
                         <div class="row row-space">
                             <div class="col-6">
                                 <div class="input-fields">
-                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name", id="firstName" } })
                                     <div class="form-line"></div>
-                                    <div id="FirstName-validation-message" class="validation-message">Must be characters</div>
+                                    <div id="firstName-validation-message" class="validation-message"></div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="input-fields">
-                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name" } })
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name", id = "lastName" } })
                                     <div class="form-line"></div>
-                                    <div id="LastName-validation-message" class="validation-message">Must be characters</div>
+                                    <div id="lastName-validation-message" class="validation-message"></div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="input-fields">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Email" } })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Email", id = "email" } })
                             <div class="form-line"></div>
-                            <div id="Email-validation-message" class="validation-message">Must be characters</div>
+                            <div id="email-validation-message" class="validation-message"></div>
                         </div>
 
                         <div class="input-fields">
-                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number" } })
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number", id = "phone" } })
                             <div class="form-line"></div>
-                            <div id="PhoneNumber-validation-message" class="validation-message">Must be 10 digits</div>
+                            <div id="phone-validation-message" class="validation-message"></div>
                         </div>
                     </div>
 
@@ -68,7 +68,6 @@
                                     <input type="radio" id="Friday" asp-for="TripType" value="Friday" onclick="ToggleFriday()" /> <label for="Friday">Friday<sup>*</sup></label>
                                 </div>
                                 <div class="form-line"></div>
-                                <div id="TripType-validation-message" class="validation-message">Please select trip type</div> <!-- Placeholder for Trip Type validation message -->
                             </div>
                         </div>
 
@@ -81,7 +80,7 @@
 
                                         <!-- Dropdown lisst for routes -->
                                         <div class="return-route-location-schedule">
-                                            <select asp-for="SelectedRouteDetail" class="col-12">
+                                            <select asp-for="SelectedRouteDetail" class="col-12" id="route">
                                                 @foreach(Routes route in ViewBag.RouteList)
                                                 {
                                                     if (ViewBag.SelectedPickupRoute == route.RouteID.ToString())
@@ -105,7 +104,7 @@
                                         
                                         <!-- Placeholder for Return Select Route radio buttons -->
                                         <div class="return-route-location-schedule">
-                                            <select asp-for="ReturnSelectedRouteDetail" class="col-12">
+                                            <select asp-for="ReturnSelectedRouteDetail" class="col-12" id="returnRoute">
                                                 @foreach (Routes route in ViewBag.RouteList)
                                                 {
                                                     if (ViewBag.SelectedReturnRoute == route.RouteID.ToString())
@@ -119,7 +118,7 @@
                                                 }
                                             </select>
                                         </div>
-
+                                        <div id="Route-validation-message" class="validation-message"></div>
 
                                         <!-- Hidden fields for selected route details -->
                                         <input type="hidden" id="hiddenSelectedRouteDetail" name="SelectedRouteDetail" value="">
@@ -149,7 +148,6 @@
                                     <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday" id="ThursdayToggle" @(ViewBag.SelectedDaysOfWeek.Contains("Thursday") ? "checked" : "")> Thursday</label>
 
                                     <div class="form-line"></div>
-                                    <div id="daysofweek-validation-message" class="validation-message">Please select days of week</div>
                                 </div>
                             </div>
                         </div>
@@ -189,6 +187,6 @@
 
 </body>
 
-<script src="/js/Registeration/RegisterValidation.js"></script>
+<script src="/js/Registeration/EditValidation.js"></script>
 <script src="/js/Registeration/form-reset.js"></script>
 <script src="/js/Registeration/editRegister.js"></script>
