@@ -17,7 +17,9 @@ namespace MidStateShuttleService.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            // Fetch all feedback entries and order them by DateSubmitted in descending order
+            var feedbackList = _context.Feedbacks.OrderByDescending(f => f.DateSubmitted).ToList();
+            return View(feedbackList);
         }
 
         // POST: Feedback/Create
@@ -60,5 +62,7 @@ namespace MidStateShuttleService.Controllers
             // If we got this far, something failed, redisplay form
             return View("Index", feedback);
         }
+
+
     }
 }
