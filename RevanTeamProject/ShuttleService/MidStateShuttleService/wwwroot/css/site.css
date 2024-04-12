@@ -47,6 +47,10 @@ header {
         padding: 0 15px; /* Adjusted padding for smaller screens */
     }
 
+    header .navbar-brand img {
+        max-height: 40px; /* Adjust this value to your desired size */
+    }
+
     /* Maintain your existing styles for .navb-items and .items */
     header .nav-items {
         display: flex;
