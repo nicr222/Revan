@@ -1,4 +1,4 @@
-﻿@model MidStateShuttleService.Models.Feedback
+﻿@model IEnumerable<MidStateShuttleService.Models.Feedback>
 
 @{
     ViewBag.Title = "Shuttle Service Feedback";
@@ -10,10 +10,14 @@
 <link rel="stylesheet" href="/css/site.css" />
 
 <!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
-
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- Slick slider plugin -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
 
 <body>
 
@@ -45,7 +49,6 @@
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" name="CustomerName" placeholder="Your full name">
-                <div class="form-line"></div>
                 <p class="name-info">* If you prefer to remain anonymous, simply leave the name field blank.</p>
             </div>
             <div class="form-group">
@@ -99,6 +102,51 @@
             </div>
             <button type="submit" class="btn btn--radius btn--submit">Submit</button>
         </form>
+
+        <!-- Testimonials Section -->
+        <div class="testimonials-container" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            <div class="testimonials-header">
+                <h2>Discover why our customers love our services!</h2>
+            </div>
+            @foreach (var feedback in Model)
+            {
+                <div class="testimonial">
+                    <span class="open quote">“</span>
+                    <div class="starsRating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= feedback.Rating)
+                            {
+                                <label for="star@i-@feedback.FeedbackId" style="color: #840029;">★</label>
+                            }
+                            else
+                            {
+                                <label for="star@i-@feedback.FeedbackId">★</label>
+                            }
+                        }
+                    </div>
+                    <div class="image">
+                        <div class="clip"></div>
+                        <img src="/img/shuttle icon free.png">
+                    </div>
+                    <p>@Html.DisplayFor(modelItem => feedback.Comment)</p>
+                    <div class="source">
+                        <span>@Html.DisplayFor(modelItem => feedback.CustomerName)</span>
+                        <div class="date-submitted">
+                            @Html.DisplayFor(modelItem => feedback.DateSubmitted, "{0:MMMM dd, yyyy}")
+                        </div>
+                    </div>
+                    <span class="close quote">”</span>
+                </div>
+            }
+        </div>
+        <!-- Pagination Controls -->
+        <div id="pagination-controls" class="pagination">
+            <button class="page-btn">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
+        </div>
     </div>
 
 </body>
@@ -118,4 +166,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="/js/starRating.js"></script>
+<script src="/js/testimonialPagination.js"></script>
 <script src="/js/feedbackvalidation.js"></script>
