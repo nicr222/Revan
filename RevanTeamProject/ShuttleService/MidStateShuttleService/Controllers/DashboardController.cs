@@ -73,6 +73,7 @@ namespace MidStateShuttleService.Controllers
 
         }
 
+<<<<<<< HEAD
         public ActionResult GetMessageDetails(int messageId)
         {
             // Fetch message details from the database based on the messageId
@@ -83,5 +84,56 @@ namespace MidStateShuttleService.Controllers
         }
 
 
+=======
+        public ActionResult PassengerList(int id)
+        {
+            var route = _context.Routes.FirstOrDefault(r => r.RouteID == id);
+
+            if (route == null)
+            {
+                return NotFound(); // Handle the case where the route is not found
+            }
+
+            // Initialize a HashSet to store unique register IDs
+            var uniqueRegisterIds = new HashSet<int>();
+
+            // Initialize a list to store unique passengers
+            var uniquePassengers = new List<RegisterModel>();
+
+            // Fetch passengers related to this route's selected route details
+            var selectedRoutePassengers = _context.RegisterModels
+                                    .Where(p => p.SelectedRouteDetail == route.RouteID.ToString())
+                                    .ToList();
+
+            // Fetch passengers related to this route's return route details
+            var returnRoutePassengers = _context.RegisterModels
+                                    .Where(p => p.SelectedRouteDetail == route.RouteID.ToString())
+                                    .ToList();
+
+            // Add passengers from selected route details
+            foreach (var passenger in selectedRoutePassengers)
+            {
+                if (!uniqueRegisterIds.Contains(passenger.RegistrationId))
+                {
+                    uniquePassengers.Add(passenger);
+                    uniqueRegisterIds.Add(passenger.RegistrationId);
+                }
+            }
+
+            // Add passengers from return route details
+            foreach (var passenger in returnRoutePassengers)
+            {
+                if (!uniqueRegisterIds.Contains(passenger.RegistrationId))
+                {
+                    uniquePassengers.Add(passenger);
+                    uniqueRegisterIds.Add(passenger.RegistrationId);
+                }
+            }
+
+            // Pass the list of unique passengers and the route to the view
+            ViewBag.Route = route;
+            return View(uniquePassengers);
+        }
+>>>>>>> RV-55
     }
 }
