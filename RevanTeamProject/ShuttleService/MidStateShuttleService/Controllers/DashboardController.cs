@@ -73,7 +73,6 @@ namespace MidStateShuttleService.Controllers
 
         }
 
-<<<<<<< HEAD
         public ActionResult GetMessageDetails(int messageId)
         {
             // Fetch message details from the database based on the messageId
@@ -83,8 +82,6 @@ namespace MidStateShuttleService.Controllers
             return PartialView("_MessageDetails", message);
         }
 
-
-=======
         public ActionResult PassengerList(int id)
         {
             var route = _context.Routes.FirstOrDefault(r => r.RouteID == id);
@@ -134,6 +131,5 @@ namespace MidStateShuttleService.Controllers
             ViewBag.Route = route;
             return View(uniquePassengers);
         }
->>>>>>> RV-55
     }
 }
