@@ -259,7 +259,13 @@ public partial class ApplicationDbContext : DbContext
                 .HasDefaultValue(new DateTime())
                 .IsRequired();
 
-            entity.Property(e => e.UserId);
+            entity.Property(e => e.CustomerName)
+                .HasMaxLength(50)
+                .HasDefaultValue("Anonymous");
+
+            entity.Property(e => e.Rating)
+                .IsRequired()
+                .HasDefaultValue(0);
         });
 
         // Message Table

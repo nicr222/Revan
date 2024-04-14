@@ -9,17 +9,21 @@ using Microsoft.EntityFrameworkCore;
 namespace MidStateShuttleService.Models;
 
 [Table("Feedback")]
-[Index("UserId", Name = "IX_Feedback_UserID")]
 public partial class Feedback
 {
     [Key]
     public int FeedbackId { get; set; }
 
-    [StringLength(255)]
+    [StringLength(255, ErrorMessage = "Comment should not exceed 255 characters.")]
     public string Comment { get; set; }
 
     [Column(TypeName = "datetime")]
     public DateTime DateSubmitted { get; set; }
 
-    public int? UserId { get; set; }
+    [StringLength(50)] // Set the maximum length to 50
+    public string CustomerName { get; set; } // Changed from UserId
+
+    [Required(ErrorMessage = "Rating is required.")]
+    [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5.")]
+    public int Rating { get; set; } // Added Rating property
 }
