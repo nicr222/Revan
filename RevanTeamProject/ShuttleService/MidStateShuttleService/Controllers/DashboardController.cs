@@ -131,6 +131,6 @@ namespace MidStateShuttleService.Controllers
             ViewBag.Route = route;
             return View(uniquePassengers);
         }
->>>>>>> RV-55
+
     }
 }
