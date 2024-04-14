@@ -35,8 +35,8 @@
                             <td>@registration.PhoneNumber</td>
                             <td><a href="mailto:@registration.Email">@registration.Email</a></td>
                             <td>@registration.FirstDayExpectingToRide</td>
-                            <td><a asp-controller="Routes" asp-action="Edit" asp-route-id="@registration.RouteID">Edit</a></td>
-                            <td><a asp-controller="Routes" asp-action="Delete" asp-route-id="@registration.RouteID">Delete</a></td>
+                            <td><a asp-controller="Routes" asp-action="Edit" asp-route-id="@registration.RegistrationId">Edit</a></td>
+                            <td><a asp-controller="Routes" asp-action="Delete" asp-route-id="@registration.RegistrationId">Delete</a></td>
                         </tr>
                     }
                 }
