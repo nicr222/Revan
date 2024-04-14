@@ -39,7 +39,7 @@
                     <td>@location.ZipCode</td>
                     <td>@location.Abbreviation</td>
                     <td><a asp-controller="Location" asp-action="Edit" asp-route-id="@location.LocationId">Edit</a></td>
-                    <td><a asp-controller="Location" asp-action="Delete" asp-route-id="@location.LocationId">Delete</a></td>
+                    <td><a asp-controller="Location" asp-action="DeleteLocation" asp-route-id="@location.LocationId">Delete</a></td>
                 </tr>
             }
         }

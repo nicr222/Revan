@@ -9,5 +9,8 @@ namespace MidStateShuttleService.Service
         {
 
         }
+
+        // Retrieve registrations with matching pickup and drop-off locations
+        
     }
 }
