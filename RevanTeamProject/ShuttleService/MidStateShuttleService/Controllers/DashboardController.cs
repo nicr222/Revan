@@ -104,7 +104,7 @@ namespace MidStateShuttleService.Controllers
 
             // Fetch passengers related to this route's return route details
             var returnRoutePassengers = _context.RegisterModels
-                                    .Where(p => p.SelectedRouteDetail == route.RouteID.ToString())
+                                    .Where(p => p.ReturnSelectedRouteDetail == route.RouteID.ToString())
                                     .ToList();
 
             // Add passengers from selected route details
