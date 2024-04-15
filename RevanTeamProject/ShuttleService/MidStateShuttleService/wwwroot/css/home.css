@@ -64,6 +64,17 @@ html{scroll-behavior: smooth;}
         transform: translateX(-50%) translateY(-50%);
     }
 
+.hero_image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+}
+
 .hero_overlay {
     position: absolute;
     left: 0;
