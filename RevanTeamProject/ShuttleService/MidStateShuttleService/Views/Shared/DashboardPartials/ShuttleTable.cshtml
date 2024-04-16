@@ -5,6 +5,13 @@
 
 <div class="cardHeader">
     <h2>Shuttles</h2>
+    <!--search-->
+    <div class="search">
+        <label>
+            <input id="searchInput" type="text" placeholder="Search" />
+            <i class="bi bi-search"></i>
+        </label>
+    </div>
     <a asp-controller="Shuttles" asp-action="Create" class="btn">Add Shuttle</a>
 </div>
 <table>
@@ -37,3 +44,5 @@
         }
     </tbody>
 </table>
+
+<script src="~/js/SearchFunc/shuttleSearch.js"></script>
