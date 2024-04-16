@@ -5,12 +5,13 @@
 }
 @model MidStateShuttleService.Models.AllModels
 
+
 <div class="cardHeader">
     <h2>Locations</h2>
     <!--search-->
     <div class="search">
         <label>
-            <input type="text" placeholder="Search" />
+            <input id="searchInput" type="text" placeholder="Search" />
             <i class="bi bi-search"></i>
         </label>
     </div>
@@ -29,8 +30,8 @@
             <td>Delete</td>
         </tr>
     </thead>
-    <tbody>
-        @if (Model.Location == null)
+    <tbody id="locationsTableBody">
+        @if (Model.Location == null || !Model.Location.Any())
         {
             <tr><td colspan="8" class="text-center">There are Currently No Locations</td></tr>
         }
@@ -38,7 +39,7 @@
         {
             @foreach (var location in Model.Location)
             {
-                <tr>
+                <tr class="locationRow">
                     <td>@location.Name</td>
                     <td>@location.Address</td>
                     <td>@location.City</td>
@@ -52,3 +53,5 @@
         }
     </tbody>
 </table>
+
+<script src="~/js/SearchFunc/locationSearch.js"></script>
