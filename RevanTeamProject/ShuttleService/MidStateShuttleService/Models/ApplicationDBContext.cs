@@ -84,6 +84,9 @@ public partial class ApplicationDbContext : DbContext
                 .HasAnnotation("RegularExpression", @"^\d{10,20}$")
                 .IsRequired();
 
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
+
             entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -101,6 +104,9 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.LocationId)
                 .ValueGeneratedOnAdd()
                 .IsRequired();
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
 
             entity.Property(e => e.Name)
                 .IsRequired()
@@ -179,8 +185,11 @@ public partial class ApplicationDbContext : DbContext
                 .HasAnnotation("RegularExpression", "^[a-zA-Z0-9.,!?'\";:@#$%^&*()_+=\\-\\/]*$")
                 .HasAnnotation("ErrorMessage", "Additional details can only contain letters, numbers, and important special characters.");
 
-            entity.Property(e => e.BusId)
+            entity.Property(e => e.DriverId)
                 .IsRequired();
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
 
             entity.HasOne(e => e.PickUpLocation)
                 .WithMany()
@@ -192,9 +201,9 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(e => e.DropOffLocationID)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasOne(e => e.Bus)
+            entity.HasOne(e => e.Driver)
                 .WithMany()
-                .HasForeignKey(e => e.BusId)
+                .HasForeignKey(e => e.DriverId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
@@ -217,7 +226,7 @@ public partial class ApplicationDbContext : DbContext
 
             entity.Property(e => e.RouteId);
 
-            entity.Property(e => e.UserId);
+            entity.Property(e => e.Name);
 
             entity.Property(e => e.Date)
                 .HasColumnType("datetime")
@@ -231,9 +240,16 @@ public partial class ApplicationDbContext : DbContext
                 .IsRequired()
                 .HasDefaultValue(false);
 
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
+
             entity.HasOne(e => e.Route)
                 .WithMany()
                 .HasForeignKey(e => e.RouteId);
+
+            entity.HasOne(e => e.Location)
+                .WithMany()
+                .HasForeignKey(e => e.LocationId);
 
             entity.HasOne(e => e.Bus)
                 .WithMany()
@@ -266,6 +282,9 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Rating)
                 .IsRequired()
                 .HasDefaultValue(0);
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
         });
 
         // Message Table
@@ -299,6 +318,9 @@ public partial class ApplicationDbContext : DbContext
 
             entity.Property(e => e.contactInfo)
                 .HasMaxLength(50);
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
         });
 
         // DispatchMessage Table
@@ -336,6 +358,9 @@ public partial class ApplicationDbContext : DbContext
                 .WithMany()
                 .HasForeignKey(e => e.DropOffLocationID)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
 
             // Ignore LocationNames property
             entity.Ignore(e => e.LocationNames);
@@ -403,6 +428,9 @@ public partial class ApplicationDbContext : DbContext
 
             entity.Property(e => e.FridayAgreeTerms)
                 .IsRequired();
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
 
             entity.Ignore(e => e.LocationNames);
 

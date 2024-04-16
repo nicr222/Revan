@@ -40,6 +40,8 @@ namespace MidStateShuttleService.Models
         [StringLength(5)]
         public string Abbreviation { get; set; }
 
+        public bool IsActive { get; set; }
+
         public string ToStringPickup()
         {
             return Name;

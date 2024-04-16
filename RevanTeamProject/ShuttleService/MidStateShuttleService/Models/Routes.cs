@@ -41,7 +41,9 @@ namespace MidStateShuttleService.Models
         [RegularExpression("^[a-zA-Z0-9.,!?'\";:@#$%^&*()_+=\\-\\/]*$", ErrorMessage = "Additional details can only contain letters, numbers, and important special characters.")]
         public string? AdditionalDetails { get; set; }
 
-        public int BusId { get; set; }
+        public int DriverId { get; set; }
+
+        public bool IsActive { get; set; }
 
         [ForeignKey("PickUpLocationID")]
         public virtual Location PickUpLocation { get; set; }
@@ -49,8 +51,8 @@ namespace MidStateShuttleService.Models
         [ForeignKey("DropOffLocationID")]
         public virtual Location DropOffLocation { get; set; }
 
-        [ForeignKey("BusId")]
-        public virtual Bus Bus { get; set; }
+        [ForeignKey("DriverId")]
+        public virtual Driver Driver { get; set; }
 
            
     }
