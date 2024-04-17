@@ -80,6 +80,9 @@ namespace MidStateShuttleService.Controllers
             BusServices bs = new BusServices(_context);
             ViewBag.Buses = bs.GetAllEntities().Select(x => new SelectListItem { Text = "Shuttle: " + x.BusNo, Value = x.BusId.ToString() });
 
+            DriverServices ds = new DriverServices(_context);
+            ViewBag.Drivers = ds.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.DriverId.ToString() });
+
             return View(route);
         }
 

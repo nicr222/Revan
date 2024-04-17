@@ -54,9 +54,9 @@
                     </div>
 
                     <div class="input-fields">
-                        <label>Assigned Shuttle</label>
+                        <label>Assigned Driver</label>
                         <select asp-for="DriverId"
-                                asp-items="ViewBag.Buses"
+                                asp-items="ViewBag.Drivers"
                                 class="form-control input--style-1" required>
                             <option selected="selected" value="" required>--Select--</option>
                         </select>
@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="p-t-20">
-                        <button type="submit" class="btn btn--radius btn--submit">Create Route</button>
+                        <button type="submit" class="btn btn--radius btn--submit">Edit Route</button>
                         <button class="btn btn--radius btn--cancel" type="button" onclick="location.href='yourCancelPage.html'">Cancel</button>
                     </div>
 
