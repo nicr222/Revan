@@ -12,20 +12,25 @@ namespace MidStateShuttleService.Models
         [Key]
         public int DriverId { get; set; }
 
-        [Required]
+        
         [StringLength(100)]
         public string Name { get; set; }
 
-        [Required]
+        
         [StringLength(20)]
         [RegularExpression(@"^\d{10,20}$", ErrorMessage = "Phone number must be between 10 and 20 digits.")]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        
         [StringLength(50)]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
         public bool IsActive { get; set; }
+
+        public string ToStringDriver()
+        {
+            return Name;
+        }
     }
 }

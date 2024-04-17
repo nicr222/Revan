@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
@@ -21,7 +22,11 @@ namespace MidStateShuttleService.Controllers
         // GET: CheckInController/Create
         public ActionResult CheckIn()
         {
+            LocationServices ls = new LocationServices(_context);
+            ViewBag.Locations = ls.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.LocationId.ToString() });
+
             return View();
+
         }
 
         public ActionResult EditCheckIn(int id)

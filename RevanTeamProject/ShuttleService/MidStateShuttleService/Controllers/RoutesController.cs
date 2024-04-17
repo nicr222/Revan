@@ -43,15 +43,16 @@ namespace MidStateShuttleService.Controllers
             LocationServices ls = new LocationServices(_context);
             ViewBag.Locations = ls.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.LocationId.ToString() });
 
-            BusServices bs = new BusServices(_context);
-            ViewBag.Buses = bs.GetAllEntities().Select(x => new SelectListItem { Text = "Shuttle: " + x.BusNo, Value = x.BusId.ToString() });
+            // Assuming GetAllEntities() returns a list of drivers
+            DriverServices ds = new DriverServices(_context);
+            ViewBag.Drivers = ds.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.DriverId.ToString() });
 
             return View();
         }
 
 
         // POST: RoutesController/Edit/
-[HttpPost]
+        [HttpPost]
         public ActionResult Create(Routes route)
         {
             RouteServices rs = new RouteServices(_context);
