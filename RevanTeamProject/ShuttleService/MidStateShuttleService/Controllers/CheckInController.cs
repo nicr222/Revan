@@ -45,15 +45,7 @@ namespace MidStateShuttleService.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckIn(CheckIn checkIn)
         {
-            //get bus id buy bus number
-            BusServices bs = new BusServices(_context);
-            var busResult = bs.FindBusByNumber(checkIn.BusNumber);
-
-            if (busResult == null)
-                return FailedCheckIn("Could Not Find Shuttle");
-
-            checkIn.Bus = busResult;
-            checkIn.BusId = checkIn.Bus.BusId;
+                   
 
             //date
             checkIn.Date = DateTime.Now;
@@ -75,15 +67,6 @@ namespace MidStateShuttleService.Controllers
             CheckInServices cs = new CheckInServices(_context);
             if (checkIn == null)
                 return FailedCheckIn("Updates to check in could not be applied");
-
-            BusServices bs = new BusServices(_context);
-            var busResult = bs.FindBusByNumber(checkIn.BusNumber);
-
-            if (busResult == null)
-                return FailedCheckIn("Could Not Find Shuttle");
-
-            checkIn.Bus = busResult;
-            checkIn.BusId = checkIn.Bus.BusId;
 
             //not all values comming over from form
             cs.UpdateEntity(checkIn);

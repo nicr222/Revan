@@ -35,8 +35,6 @@
             {
                 <tr>
                     <td>@checkIn.Date.ToShortDateString()</td>
-                    <td>@checkIn.BusNumber</td>
-                    <td>@(checkIn.Route != null ? checkIn.Route.ToString() : "N/A")</td>
                     <td>@checkIn.Comments</td>
                     <td>@(checkIn.FirstTime ? "Yes" : "No")</td>
                     <td><a asp-controller="CheckIn" asp-action="EditCheckIn" asp-route-id="@checkIn.CheckInId">Edit</a></td>

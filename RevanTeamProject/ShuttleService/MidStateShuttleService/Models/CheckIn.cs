@@ -16,12 +16,6 @@ public partial class CheckIn
     [Key]
     public int CheckInId { get; set; }
 
-    public int BusId { get; set; }
-
-    public int BusNumber { get; set; }
-
-    public int? RouteId { get; set; }
-
     public string? Name { get; set; }
 
     public DateTime Date { get; set; }
@@ -31,15 +25,9 @@ public partial class CheckIn
 
     public bool FirstTime { get; set; }
 
-    public int? LocationId { get; set; }
+    public int LocationId { get; set; }
 
     public bool IsActive { get; set; }
-
-    [ForeignKey("RouteId")]
-    public virtual Routes Route { get; set; }
-
-    [ForeignKey("BusId")]
-    public virtual Bus Bus { get; set; }
 
     [ForeignKey("LocationId")]
     public virtual Location Location { get; set; }

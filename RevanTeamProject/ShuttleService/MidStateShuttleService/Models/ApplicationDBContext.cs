@@ -218,19 +218,11 @@ public partial class ApplicationDbContext : DbContext
                 .ValueGeneratedOnAdd()
                 .IsRequired();
 
-            entity.Property(e => e.BusId)
-                .IsRequired();
-
-            entity.Property(e => e.BusNumber)
-                .IsRequired();
-
-            entity.Property(e => e.RouteId);
-
             entity.Property(e => e.Name);
 
             entity.Property(e => e.Date)
                 .HasColumnType("datetime")
-                .HasDefaultValue(new DateTime())
+                .HasDefaultValueSql("GETDATE()")
                 .IsRequired();
 
             entity.Property(e => e.Comments)
@@ -243,17 +235,10 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(b => b.IsActive)
                 .HasDefaultValue(false);
 
-            entity.HasOne(e => e.Route)
-                .WithMany()
-                .HasForeignKey(e => e.RouteId);
-
             entity.HasOne(e => e.Location)
                 .WithMany()
+                .IsRequired()
                 .HasForeignKey(e => e.LocationId);
-
-            entity.HasOne(e => e.Bus)
-                .WithMany()
-                .HasForeignKey(e => e.BusId);
         });
 
         // Feedback Table
