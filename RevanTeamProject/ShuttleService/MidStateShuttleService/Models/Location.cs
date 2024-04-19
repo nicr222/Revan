@@ -51,5 +51,10 @@ namespace MidStateShuttleService.Models
         {
             return Name;
         }
+
+        public string CheckInName()
+        {
+            return Name;
+        }
     }
 }

@@ -34,6 +34,9 @@ namespace MidStateShuttleService.Controllers
             CheckInServices cs = new CheckInServices(_context);
             CheckIn model = cs.GetEntityById(id);
 
+            LocationServices ls = new LocationServices(_context);
+            ViewBag.Locations = ls.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.LocationId.ToString() });
+
             if (model == null)
                 return FailedCheckIn("Check In Not Found");
 
