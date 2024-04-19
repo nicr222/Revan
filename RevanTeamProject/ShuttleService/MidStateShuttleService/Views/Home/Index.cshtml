@@ -1,9 +1,21 @@
-﻿@{
+﻿@model IEnumerable<MidStateShuttleService.Models.Feedback>
+
+@{
     ViewData["Title"] = "Home Page";
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script defer src="~/js/homeScroll.js"></script>
 }
+
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/Feedback.css" />
+
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 <!--Hero Section-->
 
@@ -50,7 +62,7 @@
                 <span>01</span>
                 <h1 class="h2 mb-4">Reserve Your Spot</h1>
                 <p class="mb-4">Reserve your spot on the shuttle by registering online. It's quick and easy.  Reserve your spot on the shuttle by registering online. It's quick and easy. Reserve your spot on the shuttle by registering online. It's quick and easy.</p>
-                <a href="#">Click here <i class="bi bi-arrow-right"></i></a>
+                <a href="#" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>
@@ -59,7 +71,7 @@
 <!--Section 1 Ends-->
 <!--Section 2 Starts-->
 
-<section class="steps steps--background">
+<section class="steps container-custom">
     <div class="container-custom">
         <div class="row">
             <div class="col-12 col-sm-6 d-md-flex justify-content-md-center order-sm-1">
@@ -70,7 +82,7 @@
                     <span>02</span>
                     <h1 class="h2 mb-4">Share Your Feedback</h1>
                     <p class="mb-4">We value your feedback. Share your experience with us and help us improve our service. We value your feedback. Share your experience with us and help us improve our service. We value your feedback. Share your experience with us and help us improve our service.</p>
-                    <a href="#">Click here <i class="bi bi-arrow-right"></i></a>
+                    <a href="#" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -90,37 +102,160 @@
                 <span>03</span>
                 <h1 class="h2 mb-4">Learn More!</h1>
                 <p class="mb-4">Learn more about our shuttle service and how it can help you get to and between campuses. Learn more about our shuttle service and how it can help you get to and between campuses. Learn more about our shuttle service and how it can help you get to and between campuses.</p>
-                <a href="#">Click here <i class="bi bi-arrow-right"></i></a>
+                <a href="#" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>
 </section>
 <!--Section 3 Ends-->
 
-<!-- Section with 3 Col's Start-->
-<section class="Three bg-dark text-white py-4">
+<!-- Section 4 Start-->
+<section class="Three py-4" style="background-color: #ebebeb;">
 
-    <div class="container-custom my-4">
-        <div class="row">
-           <div class="col-12 col-sm-4 mb-4">
-               <img src="~/img/c2c.jpg" alt="Shuttle Image" class="img-fluid mb-4" width="441" height="248" loading="lazy" />
-                <h3 class="h2 mb-4">Reserve Your Spot</h3>
-                <p class="mb-4">Reserve your spot on the shuttle by registering online. It's quick and easy.  Reserve your spot on the shuttle by registering online. It's quick and easy. Reserve your spot on the shuttle by registering online. It's quick and easy.</p>
-           </div>
+    <div class="container mt-5">
+        <h2>Customer Testimonial</h2>
+        <form id="feedbackForm" asp-action="Create" method="post">
 
-            <div class="col-12 col-sm-4 mb-4">
-                <img src="~/img/c2c.jpg" alt="Shuttle Image" class="img-fluid mb-4" width="441" height="248" loading="lazy" />
-                <h3 class="h2 mb-4">Reserve Your Spot</h3>
-                <p class="mb-4">Reserve your spot on the shuttle by registering online. It's quick and easy.  Reserve your spot on the shuttle by registering online. It's quick and easy. Reserve your spot on the shuttle by registering online. It's quick and easy.</p>
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successModalLabel">Feedback Successful</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Your feedback has been successfully submitted. Thank you!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn--radius btn--submit" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-12 col-sm-4 mb-4">
-                <img src="~/img/c2c.jpg" alt="Shuttle Image" class="img-fluid mb-4" width="441" height="248" loading="lazy" />
-                <h3 class="h2 mb-4">Reserve Your Spot</h3>
-                <p class="mb-4">Reserve your spot on the shuttle by registering online. It's quick and easy.  Reserve your spot on the shuttle by registering online. It's quick and easy. Reserve your spot on the shuttle by registering online. It's quick and easy.</p>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="CustomerName" placeholder="Your full name">
+                <p class="name-info">* If you prefer to remain anonymous, simply leave the name field blank.</p>
             </div>
+            <div class="form-group">
+                <label for="testimonial">Your Testimonial</label>
+                <textarea class="form-control" id="testimonial" name="Comment" rows="3" placeholder="Share your experience with us..."></textarea>
+                <div id="comment-validation-message" class="validation-message">Comment is required and should not exceed 255 characters.</div>
+            </div>
+            <div class="form-group">
+                <label for="rating">Overall Rating</label>
+                <div class="star-rating">
+                    <input id="star1" name="rating" type="radio" value="1" class="star" />
+                    <label for="star1" title="1 star"></label>
+
+                    <input id="star2" name="rating" type="radio" value="2" class="star" />
+                    <label for="star2" title="2 stars"></label>
+
+                    <input id="star3" name="rating" type="radio" value="3" class="star" />
+                    <label for="star3" title="3 stars"></label>
+
+                    <input id="star4" name="rating" type="radio" value="4" class="star" />
+                    <label for="star4" title="4 stars"></label>
+
+                    <input id="star5" name="rating" type="radio" value="5" class="star" />
+                    <label for="star5" title="5 stars"></label>
+
+                    <div id="Star-validation-message" class="validation-message">Please select a rating.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="emojiRating">Satisfaction Level</label>
+                <div id="emojiRating" class="emoji-rating">
+                    <input id="emoji-1" type="radio" name="satisfaction" value="1"><label for="emoji-1">😡</label>
+                    <input id="emoji-2" type="radio" name="satisfaction" value="2"><label for="emoji-2">😠</label>
+                    <input id="emoji-3" type="radio" name="satisfaction" value="3"><label for="emoji-3">😐</label>
+                    <input id="emoji-4" type="radio" name="satisfaction" value="4"><label for="emoji-4">😊</label>
+                    <input id="emoji-5" type="radio" name="satisfaction" value="5"><label for="emoji-5">😄</label>
+                    <div id="satisfaction-validation-message" class="validation-message">Please select your satisfaction level.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Would you recommend us?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="recommend" id="recommendYes" value="yes" checked>
+                    <label class="form-check-label" for="recommendYes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="recommend" id="recommendNo" value="no">
+                    <label class="form-check-label" for="recommendNo">No</label>
+                </div>
+            </div>
+            <button type="submit" class="button button--radius button--submit">Submit</button>
+        </form>
+
+        <!-- Testimonials Section -->
+        <div class="testimonials-container" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            <div class="testimonials-header">
+                <h2>Discover why our customers love our services!</h2>
+            </div>
+            @foreach (var feedback in Model)
+            {
+                <div class="testimonial">
+                    <span class="open quote">“</span>
+                    <div class="starsRating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= feedback.Rating)
+                            {
+                                <label for="star@i-@feedback.FeedbackId" style="color: #840029;">★</label>
+                            }
+                            else
+                            {
+                                <label for="star@i-@feedback.FeedbackId">★</label>
+                            }
+                        }
+                    </div>
+                    <div class="image">
+                        <div class="clip"></div>
+                        <img src="/img/shuttle icon free.png" class="feedback-image">
+                    </div>
+                    <p class="feedback-comment">@Html.DisplayFor(modelItem => feedback.Comment)</p>
+                    <div class="source">
+                        <span>@Html.DisplayFor(modelItem => feedback.CustomerName)</span>
+                        <div class="date-submitted">
+                            @Html.DisplayFor(modelItem => feedback.DateSubmitted, "{0:MMMM dd, yyyy}")
+                        </div>
+                    </div>
+                    <span class="close quote">”</span>
+                </div>
+            }
+        </div>
+        <!-- Pagination Controls -->
+        <div id="pagination-controls" class="pagination">
+            <button class="page-btn">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
         </div>
     </div>
 
 </section>
 <!-- Section with 3 Col's End-->
+<!-- Include success custom JS files -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        var registrationSuccess = '@TempData["FeedbackSuccess"]';
+        if (registrationSuccess === 'True') {
+            $('#successModal').modal('show');
+        }
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/starRating.js"></script>
+<script src="/js/testimonialPagination.js"></script>
+<script src="/js/feedbackvalidation.js"></script>
