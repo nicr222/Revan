@@ -141,9 +141,10 @@ html{scroll-behavior: smooth;}
     margin: 0 auto;
 }
 
-.steps--background {
+.step-background {
     /*background-color: #f8f9fa;*/
     background-color: #ebebeb;
+    width:auto;
 }
 
 .steps_section-width{

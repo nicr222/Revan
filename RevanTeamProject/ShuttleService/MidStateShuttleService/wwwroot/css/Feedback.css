@@ -134,34 +134,8 @@ input {
         display: inline-block;
     }
 
-
-
-/* Star Rating */
-.star-rating {
-    direction: ltr; 
-    font-size: 0; 
-}
-
-    .star-rating .star {
-        display: none;
-    }
-
-    .star-rating label {
-        font-size: 47px;
-        color: #ccc;
-        cursor: pointer;
-    }
-
-        .star-rating label:before {
-            content: "\2605";  /*Unicode star character */
-        }
-
-    .star-rating .star:checked ~ label {
-        color: #f5a623; /* Color of selected stars */
-    }
-
-
- Emoji Rating 
+/*
+ Emoji Rating */
 .emoji-rating {
     font-size: 1.5em;
     cursor: pointer;
@@ -174,36 +148,37 @@ input {
     .emoji-rating label {
         cursor: pointer;
         transition: transform 0.3s ease-in-out;
+        color: #ccc;
     }
 
     .emoji-rating input:checked + label {
         transform: scale(1.3);  /*Scale the emoji a little on select */
     }
 
- Colors for different levels of satisfaction 
+Colors for different levels of satisfaction
 #emoji-5:checked ~ label[for="emoji-5"],
 #emoji-5:hover ~ label[for="emoji-5"] {
-    color: green;
+    color: #006400;
 }
 
 #emoji-4:checked ~ label[for="emoji-4"],
 #emoji-4:hover ~ label[for="emoji-4"] {
-    color: lightgreen;
+    color: #32CD32;
 }
 
 #emoji-3:checked ~ label[for="emoji-3"],
 #emoji-3:hover ~ label[for="emoji-3"] {
-    color: yellow;
+    color: #808080;
 }
 
 #emoji-2:checked ~ label[for="emoji-2"],
 #emoji-2:hover ~ label[for="emoji-2"] {
-    color: #DAA520;  /*golden rod*/ 
+    color: #FF6347; /*golden rod*/
 }
 
 #emoji-1:checked ~ label[for="emoji-1"],
 #emoji-1:hover ~ label[for="emoji-1"] {
-    color: red;
+    color: #FF0000;
 }
 
 /* ==========================================================================
