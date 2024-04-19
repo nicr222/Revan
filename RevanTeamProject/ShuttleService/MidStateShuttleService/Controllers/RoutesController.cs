@@ -123,25 +123,33 @@ namespace MidStateShuttleService.Controllers
             {
                 var route = _context.Routes.Find(id);
 
+                if (route != null)
+                {
+                    route.IsActive = !route.IsActive; // Toggle IsActive from true to false or false to true
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    // Handle the case where the route with the specified id is not found
+                    ModelState.AddModelError("", "Route not found.");
+                    return View();
+                }
 
-
-                _context.Routes.Remove(route);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+                return RedirectToAction("Index", "Dashboard"); // Redirect after toggling IsActive
             }
             catch (Exception ex)
             {
-                // Log the SQL exception and any other exceptions
+                // Log the exception
                 LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
-                _logger.LogError(ex, "An error occurred while deleting route.");
+                _logger.LogError(ex, "An error occurred while toggling IsActive of the route.");
 
                 // Optionally add a model error for displaying an error message to the user
-                ModelState.AddModelError("", "An unexpected error occurred while deleting the route, please try again.");
+                ModelState.AddModelError("", "An unexpected error occurred while toggling IsActive of the route, please try again.");
 
                 // Return the view with an error message
                 return View();
             }
+
         }
 
         // POST: RoutesController/Delete/5
