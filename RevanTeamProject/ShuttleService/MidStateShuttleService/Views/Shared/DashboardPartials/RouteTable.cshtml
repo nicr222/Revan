@@ -20,6 +20,7 @@
             <td>Drop Off Time</td>
             <td>Driver</td>
             <td>Additional Details</td>
+            <td>is active</td>
             <td>Update</td>
             <td>Delete</td>
         </tr>
@@ -41,6 +42,7 @@
                     <td>@r.DropOffTime</td>
                     <td>@r.Driver.ToStringDriver()</td>
                     <td>@r.AdditionalDetails</td>
+                    <td>@r.IsActive.ToString()</td>
                     <td><a asp-controller="Routes" asp-action="Edit" asp-route-id="@r.RouteID">Edit</a></td>
                     <td><a asp-controller="Routes" asp-action="Delete" asp-route-id="@r.RouteID">Delete</a></td>
                 </tr>
