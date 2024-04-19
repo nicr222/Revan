@@ -359,11 +359,11 @@ input {
 }
 
 /* Image styling */
-img {
+.shuttle-img {
     width: 100%;
     height: auto;
-    border: 7px solid #666; 
-    display: block; 
+    border: 7px solid #666;
+    display: block;
 }
 
 .clip {
