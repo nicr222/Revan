@@ -268,6 +268,10 @@ public partial class ApplicationDbContext : DbContext
                 .IsRequired()
                 .HasDefaultValue(0);
 
+            entity.Property(b => b.DisplayTestimonial)
+                .HasDefaultValue(false)
+                .IsRequired();
+
             entity.Property(b => b.IsActive)
                 .HasDefaultValue(false);
         });
