@@ -46,6 +46,9 @@ namespace MidStateShuttleService.Controllers
             MessageServices ms = new MessageServices(_context);
             allModels.Message = ms.GetAllEntities();
 
+            FeedbackServices fs = new FeedbackServices(_context);
+            allModels.Feedback = fs.GetAllEntities();
+
             // Retrieve the registration success flag and count from the session
             var registrationSuccess = HttpContext.Session.GetString("RegistrationSuccess") == "true";
             int registrationCountFromSession = HttpContext.Session.GetInt32("RegistrationCount") ?? 0;

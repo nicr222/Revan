@@ -54,6 +54,7 @@ namespace MidStateShuttleService.Controllers
 
                     TempData["FeedbackSuccess"] = "True"; // Use TempData to signal that feedback was successful
                     return RedirectToAction(nameof(Index)); // Redirect back to the form page to show the success modal
+                    //return RedirectToAction("FeedbackTable");
                 }
                 catch (Exception ex)
                 {
@@ -75,5 +76,22 @@ namespace MidStateShuttleService.Controllers
             // If we got this far, something failed, redisplay form
             return View("Index", feedback);
         }
+
+        [HttpPost]
+        public IActionResult UpdateStatus(int id, bool isActive)
+        {
+            var feedback = _context.Feedbacks.FirstOrDefault(f => f.FeedbackId == id);
+            if (feedback == null)
+            {
+                return Json(new { success = false });
+            }
+
+            feedback.IsActive = isActive;
+            _context.SaveChanges();
+
+            return Json(new { success = true });
+        }
+
     }
+
 }
