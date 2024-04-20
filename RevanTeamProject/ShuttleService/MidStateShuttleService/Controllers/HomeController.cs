@@ -38,7 +38,7 @@ namespace MidStateShuttleService.Controllers
         // POST: Feedback/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Comment,CustomerName,Rating")] Feedback feedback)
+        public async Task<IActionResult> Create([Bind("Comment,CustomerName,Rating,DisplayTestimonial,IsActive")] Feedback feedback)
         {
             if (ModelState.IsValid)
             {
