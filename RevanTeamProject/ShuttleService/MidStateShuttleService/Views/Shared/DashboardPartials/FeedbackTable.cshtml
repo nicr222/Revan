@@ -46,10 +46,8 @@
                            data-comment="@feedback.Comment"
                            data-rating="@feedback.Rating"
                            data-date-submitted="@feedback.DateSubmitted.ToString("yyyy-MM-dd")">View</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-success" asp-controller="Feedback" asp-action="Accept" asp-route-id="@feedback.FeedbackId">Accept</a>
-                        <a class="btn btn-danger" asp-controller="Feedback" asp-action="Reject" asp-route-id="@feedback.FeedbackId">Reject</a>
+                        <a class="button button-accept" asp-controller="Home" asp-action="Accept" asp-route-id="@feedback.FeedbackId">Accept</a>
+                        <a class="button button-reject" asp-controller="Home" asp-action="Reject" asp-route-id="@feedback.FeedbackId">Reject</a>
                     </td>
                 </tr>
             }

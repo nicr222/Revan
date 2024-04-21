@@ -505,6 +505,10 @@
         color: white;
     }
 
+/* Styles for Accept and Reject buttons */
+.button-accept, .button-reject {
+    padding: 5px 15px;
+}
 
 /* practicing this way to be responsive */
 @media (max-width: 991px) {
