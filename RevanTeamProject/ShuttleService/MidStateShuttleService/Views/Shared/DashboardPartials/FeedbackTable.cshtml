@@ -49,8 +49,10 @@
                            data-rating="@feedback.Rating"
                            data-share-testimonial="@(feedback.DisplayTestimonial ? "Yes" : "No")"
                            data-date-submitted="@feedback.DateSubmitted.ToString("yyyy-MM-dd")">View</a>
-                        <a class="button button-accept" asp-controller="Home" asp-action="Accept" asp-route-id="@feedback.FeedbackId">Accept</a>
-                        <a class="button button-reject" asp-controller="Home" asp-action="Reject" asp-route-id="@feedback.FeedbackId">Reject</a>
+                        @* <a class="button button-accept" asp-controller="Home" asp-action="Accept" asp-route-id="@feedback.FeedbackId">Accept</a>
+                        <a class="button button-reject" asp-controller="Home" asp-action="Reject" asp-route-id="@feedback.FeedbackId">Reject</a> *@
+                        <a href="@Url.Action("AcceptFeedback", "Dashboard", new { id = feedback.FeedbackId })" class="button button-accept">Accept</a>
+                        <a href="@Url.Action("RejectFeedback", "Dashboard", new { id = feedback.FeedbackId })" class="button button-reject">Reject</a>
                     </td>
                 </tr>
             }

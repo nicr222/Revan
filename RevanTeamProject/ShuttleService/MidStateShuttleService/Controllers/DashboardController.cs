@@ -134,6 +134,46 @@ namespace MidStateShuttleService.Controllers
             ViewBag.Route = route;
             return View(uniquePassengers);
         }
+        
+        // Accept and reject feedback methods
+        public async Task<IActionResult> AcceptFeedback(int id)
+        {
+            var feedback = await _context.Feedbacks.FindAsync(id);
+            if (feedback != null)
+            {
+                feedback.IsActive = true;
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> RejectFeedback(int id)
+        {
+            try
+            {
+                var feedback = _context.Feedbacks.Find(id);
+
+
+
+                _context.Feedbacks.Remove(feedback);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+            }
+            catch (Exception ex)
+            {
+                // Log the SQL exception and any other exceptions
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while deleting feedback.");
+
+                // Optionally add a model error for displaying an error message to the user
+                ModelState.AddModelError("", "An unexpected error occurred while deleting the feedback, please try again.");
+
+                // Return the view with an error message
+                return View();
+            }
+        }
+
 
     }
 }

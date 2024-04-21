@@ -20,8 +20,14 @@ namespace MidStateShuttleService.Controllers
         public IActionResult Index()
         {
             // Fetch all feedback entries and order them by DateSubmitted in descending order
-            var feedbackList = _context.Feedbacks.OrderByDescending(f => f.DateSubmitted).ToList();
-            return View(feedbackList);
+            //var feedbackList = _context.Feedbacks.OrderByDescending(f => f.DateSubmitted).ToList();
+            //return View(feedbackList);
+            // Fetch active feedback entries only
+            var activeFeedbackList = _context.Feedbacks
+                                      .Where(f => f.IsActive)
+                                      .OrderByDescending(f => f.DateSubmitted)
+                                      .ToList();
+            return View(activeFeedbackList);
         }
 
         public IActionResult Privacy()
