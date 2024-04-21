@@ -77,21 +77,6 @@ namespace MidStateShuttleService.Controllers
             return View("Index", feedback);
         }
 
-        [HttpPost]
-        public IActionResult UpdateStatus(int id, bool isActive)
-        {
-            var feedback = _context.Feedbacks.FirstOrDefault(f => f.FeedbackId == id);
-            if (feedback == null)
-            {
-                return Json(new { success = false });
-            }
-
-            feedback.IsActive = isActive;
-            _context.SaveChanges();
-
-            return Json(new { success = true });
-        }
-
     }
 
 }
