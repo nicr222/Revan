@@ -379,24 +379,12 @@ Colors for different levels of satisfaction
         z-index: 99;
     }
 
-.starsRating {
+.emojiRatingTestimonial {
     margin-top: -12px;
     margin-right: 37px;
+    background: #666;
+    border-radius: 50%;
 }
-
-.starsRating label {
-    font-size: 24px; 
-    color: #fff; 
-    cursor: pointer;
-    transition: color 0.2s; 
-}
-
-    /* Dynamic color change for selected stars, defined in inline styles to override */
-    .starsRating .star:checked ~ label,
-    .starsRating label:hover,
-    .starsRating label:hover ~ label {
-        /* The color change is handled by inline styles for dynamic color application */
-    }
 
 
 /* Testimonial text */
