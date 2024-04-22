@@ -29,8 +29,8 @@ public partial class Feedback
     public int Rating { get; set; } // Added Rating property
 
     [Required]
-    [DefaultValue(false)]
-    public bool DisplayTestimonial { get; set; }// Added DisplayTestimonial property
+    [Column("DisplayTestimonial")]
+    public bool DisplayTestimonial { get; set; } // Added DisplayTestimonial property
 
     public bool IsActive { get; set; }
 }
