@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
@@ -21,13 +22,20 @@ namespace MidStateShuttleService.Controllers
         // GET: CheckInController/Create
         public ActionResult CheckIn()
         {
+            LocationServices ls = new LocationServices(_context);
+            ViewBag.Locations = ls.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.LocationId.ToString() });
+
             return View();
+
         }
 
         public ActionResult EditCheckIn(int id)
         {
             CheckInServices cs = new CheckInServices(_context);
             CheckIn model = cs.GetEntityById(id);
+
+            LocationServices ls = new LocationServices(_context);
+            ViewBag.Locations = ls.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.LocationId.ToString() });
 
             if (model == null)
                 return FailedCheckIn("Check In Not Found");
@@ -40,15 +48,7 @@ namespace MidStateShuttleService.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckIn(CheckIn checkIn)
         {
-            //get bus id buy bus number
-            BusServices bs = new BusServices(_context);
-            var busResult = bs.FindBusByNumber(checkIn.BusNumber);
-
-            if (busResult == null)
-                return FailedCheckIn("Could Not Find Shuttle");
-
-            checkIn.Bus = busResult;
-            checkIn.BusId = checkIn.Bus.BusId;
+                   
 
             //date
             checkIn.Date = DateTime.Now;
@@ -71,15 +71,6 @@ namespace MidStateShuttleService.Controllers
             if (checkIn == null)
                 return FailedCheckIn("Updates to check in could not be applied");
 
-            BusServices bs = new BusServices(_context);
-            var busResult = bs.FindBusByNumber(checkIn.BusNumber);
-
-            if (busResult == null)
-                return FailedCheckIn("Could Not Find Shuttle");
-
-            checkIn.Bus = busResult;
-            checkIn.BusId = checkIn.Bus.BusId;
-
             //not all values comming over from form
             cs.UpdateEntity(checkIn);
 
@@ -88,25 +79,37 @@ namespace MidStateShuttleService.Controllers
 
         public ActionResult DeleteCheckIn(int id)
         {
-            CheckInServices cs = new CheckInServices(_context);
-            CheckIn model = cs.GetEntityById(id);
+            try
+            {
+                CheckInServices cs = new CheckInServices(_context);
+                CheckIn model = cs.GetEntityById(id);
 
-            if (model == null)
-                return FailedCheckIn("Check In Not Found");
+                if (model == null)
+                    return FailedCheckIn("Check In could not be found");
 
-            return View(model);
+                model.IsActive = !model.IsActive; // Toggle IsActive value
+                cs.UpdateEntity(model); // Update the entity in the database
+
+                return RedirectToAction("Index", "Dashboard");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while toggling IsActive of the check in.");
+
+                // Optionally add a model error for displaying an error message to the user
+                ModelState.AddModelError("", "An unexpected error occurred while toggling IsActive of the check in, please try again.");
+
+                // Return the view with an error message or handle the error as required
+                return View();
+            }
+
         }
 
         public ActionResult Delete(int id)
         {
-            CheckInServices cs = new CheckInServices(_context);
-            CheckIn model = cs.GetEntityById(id);
-            if (model == null)
-                return FailedCheckIn("Check In Could not be found");
-
-            cs.DeleteEntity(model.CheckInId);
-
-            return RedirectToAction("Index", "Dashboard");
+            return View();
         }
 
         public ActionResult FailedCheckIn(string errorMessage)
