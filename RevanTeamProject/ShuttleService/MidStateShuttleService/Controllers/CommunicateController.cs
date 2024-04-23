@@ -42,7 +42,7 @@ namespace MidStateShuttleService.Controllers
                     CommunicationServices cs = new CommunicationServices(_context);
                     cs.AddEntity(c);
 
-                    return RedirectToAction("MessageSent");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 catch (Exception ex)
                 {
@@ -54,11 +54,6 @@ namespace MidStateShuttleService.Controllers
 
             
             return View(c);
-        }
-
-        public IActionResult MessageSent()
-        {
-            return View();
         }
 
         /// <summary>

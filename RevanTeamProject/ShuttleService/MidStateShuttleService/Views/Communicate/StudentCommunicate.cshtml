@@ -24,7 +24,7 @@
                                 <input type="radio" name="EmergencyToggle" id="formToggle" value="emergency" onclick="toggleForm()" />
                                 <label for="formToggle">Yes</label>
 
-                                <input type="radio" name="EmergencyToggle" id="formToggle" value="notemergency" onclick="toggleForm()" />
+                                <input type="radio" name="EmergencyToggle" id="formToggleNo" value="notemergency" onclick="toggleForm()" />
                                 <label for="formToggleNo">No</label>
                             </div>
                     </div>
@@ -57,8 +57,8 @@
                                         <input type="radio" asp-for="responseRequired" value="true" id="responseRequest" onclick="toggleDisplay()" />
                                         <label for="responseRequest">Yes</label>
 
-                                        <input type="radio" asp-for="responseRequired" value="false" id="responseRequest" onclick="toggleDisplay()" />
-                                        <label for="responseRequest">No</label>
+                                        <input type="radio" asp-for="responseRequired" value="false" id="no" onclick="toggleDisplay()" />
+                                        <label for="no">No</label>
                                     </div>
                                 </div>
 
