@@ -54,8 +54,6 @@ namespace MidStateShuttleService.Controllers
                     foreach (var student in registeredStudents)
                     {
                         es.SendEmail(student.Email, "Mid State Shuttle Service Update", c.message);
-
-                        _logger.LogInformation("Email sent successfully!");
                     }
 
                     return RedirectToAction("MessageSent");
