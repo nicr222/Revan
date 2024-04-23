@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MidStateShuttleService.Models;
 using System.Diagnostics;
 using MidStateShuttleService.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -17,6 +18,7 @@ namespace MidStateShuttleService.Controllers
             _context = context; // Assign the injected ApplicationDbContext to the _context field
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             LocationServices ls = new LocationServices(_context);
@@ -38,6 +40,7 @@ namespace MidStateShuttleService.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Register()
         {
             LocationServices ls = new LocationServices(_context);
@@ -49,6 +52,7 @@ namespace MidStateShuttleService.Controllers
 
         //Completed the backend logic for a registration form submission
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Register(RegisterModel model)
         {
             LocationServices ls = new LocationServices(_context);
@@ -83,6 +87,7 @@ namespace MidStateShuttleService.Controllers
             return View("Index", model);
         }
 
+        [AllowAnonymous]
         public ActionResult RegisterConfirmation(RegisterModel model)
         {
             if (ModelState.IsValid)

@@ -25,6 +25,7 @@ namespace MidStateShuttleService
             //var appConnectionString = builder.Configuration.GetConnectionString("Connection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(appConnectionString));
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(appConnectionString));
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MidStateShuttleServiceContext>();
 
@@ -46,7 +47,7 @@ namespace MidStateShuttleService
                 options.Cookie.IsEssential = true;
             });
 
-            builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration, "EntraAD");
+            builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration);
             builder.Services.AddMvc(options =>
             {
                 var policy = new AuthorizationPolicyBuilder()
