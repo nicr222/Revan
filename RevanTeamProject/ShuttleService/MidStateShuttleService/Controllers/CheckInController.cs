@@ -60,7 +60,11 @@ namespace MidStateShuttleService.Controllers
             checkInCount++;
             HttpContext.Session.SetInt32("CheckInCount", checkInCount);
 
-            return RedirectToAction("Index", "Home");
+            // The temp data which is used to display the modal after sending a form
+            HttpContext.Session.SetString("CheckInSuccess", "true");
+            TempData["CheckInSuccess"] = true;
+
+            return RedirectToAction("CheckIn");
         }
 
         [HttpPost]
