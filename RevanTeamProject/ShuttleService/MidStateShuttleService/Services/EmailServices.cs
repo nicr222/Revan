@@ -13,11 +13,11 @@ namespace MidStateShuttleService.Services
             SmtpClient client = new SmtpClient("mail.smtp2go.com")
             {
                 Port = 2525, // SMTP2GO port number
-                Credentials = new NetworkCredential("Username", "Password"),
+                Credentials = new NetworkCredential("MSTCShuttleService", "yI9QBUWiow8EwMLt"),
                 EnableSsl = true // SMTP2GO requires SSL
             };
 
-            MailMessage message = new MailMessage("csd", recipiant)
+            MailMessage message = new MailMessage("shuttle@mstc.edu", recipiant)
             {
                 Subject = subject,
                 Body = body
