@@ -24,7 +24,7 @@ namespace MidStateShuttleService.Services
             };
 
             // Send the email
-            client.Send(message);
+            client.SendMailAsync(message);
         }
     }
 }
