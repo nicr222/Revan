@@ -393,3 +393,49 @@ input {
     .radio-options label{
         margin: 5px; /* Space between the label and the radio buttons */
     }
+
+/* ==========================================================================
+   #Submission Success Message
+   ========================================================================== */
+
+.modal-backdrop.show {
+    opacity: 0.5;
+}
+
+/* Modal Dialog */
+.modal-dialog {
+    margin-top: 10vh;
+}
+
+/* Modal Content */
+.modal-content {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header */
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    padding: 1rem 2rem;
+}
+
+    .modal-header .modal-title {
+        font-weight: 600;
+    }
+
+    .modal-header .close {
+        font-size: 1.4rem;
+    }
+
+/* Modal Body */
+.modal-body {
+    padding: 2rem;
+}
+
+/* Modal Footer */
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    padding: 1rem 2rem;
+}

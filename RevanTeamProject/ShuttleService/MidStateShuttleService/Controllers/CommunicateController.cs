@@ -89,7 +89,11 @@ namespace MidStateShuttleService.Controllers
                     // Optionally, save the last message or a summary
                     HttpContext.Session.SetString("LastMessage", "You have a new message!");
 
-                    return RedirectToAction("MessageSent");
+                    HttpContext.Session.SetString("CommunicationSuccess", "true"); // Using session to set Communication success.
+
+                    TempData["CommunicationSuccess"] = true;
+
+                    return RedirectToAction("StudentCommunicate");
                 }
                 catch (Exception ex)
                 {
