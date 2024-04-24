@@ -12,6 +12,7 @@ using Microsoft.Identity.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Identity.Web.UI;
+using Microsoft.Identity.Client;
 
 namespace MidStateShuttleService
 {
@@ -19,6 +20,7 @@ namespace MidStateShuttleService
     {
         public static async Task Main(string[] args)
         {
+            
             var builder = WebApplication.CreateBuilder(args);
             var appConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             //Host connectionstring
@@ -53,8 +55,11 @@ namespace MidStateShuttleService
                 var policy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
+                
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddMicrosoftIdentityUI();
+
+
 
             var app = builder.Build();
 
