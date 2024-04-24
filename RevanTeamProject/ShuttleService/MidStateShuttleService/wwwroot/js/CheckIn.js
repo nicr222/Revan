@@ -73,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // Check if any element has the is-invalid class
             if ($(".is-invalid").length === 0) {
                 // No element has the is-invalid class, all fields are valid
-                //alert("Form submitted successfully!");
             } else {
                 // At least one element has the is-invalid class, the form is not valid
                 alert("Form contains invalid fields. Please check and try again.");
