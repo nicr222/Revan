@@ -19,6 +19,7 @@
                     <span class="title">Dashboard</span>
                 </a>
             </li>
+            
             <li>
                 <a href="#" id="routes">
                     <span class="icon"><i class="bi bi-map"></i></span>
@@ -51,17 +52,26 @@
                 </a>
             </li>
 
-            <li>
-                <a href="@Url.Action("Index", "Communicate")">
-                    <span class="icon"><i class="bi bi-send-arrow-down-fill"></i></span>
-                    <span class="title">Messages</span>
-                </a>
-            </li>
 
             <li>
                 <a href="#" id="feedback">
                     <span class="icon"><i class="bi bi-hand-thumbs-up"></i></span>
-                    <span class="title">Feedbacks</span>
+                    <span class="title">Feedback</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a href="@Url.Action("Index", "Communicate")">
+                    <span class="icon"><i class="bi bi-send-arrow-down-fill"></i></span>
+                    <span class="title">Send a Messages</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index", "Home")">
+                    <span class="icon"><i class="bi bi-arrow-return-left"></i></span>
+                    <span class="title">Return Home</span>
                 </a>
             </li>
 
@@ -163,27 +173,28 @@
     </div>
     <div class="details">
         <!--Tables to hide-->
-        <div class="recentItem route">
-            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/RouteTable.cshtml")
-        </div>
-        <div class="recentItem check">
-            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/CheckInTable.cshtml")
-        </div>
-        <div class="recentItem location">
-            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/LocationTable.cshtml")
-        </div>
-        <div class="recentItem driver">
-            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/DriverTable.cshtml")
-        </div>
-        <div class="recentItem shuttle">
-            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/ShuttleTable.cshtml")
-        </div>
-        <div class="recentItem feedback">
-            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/FeedbackTable.cshtml")
-        </div>
-        <div class="recentFeedback">
+        <div class="recentFeedback messages">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/MessagesTable.cshtml")
         </div>
+        <div class="recentFeedback route">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/RouteTable.cshtml")
+        </div>
+        <div class="recentFeedback check">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/CheckInTable.cshtml")
+        </div>
+        <div class="recentFeedback location">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/LocationTable.cshtml")
+        </div>
+        <div class="recentFeedback driver">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/DriverTable.cshtml")
+        </div>
+        <div class="recentFeedback shuttle">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/ShuttleTable.cshtml")
+        </div>
+        <div class="recentFeedback feedback">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/FeedbackTable.cshtml")
+        </div>
+        
     </div>
 
 </div>
