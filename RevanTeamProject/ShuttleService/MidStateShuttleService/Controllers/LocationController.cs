@@ -46,7 +46,9 @@ namespace MidStateShuttleService.Controllers
                 ls.AddEntity(location);
 
                 TempData["SuccessMessage"] = "The location has been successfully created!";
-                return RedirectToAction("Index", "Home");
+                HttpContext.Session.SetString("LocationSuccess", "true");
+                TempData["LocationSuccess"] = true;
+                return RedirectToAction("Create");
             }
             catch (Exception ex)
             {
@@ -82,6 +84,8 @@ namespace MidStateShuttleService.Controllers
             try
             {
                 ls.UpdateEntity(model);
+                HttpContext.Session.SetString("LocationSuccess", "true");
+                TempData["LocationSuccess"] = true;
             }
             catch (Exception e)
             {
@@ -90,7 +94,7 @@ namespace MidStateShuttleService.Controllers
                 return FailedLocation("Updates to location could not be applied");
             }
 
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Edit");
         }
 
         // GET: LocationController/Delete/5
