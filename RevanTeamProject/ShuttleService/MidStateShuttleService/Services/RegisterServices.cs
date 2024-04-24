@@ -10,6 +10,9 @@ namespace MidStateShuttleService.Service
 
         }
 
+        // Retrieve registrations with matching pickup and drop-off locations
+        
+
         public List<RegisterModel> GetEmailsByRoute(string pickUpId, string dropOffId)
         {
             return _dbSet.Where(x => x.SelectedRouteDetail == pickUpId || x.ReturnSelectedRouteDetail == dropOffId).ToList();

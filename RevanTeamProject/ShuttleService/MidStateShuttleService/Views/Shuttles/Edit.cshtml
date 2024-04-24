@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Edit Shuttle";
+}
+
+@inject MidStateShuttleService.Service.IListService ListServices
+@model MidStateShuttleService.Models.Bus
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/Driver.css" />
+
+<body>
+    <div class="wrapper wrapper--w680 mt-5">
+        <div class="form form-1">
+            <div class="form-body">
+                <h2 class="title">Edit Shuttle</h2>
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="BusId" /> <!-- Include hidden field for driver ID -->
+
+                    <div class="input-fields">
+                        <label>Shuttle Number</label>
+                        <input asp-for="BusNo" type="text" class="form-control input--style-1" placeholder="Shuttle Number" required />
+                        <div class="div-line"></div>
+                        <div id="BusNo-validation-message" class="validation-message">Please enter a valid bus number.</div>
+                    </div>
+
+                    <div class="input-fields">
+                        <label>Passenger Capacity</label>
+                        <input asp-for="PassengerCapacity" type="number" class="form-control input--style-1" placeholder="Passenger Capacity" required />
+                        <div class="div-line"></div>
+                        <div id="PassengerCapacity-validation-message" class="validation-message">Please enter a valid passenger capacity.</div>
+                    </div>
+
+                    <div class="input-fields">
+                        <label>Driver</label>
+                        <select asp-for="DriverId"
+                                asp-items="ViewBag.Drivers"
+                                class="form-control input--style-1" required>
+                            <option value="" disabled selected>--Select Driver--</option>
+                        </select>
+                        <div class="div-line"></div>
+                        <div id="DriverId-validation-message" class="validation-message">Please select a driver.</div>
+                    </div>
+
+                    <div class="p-t-20">
+                        <button type="submit" class="btn btn--radius btn--submit">Update Shuttle Info</button>
+                        <button class="btn btn--radius btn--cancel" type="button" onclick="location.href='yourCancelPage.html'">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/js/shuttle.js"></script>
+</body>

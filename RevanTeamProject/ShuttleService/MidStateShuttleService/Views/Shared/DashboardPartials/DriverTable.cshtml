@@ -15,6 +15,7 @@
             <td>Name</td>
             <td>Phone Number</td>
             <td>Email</td>
+            <td>Is active</td>
             <td>Update</td>
             <td>Delete</td>
         </tr>
@@ -32,6 +33,7 @@
                     <td>@d.Name</td>
                     <td>@d.PhoneNumber</td>
                     <td>@d.Email</td>
+                    <td>@d.IsActive.ToString()</td>
                     <td><a asp-controller="Driver" asp-action="Edit" asp-route-id="@d.DriverId">Edit</a></td>
                     <td><a asp-controller="Driver" asp-action="Delete" asp-route-id="@d.DriverId">Delete</a></td>
                 </tr>
@@ -39,3 +41,5 @@
         }
     </tbody>
 </table>
+
+

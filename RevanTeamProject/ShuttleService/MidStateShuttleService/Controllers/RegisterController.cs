@@ -1,19 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using MidStateShuttleService.Models;
 using MidStateShuttleService.Models;
 using System.Diagnostics;
-using System.Net.Mail;
-using System.Net;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 using MidStateShuttleService.Service;
-using System.Data;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
-using MidStateShuttleService.Services;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -72,254 +60,19 @@ namespace MidStateShuttleService.Controllers
 
             if (ModelState.IsValid)
             {
-                /*using (var connection = new SqlConnection(connectionString))
-                {
-                    connection.Open(); // Open connection once for all operations
-
-                    if (model.TripType == "RoundTrip" && model.SpecialRequest == false)
-                    {
-                        var commandText = @"INSERT INTO [dbo].[Registration] 
-                        (FirstName, LastName, Phone, Email, TripType, AgreeToTerms, SelectedRouteDetail, ReturnSelectedRouteDetail, SpecialRequest, FirstDayExpectingToRide) 
-                        OUTPUT INSERTED.RegistrationID
-                        VALUES 
-                        (@FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @SelectedRouteDetail, @ReturnSelectedRouteDetail, @SpecialRequest, @FirstDayExpectingToRide)";
-
-
-                        // Initialize the command with the command text and connection
-                        var command = new SqlCommand(commandText, connection);
-
-                        // Add the common parameters that are always included
-                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
-                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
-                        command.Parameters.AddWithValue("@LastName", model.LastName);
-                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
-                        command.Parameters.AddWithValue("@Email", model.Email);
-                        command.Parameters.AddWithValue("@TripType", model.TripType);
-                        command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
-                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@ReturnSelectedRouteDetail", (object)model.ReturnSelectedRouteDetail ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
-                        command.Parameters.AddWithValue("@FirstDayExpectingToRide", model.FirstDayExpectingToRide.HasValue ? (object)model.FirstDayExpectingToRide.Value.ToDateTime(TimeOnly.MinValue) : DBNull.Value);
-
-                        // Execute the command and get the new RegistrationID
-                        var registrationId = ExecuteSqlCommand(command);
-
-                        if (registrationId > 0)
-                        {
-                            // Insert the days of the week selected by the user
-                            if (model.SelectedDaysOfWeek != null && model.SelectedDaysOfWeek.Any())
-                            {
-                                InsertSelectedDaysOfWeek(connection, registrationId, model.SelectedDaysOfWeek);
-                            }
-
-                            TempData["RegistrationSuccess"] = true;
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
-                        }
-                    }
-
-                    // Fetch location names
-                    string pickUpLocationName = GetLocationNameById(model.PickUpLocationID);
-                    string dropOffLocationName = GetLocationNameById(model.DropOffLocationID);
-
-                    // Check if either location name is 'Other'
-                    bool isPickUpLocationOther = string.Equals(pickUpLocationName, "Other", StringComparison.OrdinalIgnoreCase);
-                    bool isDropOffLocationOther = string.Equals(dropOffLocationName, "Other", StringComparison.OrdinalIgnoreCase);
-
-                    if (model.TripType == "RoundTrip" && model.SpecialRequest != false || (isPickUpLocationOther || isDropOffLocationOther))
-                    {
-                        var commandText = @"INSERT INTO [dbo].[Registration] 
-                            (FirstName, LastName, Phone, Email, TripType, SpecialRequest, SelectedRouteDetail, MustArriveTime, CanLeaveTime,
-                            SpecialPickUpLocation, SpecialDropOffLocation, AgreeToTerms, NeedTransportation, PickUpLocationID, DropOffLocationID) 
-                            OUTPUT INSERTED.RegistrationID
-                            VALUES 
-                            (@FirstName, @LastName, @Phone, @Email, @TripType,  @SpecialRequest, @SelectedRouteDetail, @MustArriveTime, @CanLeaveTime,
-                            @SpecialPickUpLocation, @SpecialDropOffLocation, @AgreeToTerms, @NeedTransportation, @PickUpLocationID, @DropOffLocationID)";
-
-                        // Initialize the command with the command text and connection
-                        var command = new SqlCommand(commandText, connection);
-
-                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
-                        command.Parameters.AddWithValue("@LastName", model.LastName);
-                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
-                        command.Parameters.AddWithValue("@Email", model.Email);
-                        command.Parameters.AddWithValue("@TripType", model.TripType);
-                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
-                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@PickUpLocationID", model.PickUpLocationID.HasValue ? (object)model.PickUpLocationID.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID.HasValue ? (object)model.DropOffLocationID.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@MustArriveTime", model.MustArriveTime.HasValue ? (object)model.MustArriveTime.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@CanLeaveTime", model.CanLeaveTime.HasValue ? (object)model.CanLeaveTime.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@SpecialPickUpLocation", string.IsNullOrEmpty(model.SpecialPickUpLocation) ? (object)DBNull.Value : model.SpecialPickUpLocation);
-                        command.Parameters.AddWithValue("@SpecialDropOffLocation", string.IsNullOrEmpty(model.SpecialDropOffLocation) ? (object)DBNull.Value : model.SpecialDropOffLocation);
-                        command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
-                        command.Parameters.AddWithValue("@NeedTransportation", model.NeedTransportation ?? string.Empty);
-
-
-
-                        // Execute the command and get the new RegistrationID
-                        var registrationId = ExecuteSqlCommand(command);
-
-                        if (registrationId > 0)
-                        {
-                            TempData["RegistrationSuccess"] = true;
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
-                        }
-                    }
-
-                    if (model.TripType == "OneWay" && model.SpecialRequest == false)
-                    {
-                        var commandText = @"INSERT INTO [dbo].[Registration] 
-                        (FirstName, LastName, Phone, Email, TripType, AgreeToTerms, SelectedRouteDetail, SpecialRequest, FirstDayExpectingToRide) 
-                        OUTPUT INSERTED.RegistrationID
-                        VALUES 
-                        (@FirstName, @LastName, @Phone, @Email, @TripType, @AgreeToTerms, @SelectedRouteDetail, @SpecialRequest, @FirstDayExpectingToRide)";
-
-
-                        // Initialize the command with the command text and connection
-                        var command = new SqlCommand(commandText, connection);
-
-                        // Add the common parameters that are always included
-                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
-                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
-                        command.Parameters.AddWithValue("@LastName", model.LastName);
-                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
-                        command.Parameters.AddWithValue("@Email", model.Email);
-                        command.Parameters.AddWithValue("@TripType", model.TripType);
-                        command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
-                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
-                        command.Parameters.AddWithValue("@FirstDayExpectingToRide", model.FirstDayExpectingToRide.HasValue ? (object)model.FirstDayExpectingToRide.Value.ToDateTime(TimeOnly.MinValue) : DBNull.Value);
-
-                        // Execute the command and get the new RegistrationID
-                        var registrationId = ExecuteSqlCommand(command);
-
-                        if (registrationId > 0)
-                        {
-                            // Insert the days of the week selected by the user
-                            if (model.SelectedDaysOfWeek != null && model.SelectedDaysOfWeek.Any())
-                            {
-                                InsertSelectedDaysOfWeek(connection, registrationId, model.SelectedDaysOfWeek);
-                            }
-
-                            TempData["RegistrationSuccess"] = true;
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
-                        }
-                    }
-
-                    if (model.TripType == "OneWay" && model.SpecialRequest != false || (isPickUpLocationOther || isDropOffLocationOther))
-                    {
-                        var commandText = @"INSERT INTO [dbo].[Registration] 
-                            (FirstName, LastName, Phone, Email, TripType, SpecialRequest, SelectedRouteDetail, MustArriveTime, 
-                            SpecialPickUpLocation, SpecialDropOffLocation, AgreeToTerms, NeedTransportation, PickUpLocationID, DropOffLocationID) 
-                            OUTPUT INSERTED.RegistrationID
-                            VALUES 
-                            (@FirstName, @LastName, @Phone, @Email, @TripType,  @SpecialRequest, @SelectedRouteDetail, @MustArriveTime, 
-                            @SpecialPickUpLocation, @SpecialDropOffLocation, @AgreeToTerms, @NeedTransportation,  @PickUpLocationID, @DropOffLocationID)";
-
-                        // Initialize the command with the command text and connection
-                        var command = new SqlCommand(commandText, connection);
-
-                        // Add the common parameters that are always included
-                        //command.Parameters.AddWithValue("@RouteID", model.RouteID.HasValue ? (object)model.RouteID.Value : DBNull.Value);
-                        //command.Parameters.AddWithValue("@UserID", model.UserId.HasValue ? (object)model.UserId.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
-                        command.Parameters.AddWithValue("@LastName", model.LastName);
-                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
-                        command.Parameters.AddWithValue("@Email", model.Email);
-                        command.Parameters.AddWithValue("@TripType", model.TripType);
-                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
-                        command.Parameters.AddWithValue("@SelectedRouteDetail", (object)model.SelectedRouteDetail ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@MustArriveTime", model.MustArriveTime.HasValue ? (object)model.MustArriveTime.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@SpecialPickUpLocation", string.IsNullOrEmpty(model.SpecialPickUpLocation) ? (object)DBNull.Value : model.SpecialPickUpLocation);
-                        command.Parameters.AddWithValue("@SpecialDropOffLocation", string.IsNullOrEmpty(model.SpecialDropOffLocation) ? (object)DBNull.Value : model.SpecialDropOffLocation);
-                        command.Parameters.AddWithValue("@PickUpLocationID", model.PickUpLocationID.HasValue ? (object)model.PickUpLocationID.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@DropOffLocationID", model.DropOffLocationID.HasValue ? (object)model.DropOffLocationID.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@AgreeToTerms", model.AgreeTerms ?? false);
-                        command.Parameters.AddWithValue("@NeedTransportation", model.NeedTransportation ?? string.Empty);
-
-
-
-                        // Execute the command and get the new RegistrationID
-                        var registrationId = ExecuteSqlCommand(command);
-
-                        if (registrationId > 0)
-                        {
-                            TempData["RegistrationSuccess"] = true;
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
-                        }
-                    }
-
-                    if (model.TripType == "Friday" && model.SpecialRequest != false)
-                    {
-                        var commandText = @"INSERT INTO [dbo].[Registration] 
-                            (FirstName, LastName, Phone, Email, TripType, SpecialRequest, FridayTripType, MustArriveTime, CanLeaveTime,
-                            AgreeToTerms, WhichFriday, PickUpLocationID, DropOffLocationID) 
-                            OUTPUT INSERTED.RegistrationID
-                            VALUES 
-                            (@FirstName, @LastName, @Phone, @Email, @TripType,  @SpecialRequest, @FridayTripType, @MustArriveTime, @CanLeaveTime,
-                             @AgreeToTerms, @WhichFriday,  @PickUpLocationID, @DropOffLocationID)";
-
-                        // Initialize the command with the command text and connection
-                        var command = new SqlCommand(commandText, connection);
-
-                        command.Parameters.AddWithValue("@FirstName", model.FirstName);
-                        command.Parameters.AddWithValue("@LastName", model.LastName);
-                        command.Parameters.AddWithValue("@Phone", model.PhoneNumber);
-                        command.Parameters.AddWithValue("@Email", model.Email);
-                        command.Parameters.AddWithValue("@TripType", model.TripType);
-                        command.Parameters.AddWithValue("@SpecialRequest", model.SpecialRequest ?? false);
-                        command.Parameters.AddWithValue("@MustArriveTime", model.FridayMustArriveTime.HasValue ? (object)model.FridayMustArriveTime.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@CanLeaveTime", model.FridayCanLeaveTime.HasValue ? (object)model.FridayCanLeaveTime.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@FridayTripType", model.FridayTripType ?? string.Empty);
-                        command.Parameters.AddWithValue("@PickUpLocationID", model.FridayPickUpLocationID.HasValue ? (object)model.FridayPickUpLocationID.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@DropOffLocationID", model.FridayDropOffLocationID.HasValue ? (object)model.FridayDropOffLocationID.Value : DBNull.Value);
-                        command.Parameters.AddWithValue("@AgreeToTerms", model.FridayAgreeTerms ?? false);
-                        command.Parameters.AddWithValue("@WhichFriday", model.WhichFriday ?? string.Empty);
-
-                        // Execute the command and get the new RegistrationID
-                        var registrationId = ExecuteSqlCommand(command);
-
-                        if (registrationId > 0)
-                        {
-                            TempData["RegistrationSuccess"] = true;
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            ModelState.AddModelError("", "There was an error saving the registration, please try again.");
-                        }
-                    }
-
-                }*/
-
-
-
                 if (rs.AddEntity(model))
                 {
+                    // Increment the registration count in the session
+                    int registrationCount = HttpContext.Session.GetInt32("RegistrationCount") ?? 0;
+                    registrationCount++;
+
+                    HttpContext.Session.SetString("RegistrationSuccess", "true"); // Using session to set registration success.
+                    HttpContext.Session.SetInt32("RegistrationCount", registrationCount); 
+
                     TempData["RegistrationSuccess"] = true;
-                    es.SendEmail(
-                        model.Email,
-                        "MSTC Shuttle Service Registration",
-                        "Your registration for the MSTC shuttle service was confirmed!"
-                        );
+
+                    Debug.WriteLine(TempData["RegistrationSuccess"]);
+
                     return RedirectToAction("Index");
                 } else
                 {
@@ -341,38 +94,6 @@ namespace MidStateShuttleService.Controllers
             return View("Index", model);
         }
 
-        private int ExecuteSqlCommand(SqlCommand command)
-        {
-            try
-            {
-                var result = command.ExecuteScalar(); // Assuming your table's INSERT operation has been modified to return the new ID
-                if (result != null)
-                {
-                    return Convert.ToInt32(result);
-                }
-            }
-            catch (SqlException ex)
-            {
-                _logger.LogError("Database insertion error: ", ex);
-                ModelState.AddModelError("", "There was a database error, please try again.");
-            }
-
-            return 0; // Return 0 to indicate failure
-        }
-
-        private void InsertSelectedDaysOfWeek(SqlConnection connection, int registrationId, List<string> selectedDaysOfWeek)
-        {
-            foreach (var day in selectedDaysOfWeek)
-            {
-                var commandText = @"INSERT INTO [dbo].[RegistrationDays] (RegistrationID, DayOfWeek) VALUES (@RegistrationID, @DayOfWeek)";
-                using (var command = new SqlCommand(commandText, connection))
-                {
-                    command.Parameters.AddWithValue("@RegistrationID", registrationId);
-                    command.Parameters.AddWithValue("@DayOfWeek", day);
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
 
         //retrieves route options based on selected pick-up and drop-off locations from a database and returns them as JSON.
         [HttpGet]
@@ -397,6 +118,154 @@ namespace MidStateShuttleService.Controllers
             }
 
             return Json(formattedRoutesList);
+        }
+
+        // GET: RegisterController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            LocationServices ls = new LocationServices(_context);
+            RouteServices rs = new RouteServices(_context);
+
+            // Retrieve the student to be edited from the database
+            var student = _context.RegisterModels.Find(id);
+
+            if (student == null)
+            {
+                return NotFound(); // Or handle the case where the student is not found
+            }
+
+            // Retrieve the days of the week selected for the student
+            var selectedDaysOfWeek = _context.RegisterModels
+                                              .Where(s => s.RegistrationId == id)
+                                              .Select(s => s.SelectedDaysOfWeek)
+                                              .FirstOrDefault();
+
+            // Pass the selected days of the week to the view
+            ViewBag.SelectedDaysOfWeek = selectedDaysOfWeek;
+
+            ViewBag.RouteList = rs.GetAllEntities();
+
+            ViewBag.SelectedPickupRoute = student.SelectedRouteDetail;
+            ViewBag.SelectedReturnRoute = student.ReturnSelectedRouteDetail;
+
+            // Return the location names for each route
+            foreach(Routes route in ViewBag.RouteList)
+            {
+                route.PickUpLocation = ls.GetEntityById(route.PickUpLocationID);
+                route.DropOffLocation = ls.GetEntityById(route.DropOffLocationID);
+            }
+
+            return View(student);
+        }
+
+
+        // POST: RegisterController/Edit/5
+        // POST: RegisterController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, RegisterModel student)
+        {
+            if (id != student.RegistrationId)
+            {
+                return BadRequest(); // Or handle the case where IDs do not match
+            }
+
+            // Make sure the return route is null if the student selected one way
+            if (student.TripType == "OneWay")
+            {
+                student.ReturnSelectedRouteDetail = null;
+            }
+
+
+
+                if (rs.AddEntity(model))
+                {
+                    TempData["RegistrationSuccess"] = true;
+                    es.SendEmail(
+                        model.Email,
+                        "MSTC Shuttle Service Registration",
+                        "Your registration for the MSTC shuttle service was confirmed!"
+                        );
+                    return RedirectToAction("Index");
+                } else
+                {
+                    ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(student); // Return the view with validation errors
+            }
+
+            try
+            {
+                // Update the student in the database
+                _context.Update(student);
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "The student has been successfully updated!";
+                return RedirectToAction("Index", "Dashboard");
+            }
+            catch (Exception ex)
+            {
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context); // Log SQL exception
+                _logger.LogError(ex, "An error occurred while updating student.");
+                ModelState.AddModelError("", "An unexpected error occurred, please try again.");
+                return View(student); // Return the view with an error message
+            }
+        }
+
+        // GET: RegisterController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var student = _context.RegisterModels.Find(id);
+
+                if (student != null)
+                {
+                    student.IsActive = !student.IsActive; // Toggle IsActive from true to false or false to true
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    // Handle the case where the student with the specified id is not found
+                    ModelState.AddModelError("", "Student not found.");
+                    return View();
+                }
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect after toggling IsActive
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while toggling IsActive of the student.");
+
+                // Optionally add a model error for displaying an error message to the user
+                ModelState.AddModelError("", "An unexpected error occurred while toggling IsActive of the student, please try again.");
+
+                // Return the view with an error message
+                return View();
+            }
+
+        }
+
+
+        // POST: RegisterController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

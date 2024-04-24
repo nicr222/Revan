@@ -1,0 +1,41 @@
+﻿@model MidStateShuttleService.Models.CheckIn
+
+<link rel="stylesheet" href="/css/CheckIn.css" />
+
+<body>
+    <div class="wrapper wrapper--w680">
+        <div class="form form-1">
+            <div class="form-body">
+                <h2 class="title">Delete Check In</h2>
+                <div class="input-fields">
+                    <h6>Student ID</h6>
+                    <div class="form-control input--style-1" id="studentID">@Model.Name</div>
+                    <div class="div-line"></div>
+                </div>
+
+                <div class="row row-space">
+                   
+                    <div class="col-6">
+                        <div class="input-fields">
+                            <h6>Is this your first time riding?</h6>
+                            <div class="form-control input--style-1">@Model.FirstTime</div>
+                            <div class="div-line"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-fields">
+                    <h6>Rider Comments / Suggestions</h6>
+                    <div class="form-control input--style-1">@Model.Comments</div>
+                    <div class="div-line"></div>
+                </div>
+
+                <div class="p-t-20">
+                    <a asp-controller="CheckIn" asp-action="Delete" asp-route-id="@Model.CheckInId" class="btn btn--radius btn--green">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/CheckIn.js"></script>
+</body>

@@ -442,53 +442,98 @@ input {
     margin-bottom: 10px;
 }
 
-/*Stops Available*/
+/* ==========================================================================
+   Additional stop list styles
+   ========================================================================== */
 .section-title {
     margin-bottom: 20px;
     color: #333;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
+    cursor: pointer; /* Makes the title clickable */
+    display: flex; /* Enables flexbox layout */
+    align-items: center; /* Centers items vertically */
+    justify-content: space-between; /* Space between title and question mark */
 }
 
 .stops-list {
     list-style-type: none;
     padding-left: 0;
     margin: 0;
+    display: none; /* Initially hides the list */
 }
 
     .stops-list li {
-        position: relative; /* Needed for absolute positioning of pseudo-element */
+        position: relative;
         padding: 10px 15px;
-        padding-left: 30px; /* Increase padding to make space for the custom bullet */
+        padding-left: 30px;
         font-size: 14px;
         color: #555;
     }
 
         .stops-list li::before {
-            content: ''; /* Required property for pseudo-elements */
+            content: '';
             position: absolute;
-            left: 0; /* Align with the left edge of the list item */
-            top: 47%; /* Center vertically */
-            height: 8px; /* Height of custom bullet */
-            width: 8px; /* Width of custom bullet */
-            background-color: #555; /* Bullet color */
-            border-radius: 50%; /* Makes the bullet round */
-            transform: translateY(-50%); /* Center the bullet */
+            left: 0;
+            top: 47%;
+            height: 8px;
+            width: 8px;
+            background-color: #555;
+            border-radius: 50%;
+            transform: translateY(-50%);
         }
+
+/* New Styles for Question Mark */
+.section-title::after {
+    content: '?';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    background-color: #555;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+/* Hover Effect */
+.section-title:hover + .stops-list {
+    display: block; /* Shows the list when the title is hovered */
+}
+
+/* Alternatively, if you want the list to show when hovering over the entire .input-fields container */
+.input-fields:hover .stops-list {
+    display: block;
+}
 
 /* Responsive adjustments for mobile view */
 @media (max-width: 767px) {
+
+    .section-title {
+        font-size: 16px; /* Slightly reduce the font size for space */
+    }
+
+        .section-title::after {
+            width: 25px; /* Increase the size for better tapability */
+            height: 25px;
+            line-height: 27px; /* Ensure the question mark is centered */
+            font-size: 18px; /* Increase the question mark size for visibility */
+            margin-left: 8px; /* Adjust according to layout needs */
+        }
+
     .stops-list li {
         padding: 8px 10px;
-        padding-left: 25px; /* Slightly decrease padding for space constraints */
-        font-size: 12px; /* Slightly smaller font size for mobile */
+        padding-left: 25px;
+        font-size: 12px;
     }
 
         .stops-list li::before {
-            height: 6px; /* Smaller height for custom bullet */
-            width: 6px; /* Smaller width for custom bullet */
-            top: 50%; /* Adjust if necessary to center */
-            left: 5px; /* Adjust left position to align with text */
+            height: 6px;
+            width: 6px;
+            top: 50%;
+            left: 5px;
         }
 }
 

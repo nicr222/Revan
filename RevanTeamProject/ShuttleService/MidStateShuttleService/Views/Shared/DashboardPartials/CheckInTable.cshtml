@@ -3,3 +3,54 @@
 *@
 @{
 }
+@model MidStateShuttleService.Models.AllModels
+
+
+<div class="cardHeader">
+    <h2>Check-Ins</h2>
+    <!-- Add Check-In button -->
+    <a asp-controller="CheckIn" asp-action="CheckIn" class="btn">Add Check-In</a>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Pick Up Location</th>
+            <th>Comments</th>
+            <th>First Time?</th>
+            <th>Is Active</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.CheckIn == null)
+        {
+            <tr><td colspan="8" class="text-center">There are Currently No Check-Ins</td></tr>
+        }
+        else
+        {
+            @foreach (var checkIn in Model.CheckIn)
+            {
+                <tr>
+                    <td>@checkIn.Name</td>
+                    <td>@checkIn.Date.ToShortDateString()</td>
+                    <td>@checkIn.Location.CheckInName()</td>
+                    @if (@checkIn.Comments != null)
+                    {
+                        <td>@checkIn.Comments</td>
+                    }
+                    else
+                    {
+                        <td>No Comments</td>
+                    }
+                    <td>@(checkIn.FirstTime ? "Yes" : "No")</td>
+                    <td>@checkIn.IsActive.ToString()</td>
+                    <td><a asp-controller="CheckIn" asp-action="EditCheckIn" asp-route-id="@checkIn.CheckInId">Edit</a></td>
+                    <td><a asp-controller="CheckIn" asp-action="DeleteCheckIn" asp-route-id="@checkIn.CheckInId">Delete</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

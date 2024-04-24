@@ -18,9 +18,10 @@ namespace MidStateShuttleService.Controllers
         private readonly ApplicationDbContext _context;
 
         // Inject ApplicationDbContext into the controller constructor
-        public CommunicateController(ApplicationDbContext context)
+        public CommunicateController(ApplicationDbContext context, ILogger<CommunicateController> logger)
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _logger = logger; // Assign the injected ILogger to the _logger field
         }
 
         [HttpGet]
@@ -94,6 +95,14 @@ namespace MidStateShuttleService.Controllers
                 {
                     MessageServices ms = new MessageServices(_context);
                     ms.AddEntity(c);
+
+                    // Increment the message count in the session
+                    int messageCount = HttpContext.Session.GetInt32("MessageCount") ?? 0;
+                    messageCount++;
+
+                    HttpContext.Session.SetInt32("MessageCount", messageCount);
+                    // Optionally, save the last message or a summary
+                    HttpContext.Session.SetString("LastMessage", "You have a new message!");
 
                     return RedirectToAction("MessageSent");
                 }

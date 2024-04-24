@@ -1,0 +1,74 @@
+﻿@model MidStateShuttleService.Models.CheckIn
+
+<link rel="stylesheet" href="/css/CheckIn.css" />
+
+<body>
+    <div class="wrapper wrapper--w680">
+        <form asp-controller="CheckIn" asp-action="EditCheckIn" method="post" class="form form-1">
+            <div class="form-body">
+                <h2 class="title">Edit Shuttle Check In</h2>
+                
+
+                <div class="input-fields">
+                    <h6>Please Enter Your Name</h6>
+                    <input asp-for="Name" type="text" class="form-control input--style-1" id="name" placeholder="Your Name" required />
+                    <div class="div-line"></div>
+                    <div class="invalid-feedback">
+                        Please enter a valid name.
+                    </div>
+                </div>
+
+                <div class="row row-space">
+                    <div class="col-6">
+                        <div class="input-fields">
+                            <h6>Pick-up Location</h6>
+                            <select asp-for="LocationId"
+                                    asp-items="ViewBag.Locations"
+                                    class="form-control input--style-1" required>
+                                <option selected="selected" value="" required>--Select--</option>
+                            </select>
+                            <div class="div-line"></div>
+                            <div class="invalid-feedback">
+                                Please select a pick-up location
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="input-fields">
+                            <h6>Is this your first time riding?</h6>
+                            <div class="form-control input--style-radio-group">
+                                <input asp-for="FirstTime" type="radio" value="true" class="form-check-input radio-style input--style-1" id="newRiderYes" required />
+                                <label class="radio-label-style" for="newRiderYes">Yes</label>
+                                <input asp-for="FirstTime" type="radio" value="false" class="form-check-input radio-style input--style-1" id="newRiderNo" required />
+                                <label class="radio-label-style" for="newRiderNo">No</label>
+                                <div class="div-line"></div>
+                                <div class="invalid-feedback">
+                                    Must select one
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-fields">
+                    <h6>Rider Comments / Suggestions</h6>
+                    <textarea asp-for="Comments" class="form-control input--style-1" id="feedback" placeholder="Share your experience" rows="4" cols="50" maxlength="255"></textarea>
+                    <div class="div-line"></div>
+                    <div class="invalid-feedback">
+                        Max 255 characters
+                    </div>
+                </div>
+
+                <input hidden asp-for="CheckInId" value="@Model.CheckInId"/>
+                <input hidden type="datetime" asp-for="Date" value="@Model.Date" />
+
+                <div class="p-t-20">
+                    <button type="submit" class="btn btn--radius btn--green">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="/js/CheckIn.js"></script>
+</body>

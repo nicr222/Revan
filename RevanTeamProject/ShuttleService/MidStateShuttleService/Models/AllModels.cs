@@ -6,7 +6,7 @@
 
         public IEnumerable<Location> Location { get; set; }
 
-        public Message Message { get; set; }
+        public IEnumerable<Message> Message { get; set; }
 
         public RegisterModel Register { get; set; }
 
@@ -17,5 +17,9 @@
         public IEnumerable<Driver> Driver { get; set; }
 
         public IEnumerable<Bus> Bus { get; set; }
+
+        public IEnumerable<CheckIn> CheckIn { get; set; }
+
+        public IEnumerable<Feedback> Feedback { get; set; }
     }
 }

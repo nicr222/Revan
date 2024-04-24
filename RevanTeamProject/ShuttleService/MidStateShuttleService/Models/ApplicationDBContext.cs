@@ -32,8 +32,6 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<CommuncateModel> CommuncateModels { get; set; }
 
-    public virtual DbSet<RegistertionDaysModel> RegistertionDaysModels { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Bus table
@@ -86,6 +84,9 @@ public partial class ApplicationDbContext : DbContext
                 .HasAnnotation("RegularExpression", @"^\d{10,20}$")
                 .IsRequired();
 
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
+
             entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(50)
@@ -103,6 +104,9 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.LocationId)
                 .ValueGeneratedOnAdd()
                 .IsRequired();
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
 
             entity.Property(e => e.Name)
                 .IsRequired()
@@ -181,8 +185,11 @@ public partial class ApplicationDbContext : DbContext
                 .HasAnnotation("RegularExpression", "^[a-zA-Z0-9.,!?'\";:@#$%^&*()_+=\\-\\/]*$")
                 .HasAnnotation("ErrorMessage", "Additional details can only contain letters, numbers, and important special characters.");
 
-            entity.Property(e => e.BusId)
+            entity.Property(e => e.DriverId)
                 .IsRequired();
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
 
             entity.HasOne(e => e.PickUpLocation)
                 .WithMany()
@@ -194,9 +201,9 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(e => e.DropOffLocationID)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasOne(e => e.Bus)
+            entity.HasOne(e => e.Driver)
                 .WithMany()
-                .HasForeignKey(e => e.BusId)
+                .HasForeignKey(e => e.DriverId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
@@ -211,19 +218,11 @@ public partial class ApplicationDbContext : DbContext
                 .ValueGeneratedOnAdd()
                 .IsRequired();
 
-            entity.Property(e => e.BusId)
-                .IsRequired();
-
-            entity.Property(e => e.BusNumber)
-                .IsRequired();
-
-            entity.Property(e => e.RouteId);
-
-            entity.Property(e => e.UserId);
+            entity.Property(e => e.Name);
 
             entity.Property(e => e.Date)
                 .HasColumnType("datetime")
-                .HasDefaultValue(new DateTime())
+                .HasDefaultValueSql("GETDATE()")
                 .IsRequired();
 
             entity.Property(e => e.Comments)
@@ -233,13 +232,13 @@ public partial class ApplicationDbContext : DbContext
                 .IsRequired()
                 .HasDefaultValue(false);
 
-            entity.HasOne(e => e.Route)
-                .WithMany()
-                .HasForeignKey(e => e.RouteId);
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
 
-            entity.HasOne(e => e.Bus)
+            entity.HasOne(e => e.Location)
                 .WithMany()
-                .HasForeignKey(e => e.BusId);
+                .IsRequired()
+                .HasForeignKey(e => e.LocationId);
         });
 
         // Feedback Table
@@ -261,7 +260,20 @@ public partial class ApplicationDbContext : DbContext
                 .HasDefaultValue(new DateTime())
                 .IsRequired();
 
-            entity.Property(e => e.UserId);
+            entity.Property(e => e.CustomerName)
+                .HasMaxLength(50)
+                .HasDefaultValue("Anonymous");
+
+            entity.Property(e => e.Rating)
+                .IsRequired()
+                .HasDefaultValue(0);
+
+            entity.Property(b => b.DisplayTestimonial)
+                .HasDefaultValue(false)
+                .IsRequired();
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
         });
 
         // Message Table
@@ -295,6 +307,9 @@ public partial class ApplicationDbContext : DbContext
 
             entity.Property(e => e.contactInfo)
                 .HasMaxLength(50);
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
         });
 
         // DispatchMessage Table
@@ -315,9 +330,6 @@ public partial class ApplicationDbContext : DbContext
                 .HasAnnotation("MaxLength", 160)
                 .HasAnnotation("ErrorMessage", "This field must not be more than 160 characters.");
 
-            entity.Property(e => e.RouteId)
-                .IsRequired();
-
             entity.Property(e => e.PickUpLocationID)
                 .IsRequired();
 
@@ -335,6 +347,9 @@ public partial class ApplicationDbContext : DbContext
                 .WithMany()
                 .HasForeignKey(e => e.DropOffLocationID)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
 
             // Ignore LocationNames property
             entity.Ignore(e => e.LocationNames);
@@ -403,6 +418,9 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.FridayAgreeTerms)
                 .IsRequired();
 
+            entity.Property(b => b.IsActive)
+                .HasDefaultValue(false);
+
             entity.Ignore(e => e.LocationNames);
 
             // Configure foreign key relationship for PickUpLocationID
@@ -432,41 +450,6 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(e => e.FridayDropOffLocationID)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_Registration_FridayDropOffLocation");
-
-            // Configure foreign key relationship for RouteID
-            entity.HasOne<Routes>()
-                .WithMany()
-                .HasForeignKey(e => e.RouteID)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Registration_Route");
-        });
-
-        // RegistrationDays Table
-        modelBuilder.Entity<RegistertionDaysModel>(entity =>
-        {
-            entity.ToTable("RegistrationDays");
-
-            entity.HasKey(e => e.RegistrationDayID);
-
-            entity.Property(e => e.RegistrationDayID)
-                .IsRequired()
-                .HasColumnName("RegistrationDayID")
-                .ValueGeneratedOnAdd();
-
-            entity.Property(e => e.RegistrationID)
-                .IsRequired()
-                .HasColumnName("RegistrationID");
-
-            entity.Property(e => e.DayOfWeek)
-                .IsRequired()
-                .HasMaxLength(10)
-                .HasColumnName("DayOfWeek");
-
-            entity.HasOne(e => e.RegisterModel)
-                .WithMany()
-                .HasForeignKey(e => e.RegistrationID)
-                .HasConstraintName("FK_RegistertionDaysModel_Registration")
-                .OnDelete(DeleteBehavior.Cascade); // Depending on your requirements, you may change the delete behavior.
         });
     }
 }

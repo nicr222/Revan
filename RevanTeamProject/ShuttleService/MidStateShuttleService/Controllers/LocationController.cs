@@ -9,14 +9,14 @@ namespace MidStateShuttleService.Controllers
 {
     public class LocationController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly ILogger<LocationController> _logger;
 
-        private readonly ApplicationDbContext _context;
-
-        // Inject ApplicationDbContext into the controller constructor
-        public LocationController(ApplicationDbContext context)
+        // Inject ApplicationDbContext and ILogger into the controller constructor
+        public LocationController(ApplicationDbContext context, ILogger<LocationController> logger)
         {
             _context = context; // Assign the injected ApplicationDbContext to the _context field
+            _logger = logger; // Assign the injected ILogger to the _logger field
         }
 
         // GET: LocationController
@@ -39,61 +39,94 @@ namespace MidStateShuttleService.Controllers
             {
                 return View(location);
             }
-            else
-            {
 
+            try
+            {
+                LocationServices ls = new LocationServices(_context);
+                ls.AddEntity(location);
 
                 TempData["SuccessMessage"] = "The location has been successfully created!";
-
+                return RedirectToAction("Index", "Home");
             }
-
-            LocationServices ls = new LocationServices(_context);
-            ls.AddEntity(location);
-
-            return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
+            catch (Exception ex)
+            {
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context); // Log SQL exception
+                _logger.LogError(ex, "An error occurred while creating location.");
+                ModelState.AddModelError("", "An unexpected error occurred, please try again.");
+                return View(location);
+            }
         }
 
 
         // GET: LocationController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            LocationServices ls = new LocationServices(_context);
+            Location model = ls.GetEntityById(id);
+
+            if (model == null)
+                return FailedLocation("Check In Not Found");
+
+            return View(model);
         }
 
         // POST: LocationController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Location model)
         {
+            LocationServices ls = new LocationServices(_context);
+            if (model == null)
+                return FailedLocation("Updates to location could not be applied");
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                ls.UpdateEntity(model);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                _logger.LogError(e.Message);
+
+                return FailedLocation("Updates to location could not be applied");
             }
+
+            return RedirectToAction("Index", "Dashboard");
         }
 
         // GET: LocationController/Delete/5
+        public ActionResult DeleteLocation(int id)
+        {
+            try
+            {
+                LocationServices ls = new LocationServices(_context);
+                Location model = ls.GetEntityById(id);
+
+                if (model == null)
+                    return FailedLocation("Check In Not Found");
+
+                model.IsActive = !model.IsActive; // Toggle IsActive from true to false or false to true
+                ls.UpdateEntity(model); // Update the entity in the database
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect after toggling IsActive
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+
+                return FailedLocation("Updates to location could not be applied");
+            }
+        }
+
+        // POST: LocationController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: LocationController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult FailedLocation(string errorMessage)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.ErrorMessage = errorMessage;
+            return View("FailedLocation");
         }
     }
 }

@@ -64,6 +64,17 @@ html{scroll-behavior: smooth;}
         transform: translateX(-50%) translateY(-50%);
     }
 
+.hero_image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+}
+
 .hero_overlay {
     position: absolute;
     left: 0;
@@ -130,8 +141,10 @@ html{scroll-behavior: smooth;}
     margin: 0 auto;
 }
 
-.steps--background{
-    background-color: #f8f9fa;
+.step-background {
+    /*background-color: #f8f9fa;*/
+    background-color: #ebebeb;
+    width:auto;
 }
 
 .steps_section-width{
@@ -161,9 +174,9 @@ html{scroll-behavior: smooth;}
 }
 
 
-@media (max-width: 767px) {
-    
-    .Three {
-        display: none;
-    }
+
+/* This will apply to all paragraphs with class 'lead mb-4' directly followed by an 'a' with class 'link-pages' */
+.lead.mb-4 + .link-pages {
+    display: block;
+    margin-top: 10px; 
 }

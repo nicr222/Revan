@@ -1,0 +1,98 @@
+﻿.details {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    
+}
+
+    .details .recentItem {
+        display: none;
+        position: relative;
+        display: grid;
+        min-height: 500px;
+        border-top: 3px solid #840029;
+        border-bottom: 3px solid #840029;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+    }
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+    .cardHeader h2 {
+        font-weight: 600;
+        color: #840029;
+    }
+
+.btn {
+    position: relative;
+    padding: 5px 10px;
+    background-color: #840029;
+    text-decoration: none;
+    color: #EEEEEE;
+    border-radius: 6px;
+}
+
+.details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+    .details table thead td {
+        font-weight: 600;
+    }
+
+.details .recentItem table tr {
+    color: #840029;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.details table tr:hover {
+    background: #840029;
+    color: white;
+}
+
+.recentFeedback {
+    position: relative;
+    display: grid;
+    min-height: 500px;
+    border-top: 3px solid #840029;
+    border-bottom: 3px solid #840029;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+}
+
+    .recentFeedback table tr {
+        color: #840029;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+        .recentFeedback table tr:hover {
+            background: #840029;
+            color: white;
+        }
+
+        .recentFeedback table tr td {
+            padding: 12px 10px;
+        }
+
+            .recentFeedback table tr td h4 {
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 1.2em;
+            }
+
+                .recentFeedback table tr td h4 span {
+                    font-size: 14px;
+                    color: rgba(0,0,0,0.08)
+                }
+
+        .recentFeedback table tr:hover td h4 span {
+            color: white;
+        }

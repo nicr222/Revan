@@ -5,6 +5,7 @@
 }
 @model MidStateShuttleService.Models.AllModels
 
+
 <div class="cardHeader">
     <h2>Routes</h2>
     <a asp-controller="Routes" asp-action="Create" class="btn">Add Route</a>
@@ -12,11 +13,14 @@
 <table>
     <thead>
         <tr>
+            <td>Passenger List</td>
             <td>Pick Up Location</td>
             <td>Drop Off Location</td>
             <td>Pick Up Time</td>
             <td>Drop Off Time</td>
+            <td>Driver</td>
             <td>Additional Details</td>
+            <td>is active</td>
             <td>Update</td>
             <td>Delete</td>
         </tr>
@@ -31,11 +35,14 @@
             @foreach (var r in Model.Route)
             {
                 <tr>
+                    <td><a asp-controller="Dashboard" asp-action="PassengerList" asp-route-id="@r.RouteID">View Passengers</a></td>
                     <td>@r.PickUpLocation.ToStringPickup()</td>
                     <td>@r.DropOffLocation.ToStringDropoff()</td>
                     <td>@r.PickUpTime</td>
                     <td>@r.DropOffTime</td>
+                    <td>@r.Driver.ToStringDriver()</td>
                     <td>@r.AdditionalDetails</td>
+                    <td>@r.IsActive.ToString()</td>
                     <td><a asp-controller="Routes" asp-action="Edit" asp-route-id="@r.RouteID">Edit</a></td>
                     <td><a asp-controller="Routes" asp-action="Delete" asp-route-id="@r.RouteID">Delete</a></td>
                 </tr>
