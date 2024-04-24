@@ -72,7 +72,7 @@ namespace MidStateShuttleService.Controllers
             ViewData["MessageCount"] = messageCountFromSession;
             ViewData["LastMessage"] = lastMessage;
 
-            // Retrieve the message count and last message from the session
+            // Retrieve the feedback count and last feedback from the session
             int feedbackCountFromSession = HttpContext.Session.GetInt32("FeedbackCount") ?? 0;
             string lastFeedback = HttpContext.Session.GetString("LastFeedback") ?? "You have a new feedback!";
 

@@ -42,8 +42,10 @@ function updateNotificationBadge(registrationCount, checkInCount) {
 }
 
 function updateMessageNotificationBadge(messageCount, feedbackCount) {
-    var total = messageCount + feedbackCount;
-    $('.notification-message .badge').text(total); // Update the badge on the message icon
+    let totalNotifications = messageCount + feedbackCount;
+    let badge = $('.notification-message .badge');
+    // Set the text of the badge to the total count
+    badge.text(totalNotifications);
 }
 
 function addRegistrationNotification(count) {
@@ -89,7 +91,7 @@ function addMessageNotification(count, message = 'You have a new message!') {
         </div>`;
     notificationDropdown.prepend(newNotificationHtml);
     // Update the message icon badge count
-    $('.notification-message .badge').text(count);
+/*    $('.notification-message .badge').text(count);*/
     // Make sure the dropdown is visible if it was hidden
     notificationDropdown.show();
 }
@@ -107,7 +109,7 @@ function addFeedbackNotification(count, message = 'You have a new message!') {
         </div>`;
     notificationDropdown.prepend(newNotificationHtml);
     // Update the message icon badge count
-    $('.notification-message .badge').text(count);
+/*    $('.notification-message .badge').text(count);*/
     // Make sure the dropdown is visible if it was hidden
     notificationDropdown.show();
 }
