@@ -132,11 +132,14 @@ header {
 
 footer {
     background-color: #840029;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
+/* Adjust footer container styles */
 .footerContainer {
-    width: 100%;
-    padding: 70px 30px 20px;
+    padding: 20px 30px; /* Adjusted padding */
 }
 
 .footerNav {
@@ -163,13 +166,11 @@ footer {
         color: #fdb71a;
     }
 
-    .footerBottom{
-        background-color: black;
-        padding: 20px;
-        text-align: center;
-    }
-.footerBottom p {
-    color: #840029;
+.footerBottom {
+    background-color: black;
+    padding: 20px;
+    text-align: center;
+    color: #840029; /* Adjusted text color */
 }
 
 .desinger {
@@ -180,6 +181,7 @@ footer {
     margin: 0px 5px;
 }
 
+/* Adjusted media query for smaller screens */
 @media (max-width: 768px) {
     .footerNav ul {
         flex-direction: column;

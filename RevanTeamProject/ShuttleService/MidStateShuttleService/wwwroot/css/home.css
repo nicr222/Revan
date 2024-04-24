@@ -181,3 +181,28 @@ html{scroll-behavior: smooth;}
     margin-top: 10px; 
 }
 
+/* Adjust bottom margin of the last section to create space above the footer */
+.Three {
+    margin-bottom: 100px; /* Adjust this value as needed */
+}
+
+/* Alternatively, you can position the footer at the bottom of the page without overlapping content */
+footer {
+    background-color: #840029;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Adjusted styles for the footer container */
+.footerContainer {
+    padding: 20px 30px; /* Adjusted padding */
+}
+
+/* Adjusted styles for the footer bottom section */
+.footerBottom {
+    background-color: black;
+    padding: 20px;
+    text-align: center;
+    color: #840029; /* Adjusted text color */
+}
