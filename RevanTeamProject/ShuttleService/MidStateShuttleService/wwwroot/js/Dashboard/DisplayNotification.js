@@ -90,8 +90,6 @@ function addMessageNotification(count, message = 'You have a new message!') {
             </div>
         </div>`;
     notificationDropdown.prepend(newNotificationHtml);
-    // Update the message icon badge count
-/*    $('.notification-message .badge').text(count);*/
     // Make sure the dropdown is visible if it was hidden
     notificationDropdown.show();
 }
@@ -108,9 +106,8 @@ function addFeedbackNotification(count, message = 'You have a new message!') {
             </div>
         </div>`;
     notificationDropdown.prepend(newNotificationHtml);
-    // Update the message icon badge count
-/*    $('.notification-message .badge').text(count);*/
     // Make sure the dropdown is visible if it was hidden
     notificationDropdown.show();
 }
+
 
