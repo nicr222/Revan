@@ -58,7 +58,10 @@ namespace MidStateShuttleService.Controllers
                 bs.AddEntity(bus);
 
                 TempData["SuccessMessage"] = "The bus has been successfully created!";
-                return RedirectToAction("Index", "Dashboard");
+                HttpContext.Session.SetString("ShuttleSuccess", "true");
+                TempData["ShuttleSuccess"] = true;
+
+                return RedirectToAction("Create");
             }
             catch (Exception ex)
             {
@@ -108,7 +111,9 @@ namespace MidStateShuttleService.Controllers
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = "The bus has been successfully updated!";
-                return RedirectToAction("Index", "Dashboard");
+                HttpContext.Session.SetString("ShuttleSuccess", "true");
+                TempData["ShuttleSuccess"] = true;
+                return RedirectToAction("Edit");
             }
             catch (Exception ex)
             {
