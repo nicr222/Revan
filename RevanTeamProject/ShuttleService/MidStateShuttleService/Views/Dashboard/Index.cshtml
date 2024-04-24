@@ -59,6 +59,13 @@
             </li>
 
             <li>
+                <a href="#" id="feedback">
+                    <span class="icon"><i class="bi bi-hand-thumbs-up"></i></span>
+                    <span class="title">Feedbacks</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="@Url.Action("Logout", "Account")">
                     <span class="icon"><i class="bi bi-box-arrow-left"></i></span>
                     <span class="title">Sign out</span>
@@ -171,11 +178,12 @@
         <div class="recentItem shuttle">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/ShuttleTable.cshtml")
         </div>
-        
+        <div class="recentItem feedback">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/FeedbackTable.cshtml")
+        </div>
         <div class="recentFeedback">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/MessagesTable.cshtml")
         </div>
-
     </div>
 
 </div>

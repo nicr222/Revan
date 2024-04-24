@@ -13,25 +13,30 @@
             <div class="form-body">
                 <h2 class="title">Shuttle Check In</h2>
                 <div class="input-fields">
-                    <h6>Student ID</h6>
-                    <input asp-for="UserId" type="number" class="form-control input--style-1" id="studentID" placeholder="Student ID" required />
+                    <h6>Please Enter Your Name</h6>
+                    <input asp-for="Name" type="text" class="form-control input--style-1" id="name" placeholder="Your Name" required />
                     <div class="div-line"></div>
                     <div class="invalid-feedback">
-                        Invalid student ID must be 8 didgets
+                        Please enter a valid name.
                     </div>
                 </div>
 
                 <div class="row row-space">
                     <div class="col-6">
                         <div class="input-fields">
-                            <h6>Shuttle Number</h6>
-                            <input asp-for="BusNumber" type="number" class="form-control input--style-1" id="studentID" placeholder="Shuttle Number" required />
+                            <h6>Pick-up Location</h6>
+                            <select asp-for="LocationId"
+                                    asp-items="ViewBag.Locations"
+                                    class="form-control input--style-1" required>
+                                <option selected="selected" value="" required>--Select--</option>
+                            </select>
                             <div class="div-line"></div>
                             <div class="invalid-feedback">
-                                Invalid Shuttle Number
+                                Please select a pick-up location
                             </div>
                         </div>
                     </div>
+
                     <div class="col-6">
                         <div class="input-fields">
                             <h6>Is this your first time riding?</h6>

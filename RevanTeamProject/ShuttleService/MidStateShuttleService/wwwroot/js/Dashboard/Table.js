@@ -46,4 +46,11 @@
         return false;
     });
 
+    // Click event for the Feedback button
+    $('#feedback').click(function () {
+        hideAllTables();
+        $('.recentItem.feedback').show(); // Show the feedback table
+        return false;
+    });
+
 });

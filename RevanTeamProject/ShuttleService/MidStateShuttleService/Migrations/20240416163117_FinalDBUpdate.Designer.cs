@@ -4,6 +4,7 @@ using System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MidStateShuttleService.Models;
 
@@ -12,9 +13,11 @@ using MidStateShuttleService.Models;
 namespace MidStateShuttleService.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240416163117_FinalDBUpdate")]
+    partial class FinalDBUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,21 +34,19 @@ namespace MidStateShuttleService.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BusId"));
 
-                    b.Property<int?>("BusNo")
-                        .IsRequired()
+                    b.Property<int>("BusNo")
                         .HasColumnType("int");
 
                     b.Property<int?>("DriverId")
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<bool?>("IsActive")
+                    b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<int?>("PassengerCapacity")
-                        .IsRequired()
+                    b.Property<int>("PassengerCapacity")
                         .HasColumnType("int");
 
                     b.HasKey("BusId");
@@ -63,6 +64,12 @@ namespace MidStateShuttleService.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CheckInId"));
 
+                    b.Property<int>("BusId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BusNumber")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comments")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -70,7 +77,7 @@ namespace MidStateShuttleService.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValueSql("GETDATE()");
+                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
                     b.Property<bool>("FirstTime")
                         .ValueGeneratedOnAdd()
@@ -88,9 +95,16 @@ namespace MidStateShuttleService.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RouteId")
+                        .HasColumnType("int");
+
                     b.HasKey("CheckInId");
 
+                    b.HasIndex("BusId");
+
                     b.HasIndex("LocationId");
+
+                    b.HasIndex("RouteId");
 
                     b.ToTable("CheckIn", (string)null);
                 });
@@ -187,11 +201,6 @@ namespace MidStateShuttleService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-                    b.Property<bool>("DisplayTestimonial")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -508,13 +517,27 @@ namespace MidStateShuttleService.Migrations
 
             modelBuilder.Entity("MidStateShuttleService.Models.CheckIn", b =>
                 {
+                    b.HasOne("MidStateShuttleService.Models.Bus", "Bus")
+                        .WithMany()
+                        .HasForeignKey("BusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MidStateShuttleService.Models.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MidStateShuttleService.Models.Routes", "Route")
+                        .WithMany()
+                        .HasForeignKey("RouteId");
+
+                    b.Navigation("Bus");
+
                     b.Navigation("Location");
+
+                    b.Navigation("Route");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.CommuncateModel", b =>
