@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MidStateShuttleService.Models;
 using System.Diagnostics;
 using MidStateShuttleService.Service;
+using MidStateShuttleService.Services;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -72,6 +73,13 @@ namespace MidStateShuttleService.Controllers
                     TempData["RegistrationSuccess"] = true;
 
                     Debug.WriteLine(TempData["RegistrationSuccess"]);
+
+                    // Send the email
+                    es.SendEmail(
+                    model.Email,
+                    "MSTC Shuttle Service Registration",
+                    "Your registration for the MSTC shuttle service was confirmed!"
+                    );
 
                     return RedirectToAction("Index");
                 } else
@@ -175,24 +183,7 @@ namespace MidStateShuttleService.Controllers
             {
                 student.ReturnSelectedRouteDetail = null;
             }
-
-
-
-                if (rs.AddEntity(model))
-                {
-                    TempData["RegistrationSuccess"] = true;
-                    es.SendEmail(
-                        model.Email,
-                        "MSTC Shuttle Service Registration",
-                        "Your registration for the MSTC shuttle service was confirmed!"
-                        );
-                    return RedirectToAction("Index");
-                } else
-                {
-                    ModelState.AddModelError("", "There was an error saving the registration, please try again.");
-                }
-            }
-
+            
             if (!ModelState.IsValid)
             {
                 return View(student); // Return the view with validation errors
