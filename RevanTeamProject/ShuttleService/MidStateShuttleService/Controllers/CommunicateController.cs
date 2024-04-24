@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using System.Net.Mail;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
+using MidStateShuttleService.Services;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -41,6 +45,17 @@ namespace MidStateShuttleService.Controllers
                 {
                     CommunicationServices cs = new CommunicationServices(_context);
                     cs.AddEntity(c);
+
+                    RegisterServices rs = new RegisterServices(_context);
+
+                    EmailServices es = new EmailServices();
+
+                    var registeredStudents = rs.GetEmailsByRoute(c.SelectedRouteDetail.ToString());
+
+                    foreach (var student in registeredStudents)
+                    {
+                        es.SendEmail(student.Email, "Mid State Shuttle Service Update", c.message);
+                    }
 
                     return RedirectToAction("MessageSent");
                 }
