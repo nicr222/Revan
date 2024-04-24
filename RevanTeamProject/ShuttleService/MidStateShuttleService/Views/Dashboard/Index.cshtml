@@ -103,14 +103,16 @@
             <div class="notification-container">
                 <div class="notification-message" onclick="toggleNotifications('notificationMessageDropdown')"
                      data-message-count="@ViewData["MessageCount"]"
+                     data-feedback-count="@ViewData["FeedbackCount"]"
                      data-last-message="@ViewData["LastMessage"]">
-                    <span class="badge">@ViewData["MessageCount"].ToString()</span>
+                    <span class="badge"></span>
                     <i class="bi bi-chat-left-text"></i>
                 </div>
 
                 <div class="dropdown-menu notifications dropdown-menu-arrow" id="notificationMessageDropdown" style="display: none;">
                     <!-- Notifications go here -->
                 </div>
+
             </div>
         </div>
 

@@ -8,6 +8,12 @@
     var messageCount = parseInt($('.notification-message').data('message-count')) || 0;
     var lastMessage = $('.notification-message').data('last-message') || 'You have a new message!';
 
+    var feedbackCount = parseInt($('.notification-message').data('feedback-count')) || 0;
+    var lastFeedback = $('.notification-message').data('last-feedback') || 'You have new feedback!';
+
+    // Update the message icon badge with the sum of messages and feedback
+    updateMessageNotificationBadge(messageCount, feedbackCount);
+
     // Update the badge with the new counts from the server
     updateNotificationBadge(registrationCount, checkInCount);
 
@@ -22,6 +28,10 @@
     if (messageCount > 0) {
         addMessageNotification(messageCount, lastMessage);
     }
+
+    if (feedbackCount > 0) {
+        addMessageNotification(feedbackCount, lastFeedback);
+    }
 });
 
 function updateNotificationBadge(registrationCount, checkInCount) {
@@ -29,6 +39,11 @@ function updateNotificationBadge(registrationCount, checkInCount) {
     let totalNotifications = registrationCount + checkInCount;
     let badge = $('.notification-bell .badge');
     badge.text(totalNotifications); // Set the badge text to the sum of both counts
+}
+
+function updateMessageNotificationBadge(messageCount, feedbackCount) {
+    var total = messageCount + feedbackCount;
+    $('.notification-message .badge').text(total); // Update the badge on the message icon
 }
 
 function addRegistrationNotification(count) {
@@ -62,6 +77,24 @@ function addCheckInNotification(count) {
 }
 
 function addMessageNotification(count, message = 'You have a new message!') {
+    console.log('Adding message notification with count:', count);
+    let notificationDropdown = $('#notificationMessageDropdown');
+    let newNotificationHtml = `
+        <div class="notification-item">
+            <i class="bi bi-exclamation-circle text-warning"></i>
+            <div>
+                <h4>New Message (${count})</h4>
+                <p>${message}</p>
+            </div>
+        </div>`;
+    notificationDropdown.prepend(newNotificationHtml);
+    // Update the message icon badge count
+    $('.notification-message .badge').text(count);
+    // Make sure the dropdown is visible if it was hidden
+    notificationDropdown.show();
+}
+
+function addFeedbackNotification(count, message = 'You have a new message!') {
     console.log('Adding message notification with count:', count);
     let notificationDropdown = $('#notificationMessageDropdown');
     let newNotificationHtml = `
