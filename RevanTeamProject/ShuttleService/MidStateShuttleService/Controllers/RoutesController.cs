@@ -51,13 +51,16 @@ namespace MidStateShuttleService.Controllers
 
 
         // POST: RoutesController/Edit/
-[HttpPost]
+        [HttpPost]
         public ActionResult Create(Routes route)
         {
             RouteServices rs = new RouteServices(_context);
             rs.AddEntity(route);
 
-            return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
+            HttpContext.Session.SetString("RouteSuccess", "true");
+            TempData["RouteSuccess"] = true;
+
+            return RedirectToAction("Create");
         }
 
         // GET: RoutesController/Edit/5
@@ -99,8 +102,11 @@ namespace MidStateShuttleService.Controllers
                 _context.Update(updatedRoute);
                 _context.SaveChanges();
 
+                HttpContext.Session.SetString("RouteSuccess", "true");
+                TempData["RouteSuccess"] = true;
+
                 TempData["SuccessMessage"] = "The route has been successfully updated!";
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Edit");
             }
             catch (Exception ex)
             {
