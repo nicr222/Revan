@@ -42,7 +42,11 @@ namespace MidStateShuttleService.Controllers
                     CommunicationServices cs = new CommunicationServices(_context);
                     cs.AddEntity(c);
 
-                    return RedirectToAction("Index", "Dashboard");
+                    HttpContext.Session.SetString("CommunicationSuccess", "true"); // Using session to set Communication success.
+
+                    TempData["CommunicationSuccess"] = true;
+
+                    return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
