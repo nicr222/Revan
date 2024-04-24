@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,15 @@ public partial class Feedback
     public DateTime DateSubmitted { get; set; }
 
     [StringLength(50)] // Set the maximum length to 50
-    public string CustomerName { get; set; } // Changed from UserId
+    public string? CustomerName { get; set; } // Changed from UserId
 
     [Required(ErrorMessage = "Rating is required.")]
     [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5.")]
     public int Rating { get; set; } // Added Rating property
+
+    [Required]
+    [Column("DisplayTestimonial")]
+    public bool DisplayTestimonial { get; set; } // Added DisplayTestimonial property
+
+    public bool IsActive { get; set; }
 }

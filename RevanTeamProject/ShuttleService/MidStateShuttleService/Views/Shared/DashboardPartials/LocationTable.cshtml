@@ -26,6 +26,7 @@
             <td>State</td>
             <td>Zip Code</td>
             <td>Abbreviation</td>
+            <td>Active?</td>
             <td>Update</td>
             <td>Delete</td>
         </tr>
@@ -46,6 +47,7 @@
                     <td>@location.State</td>
                     <td>@location.ZipCode</td>
                     <td>@location.Abbreviation</td>
+                    <td>@location.IsActive.ToString()</td>
                     <td><a asp-controller="Location" asp-action="Edit" asp-route-id="@location.LocationId">Edit</a></td>
                     <td><a asp-controller="Location" asp-action="DeleteLocation" asp-route-id="@location.LocationId">Delete</a></td>
                 </tr>

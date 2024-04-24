@@ -205,25 +205,33 @@ namespace MidStateShuttleService.Controllers
             {
                 var student = _context.RegisterModels.Find(id);
 
+                if (student != null)
+                {
+                    student.IsActive = !student.IsActive; // Toggle IsActive from true to false or false to true
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    // Handle the case where the student with the specified id is not found
+                    ModelState.AddModelError("", "Student not found.");
+                    return View();
+                }
 
-
-                _context.RegisterModels.Remove(student);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+                return RedirectToAction("Index", "Dashboard"); // Redirect after toggling IsActive
             }
             catch (Exception ex)
             {
-                // Log the SQL exception and any other exceptions
+                // Log the exception
                 LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
-                _logger.LogError(ex, "An error occurred while deleting student.");
+                _logger.LogError(ex, "An error occurred while toggling IsActive of the student.");
 
                 // Optionally add a model error for displaying an error message to the user
-                ModelState.AddModelError("", "An unexpected error occurred while deleting the student, please try again.");
+                ModelState.AddModelError("", "An unexpected error occurred while toggling IsActive of the student, please try again.");
 
                 // Return the view with an error message
                 return View();
             }
+
         }
 
 

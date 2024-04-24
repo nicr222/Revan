@@ -93,6 +93,8 @@ namespace MidStateShuttleService.Models
 
         //[Required(ErrorMessage = "Drop Off Location is required")]
         public int? FridayDropOffLocationID { get; set; }
+
+        public bool IsActive { get; set; }
     }
 
 }

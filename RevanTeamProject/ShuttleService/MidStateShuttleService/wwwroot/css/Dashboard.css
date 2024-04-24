@@ -123,6 +123,12 @@
                 box-shadow: 35px -35px 0 10px #EEEEEE;
                 pointer-events: none;
             }
+    .navigation ul {
+        /* Existing styles */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Space between elements */
+    }
 
 
 .main {
@@ -409,8 +415,7 @@
     width: 100%;
     padding: 20px;
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-gap: 30px;
+    
 }
 
     .details .recentItem {
@@ -505,6 +510,10 @@
         color: white;
     }
 
+/* Styles for Accept and Reject buttons */
+.button-accept, .button-reject {
+    padding: 5px 15px;
+}
 
 /* practicing this way to be responsive */
 @media (max-width: 991px) {
