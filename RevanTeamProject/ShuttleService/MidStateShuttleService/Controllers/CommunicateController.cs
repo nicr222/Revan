@@ -50,7 +50,7 @@ namespace MidStateShuttleService.Controllers
 
                     EmailServices es = new EmailServices();
 
-                    var registeredStudents = rs.GetEmailsByRoute(c.PickUpLocationID.ToString(), c.DropOffLocationID.ToString());
+                    var registeredStudents = rs.GetEmailsByRoute(c.SelectedRouteDetail.ToString());
 
                     foreach (var student in registeredStudents)
                     {
