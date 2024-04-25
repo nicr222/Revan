@@ -40,3 +40,7 @@ document.getElementById('routeSearch').addEventListener('input', function () {
 document.getElementById('driverSearch').addEventListener('input', function () {
     searchRows('driverSearch', 'driverRow');
 });
+
+document.getElementById('checkSearch').addEventListener('input', function () {
+    searchRows('checkSearch', 'checkRow');
+});

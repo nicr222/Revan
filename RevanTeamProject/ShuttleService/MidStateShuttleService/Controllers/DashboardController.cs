@@ -31,8 +31,8 @@ namespace MidStateShuttleService.Controllers
             LocationServices ls = new LocationServices(_context);
             allModels.Location = ls.GetAllEntities();
 
-           // RouteServices rs = new RouteServices(_context);
-            //allModels.Route = rs.GetAllEntities();
+            RouteServices rs = new RouteServices(_context);
+            allModels.Route = rs.GetAllEntities();
 
             DriverServices ds = new DriverServices(_context);
             allModels.Driver = ds.GetAllEntities();
@@ -40,8 +40,8 @@ namespace MidStateShuttleService.Controllers
             BusServices bs = new BusServices(_context);
             allModels.Bus = bs.GetAllEntities();
 
-           // CheckInServices cis = new CheckInServices(_context);
-           // allModels.CheckIn = cis.GetAllEntities();
+           CheckInServices cis = new CheckInServices(_context);
+           allModels.CheckIn = cis.GetAllEntities();
 
             MessageServices ms = new MessageServices(_context);
             allModels.Message = ms.GetAllEntities();

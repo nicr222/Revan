@@ -41,7 +41,7 @@
         {
             @foreach (var r in Model.Route)
             {
-                <tr>
+                <tr class="routeRow">
                     <td><a asp-controller="Dashboard" asp-action="PassengerList" asp-route-id="@r.RouteID">View Passengers</a></td>
                     <td>@r.PickUpLocation.ToStringPickup()</td>
                     <td>@r.DropOffLocation.ToStringDropoff()</td>

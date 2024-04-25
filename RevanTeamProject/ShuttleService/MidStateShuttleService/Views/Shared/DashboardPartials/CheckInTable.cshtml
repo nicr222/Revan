@@ -11,7 +11,7 @@
     <!--search-->
     <div class="search">
         <label>
-            <input type="text" placeholder="Search" />
+            <input id="checkSearch" type="text" placeholder="Search" />
             <i class="bi bi-search"></i>
         </label>
     </div>
@@ -40,7 +40,7 @@
         {
             @foreach (var checkIn in Model.CheckIn)
             {
-                <tr>
+                <tr class="checkRow">
                     <td>@checkIn.Name</td>
                     <td>@checkIn.Date.ToShortDateString()</td>
                     <td>@checkIn.Location.CheckInName()</td>
