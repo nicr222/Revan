@@ -182,6 +182,21 @@ namespace MidStateShuttleService.Controllers
             }
         }
 
+        //Notification system,
+        public IActionResult FeedbackTablePartial()
+        {
+            AllModels allModels = new AllModels();
+
+            FeedbackServices fs = new FeedbackServices(_context);
+            allModels.Feedback = fs.GetAllEntities();
+            // Get your feedback data here
+            var feedbackData = allModels.Feedback; 
+
+            // Return the partial view with the feedback data
+            return PartialView("~/Views/Shared/DashboardPartials/FeedbackTable.cshtml", feedbackData);
+        }
+
+
 
     }
 }
