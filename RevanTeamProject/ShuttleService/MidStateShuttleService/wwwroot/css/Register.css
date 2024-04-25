@@ -134,6 +134,7 @@ sup {
    ========================================================================== */
 .wrapper {
     margin: 80px auto;
+    padding-bottom: 150px;
 }
 
 .wrapper--w680 {
@@ -1152,4 +1153,25 @@ input[type=checkbox] {
     .modal-dialog {
         margin-top: 20%;  /*More top margin on smaller screens*/ 
     }
+}
+
+/* Alternatively, you can position the footer at the bottom of the page without overlapping content */
+footer {
+    background-color: #840029;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Adjusted styles for the footer container */
+.footerContainer {
+    padding: 20px 30px; /* Adjusted padding */
+}
+
+/* Adjusted styles for the footer bottom section */
+.footerBottom {
+    background-color: black;
+    padding: 20px;
+    text-align: center;
+    color: #840029; /* Adjusted text color */
 }
