@@ -7,6 +7,13 @@
 
 <div class="cardHeader">
     <h2>Messages</h2>
+    <!--search-->
+    <div class="search">
+        <label>
+            <input id="messageSearch" type="text" placeholder="Search" />
+            <i class="bi bi-search"></i>
+        </label>
+    </div>
 </div>
 <table>
     <thead>
@@ -15,11 +22,10 @@
             <td>Message</td>
             <td>Response Required</td>
             <td>Contact Info</td>
-
         </tr>
     </thead>
-    <tbody>
-        @if (Model.Message == null)
+    <tbody id="messagesTableBody">
+        @if (Model.Message == null || !Model.Message.Any())
         {
             <tr><td colspan="4" class="text-center">There are Currently No Messages</td></tr>
         }
@@ -27,7 +33,7 @@
         {
             @foreach (var message in Model.Message)
             {
-                <tr>
+                <tr class="messageRow">
                     <td>@message.name</td>
                     <td>
                         @if (message.message.Length > 10)
@@ -40,22 +46,10 @@
                             @message.message
                         }
                     </td>
-                    <!-- Displaying only the first 10 characters of the message -->
                     <td>@(message.responseRequired ? "Yes" : "No")</td>
                     <td>@(string.IsNullOrEmpty(message.contactInfo) ? "N/A" : message.contactInfo)</td>
-                    <td>
-                        <a class="viewButton" href="#"
-                           data-toggle="modal"
-                           data-target="#messageDetailsModal"
-                           data-message-id="@message.id"
-                           data-full-message="@message.message">View</a>
-                    </td>
-                    <td>
-                        <a asp-controller="Message" asp-action="Delete" asp-route-id="@message.id">Read</a>
-                    </td>
                 </tr>
             }
-
         }
     </tbody>
 </table>

@@ -8,6 +8,13 @@
 
 <div class="cardHeader">
     <h2>Check-Ins</h2>
+    <!--search-->
+    <div class="search">
+        <label>
+            <input id="checkSearch" type="text" placeholder="Search" />
+            <i class="bi bi-search"></i>
+        </label>
+    </div>
     <!-- Add Check-In button -->
     <a asp-controller="CheckIn" asp-action="CheckIn" class="btn">Add Check-In</a>
 </div>
@@ -33,7 +40,7 @@
         {
             @foreach (var checkIn in Model.CheckIn)
             {
-                <tr>
+                <tr class="checkRow">
                     <td>@checkIn.Name</td>
                     <td>@checkIn.Date.ToShortDateString()</td>
                     <td>@checkIn.Location.CheckInName()</td>

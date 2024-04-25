@@ -8,6 +8,13 @@
 
 <div class="cardHeader">
     <h2>Routes</h2>
+    <!--search-->
+    <div class="search">
+        <label>
+            <input id="routeSearch" type="text" placeholder="Search" />
+            <i class="bi bi-search"></i>
+        </label>
+    </div>
     <a asp-controller="Routes" asp-action="Create" class="btn">Add Route</a>
 </div>
 <table>
@@ -25,7 +32,7 @@
             <td>Delete</td>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="routesTableBody">
         @if (Model == null)
         {
             <tr><td colspan="7" class="text-center">There are Currently No Routes</td></tr>
@@ -34,7 +41,7 @@
         {
             @foreach (var r in Model.Route)
             {
-                <tr>
+                <tr class="routeRow">
                     <td><a asp-controller="Dashboard" asp-action="PassengerList" asp-route-id="@r.RouteID">View Passengers</a></td>
                     <td>@r.PickUpLocation.ToStringPickup()</td>
                     <td>@r.DropOffLocation.ToStringDropoff()</td>
@@ -50,3 +57,6 @@
         }
     </tbody>
 </table>
+
+
+
