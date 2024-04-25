@@ -53,7 +53,10 @@ namespace MidStateShuttleService.Controllers
                 ds.AddEntity(driver);
 
                 TempData["SuccessMessage"] = "The driver has been successfully created!";
-                return RedirectToAction("Index", "Dashboard");
+                HttpContext.Session.SetString("DriverSuccess", "true");
+                TempData["DriverSuccess"] = true;
+
+                return RedirectToAction("Create");
             }
             catch (Exception ex)
             {
@@ -105,7 +108,9 @@ namespace MidStateShuttleService.Controllers
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = "The driver has been successfully updated!";
-                return RedirectToAction("Index", "Dashboard");
+                HttpContext.Session.SetString("DriverSuccess", "true");
+                TempData["DriverSuccess"] = true;
+                return RedirectToAction("Edit");
             }
             catch (Exception ex)
             {

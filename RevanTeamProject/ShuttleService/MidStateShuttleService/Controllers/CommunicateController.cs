@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using System.Net.Mail;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
+using MidStateShuttleService.Services;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -42,7 +46,22 @@ namespace MidStateShuttleService.Controllers
                     CommunicationServices cs = new CommunicationServices(_context);
                     cs.AddEntity(c);
 
-                    return RedirectToAction("MessageSent");
+                    RegisterServices rs = new RegisterServices(_context);
+
+                    EmailServices es = new EmailServices();
+
+                    var registeredStudents = rs.GetEmailsByRoute(c.SelectedRouteDetail.ToString());
+
+                    foreach (var student in registeredStudents)
+                    {
+                        es.SendEmail(student.Email, "Mid State Shuttle Service Update", c.message);
+                    }
+
+                    HttpContext.Session.SetString("CommunicationSuccess", "true"); // Using session to set Communication success.
+
+                    TempData["CommunicationSuccess"] = true;
+
+                    return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
@@ -54,11 +73,6 @@ namespace MidStateShuttleService.Controllers
 
             
             return View(c);
-        }
-
-        public IActionResult MessageSent()
-        {
-            return View();
         }
 
         /// <summary>
@@ -89,7 +103,11 @@ namespace MidStateShuttleService.Controllers
                     // Optionally, save the last message or a summary
                     HttpContext.Session.SetString("LastMessage", "You have a new message!");
 
-                    return RedirectToAction("MessageSent");
+                    HttpContext.Session.SetString("CommunicationSuccess", "true"); // Using session to set Communication success.
+
+                    TempData["CommunicationSuccess"] = true;
+
+                    return RedirectToAction("StudentCommunicate");
                 }
                 catch (Exception ex)
                 {

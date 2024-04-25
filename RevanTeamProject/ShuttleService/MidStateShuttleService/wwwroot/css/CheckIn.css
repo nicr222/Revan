@@ -210,3 +210,9 @@ input.radio-style {
 .btn--submit:hover, .btn--cancel:hover {
     animation: thickenBorder 0.1s ease-out forwards; /* Apply the keyframe animation on hover */
 }
+
+/* Keyframes for border thickening animation */
+@keyframes thickenBorder {
+    to {
+        border-width: 3px; /* Target a thicker border */
+    }
