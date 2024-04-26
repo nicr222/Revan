@@ -54,6 +54,15 @@ namespace MidStateShuttleService.Models
         [ForeignKey("DriverId")]
         public virtual Driver Driver { get; set; }
 
+        public string ToStringPickUp()
+        {
+            return PickUpLocation.Name;
+        }
+
+        public string ToStringDropOff()
+        {
+            return DropOffLocation.Name;
+        }
            
     }
 }
