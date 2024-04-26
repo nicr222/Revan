@@ -94,8 +94,25 @@ function addMessageNotification(count, message = 'You have a new message!') {
     notificationDropdown.show();
 }
 
-function addFeedbackNotification(count, message = 'You have a new message!') {
-    console.log('Adding message notification with count:', count);
+//function addFeedbackNotification(count, message = 'You have a new message!') {
+//    console.log('Adding message notification with count:', count);
+//    let notificationDropdown = $('#notificationMessageDropdown');
+//    let newNotificationHtml = `
+//        <div class="notification-item feedback-notification" data-count="${count}"  data-url="@Url.Action("FeedbackTablePartial", "Dashboard")">
+//            <i class="bi bi-exclamation-circle text-warning"></i>
+//            <div>
+//                <h4>New Feedback (${count})</h4>
+//                <p>${message}</p>
+//            </div>
+//        </div>`;
+//    notificationDropdown.prepend(newNotificationHtml);
+//    // Make sure the dropdown is visible if it was hidden
+//    notificationDropdown.show();
+
+//}
+
+function addFeedbackNotification(count, message = 'You have new feedback!') {
+    console.log('Adding feedback notification with count:', count);
     let notificationDropdown = $('#notificationMessageDropdown');
     let newNotificationHtml = `
         <div class="notification-item feedback-notification" data-count="${count}"  data-url="@Url.Action("FeedbackTablePartial", "Dashboard")">
@@ -106,17 +123,27 @@ function addFeedbackNotification(count, message = 'You have a new message!') {
             </div>
         </div>`;
     notificationDropdown.prepend(newNotificationHtml);
+
+    // Attach a click event handler to the feedback notification
+    $(document).on('click', '.feedback-notification', function () {
+        loadFeedbackTable();
+    });
+
+
     // Make sure the dropdown is visible if it was hidden
     notificationDropdown.show();
+}
 
+// This function will be responsible for loading the feedback table
+function loadFeedbackTable() {
+    console.log(feedbackTableUrl); 
+
+    // Navigate directly to the feedback table URL
+    window.location.href = feedbackTableUrl;
 }
 
 
-$('#notificationMessageDropdown').on('click', '.feedback-notification', function () {
-    var url = $(this).data('url'); // Get the URL from the data attribute
-    console.log('Navigating to URL:', url); // Output the URL for debugging purposes
-    window.location.href = url; // Navigate to the URL
-});
+
 
 
 

@@ -185,15 +185,17 @@ namespace MidStateShuttleService.Controllers
         //Notification system,
         public IActionResult FeedbackTablePartial()
         {
-            AllModels allModels = new AllModels();
+            var allModels = new AllModels();
 
+            // Assuming FeedbackServices.GetAllEntities() returns List<Feedback>
             FeedbackServices fs = new FeedbackServices(_context);
-            allModels.Feedback = fs.GetAllEntities();
-            // Get your feedback data here
-            var feedbackData = allModels.Feedback; 
+            allModels.Feedback = fs.GetAllEntities(); // Populate the Feedback property of allModels
 
-            // Return the partial view with the feedback data
-            return PartialView("~/Views/Shared/DashboardPartials/FeedbackTable.cshtml", feedbackData);
+            // If there are other properties in AllModels that need to be populated,
+            // make sure to populate them here before passing the model to the view.
+
+            // Now pass the fully populated AllModels instance to the view
+            return PartialView("~/Views/Shared/DashboardPartials/FeedbackTable.cshtml", allModels);
         }
 
 

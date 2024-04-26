@@ -190,15 +190,24 @@
 
 </div>
 
-<script src="https://code.jquery.com/jquery-3.7.1.js"
+
+<script type="text/javascript">
+    // This script block will run on the server and output the correct URL in JavaScript.
+    var feedbackTableUrl = '@Url.Action("FeedbackTablePartial", "Dashboard")';
+    console.log(feedbackTableUrl);
+</script>
+
+@* <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
+ *@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="/js/Dashboard/DisplayNotification.js"></script>
+
 <script src="/js/Dashboard/Nav.js"></script>
 <script src="/js/Dashboard/Table.js"></script>
 
-
-
-<script src="/js/Dashboard/DisplayNotification.js"></script>
 @* <script src="/js/dashboard/Nav.js"></script> *@
 <script src="/js/Dashboard/notification.js"></script>
 <script src="/js/dashboard/Table.js"></script>
