@@ -24,7 +24,7 @@ namespace MidStateShuttleService.Controllers
         public IConfiguration Configuration { get; }
 
         // GET: DashboardController
-        public ActionResult Index()
+        public ActionResult Index(string section = "")
         {
             AllModels allModels = new AllModels();
 
@@ -79,6 +79,13 @@ namespace MidStateShuttleService.Controllers
             // Pass them to the view
             ViewData["FeedbackCount"] = feedbackCountFromSession;
             ViewData["LastFeedback"] = lastFeedback;
+
+            // Log the value to ensure it's being received correctly
+            _logger.LogInformation($"Section received: {section}");
+
+
+            // Decide which section to open based on the 'section' parameter
+            ViewBag.OpenSection = section;
 
             return View(allModels);
 
@@ -181,24 +188,5 @@ namespace MidStateShuttleService.Controllers
                 return View();
             }
         }
-
-        //Notification system,
-        public IActionResult FeedbackTablePartial()
-        {
-            var allModels = new AllModels();
-
-            // Assuming FeedbackServices.GetAllEntities() returns List<Feedback>
-            FeedbackServices fs = new FeedbackServices(_context);
-            allModels.Feedback = fs.GetAllEntities(); // Populate the Feedback property of allModels
-
-            // If there are other properties in AllModels that need to be populated,
-            // make sure to populate them here before passing the model to the view.
-
-            // Now pass the fully populated AllModels instance to the view
-            return PartialView("~/Views/Shared/DashboardPartials/FeedbackTable.cshtml", allModels);
-        }
-
-
-
     }
 }
