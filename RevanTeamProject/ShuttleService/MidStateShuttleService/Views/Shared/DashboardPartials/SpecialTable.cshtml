@@ -38,10 +38,53 @@
                         <td>@registration.Email</td>
                         <td>@registration.MustArriveTime</td>
                         <td>@registration.CanLeaveTime</td>
-                        <td>@registration.NeedTransportation</td>
+                        <td>
+                            @if (@registration.NeedTransportation.Length > 10)
+                            {
+                                @registration.NeedTransportation.Substring(0, 10) <!-- Displaying only the first 10 characters -->
+                                <span class="ellipsis">...</span> <!-- Ellipsis span, hidden visually -->
+                            }
+                            else
+                            {
+                                @registration.NeedTransportation
+                            }
+                        </td>
+                        <td>
+                            <a class="viewButton" href="#"
+                               data-toggle="modal"
+                               data-target="#messageDetailsModal"
+                               data-message-id="@registration.RegistrationId"
+                               data-full-message="@registration.NeedTransportation">View</a>
+                        </td>
                     </tr>
                 }
             }
         }
     </tbody>
 </table>
+<div class="modal fade" id="specialRequestDetailsModal" tabindex="-1" role="dialog" aria-labelledby="specialRequestDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="specialRequestDetailsModalLabel">Special Request Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="specialRequestDetailsContent">
+                    <!-- Special request details will be displayed here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="~/js/RequestModal.js"></script>
