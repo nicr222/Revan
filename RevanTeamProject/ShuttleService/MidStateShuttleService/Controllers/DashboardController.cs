@@ -140,8 +140,8 @@ namespace MidStateShuttleService.Controllers
             var pickupLocation = route.ToStringPickUp();
             var dropOffLocation = route.ToStringDropOff();
 
-            var pickupLocationTime = route.PickUpTime;
-            var dropOffLocationTime = route.DropOffTime;
+            var pickupLocationTime = route.ToStringPickUpTime();
+            var dropOffLocationTime = route.ToStringDropOffTime();
 
             // Construct the title string
             ViewBag.Title = $"Passenger List for {pickupLocation} ({pickupLocationTime}) to {dropOffLocation} ({dropOffLocationTime})";
