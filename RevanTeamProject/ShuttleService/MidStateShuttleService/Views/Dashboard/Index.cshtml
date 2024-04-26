@@ -59,7 +59,12 @@
             </li>
 
             <li>
-                <a href="#" id="feedback">
+                @* <a href="#" id="feedback"> *@
+                @* <a href="@Url.Action("Index", "Dashboard", new { section = "feedback" })" id="feedback">
+                    <span class="icon"><i class="bi bi-hand-thumbs-up"></i></span>
+                    <span class="title">Feedbacks</span>
+                </a> *@
+                <a href="@Url.Action("Index", "Dashboard", new { section = "feedback" })" id="feedback">
                     <span class="icon"><i class="bi bi-hand-thumbs-up"></i></span>
                     <span class="title">Feedbacks</span>
                 </a>
@@ -192,18 +197,25 @@
 
 
 <script type="text/javascript">
-    // This script block will run on the server and output the correct URL in JavaScript.
-    var feedbackTableUrl = '@Url.Action("FeedbackTablePartial", "Dashboard")';
-    console.log(feedbackTableUrl);
+    // Ensure that this script block is at the top of other script tags
+    var feedbackUrl = '@Url.Action("Index", "Dashboard", new { section = "feedback" })';
+    console.log(feedbackUrl); // Check if the URL is being set correctly
 </script>
 
-@* <script src="https://code.jquery.com/jquery-3.7.1.js"
+<script type="text/javascript">
+    // Define a global variable in .cshtml file
+    var globalOpenSection = '@ViewBag.OpenSection';
+    console.log(globalOpenSection);
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
- *@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="/js/Dashboard/DisplayNotification.js"></script>
+<script src="/js/Dashboard/dashboard-sections.js" defer></script>
 
 <script src="/js/Dashboard/Nav.js"></script>
 <script src="/js/Dashboard/Table.js"></script>
