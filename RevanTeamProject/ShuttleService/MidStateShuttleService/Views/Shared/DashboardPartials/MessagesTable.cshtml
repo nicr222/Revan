@@ -48,6 +48,8 @@
                     </td>
                     <td>@(message.responseRequired ? "Yes" : "No")</td>
                     <td>@(string.IsNullOrEmpty(message.contactInfo) ? "N/A" : message.contactInfo)</td>
+                    <td><a class="viewButton" asp-route-id="@message.id" data-full-message="@message.message">View</a></td>
+                    <td><a asp-controller="Communication" asp-action="Delete" asp-route-id="@message.id">Mark as Read</a></td>
                 </tr>
             }
         }
