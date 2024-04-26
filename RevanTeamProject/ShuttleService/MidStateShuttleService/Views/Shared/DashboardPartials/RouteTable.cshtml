@@ -45,8 +45,8 @@
                     <td><a asp-controller="Dashboard" asp-action="PassengerList" asp-route-id="@r.RouteID">View Passengers</a></td>
                     <td>@r.PickUpLocation.ToStringPickup()</td>
                     <td>@r.DropOffLocation.ToStringDropoff()</td>
-                    <td>@r.PickUpTime</td>
-                    <td>@r.DropOffTime</td>
+                    <td>@r.ToStringPickUpTime()</td>
+                    <td>@r.ToStringDropOffTime()</td>
                     <td>@r.Driver.ToStringDriver()</td>
                     <td>@r.AdditionalDetails</td>
                     <td>@r.IsActive.ToString()</td>
