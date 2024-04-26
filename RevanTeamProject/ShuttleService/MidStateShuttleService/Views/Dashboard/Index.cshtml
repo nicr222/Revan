@@ -21,6 +21,13 @@
             </li>
             
             <li>
+                <a href="#" id="special">
+                    <span class="icon"><i class="bi bi-house"></i></span>
+                    <span class="title">Special Requests</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="#" id="routes">
                     <span class="icon"><i class="bi bi-map"></i></span>
                     <span class="title">Routes</span>
@@ -187,6 +194,9 @@
         </div>
         <div class="recentFeedback feedback">
             @await Html.PartialAsync("~/Views/Shared/DashboardPartials/FeedbackTable.cshtml")
+        </div>
+        <div class="recentFeedback special">
+            @await Html.PartialAsync("~/Views/Shared/DashboardPartials/SpecialTable.cshtml")
         </div>
         
     </div>

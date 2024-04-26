@@ -40,14 +40,17 @@ namespace MidStateShuttleService.Controllers
             BusServices bs = new BusServices(_context);
             allModels.Bus = bs.GetAllEntities();
 
-           CheckInServices cis = new CheckInServices(_context);
-           allModels.CheckIn = cis.GetAllEntities();
+            CheckInServices cis = new CheckInServices(_context);
+            allModels.CheckIn = cis.GetAllEntities();
 
             MessageServices ms = new MessageServices(_context);
             allModels.Message = ms.GetAllEntities();
 
             FeedbackServices fs = new FeedbackServices(_context);
             allModels.Feedback = fs.GetAllEntities();
+
+            RegisterServices regs = new RegisterServices(_context);
+            allModels.Register = regs.GetAllEntities();
 
             // Retrieve the registration success flag and count from the session
             var registrationSuccess = HttpContext.Session.GetString("RegistrationSuccess") == "true";

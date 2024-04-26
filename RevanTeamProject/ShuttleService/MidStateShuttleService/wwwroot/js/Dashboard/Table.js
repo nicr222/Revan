@@ -57,4 +57,10 @@
         return false;
     });
 
+    $('#special').click(function () {
+        hideAllTables();
+        $('.recentFeedback.special').show(); // Show the feedback table
+        return false;
+    });
+
 });

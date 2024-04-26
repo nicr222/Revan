@@ -8,7 +8,7 @@
 
         public IEnumerable<Message> Message { get; set; }
 
-        public RegisterModel Register { get; set; }
+        public IEnumerable<RegisterModel> Register { get; set; }
 
         //public ReservationModel Reservation { get; set; }
 
