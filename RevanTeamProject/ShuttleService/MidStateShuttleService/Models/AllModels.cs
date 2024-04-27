@@ -19,5 +19,7 @@
         public IEnumerable<Bus> Bus { get; set; }
 
         public IEnumerable<CheckIn> CheckIn { get; set; }
+
+        public IEnumerable<Feedback> Feedback { get; set; }
     }
 }

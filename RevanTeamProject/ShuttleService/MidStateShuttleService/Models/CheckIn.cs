@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace MidStateShuttleService.Models;
@@ -15,24 +16,20 @@ public partial class CheckIn
     [Key]
     public int CheckInId { get; set; }
 
-    public int BusId { get; set; }
-
-    public int BusNumber { get; set; }
-
-    public int? RouteId { get; set; }
-
-    public int? UserId { get; set; }
+    public string? Name { get; set; }
 
     public DateTime Date { get; set; }
 
     [StringLength(255)]
-    public string Comments { get; set; }
+    public string? Comments { get; set; }
 
     public bool FirstTime { get; set; }
 
-    [ForeignKey("RouteId")]
-    public virtual Routes Route { get; set; }
+    public int LocationId { get; set; }
 
-    [ForeignKey("BusId")]
-    public virtual Bus Bus { get; set; }
+    public bool IsActive { get; set; }
+
+    [ForeignKey("LocationId")]
+    public virtual Location Location { get; set; }
+
 }

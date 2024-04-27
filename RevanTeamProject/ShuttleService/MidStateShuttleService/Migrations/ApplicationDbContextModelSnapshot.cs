@@ -31,19 +31,21 @@ namespace MidStateShuttleService.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BusId"));
 
-                    b.Property<int>("BusNo")
+                    b.Property<int?>("BusNo")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("DriverId")
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<int>("PassengerCapacity")
+                    b.Property<int?>("PassengerCapacity")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("BusId");
@@ -61,12 +63,6 @@ namespace MidStateShuttleService.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CheckInId"));
 
-                    b.Property<int>("BusId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BusNumber")
-                        .HasColumnType("int");
-
                     b.Property<string>("Comments")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -74,24 +70,27 @@ namespace MidStateShuttleService.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<bool>("FirstTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<int?>("RouteId")
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("LocationId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CheckInId");
 
-                    b.HasIndex("BusId");
-
-                    b.HasIndex("RouteId");
+                    b.HasIndex("LocationId");
 
                     b.ToTable("CheckIn", (string)null);
                 });
@@ -107,6 +106,11 @@ namespace MidStateShuttleService.Migrations
 
                     b.Property<int>("DropOffLocationID")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<int>("PickUpLocationID")
                         .HasColumnType("int");
@@ -140,6 +144,11 @@ namespace MidStateShuttleService.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasAnnotation("EmailAddress", "Invalid Email Address");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -169,16 +178,30 @@ namespace MidStateShuttleService.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("CustomerName")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("Anonymous");
 
                     b.Property<DateTime>("DateSubmitted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasDefaultValue(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
+                    b.Property<bool>("DisplayTestimonial")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<int>("Rating")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("FeedbackId");
 
@@ -214,6 +237,11 @@ namespace MidStateShuttleService.Migrations
                         .HasAnnotation("ErrorMessage", "City must contain only characters, be at least 2 characters long, and not exceed 50 characters.")
                         .HasAnnotation("RegularExpression", "^[A-Za-z\\s]{2,50}$");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -248,6 +276,11 @@ namespace MidStateShuttleService.Migrations
                         .HasColumnName("MessageId");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("contactInfo")
                         .HasMaxLength(50)
@@ -334,6 +367,11 @@ namespace MidStateShuttleService.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -413,7 +451,7 @@ namespace MidStateShuttleService.Migrations
                         .HasAnnotation("ErrorMessage", "Additional details can only contain letters, numbers, and important special characters.")
                         .HasAnnotation("RegularExpression", "^[a-zA-Z0-9.,!?'\";:@#$%^&*()_+=\\-\\/]*$");
 
-                    b.Property<int>("BusId")
+                    b.Property<int>("DriverId")
                         .HasColumnType("int");
 
                     b.Property<int>("DropOffLocationID")
@@ -429,6 +467,11 @@ namespace MidStateShuttleService.Migrations
                         .HasAnnotation("RegularExpression", "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")
                         .HasAnnotation("SqlDbType", SqlDbType.Time);
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<int>("PickUpLocationID")
                         .HasColumnType("int");
 
@@ -443,7 +486,7 @@ namespace MidStateShuttleService.Migrations
 
                     b.HasKey("RouteID");
 
-                    b.HasIndex("BusId");
+                    b.HasIndex("DriverId");
 
                     b.HasIndex(new[] { "DropOffLocationID" }, "IX_Route_DropOffLocationID");
 
@@ -465,19 +508,13 @@ namespace MidStateShuttleService.Migrations
 
             modelBuilder.Entity("MidStateShuttleService.Models.CheckIn", b =>
                 {
-                    b.HasOne("MidStateShuttleService.Models.Bus", "Bus")
+                    b.HasOne("MidStateShuttleService.Models.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("BusId")
+                        .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MidStateShuttleService.Models.Routes", "Route")
-                        .WithMany()
-                        .HasForeignKey("RouteId");
-
-                    b.Navigation("Bus");
-
-                    b.Navigation("Route");
+                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("MidStateShuttleService.Models.CommuncateModel", b =>
@@ -524,9 +561,9 @@ namespace MidStateShuttleService.Migrations
 
             modelBuilder.Entity("MidStateShuttleService.Models.Routes", b =>
                 {
-                    b.HasOne("MidStateShuttleService.Models.Bus", "Bus")
+                    b.HasOne("MidStateShuttleService.Models.Driver", "Driver")
                         .WithMany()
-                        .HasForeignKey("BusId")
+                        .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -542,7 +579,7 @@ namespace MidStateShuttleService.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Bus");
+                    b.Navigation("Driver");
 
                     b.Navigation("DropOffLocation");
 

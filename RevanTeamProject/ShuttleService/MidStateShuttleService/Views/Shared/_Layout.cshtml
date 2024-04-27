@@ -31,7 +31,6 @@
                         <a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         <a class="nav-item nav-link" asp-area="" asp-controller="Register" asp-action="Register">Register</a>
                         <a class="nav-item nav-link" asp-area="" asp-controller="CheckIn" asp-action="CheckIn">Check In</a>
-                        <a class="nav-item nav-link" asp-area="" asp-controller="Feedback" asp-action="Index">Feedback</a>
                         @if (User.IsInRole("Admin"))
                         {
                             <!-- Pulls the Dispatch to Student form -->
@@ -56,24 +55,22 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer text-white">
-        <div class="container-custom d-flex justify-content-between align-items-center py-3 border-highlight">
-            <div class="col-md-4 d-flex align-content-center">
-                <a href="#" class="me-2 text-decoration-none footer-words">
-                    
-                    <span>&copy; 2024 Mid-State Shuttle Service</span>
-                </a>
+    <footer>
+        <div class="footerContainer">
+            <div class="footerNav">
+                <ul>
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Register")">Request A Ride</a></li>
+                    <li><a href="https://www.mstc.edu/">Mid-State Technical College</a></li>
+                    <li><a href="https://www.mstc.edu/shuttle">Shuttle Service Info</a></li>
+                    <li><a href="https://wedc.org/workforce-innovation-grant-helps-youth-discover-career-path/">Learn More!</a></li>
+                </ul>
             </div>
-            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex text-white">
-                <li class="ms-3 footer-words"><a class="" href="#"><a href="#"><i class="bi bi-facebook"></i></a></li>
-                <li class="ms-3 footer-words"><a class="" href="#"><a href="#"><i class="bi bi-instagram"></i></a></a></li>
-            </ul>
-        </div>
-    <!--
-        Will fix this at a later date.
-    -->
-        
             
+        </div>
+        <div class="footerBottom">
+            <p>Copyright &copy;2024; Designed by <span class="desinger">Team Revan</span></p>
+        </div>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

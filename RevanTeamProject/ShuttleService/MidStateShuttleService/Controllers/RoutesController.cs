@@ -43,21 +43,25 @@ namespace MidStateShuttleService.Controllers
             LocationServices ls = new LocationServices(_context);
             ViewBag.Locations = ls.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.LocationId.ToString() });
 
-            BusServices bs = new BusServices(_context);
-            ViewBag.Buses = bs.GetAllEntities().Select(x => new SelectListItem { Text = "Shuttle: " + x.BusNo, Value = x.BusId.ToString() });
+            // Assuming GetAllEntities() returns a list of drivers
+            DriverServices ds = new DriverServices(_context);
+            ViewBag.Drivers = ds.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.DriverId.ToString() });
 
             return View();
         }
 
 
         // POST: RoutesController/Edit/
-[HttpPost]
+        [HttpPost]
         public ActionResult Create(Routes route)
         {
             RouteServices rs = new RouteServices(_context);
             rs.AddEntity(route);
 
-            return RedirectToAction("Index", "Home"); // Assuming "Home" is the controller where you want to redirect
+            HttpContext.Session.SetString("RouteSuccess", "true");
+            TempData["RouteSuccess"] = true;
+
+            return RedirectToAction("Create");
         }
 
         // GET: RoutesController/Edit/5
@@ -79,6 +83,9 @@ namespace MidStateShuttleService.Controllers
             BusServices bs = new BusServices(_context);
             ViewBag.Buses = bs.GetAllEntities().Select(x => new SelectListItem { Text = "Shuttle: " + x.BusNo, Value = x.BusId.ToString() });
 
+            DriverServices ds = new DriverServices(_context);
+            ViewBag.Drivers = ds.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.DriverId.ToString() });
+
             return View(route);
         }
 
@@ -99,8 +106,11 @@ namespace MidStateShuttleService.Controllers
                 _context.Update(updatedRoute);
                 _context.SaveChanges();
 
+                HttpContext.Session.SetString("RouteSuccess", "true");
+                TempData["RouteSuccess"] = true;
+
                 TempData["SuccessMessage"] = "The route has been successfully updated!";
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Edit");
             }
             catch (Exception ex)
             {
@@ -119,25 +129,33 @@ namespace MidStateShuttleService.Controllers
             {
                 var route = _context.Routes.Find(id);
 
+                if (route != null)
+                {
+                    route.IsActive = !route.IsActive; // Toggle IsActive from true to false or false to true
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    // Handle the case where the route with the specified id is not found
+                    ModelState.AddModelError("", "Route not found.");
+                    return View();
+                }
 
-
-                _context.Routes.Remove(route);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+                return RedirectToAction("Index", "Dashboard"); // Redirect after toggling IsActive
             }
             catch (Exception ex)
             {
-                // Log the SQL exception and any other exceptions
+                // Log the exception
                 LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
-                _logger.LogError(ex, "An error occurred while deleting route.");
+                _logger.LogError(ex, "An error occurred while toggling IsActive of the route.");
 
                 // Optionally add a model error for displaying an error message to the user
-                ModelState.AddModelError("", "An unexpected error occurred while deleting the route, please try again.");
+                ModelState.AddModelError("", "An unexpected error occurred while toggling IsActive of the route, please try again.");
 
                 // Return the view with an error message
                 return View();
             }
+
         }
 
         // POST: RoutesController/Delete/5

@@ -1,0 +1,85 @@
+﻿/* ==========================================================================
+   #Submission Success Message
+   ========================================================================== */
+
+.modal-backdrop.show {
+    opacity: 0.5;
+}
+
+/* Modal Dialog */
+.modal-dialog {
+    margin-top: 10vh;
+}
+
+/* Modal Content */
+.modal-content {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header */
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    padding: 1rem 2rem;
+}
+
+    .modal-header .modal-title {
+        font-weight: 600;
+    }
+
+    .modal-header .close {
+        font-size: 1.4rem;
+    }
+
+/* Modal Body */
+.modal-body {
+    padding: 2rem;
+}
+
+/* Modal Footer */
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    padding: 1rem 2rem;
+}
+/* ==========================================================================
+   #Final Confirmation Styles
+   ========================================================================== */
+
+.modal-content {
+    border-radius: 0.5rem; /* Smooth rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.modal-header {
+    padding: 1rem; /* Comfortable padding around the header */
+    border-bottom: 1px solid #e9ecef; /* Light border for a subtle separation */
+    background-color: #fff; /* Keeping it clean and white */
+}
+
+.modal-title {
+    font-size: 1.25rem; /* Appropriately sized title */
+    color: #840029;
+    font-weight: bold;
+    margin: 0; /* No additional margin to keep things tight */
+}
+
+.modal-body {
+    background-color: white; /*White background for the modal body */
+    color: #333; /* Dark text for readability */
+    line-height: 1.5; /*Spacing between lines*/
+}
+
+
+/* Add some margin to the top of the modal for aesthetics */
+.modal-dialog {
+    margin-top: 5%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin-top: 20%; /*More top margin on smaller screens*/
+    }
+}

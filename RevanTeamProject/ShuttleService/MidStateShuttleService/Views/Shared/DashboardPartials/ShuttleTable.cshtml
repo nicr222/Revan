@@ -5,6 +5,13 @@
 
 <div class="cardHeader">
     <h2>Shuttles</h2>
+    <!--search-->
+    <div class="search">
+        <label>
+            <input id="shuttleSearch" type="text" placeholder="Search" />
+            <i class="bi bi-search"></i>
+        </label>
+    </div>
     <a asp-controller="Shuttles" asp-action="Create" class="btn">Add Shuttle</a>
 </div>
 <table>
@@ -26,7 +33,7 @@
         {
             @foreach (var b in Model.Bus)
             {
-                <tr>
+                <tr class="shuttleRow">
                     <td>@b.BusNo</td>
                     <td>@b.PassengerCapacity</td>
                     <td>@b.IsActive.ToString()</td>
@@ -37,3 +44,5 @@
         }
     </tbody>
 </table>
+
+

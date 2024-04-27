@@ -85,8 +85,37 @@
     </div>
 </body>
 
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Message Sent</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Message Sent Successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="location.href='../../Dashboard'">Return</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Send Another</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var communicationSuccess = '@TempData["CommunicationSuccess"]';
+        if (communicationSuccess === 'True') {
+            $('#successModal').modal('show');
+        }
+    });
+</script>
+
 <script src="~/js/Communication/Communicate.js"></script>
 <script src="~/js/Communication/shuttleSelect.js"></script>
 <script src="~/js/Registeration/routeVisibility.js"></script>
 <script src="~/js/Registeration/RouteUpdater.js"></script>
-<script src="~/js/Registeration/ReturnRouteUpdater.js"></script>

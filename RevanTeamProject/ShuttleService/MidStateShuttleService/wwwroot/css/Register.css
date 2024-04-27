@@ -134,6 +134,7 @@ sup {
    ========================================================================== */
 .wrapper {
     margin: 80px auto;
+    padding-bottom: 150px;
 }
 
 .wrapper--w680 {
@@ -1153,3 +1154,4 @@ input[type=checkbox] {
         margin-top: 20%;  /*More top margin on smaller screens*/ 
     }
 }
+

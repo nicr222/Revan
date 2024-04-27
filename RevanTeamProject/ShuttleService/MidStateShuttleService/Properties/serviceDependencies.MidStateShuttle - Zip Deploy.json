@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/MidStateShuttle/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsConnection_E4A8516CDE",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/midstateshuttledbserver/databases/MidStateShuttleService_db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:Connection"
+    }
+  }
+}
