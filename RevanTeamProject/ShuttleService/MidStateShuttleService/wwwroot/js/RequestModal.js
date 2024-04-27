@@ -13,7 +13,8 @@
         var email = $(this).closest('tr').find('td:eq(2)').text();
         var pickUpTime = $(this).closest('tr').find('td:eq(3)').text();
         var dropOffTime = $(this).closest('tr').find('td:eq(4)').text();
-        var details = $(this).closest('tr').find('td:eq(5)').text();
+        var needTransportation = $(this).closest('tr').find('td:eq(5)').text();
+        var whichFriday = $(this).closest('tr').find('td:eq(6)').text();
 
         // Retrieve the full message content from the data attribute
         var fullDetails = $(this).data('full-message');
@@ -23,7 +24,8 @@
         console.log('Email: ' + email);
         console.log('Pick up Time: ' + pickUpTime);
         console.log('Drop off Time: ' + dropOffTime);
-        console.log('Details: ' + details);
+        console.log('Need Transportation: ' + needTransportation);
+        console.log('Which Friday: ' + whichFriday);
         console.log('Full Details: ' + fullDetails);
 
         // Update modal content with the data
@@ -34,6 +36,8 @@
             '<p><strong>Email:</strong> ' + email + '</p>' +
             '<p><strong>Pick up Time:</strong> ' + pickUpTime + '</p>' +
             '<p><strong>Drop off Time:</strong> ' + dropOffTime + '</p>' +
+            '<p><strong>Need Transportation:</strong> ' + needTransportation + '</p>' +
+            '<p><strong>Which Friday:</strong> ' + whichFriday + '</p>' +
             '<p><strong>Details:</strong> ' + fullDetails + '</p>' + // Displaying the full details
             '</div>'
         );

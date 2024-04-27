@@ -39,7 +39,7 @@
                         <td>@registration.MustArriveTime</td>
                         <td>@registration.CanLeaveTime</td>
                         <td>
-                            @if (@registration.NeedTransportation.Length > 10)
+                            @if (registration.NeedTransportation != null && registration.NeedTransportation.Length > 10)
                             {
                                 @registration.NeedTransportation.Substring(0, 10) <!-- Displaying only the first 10 characters -->
                                 <span class="ellipsis">...</span> <!-- Ellipsis span, hidden visually -->
@@ -47,6 +47,17 @@
                             else
                             {
                                 @registration.NeedTransportation
+                            }
+                        </td>
+                        <td>
+                            @if (registration.WhichFriday != null && registration.WhichFriday.Length > 10)
+                            {
+                                @registration.WhichFriday.Substring(0, 10) <!-- Displaying only the first 10 characters -->
+                                <span class="ellipsis">...</span> <!-- Ellipsis span, hidden visually -->
+                            }
+                            else
+                            {
+                                @registration.WhichFriday
                             }
                         </td>
                         <td>
