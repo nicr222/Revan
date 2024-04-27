@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MidStateShuttleService.Models;
 
 namespace MidStateShuttleService.Controllers
@@ -15,6 +16,7 @@ namespace MidStateShuttleService.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             // Fetch all feedback entries and order them by DateSubmitted in descending order
@@ -25,6 +27,7 @@ namespace MidStateShuttleService.Controllers
         // POST: Feedback/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([Bind("Comment,CustomerName,Rating")] Feedback feedback)
         {
             if (ModelState.IsValid)
