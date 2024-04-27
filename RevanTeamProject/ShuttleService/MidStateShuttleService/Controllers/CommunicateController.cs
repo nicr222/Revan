@@ -74,17 +74,24 @@ namespace MidStateShuttleService.Controllers
             
             return View(c);
         }
+        [AllowAnonymous]
+        public IActionResult MessageSent()
+        {
+            return View();
+        }
 
         /// <summary>
         /// Displays the view for the student's communication form
         /// </summary>
         /// <returns> The Student Communicate View </returns>
+        [AllowAnonymous]
         public IActionResult StudentCommunicate()
         {
             return View();
         }
 
         // When the form submits, this method will play out.
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult StudentCommunicate(Message c)
         {

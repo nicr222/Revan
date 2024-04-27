@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace MidStateShuttleService.Controllers
         }
 
         // GET: CheckInController/Create
+        [AllowAnonymous]
         public ActionResult CheckIn()
         {
             LocationServices ls = new LocationServices(_context);
@@ -46,6 +48,7 @@ namespace MidStateShuttleService.Controllers
         // POST: CheckInController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult CheckIn(CheckIn checkIn)
         {
                    
@@ -116,6 +119,7 @@ namespace MidStateShuttleService.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult FailedCheckIn(string errorMessage)
         {
             ViewBag.ErrorMessage = errorMessage;
