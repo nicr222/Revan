@@ -51,6 +51,13 @@
                                     @registration.WhichFriday
                                 }
                             </td>
+                            <td>
+                                <a class="viewButton" href="#"
+                                   data-toggle="modal"
+                                   data-target="#specialRequestDetailsModal"
+                                   data-message-id="@registration.RegistrationId"
+                                   data-full-message="@registration.WhichFriday">View</a>
+                            </td>
                         }
                         else
                         {
@@ -67,16 +74,16 @@
                                     @registration.NeedTransportation
                                 }
                             </td>
+                            <td>
+                                <a class="viewButton" href="#"
+                                   data-toggle="modal"
+                                   data-target="#specialRequestDetailsModal"
+                                   data-message-id="@registration.RegistrationId"
+                                   data-full-message="@registration.NeedTransportation">View</a>
+                            </td>
                         }
-                        
-                        <td>
-                            <a class="viewButton" href="#"
-                               data-toggle="modal"
-                               data-target="#specialRequestDetailsModal"
-                               data-message-id="@registration.RegistrationId"
-                               data-full-message="@registration.NeedTransportation">View</a>
-                        </td>
                     </tr>
+
                 }
 
             }
