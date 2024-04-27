@@ -26,7 +26,7 @@
     <video playsinline="playsinline" autoplay="autoplay" muted="muted"
         loop="loop" loading="lazy" class="hero_video">
         <source src="img/Mid State Technical College You Belong Here Start Spring 2023.mp4" type="video/mp4" />
-        
+
     </video>
     -->
     <img src="~/img/Mid-State-Shuttle-Service-1280x550.jpg" alt="Shuttle Image" class="img-fluid hero_image" width="1920" height="1080" loading="lazy" />
@@ -38,6 +38,10 @@
                 <a href="@Url.Action("Index", "Register")" class="mt-2 btn btn-lg btn-outline-light" role="button">
                     Reserve A Spot Now
                 </a>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#routeSchedual">
+                    Launch static backdrop modal
+                </button>
             </div>
         </div>
     </div>
@@ -46,6 +50,8 @@
         Learn More <i class="bi bi-arrow-bar-down"></i>
     </a>
 </section>
+
+
 
 
 <a id="scroll-down"></a>
@@ -108,7 +114,6 @@
     </div>
 </section>
 <!--Section 3 Ends-->
-
 <!-- Section 4 Start-->
 <section class="Three py-4 " style="background-color: #ebebeb;">
 
@@ -222,6 +227,50 @@
 
 </section>
 
+<!-- Modal -->
+<div class="modal fade" id="routeSchedual" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="routeSchedualLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="routeSchedualLabel">Shuttle Service Route Schedule</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="printThis" class="modal-body">
+                <div  class="container table table-striped">
+                    <div class="row align-items-start">
+                        <div class="col">
+                            <img src="./img/mstclogo.jpg" />
+                        </div>
+                    </div>
+                    <div class="row align-items-start">
+                        <div class="col">For Students Leaving</div>
+                        <div class="col">Shuttle Leaves</div>
+                        <div class="col">Additional Stops</div>
+                        <div class="col">Shuttle Arrives</div>
+                        <div class="col">Final Destination</div>
+                    </div>
+                    @foreach (var route in ViewBag.RouteSchedule)
+                    {
+                        <div class="row align-items-start">
+                            <div class="col">@route.PickUpLocation.Name</div>
+                            <div class="col">@route.PickUpTime</div>
+                            <div class="col">Transfer (if needed)</div>
+                            <div class="col">@route.DropOffTime</div>
+                            <div class="col">@route.DropOffLocation.Name</div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="Print" class="btn btn-primary">Print</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Section with 3 Col's End-->
 <!-- Include success custom JS files -->

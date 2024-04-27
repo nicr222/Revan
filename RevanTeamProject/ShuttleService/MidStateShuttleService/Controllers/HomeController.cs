@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Models;
+using MidStateShuttleService.Service;
 using System.Diagnostics;
 
 namespace MidStateShuttleService.Controllers
@@ -27,6 +28,9 @@ namespace MidStateShuttleService.Controllers
                                       .Where(f => f.IsActive)
                                       .OrderByDescending(f => f.DateSubmitted)
                                       .ToList();
+            RouteServices rs = new RouteServices(_context);
+            ViewBag.RouteSchedule = rs.GetScheduleRoutes();
+
             return View(activeFeedbackList);
         }
 
@@ -81,6 +85,24 @@ namespace MidStateShuttleService.Controllers
             }
             // If we got this far, something failed, redisplay form
             return View("Index", feedback);
+        }
+
+        private string getSchedule()
+        {
+            RouteServices rs = new RouteServices(_context);
+            try
+            {
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Routes could not be retrieved");
+                return "<h5>An error has occurred displaying route schedule at this time. Please try again later.";
+            }
+
+
+
+            return null;
         }
 
     }
