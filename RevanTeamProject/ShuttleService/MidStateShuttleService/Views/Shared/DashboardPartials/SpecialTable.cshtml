@@ -36,39 +36,49 @@
                         <td>@(registration.FirstName) @(registration.LastName)</td>
                         <td>@registration.PhoneNumber</td>
                         <td>@registration.Email</td>
-                        <td>@registration.MustArriveTime</td>
-                        <td>@registration.CanLeaveTime</td>
-                        <td>
-                            @if (registration.NeedTransportation != null && registration.NeedTransportation.Length > 10)
-                            {
-                                @registration.NeedTransportation.Substring(0, 10) <!-- Displaying only the first 10 characters -->
-                                <span class="ellipsis">...</span> <!-- Ellipsis span, hidden visually -->
-                            }
-                            else
-                            {
-                                @registration.NeedTransportation
-                            }
-                        </td>
-                        <td>
-                            @if (registration.WhichFriday != null && registration.WhichFriday.Length > 10)
-                            {
-                                @registration.WhichFriday.Substring(0, 10) <!-- Displaying only the first 10 characters -->
-                                <span class="ellipsis">...</span> <!-- Ellipsis span, hidden visually -->
-                            }
-                            else
-                            {
-                                @registration.WhichFriday
-                            }
-                        </td>
+                        @if (!string.IsNullOrEmpty(registration.WhichFriday))
+                        {
+                            <td>@registration.FridayMustArriveTime</td>
+                            <td>@registration.FridayCanLeaveTime</td>
+                            <td>
+                                @if (registration.WhichFriday.Length > 10)
+                                {
+                                    @registration.WhichFriday.Substring(0, 10)
+                                    <span class="ellipsis">...</span>
+                                }
+                                else
+                                {
+                                    @registration.WhichFriday
+                                }
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@registration.MustArriveTime</td>
+                            <td>@registration.CanLeaveTime</td>
+                            <td>
+                                @if (registration.NeedTransportation != null && registration.NeedTransportation.Length > 10)
+                                {
+                                    @registration.NeedTransportation.Substring(0, 10)
+                                    <span class="ellipsis">...</span>
+                                }
+                                else
+                                {
+                                    @registration.NeedTransportation
+                                }
+                            </td>
+                        }
+                        
                         <td>
                             <a class="viewButton" href="#"
                                data-toggle="modal"
-                               data-target="#messageDetailsModal"
+                               data-target="#specialRequestDetailsModal"
                                data-message-id="@registration.RegistrationId"
                                data-full-message="@registration.NeedTransportation">View</a>
                         </td>
                     </tr>
                 }
+
             }
         }
     </tbody>
