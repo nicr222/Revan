@@ -207,6 +207,11 @@ footer {
     color: #840029; /* Adjusted text color */
 }
 
+/* Route Schedule table */
+.table-top-border{
+    border-top: 2px solid black;
+}
+
 /* Route printing modal*/
 @media screen {
     #printSection {
