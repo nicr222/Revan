@@ -17,7 +17,7 @@ function addRegistrationNotification(count) {
     console.log('Adding notification with count:', count);
     let notificationDropdown = $('#notificationBellDropdown');
     let newNotificationHtml = `
-        <div class="notification-item">
+        <div class="notification-item message-notification">
             <i class="bi bi-exclamation-circle text-warning"></i>
             <div>
                 <h4>New Registration (${count})</h4>
@@ -33,7 +33,7 @@ function addCheckInNotification(count) {
     console.log('Adding check-in notification with count:', count);
     let notificationDropdown = $('#notificationBellDropdown');
     let newNotificationHtml = `
-        <div class="notification-item">
+        <div class="notification-item checkin-notification">
             <i class="bi bi-exclamation-circle text-warning"></i>
             <div>
                 <h4>New Check-In (${count})</h4>
@@ -43,11 +43,26 @@ function addCheckInNotification(count) {
     notificationDropdown.prepend(newNotificationHtml);
 }
 
+//function addMessageNotification(count, message = 'You have a new message!') {
+//    console.log('Adding message notification with count:', count);
+//    let notificationDropdown = $('#notificationMessageDropdown');
+//    let newNotificationHtml = `
+//        <div class="notification-item message-notification">
+//            <i class="bi bi-exclamation-circle text-warning"></i>
+//            <div>
+//                <h4>New Message (${count})</h4>
+//                <p>${message}</p>
+//            </div>
+//        </div>`;
+//    notificationDropdown.prepend(newNotificationHtml);
+//    // Make sure the dropdown is visible if it was hidden
+//    notificationDropdown.show();
+//}
 function addMessageNotification(count, message = 'You have a new message!') {
     console.log('Adding message notification with count:', count);
     let notificationDropdown = $('#notificationMessageDropdown');
     let newNotificationHtml = `
-        <div class="notification-item">
+        <div class="notification-item message-notification" data-count="${count}">
             <i class="bi bi-exclamation-circle text-warning"></i>
             <div>
                 <h4>New Message (${count})</h4>
@@ -55,26 +70,7 @@ function addMessageNotification(count, message = 'You have a new message!') {
             </div>
         </div>`;
     notificationDropdown.prepend(newNotificationHtml);
-    // Make sure the dropdown is visible if it was hidden
-    notificationDropdown.show();
 }
-
-//function addFeedbackNotification(count, message = 'You have a new message!') {
-//    console.log('Adding message notification with count:', count);
-//    let notificationDropdown = $('#notificationMessageDropdown');
-//    let newNotificationHtml = `
-//        <div class="notification-item feedback-notification" data-count="${count}"  data-url="@Url.Action("FeedbackTablePartial", "Dashboard")">
-//            <i class="bi bi-exclamation-circle text-warning"></i>
-//            <div>
-//                <h4>New Feedback (${count})</h4>
-//                <p>${message}</p>
-//            </div>
-//        </div>`;
-//    notificationDropdown.prepend(newNotificationHtml);
-//    // Make sure the dropdown is visible if it was hidden
-//    notificationDropdown.show();
-
-//}
 
 function addFeedbackNotification(count, message = 'You have new feedback!') {
     console.log('Adding feedback notification with count:', count);
@@ -126,7 +122,6 @@ $(document).ready(function () {
     }
 });
 
-
 // Event delegation for dynamic content
 //$(document).on('click', '.feedback-notification', function () {
 //    var feedbackUrl = $(this).data('url'); // Assuming data-url attribute is set with the feedback URL
@@ -135,6 +130,7 @@ $(document).ready(function () {
 //        window.location.href = feedbackUrl;
 //    }
 //});
+
 
 // Event delegation for dynamic content Working
 $(document).on('click', '.feedback-notification', function () {
@@ -152,8 +148,22 @@ $(document).on('click', '.feedback-notification', function () {
     location.reload(true);
 });
 
+$(document).on('click', '.message-notification', function () {
+    var messageUrl = $(this).data('url'); // Fetch the URL from data attribute
+    console.log('Message notification clicked', messageUrl);
 
-// Event delegation for dynamic content working 2
+    // Clear feedback count
+    $('.notification-message').data('message-count', 0);
+    updateMessageNotificationBadge(0, 0); // Assuming message count should also be reset
+
+    if (messageUrl) {
+        window.location.href = messageUrl; // Redirect to the message page
+    }
+    location.reload(true);
+
+});
+
+// Event delegation for dynamic content working by using AJAX
 //$(document).on('click', '.feedback-notification', function () {
 //    // Assuming data-url attribute is set with the feedback URL
 //    var feedbackUrl = $(this).data('url');
@@ -170,6 +180,7 @@ $(document).on('click', '.feedback-notification', function () {
 //});
 
 
+
 // Define the function to set up the event handlers
 function setupEventHandlers() {
     // Use event delegation for dynamically loaded content
@@ -178,6 +189,13 @@ function setupEventHandlers() {
 
         console.log(feedbackUrl);
         window.location.href = feedbackUrl; // Use the variable here
+    });
+
+    $(document).on('click', '.message-notification', function () {
+        console.log('Message notification clicked');
+
+        console.log(messageUrl);
+        window.location.href = messageUrl; // Use the variable here
     });
 
     // ...set up other event handlers here as needed...

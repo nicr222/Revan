@@ -7,6 +7,11 @@ $(window).on('load', function () {
         $('.recentFeedback').hide(); // Hide all sections
         $('.recentFeedback.feedback').show(); // Show only the feedback section
     }
+
+    if (openSection === "message") {
+        $('.recentFeedback').hide(); // Hide all sections
+        $('.recentFeedback.messages').show(); // Show only the feedback section
+    }
     // Add additional else if branches for other sections if necessary
 });
 

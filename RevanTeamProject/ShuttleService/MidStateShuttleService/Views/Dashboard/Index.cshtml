@@ -201,10 +201,18 @@
 </div>
 
 
-<script type="text/javascript">
+@* <script type="text/javascript">
     // Ensure that this script block is at the top of other script tags
     var feedbackUrl = '@Url.Action("Index", "Dashboard", new { section = "feedback" })';
     console.log(feedbackUrl); // Check if the URL is being set correctly
+</script>
+ *@
+
+<script type="text/javascript">
+    var feedbackUrl = '@Url.Action("Index", "Dashboard", new { section = "feedback" })';
+    var messageUrl = '@Url.Action("Index", "Dashboard", new { section = "message" })'; // Ensure this line is correct
+    console.log('Feedback URL:', feedbackUrl);
+    console.log('Message URL:', messageUrl);
 </script>
 
 <script type="text/javascript">

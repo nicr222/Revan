@@ -91,6 +91,10 @@ namespace MidStateShuttleService.Controllers
             {
                 HttpContext.Session.SetInt32("FeedbackCount", 0); // Reset feedback count immediately when section is feedback
             }
+            else if (section == "message")
+            {
+                HttpContext.Session.SetInt32("MessageCount", 0); // Reset message count
+            }
 
             return View(allModels);
 
