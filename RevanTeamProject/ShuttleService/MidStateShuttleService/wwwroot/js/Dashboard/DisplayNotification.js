@@ -128,22 +128,53 @@ $(document).ready(function () {
 
 
 // Event delegation for dynamic content
+//$(document).on('click', '.feedback-notification', function () {
+//    var feedbackUrl = $(this).data('url'); // Assuming data-url attribute is set with the feedback URL
+//    console.log('Feedback notification clicked', feedbackUrl);
+//    if (feedbackUrl) {
+//        window.location.href = feedbackUrl;
+//    }
+//});
+
+// Event delegation for dynamic content Working
 $(document).on('click', '.feedback-notification', function () {
     var feedbackUrl = $(this).data('url'); // Assuming data-url attribute is set with the feedback URL
     console.log('Feedback notification clicked', feedbackUrl);
+
+    // Clear feedback count
+    $('.notification-message').data('feedback-count', 0);
+    updateMessageNotificationBadge(0, 0); // Assuming message count should also be reset
+
     if (feedbackUrl) {
         window.location.href = feedbackUrl;
     }
+
+    location.reload(true);
 });
+
+
+// Event delegation for dynamic content working 2
+//$(document).on('click', '.feedback-notification', function () {
+//    // Assuming data-url attribute is set with the feedback URL
+//    var feedbackUrl = $(this).data('url');
+//    console.log('Feedback notification clicked', feedbackUrl);
+
+//    // Trigger server-side update for feedback count
+//    $.ajax({
+//        url: '/Dashboard/FeedbackClicked', // Assuming you have a route set for this
+//        success: function () {
+//            window.location.href = feedbackUrl; // Redirect to the dashboard or specific URL
+//            location.reload(true); // Force reload to ensure all data is up to date
+//        }
+//    });
+//});
+
 
 // Define the function to set up the event handlers
 function setupEventHandlers() {
     // Use event delegation for dynamically loaded content
     $(document).on('click', '.feedback-notification', function () {
         console.log('Feedback notification clicked');
-
-        // Close any open modals
-        $('.modal').modal('hide');
 
         console.log(feedbackUrl);
         window.location.href = feedbackUrl; // Use the variable here

@@ -87,6 +87,11 @@ namespace MidStateShuttleService.Controllers
             // Decide which section to open based on the 'section' parameter
             ViewBag.OpenSection = section;
 
+            if (section == "feedback")
+            {
+                HttpContext.Session.SetInt32("FeedbackCount", 0); // Reset feedback count immediately when section is feedback
+            }
+
             return View(allModels);
 
         }
@@ -188,5 +193,14 @@ namespace MidStateShuttleService.Controllers
                 return View();
             }
         }
+
+        // Add a function to explicitly reload the page when feedback is clicked
+        public ActionResult FeedbackClicked()
+        {
+            ViewBag.OpenSection = "feedback";
+            HttpContext.Session.SetInt32("FeedbackCount", 0);
+            return RedirectToAction("Index", new { section = "feedback" }); // Redirect to Index to ensure changes take effect immediately
+        }
+
     }
 }
