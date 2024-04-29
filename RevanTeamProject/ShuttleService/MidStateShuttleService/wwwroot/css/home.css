@@ -11,6 +11,12 @@ html {
     scroll-behavior: smooth;
 }
 
+body {
+    /*font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    font-size: 14px;*/
+}
+
 /*custom contaienr*/
 .container-custom {
     width: 100%;

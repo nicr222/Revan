@@ -1,6 +1,6 @@
 ﻿@model MidStateShuttleService.Models.CheckIn
 
-<link rel="stylesheet" href="/css/CheckIn.css" />
+<link rel="stylesheet" href="/css/Communication/Communicate.css" />
 <link rel="stylesheet" href="/css/Modal.css" />
 
 <!-- Include jQuery and Bootstrap JS -->
@@ -9,67 +9,77 @@
 
 
 <body>
-    <div class="wrapper wrapper--w680">
-        <form asp-controller="CheckIn" asp-action="CheckIn" method="post" class="form form-1">
-            <div class="form-body">
-                <h2 class="title">Shuttle Check In</h2>
-                <div class="input-fields">
-                    <h6>Please Enter Your Name</h6>
-                    <input asp-for="Name" type="text" class="form-control input--style-1" id="name" placeholder="Your Name" required />
-                    <div class="div-line"></div>
-                    <div class="invalid-feedback">
-                        Please enter a valid name.
-                    </div>
-                </div>
+    <div>
+        <div class="wrapper wrapper--w680 mt-5">
+            <div class="card card-1">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title">Shuttle Check In</h2>
+                    <form asp-controller="CheckIn" asp-action="CheckIn" method="post" class="form form-1">
+                        @Html.AntiForgeryToken()
+                        <div class="form-body">
 
-                <div class="row row-space">
-                    <div class="col-6">
-                        <div class="input-fields">
-                            <h6>Pick-up Location</h6>
-                            <select asp-for="LocationId"
-                                    asp-items="ViewBag.Locations"
-                                    class="form-control input--style-1" required>
-                                <option selected="selected" value="" required>--Select--</option>
-                            </select>
-                            <div class="div-line"></div>
-                            <div class="invalid-feedback">
-                                Please select a pick-up location
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="input-fields">
-                            <h6>Is this your first time riding?</h6>
-                            <div class="form-control input--style-radio-group">
-                                <input asp-for="FirstTime" type="radio" value="true" class="form-check-input radio-style input--style-1" id="newRiderYes" required />
-                                <label class="radio-label-style" for="newRiderYes">Yes</label>
-                                <input asp-for="FirstTime" type="radio" value="false" class="form-check-input radio-style input--style-1" id="newRiderNo" required />
-                                <label class="radio-label-style" for="newRiderNo">No</label>
+                            <div class="input-fields">
+                                <p class="typetrip">Please Enter Your Name</p>
+                                <input asp-for="Name" type="text" class="form-control input--style-1" id="name" placeholder="Your Name" required />
                                 <div class="div-line"></div>
                                 <div class="invalid-feedback">
-                                    Must select one
+                                    Please enter a valid name.
                                 </div>
                             </div>
+
+                            <div class="row row-space">
+                                <div class="col-6">
+                                    <div class="input-fields">
+                                        <p class="typetrip">Pick-up Location</p>
+                                        <select asp-for="LocationId"
+                                                asp-items="ViewBag.Locations"
+                                                class="form-control input--style-1" required>
+                                            <option selected="selected" value="" required>--Select--</option>
+                                        </select>
+                                        <div class="div-line"></div>
+                                        <div class="invalid-feedback">
+                                            Please select a pick-up location
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="input-fields">
+                                        <p class="typetrip">Is this your first time riding?</p>
+                                        <div class="radio-options">
+                                            <input asp-for="FirstTime" type="radio" value="true" class="form-check-input radio-style input--style-1" id="newRiderYes" required />
+                                            <label class="radio-label-style" for="newRiderYes">Yes</label>
+                                            <input asp-for="FirstTime" type="radio" value="false" class="form-check-input radio-style input--style-1" id="newRiderNo" required />
+                                            <label class="radio-label-style" for="newRiderNo">No</label>
+                                            <div class="div-line pt-2"></div>
+                                            <div class="invalid-feedback">
+                                                Must select one
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-fields">
+                                <p class="typetrip">Rider Comments / Suggestions</p>
+                                <textarea asp-for="Comments" class="form-control input--style-1" id="feedback" placeholder="Share your experience" rows="4" cols="50" maxlength="255"></textarea>
+                                <div class="div-line"></div>
+                                <div class="invalid-feedback">
+                                    Max 255 characters
+                                </div>
+                            </div>
+
+                            <div class="p-t-20">
+                                <button type="submit" class="btn btn--submit">Check In</button>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="input-fields">
-                    <h6>Rider Comments / Suggestions</h6>
-                    <textarea asp-for="Comments" class="form-control input--style-1" id="feedback" placeholder="Share your experience" rows="4" cols="50" maxlength="255"></textarea>
-                    <div class="div-line"></div>
-                    <div class="invalid-feedback">
-                        Max 255 characters
-                    </div>
-                </div>
-
-                <div class="p-t-20">
-                    <button type="submit" class="btn btn--radius btn--green">Check In</button>
-                </div>
+                    </form>
+                </div>                
             </div>
-        </form>
+        </div>
     </div>
+    
 
     <script src="/js/CheckIn.js"></script>
 </body>

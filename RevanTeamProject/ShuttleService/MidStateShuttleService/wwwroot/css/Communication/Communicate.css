@@ -61,9 +61,9 @@ html {
 
 
 body {
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    /*font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 14px;*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -94,6 +94,18 @@ h6 {
     font-size: 13px;
 }
 
+/* Hide the spinner in Webkit browsers */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide the spinner in Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 /* ==========================================================================
    #BACKGROUND
    ========================================================================== */
@@ -121,6 +133,7 @@ h6 {
    ========================================================================== */
 .wrapper {
     margin: 80px auto;
+    padding-bottom: 150px;
 }
 
 .wrapper--w680 {
@@ -131,33 +144,26 @@ h6 {
    #BUTTON
    ========================================================================== */
 .btn {
-    line-height: 40px;
+    line-height: 36px;
     display: inline-block;
-    padding: 0 25px;
+    padding: 0 16px;
     cursor: pointer;
-    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
-    color: #fff;
-    -webkit-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    font-size: 14px;
+    color: #840029; /* Maroon color for text */
+    font-size: 12px;
     font-weight: 700;
+    border: 2px solid #840029; /* Initial border thickness */
+    background-color: transparent; /* Transparent background */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 5px;
+    border-radius: 25px; /* Rounded corners */
+    transition: all 0.1s ease-out; /* Smooth transition for all properties */
+    animation: none;
 }
 
-.btn--radius {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+.btn--submit:hover, .btn--cancel:hover {
+    animation: thickenBorder 0.1s ease-out forwards; /* Apply the keyframe animation on hover */
 }
-
-.btn--green {
-    background: #57b846;
-}
-
-    .btn--green:hover {
-        background: #4dae3c;
-    }
 /* ==========================================================================
    #Input Fields
    ========================================================================== */
