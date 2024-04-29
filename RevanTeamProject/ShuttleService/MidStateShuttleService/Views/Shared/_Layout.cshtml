@@ -42,6 +42,16 @@
                             <a class="nav-item nav-link" asp-area="" asp-controller="Communicate" asp-action="StudentCommunicate">Message</a>
                         }
                         <a class="nav-item nav-link" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            // User is signed in, display Signout link
+                            <a class="nav-item nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="Signout">Signout</a>
+                        }
+                        else
+                        {
+                            // User is not signed in, display Sign In link
+                            <a class="nav-item nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="Signin">Sign In</a>
+                        }
                     </div>
                 </div>
             </nav>
@@ -50,6 +60,7 @@
 
     <div class="">
         <main role="main" class="">
+            <h3>@User.Identity.Name</h3>
             @RenderBody()
         </main>
     </div>

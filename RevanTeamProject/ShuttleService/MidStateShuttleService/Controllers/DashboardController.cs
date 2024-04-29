@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
 using MidStateShuttleService.Service;
@@ -40,14 +41,17 @@ namespace MidStateShuttleService.Controllers
             BusServices bs = new BusServices(_context);
             allModels.Bus = bs.GetAllEntities();
 
-           CheckInServices cis = new CheckInServices(_context);
-           allModels.CheckIn = cis.GetAllEntities();
+            CheckInServices cis = new CheckInServices(_context);
+            allModels.CheckIn = cis.GetAllEntities();
 
             MessageServices ms = new MessageServices(_context);
             allModels.Message = ms.GetAllEntities();
 
             FeedbackServices fs = new FeedbackServices(_context);
             allModels.Feedback = fs.GetAllEntities();
+
+            RegisterServices regs = new RegisterServices(_context);
+            allModels.Register = regs.GetAllEntities();
 
             // Retrieve the registration success flag and count from the session
             var registrationSuccess = HttpContext.Session.GetString("RegistrationSuccess") == "true";
@@ -87,7 +91,10 @@ namespace MidStateShuttleService.Controllers
 
         public ActionResult PassengerList(int id)
         {
-            var route = _context.Routes.FirstOrDefault(r => r.RouteID == id);
+            var route = _context.Routes
+                .Include(r => r.PickUpLocation)
+                .Include(r => r.DropOffLocation)
+                .FirstOrDefault(r => r.RouteID == id);
 
             if (route == null)
             {
@@ -130,7 +137,16 @@ namespace MidStateShuttleService.Controllers
                 }
             }
 
-            // Pass the list of unique passengers and the route to the view
+            var pickupLocation = route.ToStringPickUp();
+            var dropOffLocation = route.ToStringDropOff();
+
+            var pickupLocationTime = route.ToStringPickUpTime();
+            var dropOffLocationTime = route.ToStringDropOffTime();
+
+            // Construct the title string
+            ViewBag.Title = $"Passenger List for {pickupLocation} ({pickupLocationTime}) to {dropOffLocation} ({dropOffLocationTime})";
+
+            // Pass the route and the list of unique passengers to the view
             ViewBag.Route = route;
             return View(uniquePassengers);
         }

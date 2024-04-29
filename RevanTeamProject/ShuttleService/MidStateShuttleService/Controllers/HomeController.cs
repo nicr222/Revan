@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Models;
@@ -18,6 +19,7 @@ namespace MidStateShuttleService.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             // Fetch all feedback entries and order them by DateSubmitted in descending order
@@ -33,13 +35,14 @@ namespace MidStateShuttleService.Controllers
 
             return View(activeFeedbackList);
         }
-
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [AllowAnonymous]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -48,6 +51,7 @@ namespace MidStateShuttleService.Controllers
         // POST: Feedback/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([Bind("Comment,CustomerName,Rating,DisplayTestimonial,IsActive")] Feedback feedback)
         {
             if (ModelState.IsValid)

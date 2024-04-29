@@ -132,7 +132,7 @@ header {
 
 footer {
     background-color: #840029;
-    position: fixed;
+    position: bottom;
     bottom: 0;
     width: 100%;
 }

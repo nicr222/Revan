@@ -1,14 +1,14 @@
 ﻿@model List<MidStateShuttleService.Models.RegisterModel>
 @{
-    ViewData["Title"] = "Passenger List";
+    ViewData["Title"] = ViewBag.Title;
     <link rel="stylesheet" href="~/css/PassengerList.css" />
 }
 
 <div class="details">
     <div class="recentItem">
         <div class="cardHeader">
-            <h2>Passenger List</h2>
-            
+            <h2>@ViewData["Title"]</h2>
+
         </div>
         <table>
             <thead>
@@ -46,5 +46,3 @@
         </table>
     </div>
 </div>
-
-

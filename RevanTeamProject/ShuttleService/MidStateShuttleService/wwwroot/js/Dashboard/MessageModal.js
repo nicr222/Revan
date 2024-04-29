@@ -1,4 +1,12 @@
 ﻿$(document).ready(function () {
+    function resetPageState() {
+        // Reset page state here, e.g., reload the page
+        window.location.reload();
+    }
+
+    
+
+    // Your existing code for opening the modal and populating it with data
     $('.viewButton').click(function () {
         var name = $(this).closest('tr').find('td:eq(0)').text();
         var message = $(this).closest('tr').find('td:eq(1)').text();
@@ -26,5 +34,11 @@
 
         // Open the modal
         $('#messageDetailsModal').modal('show');
+    });
+
+    // Event handler for modal close event
+    $('#messageDetailsModal').on('hidden.bs.modal', function () {
+        // Reset page state when the modal is closed
+        resetPageState();
     });
 });
