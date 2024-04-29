@@ -53,7 +53,10 @@ namespace MidStateShuttleService.Controllers
                 ds.AddEntity(driver);
 
                 TempData["SuccessMessage"] = "The driver has been successfully created!";
-                return RedirectToAction("Index", "Dashboard");
+                HttpContext.Session.SetString("DriverSuccess", "true");
+                TempData["DriverSuccess"] = true;
+
+                return RedirectToAction("Create");
             }
             catch (Exception ex)
             {
@@ -105,7 +108,9 @@ namespace MidStateShuttleService.Controllers
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = "The driver has been successfully updated!";
-                return RedirectToAction("Index", "Dashboard");
+                HttpContext.Session.SetString("DriverSuccess", "true");
+                TempData["DriverSuccess"] = true;
+                return RedirectToAction("Edit");
             }
             catch (Exception ex)
             {
@@ -123,25 +128,32 @@ namespace MidStateShuttleService.Controllers
             {
                 var driver = _context.Drivers.Find(id);
 
-               
+                if (driver != null)
+                {
+                    driver.IsActive = !driver.IsActive; // Toggle IsActive from true to false or false to true
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    // Handle the case where the driver with the specified id is not found
+                    ModelState.AddModelError("", "Driver not found.");
+                    return View();
+                }
 
-                _context.Drivers.Remove(driver);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+                return RedirectToAction("Index", "Dashboard"); // Redirect after toggling IsActive
             }
             catch (Exception ex)
             {
-                // Log the SQL exception and any other exceptions
+                // Log the exception
                 LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
-                _logger.LogError(ex, "An error occurred while deleting driver.");
+                _logger.LogError(ex, "An error occurred while toggling IsActive of the driver.");
 
                 // Optionally add a model error for displaying an error message to the user
-                ModelState.AddModelError("", "An unexpected error occurred while deleting the driver, please try again.");
+                ModelState.AddModelError("", "An unexpected error occurred while toggling IsActive of the driver, please try again.");
 
                 // Return the view with an error message
                 return View();
-            }
+            }          
         }
 
 

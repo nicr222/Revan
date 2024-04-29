@@ -1,9 +1,21 @@
-﻿@{
+﻿@model IEnumerable<MidStateShuttleService.Models.Feedback>
+
+@{
     ViewData["Title"] = "Home Page";
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script defer src="~/js/homeScroll.js"></script>
 }
+
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/Feedback.css" />
+
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 <!--Hero Section-->
 
@@ -14,7 +26,7 @@
     <video playsinline="playsinline" autoplay="autoplay" muted="muted"
         loop="loop" loading="lazy" class="hero_video">
         <source src="img/Mid State Technical College You Belong Here Start Spring 2023.mp4" type="video/mp4" />
-        
+
     </video>
     -->
     <img src="~/img/Mid-State-Shuttle-Service-1280x550.jpg" alt="Shuttle Image" class="img-fluid hero_image" width="1920" height="1080" loading="lazy" />
@@ -26,6 +38,10 @@
                 <a href="@Url.Action("Index", "Register")" class="mt-2 btn btn-lg btn-outline-light" role="button">
                     Reserve A Spot Now
                 </a>
+                <!-- Button trigger modal -->
+                <button type="button" class="mt-2 btn btn-lg btn-outline-light" data-toggle="modal" data-target="#routeSchedual">
+                    View Current Schedule
+                </button>
             </div>
         </div>
     </div>
@@ -34,6 +50,8 @@
         Learn More <i class="bi bi-arrow-bar-down"></i>
     </a>
 </section>
+
+
 
 
 <a id="scroll-down"></a>
@@ -50,7 +68,7 @@
                 <span>01</span>
                 <h1 class="h2 mb-4">Reserve Your Spot</h1>
                 <p class="mb-4">Reserve your spot on the shuttle by registering online. It's quick and easy.  Reserve your spot on the shuttle by registering online. It's quick and easy. Reserve your spot on the shuttle by registering online. It's quick and easy.</p>
-                <a href="#">Click here <i class="bi bi-arrow-right"></i></a>
+                <a href="#" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>
@@ -59,7 +77,7 @@
 <!--Section 1 Ends-->
 <!--Section 2 Starts-->
 
-<section class="steps steps--background">
+<section class="steps container-custom step-background">
     <div class="container-custom">
         <div class="row">
             <div class="col-12 col-sm-6 d-md-flex justify-content-md-center order-sm-1">
@@ -70,7 +88,7 @@
                     <span>02</span>
                     <h1 class="h2 mb-4">Share Your Feedback</h1>
                     <p class="mb-4">We value your feedback. Share your experience with us and help us improve our service. We value your feedback. Share your experience with us and help us improve our service. We value your feedback. Share your experience with us and help us improve our service.</p>
-                    <a href="#">Click here <i class="bi bi-arrow-right"></i></a>
+                    <a href="#" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -90,37 +108,223 @@
                 <span>03</span>
                 <h1 class="h2 mb-4">Learn More!</h1>
                 <p class="mb-4">Learn more about our shuttle service and how it can help you get to and between campuses. Learn more about our shuttle service and how it can help you get to and between campuses. Learn more about our shuttle service and how it can help you get to and between campuses.</p>
-                <a href="#">Click here <i class="bi bi-arrow-right"></i></a>
+                <a href="#" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>
 </section>
 <!--Section 3 Ends-->
+<!-- Section 4 Start-->
+<section class="Three py-4 " style="background-color: #ebebeb;">
 
-<!-- Section with 3 Col's Start-->
-<section class="Three bg-dark text-white py-4">
+    <div class="container mt-5">
+        <h2>Customer Testimonial</h2>
+        <form id="feedbackForm" asp-action="Create" method="post">
 
-    <div class="container-custom my-4">
-        <div class="row">
-           <div class="col-12 col-sm-4 mb-4">
-               <img src="~/img/c2c.jpg" alt="Shuttle Image" class="img-fluid mb-4" width="441" height="248" loading="lazy" />
-                <h3 class="h2 mb-4">Reserve Your Spot</h3>
-                <p class="mb-4">Reserve your spot on the shuttle by registering online. It's quick and easy.  Reserve your spot on the shuttle by registering online. It's quick and easy. Reserve your spot on the shuttle by registering online. It's quick and easy.</p>
-           </div>
-
-            <div class="col-12 col-sm-4 mb-4">
-                <img src="~/img/c2c.jpg" alt="Shuttle Image" class="img-fluid mb-4" width="441" height="248" loading="lazy" />
-                <h3 class="h2 mb-4">Reserve Your Spot</h3>
-                <p class="mb-4">Reserve your spot on the shuttle by registering online. It's quick and easy.  Reserve your spot on the shuttle by registering online. It's quick and easy. Reserve your spot on the shuttle by registering online. It's quick and easy.</p>
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successModalLabel">Feedback Successful</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Your feedback has been successfully submitted. Thank you!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="button button--radius button--submit" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-12 col-sm-4 mb-4">
-                <img src="~/img/c2c.jpg" alt="Shuttle Image" class="img-fluid mb-4" width="441" height="248" loading="lazy" />
-                <h3 class="h2 mb-4">Reserve Your Spot</h3>
-                <p class="mb-4">Reserve your spot on the shuttle by registering online. It's quick and easy.  Reserve your spot on the shuttle by registering online. It's quick and easy. Reserve your spot on the shuttle by registering online. It's quick and easy.</p>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="CustomerName" placeholder="Your full name">
+                <p class="name-info">* If you prefer to remain anonymous, simply leave the name field blank.</p>
             </div>
+            <div class="form-group">
+                <label for="testimonial">Your Testimonial</label>
+                <textarea class="form-control" id="testimonial" name="Comment" rows="3" placeholder="Share your experience with us..."></textarea>
+                <div id="comment-validation-message" class="validation-message">Comment is required and should not exceed 255 characters.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="emojiRating">Satisfaction Level</label>
+                <div id="emojiRating" class="emoji-rating">
+                    <input id="emoji-1" type="radio" name="rating" value="1"><label for="emoji-1">😡</label>
+                    <input id="emoji-2" type="radio" name="rating" value="2"><label for="emoji-2">😠</label>
+                    <input id="emoji-3" type="radio" name="rating" value="3"><label for="emoji-3">😐</label>
+                    <input id="emoji-4" type="radio" name="rating" value="4"><label for="emoji-4">😊</label>
+                    <input id="emoji-5" type="radio" name="rating" value="5"><label for="emoji-5">😄</label>
+                    <div id="satisfaction-validation-message" class="validation-message">Please select your satisfaction level.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Would you like to share your testimonials with others?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="DisplayTestimonial" id="recommendYes" value="true" checked>
+                    <label class="form-check-label" for="recommendYes">Yes</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="DisplayTestimonial" id="recommendNo" value="false">
+                    <label class="form-check-label" for="recommendNo">No</label>
+                </div>
+                <div id="displayTestimonial-validation-message" class="validation-message" style="display: none;">
+                    Please let us know if you would like to share your testimonials with others.
+                </div>
+            </div>
+            <button type="submit" class="button button--radius button--submit">Submit</button>
+        </form>
+
+        <!-- Testimonials Section -->
+        <div class="testimonials-container" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            <div class="testimonials-header">
+                <h2>Discover why our customers love our services!</h2>
+            </div>
+            @foreach (var feedback in Model)
+            {
+                <div class="testimonial">
+                    <span class="open quote">“</span>
+                    <div class="emojiRatingTestimonial">
+                        @{
+                            string emoji = feedback.Rating switch
+                            {
+                                1 => "😡", // Very dissatisfied
+                                2 => "😠", // Dissatisfied
+                                3 => "😐", // Neutral
+                                4 => "😊", // Satisfied
+                                5 => "😄", // Very satisfied
+                                _ => ""   // Default case if no rating
+                            };
+                        }
+                        <span>@emoji</span>
+                    </div>
+                    <div class="image">
+                        <div class="clip"></div>
+                        <img src="/img/shuttle icon free.png" class="feedback-image">
+                    </div>
+                    <p class="feedback-comment">@Html.DisplayFor(modelItem => feedback.Comment)</p>
+                    <div class="source">
+                        <span>@Html.DisplayFor(modelItem => feedback.CustomerName)</span>
+                        <div class="date-submitted">
+                            @Html.DisplayFor(modelItem => feedback.DateSubmitted, "{0:MMMM dd, yyyy}")
+                        </div>
+                    </div>
+                    <span class="close quote">”</span>
+                </div>
+            }
+        </div>
+        <!-- Pagination Controls -->
+        <div id="pagination-controls" class="pagination">
+            <!-- Pagination buttons will be created by JavaScript here -->
         </div>
     </div>
 
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="routeSchedual" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="routeSchedualLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="routeSchedualLabel">Shuttle Service Route Schedule</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="printThis">
+                <div class="container table table-striped">
+                    <div class="row align-items-start">
+                        <div class="col">
+                            <img src="./img/mstclogo.jpg" />
+                        </div>
+                        <div class="col">
+                            <h4 class="modal-title" id="routeSchedualLabel">Shuttle Service Route Schedule</h4>
+                        </div>
+                    </div>
+                    <div class="row align-items-start table-top-border">
+                        <div class="col center-col table-left-border red-cell">Pick Up Location</div>
+                        <div class="col center-col table-left-border gold-cell">Shuttle Leaves</div>
+
+                        <div class="col center-col gold-cell">Shuttle Arrives</div>
+                        <div class="col center-col table-left-border table-right-border red-cell">Final Destination</div>
+                    </div>
+                    @{
+                        string recentName = null;
+                        int count = 0;
+
+                        foreach (var route in ViewBag.RouteSchedule)
+                        {
+                            DateTime time = DateTime.Today.Add(route.PickUpTime);
+                            string displayPUtime = time.ToString("hh:mm tt");
+                            time = DateTime.Today.Add(route.DropOffTime);
+                            string displayDOtime = time.ToString("hh:mm tt");
+
+                            if (recentName != route.PickUpLocation.Name)
+                            {
+                                if (recentName != null)
+                                {
+                                    <div class="row table-top-border">
+                                        <br />
+                                    </div>
+                                }
+
+                                <div class="row table-left-border table-right-border">
+                                    <div class="col table-top-border center-col">@route.PickUpLocation.Name</div>
+                                    <div class="col table-left-border table-top-border center-col">@displayPUtime</div>
+
+                                    <div class="col table-top-border table-top-border center-col">@displayDOtime</div>
+                                    <div class="col table-left-border table-top-border center-col">@route.DropOffLocation.Name</div>
+                                </div>
+                                count = 0;
+                            }
+                            else
+                            {
+                                <div class="row table-left-border table-right-border">
+                                    <div class="col"></div> <!-- Empty column for spacing -->
+                                    <div class="col table-left-border table-top-border center-col @(count % 2 == 0 ? "output stripe-cell" : "")">@displayPUtime</div>
+                                    <div class="col table-top-border center-col @(count % 2 == 0 ? "output stripe-cell" : "")">@displayDOtime</div>
+                                    <div class="col table-left-border table-top-border center-col @(count % 2 == 0 ? "output stripe-cell" : "")">@route.DropOffLocation.Name</div>
+                                </div>
+                                count++;
+                            }
+                            recentName = route.PickUpLocation.Name;
+                        }
+                        <div class="row table-top-border">
+                            <br />
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-mstc-gold" data-dismiss="modal">Close</button>
+                <button type="button" id="Print" class="btn-mstc-red">Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Section with 3 Col's End-->
+<!-- Include success custom JS files -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        var registrationSuccess = '@TempData["FeedbackSuccess"]';
+        if (registrationSuccess === 'True') {
+            $('#successModal').modal('show');
+        }
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/testimonialPagination.js"></script>
+<script src="/js/feedbackvalidation.js"></script>

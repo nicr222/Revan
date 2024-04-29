@@ -46,7 +46,9 @@ namespace MidStateShuttleService.Controllers
                 ls.AddEntity(location);
 
                 TempData["SuccessMessage"] = "The location has been successfully created!";
-                return RedirectToAction("Index", "Home");
+                HttpContext.Session.SetString("LocationSuccess", "true");
+                TempData["LocationSuccess"] = true;
+                return RedirectToAction("Create");
             }
             catch (Exception ex)
             {
@@ -82,6 +84,8 @@ namespace MidStateShuttleService.Controllers
             try
             {
                 ls.UpdateEntity(model);
+                HttpContext.Session.SetString("LocationSuccess", "true");
+                TempData["LocationSuccess"] = true;
             }
             catch (Exception e)
             {
@@ -90,23 +94,11 @@ namespace MidStateShuttleService.Controllers
                 return FailedLocation("Updates to location could not be applied");
             }
 
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Edit");
         }
 
         // GET: LocationController/Delete/5
         public ActionResult DeleteLocation(int id)
-        {
-            LocationServices ls = new LocationServices(_context);
-            Location model = ls.GetEntityById(id);
-
-            if (model == null)
-                return FailedLocation("Check In Not Found");
-
-            return View(model);
-        }
-
-        // POST: LocationController/Delete/5
-        public ActionResult Delete(int id)
         {
             try
             {
@@ -116,7 +108,10 @@ namespace MidStateShuttleService.Controllers
                 if (model == null)
                     return FailedLocation("Check In Not Found");
 
-                ls.DeleteEntity(model.LocationId);
+                model.IsActive = !model.IsActive; // Toggle IsActive from true to false or false to true
+                ls.UpdateEntity(model); // Update the entity in the database
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect after toggling IsActive
             }
             catch (Exception e)
             {
@@ -124,8 +119,12 @@ namespace MidStateShuttleService.Controllers
 
                 return FailedLocation("Updates to location could not be applied");
             }
+        }
 
-            return RedirectToAction("Index", "Dashboard");
+        // POST: LocationController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
         }
 
         public ActionResult FailedLocation(string errorMessage)

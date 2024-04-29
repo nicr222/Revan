@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
 using MidStateShuttleService.Service;
@@ -46,6 +47,12 @@ namespace MidStateShuttleService.Controllers
             MessageServices ms = new MessageServices(_context);
             allModels.Message = ms.GetAllEntities();
 
+            FeedbackServices fs = new FeedbackServices(_context);
+            allModels.Feedback = fs.GetAllEntities();
+
+            RegisterServices regs = new RegisterServices(_context);
+            allModels.Register = regs.GetAllEntities();
+
             // Retrieve the registration success flag and count from the session
             var registrationSuccess = HttpContext.Session.GetString("RegistrationSuccess") == "true";
             int registrationCountFromSession = HttpContext.Session.GetInt32("RegistrationCount") ?? 0;
@@ -84,7 +91,10 @@ namespace MidStateShuttleService.Controllers
 
         public ActionResult PassengerList(int id)
         {
-            var route = _context.Routes.FirstOrDefault(r => r.RouteID == id);
+            var route = _context.Routes
+                .Include(r => r.PickUpLocation)
+                .Include(r => r.DropOffLocation)
+                .FirstOrDefault(r => r.RouteID == id);
 
             if (route == null)
             {
@@ -127,10 +137,59 @@ namespace MidStateShuttleService.Controllers
                 }
             }
 
-            // Pass the list of unique passengers and the route to the view
+            var pickupLocation = route.ToStringPickUp();
+            var dropOffLocation = route.ToStringDropOff();
+
+            var pickupLocationTime = route.ToStringPickUpTime();
+            var dropOffLocationTime = route.ToStringDropOffTime();
+
+            // Construct the title string
+            ViewBag.Title = $"Passenger List for {pickupLocation} ({pickupLocationTime}) to {dropOffLocation} ({dropOffLocationTime})";
+
+            // Pass the route and the list of unique passengers to the view
             ViewBag.Route = route;
             return View(uniquePassengers);
         }
+        
+        // Accept and reject feedback methods
+        public async Task<IActionResult> AcceptFeedback(int id)
+        {
+            var feedback = await _context.Feedbacks.FindAsync(id);
+            if (feedback != null)
+            {
+                feedback.IsActive = true;
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> RejectFeedback(int id)
+        {
+            try
+            {
+                var feedback = _context.Feedbacks.Find(id);
+
+
+
+                _context.Feedbacks.Remove(feedback);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+            }
+            catch (Exception ex)
+            {
+                // Log the SQL exception and any other exceptions
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while deleting feedback.");
+
+                // Optionally add a model error for displaying an error message to the user
+                ModelState.AddModelError("", "An unexpected error occurred while deleting the feedback, please try again.");
+
+                // Return the view with an error message
+                return View();
+            }
+        }
+
 
     }
 }

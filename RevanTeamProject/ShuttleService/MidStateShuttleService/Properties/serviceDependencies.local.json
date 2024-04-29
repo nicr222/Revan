@@ -5,6 +5,10 @@
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:DefaultConnection",
       "dynamicId": null
+    },
+    "mssql3": {
+      "type": "mssql.local",
+      "connectionId": "ConnectionStrings:MidStateShuttleServiceContextConnection"
     }
   }
 }

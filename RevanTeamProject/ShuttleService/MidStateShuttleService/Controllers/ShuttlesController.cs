@@ -58,7 +58,10 @@ namespace MidStateShuttleService.Controllers
                 bs.AddEntity(bus);
 
                 TempData["SuccessMessage"] = "The bus has been successfully created!";
-                return RedirectToAction("Index", "Dashboard");
+                HttpContext.Session.SetString("ShuttleSuccess", "true");
+                TempData["ShuttleSuccess"] = true;
+
+                return RedirectToAction("Create");
             }
             catch (Exception ex)
             {
@@ -108,7 +111,9 @@ namespace MidStateShuttleService.Controllers
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = "The bus has been successfully updated!";
-                return RedirectToAction("Index", "Dashboard");
+                HttpContext.Session.SetString("ShuttleSuccess", "true");
+                TempData["ShuttleSuccess"] = true;
+                return RedirectToAction("Edit");
             }
             catch (Exception ex)
             {
@@ -122,18 +127,34 @@ namespace MidStateShuttleService.Controllers
         // GET: ShuttlesController/Delete/5
         public ActionResult Delete(int id)
         {
-            var shuttle = _context.Buses.Find(id);
-
-            if (shuttle == null)
+            try
             {
-                return NotFound(); // Return 404 if shuttle not found
+                var shuttle = _context.Buses.Find(id);
+
+                if (shuttle == null)
+                {
+                    return NotFound(); // Return 404 if shuttle not found
+                }
+
+                shuttle.IsActive = !shuttle.IsActive; // Toggle IsActive value
+
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful toggle
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while toggling IsActive of the shuttle.");
+
+                // Optionally add a model error for displaying an error message to the user
+                ModelState.AddModelError("", "An unexpected error occurred while toggling IsActive of the shuttle, please try again.");
+
+                // Return the view with an error message or handle the error as required
+                return View();
             }
 
-            shuttle.IsActive = !shuttle.IsActive; // Toggle IsActive value
-
-            _context.SaveChanges();
-
-            return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful toggle
         }
 
         // POST: ShuttlesController/Delete/5

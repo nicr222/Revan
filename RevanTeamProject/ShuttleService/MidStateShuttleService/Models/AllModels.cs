@@ -8,7 +8,7 @@
 
         public IEnumerable<Message> Message { get; set; }
 
-        public RegisterModel Register { get; set; }
+        public IEnumerable<RegisterModel> Register { get; set; }
 
         //public ReservationModel Reservation { get; set; }
 
@@ -19,5 +19,7 @@
         public IEnumerable<Bus> Bus { get; set; }
 
         public IEnumerable<CheckIn> CheckIn { get; set; }
+
+        public IEnumerable<Feedback> Feedback { get; set; }
     }
 }

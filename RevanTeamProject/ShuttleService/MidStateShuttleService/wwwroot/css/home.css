@@ -7,18 +7,21 @@
     @media (min-width: 1600px) {}
 */
 
-html{scroll-behavior: smooth;}
+html {
+    scroll-behavior: smooth;
+}
 
 /*custom contaienr*/
 .container-custom {
     width: 100%;
     padding: 0 1rem;
     margin: 0 auto;
-
 }
 
 @media (min-width: 1200px) {
-    .container-custom { width: 1140px; }
+    .container-custom {
+        width: 1140px;
+    }
 }
 
 
@@ -40,11 +43,9 @@ html{scroll-behavior: smooth;}
 */
 .hero {
     position: relative;
-
     height: 100vh;
     background-color: #840029;
     overflow: hidden;
-
 }
 
 @media (min-width: 1400px) {
@@ -52,17 +53,17 @@ html{scroll-behavior: smooth;}
         font-size: 3.2rem;
     }
 }
-    
-    .hero_video {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        transform: translateX(-50%) translateY(-50%);
-    }
+
+.hero_video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+}
 
 .hero_image {
     position: absolute;
@@ -88,7 +89,6 @@ html{scroll-behavior: smooth;}
 
 .hero_content {
     z-index: 1;
-
 }
 
 .hero_content-width {
@@ -108,22 +108,24 @@ html{scroll-behavior: smooth;}
     text-decoration: none;
 }
 
-.hero_scroll-btn:hover {
-    color: white;
-    opacity: 0.8;
-}
+    .hero_scroll-btn:hover {
+        color: white;
+        opacity: 0.8;
+    }
 
-.hero_scroll-btn .bi {
-    transition-delay: 0.8s;
-    animation: bounce 1s infinite alternate;
-}
+    .hero_scroll-btn .bi {
+        transition-delay: 0.8s;
+        animation: bounce 1s infinite alternate;
+    }
 
 @keyframes bounce {
     from {
         transform: translateY(0px)
-    } to {
-          transform: translateY(-10px)
-      }
+    }
+
+    to {
+        transform: translateY(-10px)
+    }
 }
 
 /*
@@ -136,16 +138,18 @@ html{scroll-behavior: smooth;}
 }
 
 .steps_section-thumbnail {
-    height: 240px;    
+    height: 240px;
     object-fit: cover;
     margin: 0 auto;
 }
 
-.steps--background{
-    background-color: #f8f9fa;
+.step-background {
+    /*background-color: #f8f9fa;*/
+    background-color: #ebebeb;
+    width: auto;
 }
 
-.steps_section-width{
+.steps_section-width {
     height: 256px;
     margin: 0 auto;
 }
@@ -166,15 +170,166 @@ html{scroll-behavior: smooth;}
         padding-top: 80px;
         padding-bottom: 80px;
     }
+
     .steps_section-thumbnail {
         height: 480px;
     }
 }
 
 
-@media (max-width: 767px) {
-    
-    .Three {
+
+/* This will apply to all paragraphs with class 'lead mb-4' directly followed by an 'a' with class 'link-pages' */
+.lead.mb-4 + .link-pages {
+    display: block;
+    margin-top: 10px;
+}
+
+/* Adjust bottom margin of the last section to create space above the footer */
+.Three {
+    margin-bottom: 100px; /* Adjust this value as needed */
+}
+
+/* Alternatively, you can position the footer at the bottom of the page without overlapping content */
+footer {
+    background-color: #840029;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Adjusted styles for the footer container */
+.footerContainer {
+    padding: 20px 30px; /* Adjusted padding */
+}
+
+/* Adjusted styles for the footer bottom section */
+.footerBottom {
+    background-color: black;
+    padding: 20px;
+    text-align: center;
+    color: #840029; /* Adjusted text color */
+}
+
+
+/* Route Schedule table */
+.table-top-border {
+    border-top: 2px solid black;
+}
+
+.table-left-border {
+    border-left: 2px solid black;
+}
+
+.table-right-border {
+    border-right: 2px solid black;
+}
+
+.center-col {
+    text-align: center;
+    color: black;
+    font-weight: 500;
+}
+
+.red-cell {
+    background-color: #840029;
+    color: white;
+    padding: 0px;
+}
+
+.gold-cell {
+    background-color: #fdb71a;
+    padding: 0px;
+}
+
+.stripe-cell {
+    background-color: rgba(128, 128, 128, .5);
+    padding: 0px;
+}
+
+.btn-mstc-gold {
+    background-color: #fdb71a;
+    color: black;
+}
+
+.btn-mstc-red {
+    background-color: #840029;
+    color: white;
+}
+
+.btn-mstc-gold, .btn-mstc-red {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+@media print {
+    /* Route Schedule table */
+    .table-top-border {
+        border-top: 2px solid black;
+    }
+
+    .table-left-border {
+        border-left: 2px solid black;
+    }
+
+    .table-right-border {
+        border-right: 2px solid black;
+    }
+
+    .center-col {
+        text-align: center;
+        color: black;
+        font-weight: 500;
+    }
+
+    .red-cell {
+        padding: 0px;
+    }
+
+    .gold-cell {
+        padding: 0px;
+    }
+
+    .stripe-cell {
+        padding: 0px;
+    }
+}
+
+
+/* Route printing modal*/
+@media screen {
+    #printSection {
         display: none;
+    }
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #printSection, #printSection * {
+        visibility: visible;
+    }
+
+    #printSection {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    html, body {
+        height: 100vh;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden;
     }
 }

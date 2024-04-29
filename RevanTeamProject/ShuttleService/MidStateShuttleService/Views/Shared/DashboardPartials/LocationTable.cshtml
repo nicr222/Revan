@@ -5,8 +5,16 @@
 }
 @model MidStateShuttleService.Models.AllModels
 
+
 <div class="cardHeader">
     <h2>Locations</h2>
+    <!--search-->
+    <div class="search">
+        <label>
+            <input id="locationSearch" type="text" placeholder="Search" />
+            <i class="bi bi-search"></i>
+        </label>
+    </div>
     <a asp-controller="Location" asp-action="Create" class="btn">Add Location</a>
 </div>
 <table>
@@ -18,12 +26,13 @@
             <td>State</td>
             <td>Zip Code</td>
             <td>Abbreviation</td>
+            <td>Active?</td>
             <td>Update</td>
             <td>Delete</td>
         </tr>
     </thead>
-    <tbody>
-        @if (Model.Location == null)
+    <tbody id="locationsTableBody">
+        @if (Model.Location == null || !Model.Location.Any())
         {
             <tr><td colspan="8" class="text-center">There are Currently No Locations</td></tr>
         }
@@ -31,13 +40,14 @@
         {
             @foreach (var location in Model.Location)
             {
-                <tr>
+                <tr class="locationRow">
                     <td>@location.Name</td>
                     <td>@location.Address</td>
                     <td>@location.City</td>
                     <td>@location.State</td>
                     <td>@location.ZipCode</td>
                     <td>@location.Abbreviation</td>
+                    <td>@location.IsActive.ToString()</td>
                     <td><a asp-controller="Location" asp-action="Edit" asp-route-id="@location.LocationId">Edit</a></td>
                     <td><a asp-controller="Location" asp-action="DeleteLocation" asp-route-id="@location.LocationId">Delete</a></td>
                 </tr>
@@ -45,3 +55,5 @@
         }
     </tbody>
 </table>
+
+

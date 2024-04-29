@@ -1,6 +1,6 @@
 /*
     Mid-state Marron: #840029;
-    Mid-state Gold: ##fdb71a;
+    Mid-state Gold: #fdb71a;
     @media (min-width: 544px) {}
     @media (min-width: 768px) {}
     @media (min-width: 992px) {}
@@ -91,7 +91,7 @@ header {
 
         header .item-button a:hover {
             background-color: #fdb71a;
-            color: maroon;
+            color: #840029;
         }
 
 /*custom contaienr*/
@@ -123,7 +123,7 @@ header {
 
 /* Style the navbar-toggler button */
 .navbar-toggler-icon {
-    color: maroon;
+    color: #840029;
 }
 
 /*
@@ -132,25 +132,64 @@ header {
 
 footer {
     background-color: #840029;
-    color: white;
-    text-decoration: none;
-    position: fixed;
+    position: bottom;
     bottom: 0;
-width: 100%;
+    width: 100%;
 }
 
-.footer .border-highlight {
-    border-top: 1px solid #fdb71a;
+/* Adjust footer container styles */
+.footerContainer {
+    padding: 20px 30px; /* Adjusted padding */
 }
 
-.footer .footer-words:hover {
-    color: #fdb71a;
+.footerNav {
+    margin: 20px 0;
 }
 
+.footerNav ul{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
 
-@media (max-width: 767px) {
+.footerNav ul li a{
+    color: white;
+    margin: 20px;
+    text-decoration: none;
+    font-size: 1.3rem;
+    opacity: 0.7;
+    transition: 0.5s;
+}
 
-    .footer{
-        font-size: 12px;
+    .footerNav ul li a:hover {
+        opacity: 1;
+        color: #fdb71a;
     }
+
+.footerBottom {
+    background-color: black;
+    padding: 20px;
+    text-align: center;
+    color: #840029; /* Adjusted text color */
+}
+
+.desinger {
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin: 0px 5px;
+}
+
+/* Adjusted media query for smaller screens */
+@media (max-width: 768px) {
+    .footerNav ul {
+        flex-direction: column;
+    }
+
+        .footerNav ul li {
+            width: 100%;
+            text-align: center;
+            margin: 10px;
+        }
 }

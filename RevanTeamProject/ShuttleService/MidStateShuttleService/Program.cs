@@ -7,6 +7,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Service;
 using MidStateShuttleService.Models;
+using MidStateShuttleService.Data;
+using Microsoft.Identity.Web;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Identity.Web.UI;
+using Microsoft.Identity.Client;
 
 namespace MidStateShuttleService
 {
@@ -14,10 +20,16 @@ namespace MidStateShuttleService
     {
         public static async Task Main(string[] args)
         {
+            
             var builder = WebApplication.CreateBuilder(args);
             var appConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            //Host connectionstring
+            //var appConnectionString = builder.Configuration.GetConnectionString("Connection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+            builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(appConnectionString));
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(appConnectionString));
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MidStateShuttleServiceContext>();
 
             builder.Services.AddSingleton<IListService, ListServices>();
 
@@ -37,7 +49,17 @@ namespace MidStateShuttleService
                 options.Cookie.IsEssential = true;
             });
 
-            
+            builder.Services.AddMicrosoftIdentityWebAppAuthentication(builder.Configuration);
+            builder.Services.AddMvc(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                
+                options.Filters.Add(new AuthorizeFilter(policy));
+            }).AddMicrosoftIdentityUI();
+
+
 
             var app = builder.Build();
 

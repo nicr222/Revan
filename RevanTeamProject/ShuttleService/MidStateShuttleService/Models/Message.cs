@@ -26,5 +26,7 @@ namespace MidStateShuttleService.Models
 
         [StringLength(50)]
         public string? contactInfo { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

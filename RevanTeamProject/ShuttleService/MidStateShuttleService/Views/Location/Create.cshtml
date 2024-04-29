@@ -8,6 +8,7 @@
 <!-- Include Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/Location.css" />
+<link rel="stylesheet" href="/css/Modal.css" />
 
 
 
@@ -77,7 +78,35 @@
         </div>
     </div>
 
-    
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Location Added</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Location was added successfully!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="location.href='../../Dashboard'">Return</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Add Another</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var locationSuccess = '@TempData["LocationSuccess"]';
+            if (locationSuccess === 'True') {
+                $('#successModal').modal('show');
+            }
+        });
+    </script>
         
 
 

@@ -41,7 +41,9 @@ namespace MidStateShuttleService.Models
         [RegularExpression("^[a-zA-Z0-9.,!?'\";:@#$%^&*()_+=\\-\\/]*$", ErrorMessage = "Additional details can only contain letters, numbers, and important special characters.")]
         public string? AdditionalDetails { get; set; }
 
-        public int BusId { get; set; }
+        public int DriverId { get; set; }
+
+        public bool IsActive { get; set; }
 
         [ForeignKey("PickUpLocationID")]
         public virtual Location PickUpLocation { get; set; }
@@ -49,9 +51,62 @@ namespace MidStateShuttleService.Models
         [ForeignKey("DropOffLocationID")]
         public virtual Location DropOffLocation { get; set; }
 
-        [ForeignKey("BusId")]
-        public virtual Bus Bus { get; set; }
+        [ForeignKey("DriverId")]
+        public virtual Driver Driver { get; set; }
 
-           
+        public string ToStringPickUp()
+        {
+            return PickUpLocation.Name;
+        }
+
+        public string ToStringDropOff()
+        {
+            return DropOffLocation.Name;
+        }
+
+        public string ToStringPickUpTime()
+        {
+            if (PickUpTime.HasValue)
+            {
+                if (DateTime.TryParse(PickUpTime.ToString(), out DateTime pickUpDateTime))
+                {
+                    return pickUpDateTime.ToString("hh:mm tt");
+                }
+                else
+                {
+                    // Handle the case where PickUpTime is not in the expected format
+                    return "Invalid Time"; // Or any default value you prefer
+                }
+            }
+            else
+            {
+                // Handle the case where PickUpTime is null
+                return "N/A"; // Or any default value you prefer
+            }
+        }
+
+        public string ToStringDropOffTime()
+        {
+            if (DropOffTime.HasValue)
+            {
+                if (DateTime.TryParse(DropOffTime.ToString(), out DateTime dropOffDateTime))
+                {
+                    return dropOffDateTime.ToString("hh:mm tt");
+                }
+                else
+                {
+                    // Handle the case where DropOffTime is not in the expected format
+                    return "Invalid Time"; // Or any default value you prefer
+                }
+            }
+            else
+            {
+                // Handle the case where DropOffTime is null
+                return "N/A"; // Or any default value you prefer
+            }
+        }
+
+
+
     }
 }

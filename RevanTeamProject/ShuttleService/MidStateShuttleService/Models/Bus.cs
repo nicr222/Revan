@@ -15,13 +15,13 @@ public partial class Bus
     [Key]
     public int BusId { get; set; }
 
-    public int BusNo { get; set; }
+    public int? BusNo { get; set; }
 
-    public int PassengerCapacity { get; set; }
+    public int? PassengerCapacity { get; set; }
 
     public int? DriverId { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
 
     public virtual Driver Driver { get; set; }
 }
