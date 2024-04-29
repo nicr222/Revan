@@ -20,6 +20,14 @@
 
         // Open the modal
         $('#feedbackDetailsModal').modal('show');
+
+        // Handle modal close event
+        $('#specialRequestDetailsModal').on('hidden.bs.modal', function () {
+            // Here you can add code to reset any page state as needed
+            // For example, you could reload the page using:
+            window.location.reload();
+            // or reset specific form fields, etc.
+        });
     });
 });
 
