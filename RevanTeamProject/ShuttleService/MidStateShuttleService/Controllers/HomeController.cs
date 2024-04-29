@@ -67,6 +67,15 @@ namespace MidStateShuttleService.Controllers
                     _logger.LogInformation("Feedback successfully saved.");
 
                     TempData["FeedbackSuccess"] = "True"; // Use TempData to signal that feedback was successful
+
+                    // Increment the message count in the session
+                    int feedbackCount = HttpContext.Session.GetInt32("FeedbackCount") ?? 0;
+                    feedbackCount++;
+
+                    HttpContext.Session.SetInt32("FeedbackCount", feedbackCount);
+                    // Optionally, save the last message or a summary
+                    HttpContext.Session.SetString("LastFeedback", "You have a new feedback!");
+
                     return RedirectToAction(nameof(Index)); // Redirect back to the form page to show the success modal
                     //return RedirectToAction("FeedbackTable");
                 }

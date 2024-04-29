@@ -25,7 +25,7 @@ namespace MidStateShuttleService.Controllers
         public IConfiguration Configuration { get; }
 
         // GET: DashboardController
-        public ActionResult Index()
+        public ActionResult Index(string section = "")
         {
             AllModels allModels = new AllModels();
 
@@ -75,6 +75,30 @@ namespace MidStateShuttleService.Controllers
             // Pass them to the view
             ViewData["MessageCount"] = messageCountFromSession;
             ViewData["LastMessage"] = lastMessage;
+
+            // Retrieve the feedback count and last feedback from the session
+            int feedbackCountFromSession = HttpContext.Session.GetInt32("FeedbackCount") ?? 0;
+            string lastFeedback = HttpContext.Session.GetString("LastFeedback") ?? "You have a new feedback!";
+
+            // Pass them to the view
+            ViewData["FeedbackCount"] = feedbackCountFromSession;
+            ViewData["LastFeedback"] = lastFeedback;
+
+            // Log the value to ensure it's being received correctly
+            _logger.LogInformation($"Section received: {section}");
+
+
+            // Decide which section to open based on the 'section' parameter
+            ViewBag.OpenSection = section;
+
+            if (section == "feedback")
+            {
+                HttpContext.Session.SetInt32("FeedbackCount", 0); // Reset feedback count immediately when section is feedback
+            }
+            else if (section == "message")
+            {
+                HttpContext.Session.SetInt32("MessageCount", 0); // Reset message count
+            }
 
             return View(allModels);
 
@@ -190,6 +214,13 @@ namespace MidStateShuttleService.Controllers
             }
         }
 
+        // Add a function to explicitly reload the page when feedback is clicked
+        public ActionResult FeedbackClicked()
+        {
+            ViewBag.OpenSection = "feedback";
+            HttpContext.Session.SetInt32("FeedbackCount", 0);
+            return RedirectToAction("Index", new { section = "feedback" }); // Redirect to Index to ensure changes take effect immediately
+        }
 
     }
 }

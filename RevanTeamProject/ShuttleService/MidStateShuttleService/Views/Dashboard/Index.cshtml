@@ -73,7 +73,12 @@
 
 
             <li>
-                <a href="#" id="feedback">
+                @* <a href="#" id="feedback"> *@
+                @* <a href="@Url.Action("Index", "Dashboard", new { section = "feedback" })" id="feedback">
+                    <span class="icon"><i class="bi bi-hand-thumbs-up"></i></span>
+                    <span class="title">Feedbacks</span>
+                </a> *@
+                <a href="@Url.Action("Index", "Dashboard", new { section = "feedback" })" id="feedback">
                     <span class="icon"><i class="bi bi-hand-thumbs-up"></i></span>
                     <span class="title">Feedback</span>
                 </a>
@@ -126,14 +131,16 @@
             <div class="notification-container">
                 <div class="notification-message" onclick="toggleNotifications('notificationMessageDropdown')"
                      data-message-count="@ViewData["MessageCount"]"
+                     data-feedback-count="@ViewData["FeedbackCount"]"
                      data-last-message="@ViewData["LastMessage"]">
-                    <span class="badge">@ViewData["MessageCount"].ToString()</span>
+                    <span class="badge"></span>
                     <i class="bi bi-chat-left-text"></i>
                 </div>
 
                 <div class="dropdown-menu notifications dropdown-menu-arrow" id="notificationMessageDropdown" style="display: none;">
                     <!-- Notifications go here -->
                 </div>
+
             </div>
         </div>
     </div>
@@ -209,16 +216,40 @@
 
 </div>
 
+
+@* <script type="text/javascript">
+    // Ensure that this script block is at the top of other script tags
+    var feedbackUrl = '@Url.Action("Index", "Dashboard", new { section = "feedback" })';
+    console.log(feedbackUrl); // Check if the URL is being set correctly
+</script>
+ *@
+
+<script type="text/javascript">
+    var feedbackUrl = '@Url.Action("Index", "Dashboard", new { section = "feedback" })';
+    var messageUrl = '@Url.Action("Index", "Dashboard", new { section = "message" })'; // Ensure this line is correct
+    console.log('Feedback URL:', feedbackUrl);
+    console.log('Message URL:', messageUrl);
+</script>
+
+<script type="text/javascript">
+    // Define a global variable in .cshtml file
+    var globalOpenSection = '@ViewBag.OpenSection';
+    console.log(globalOpenSection);
+</script>
+
+
+
 <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
+
+<script src="/js/Dashboard/DisplayNotification.js"></script>
+<script src="/js/Dashboard/dashboard-sections.js" defer></script>
+
 <script src="/js/Dashboard/Nav.js"></script>
 <script src="/js/Dashboard/Table.js"></script>
 
-
-
-<script src="/js/Dashboard/DisplayNotification.js"></script>
-<script src="/js/dashboard/Nav.js"></script>
+@* <script src="/js/dashboard/Nav.js"></script> *@
 <script src="/js/Dashboard/notification.js"></script>
 <script src="/js/dashboard/Table.js"></script>
 <script src="/js/SearchFunc/RouteSearch.js"></script>
