@@ -65,7 +65,8 @@ footer {
                 width: 100%;
                 display: flex;
                 text-decoration: none;
-                color: #fdb71a;
+                color: #EEEEE;
+                font-weight: 500;
             }
 
             .navigation ul li:hover a,
