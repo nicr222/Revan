@@ -31,7 +31,7 @@
             <th>Delete</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="checkInsTableBody">
         @if (Model.CheckIn == null)
         {
             <tr><td colspan="8" class="text-center">There are Currently No Check-Ins</td></tr>
@@ -61,3 +61,9 @@
         }
     </tbody>
 </table>
+
+    <div id="pagination-controls-checkIns" class="pagination">
+        <!-- Pagination buttons will be created by JavaScript here -->
+    </div>
+
+<script src="~/js/tablePagination.js"></script>

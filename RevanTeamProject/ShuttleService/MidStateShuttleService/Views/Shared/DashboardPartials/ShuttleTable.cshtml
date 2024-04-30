@@ -24,7 +24,7 @@
             <td>Delete</td>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="shuttleTableBody">
         @if (Model == null)
         {
             <tr><td colspan="4" class="text-center">There are Currently No Routes</td></tr>
@@ -44,5 +44,11 @@
         }
     </tbody>
 </table>
+<tr>
+    <div id="pagination-controls-shuttle" class="pagination">
+        <!-- Pagination buttons will be created by JavaScript here -->
+    </div>
+</tr>
 
+<script src="~/js/tablePagination.js"></script>
 
