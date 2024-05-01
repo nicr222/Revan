@@ -28,7 +28,7 @@
         </tr>
     </thead>
     <tbody id="driverTableBody">
-        @if (Model == null)
+        @if (Model.Driver == null)
         {
             <tr><td colspan="5" class="text-center">There are Currently No Routes</td></tr>
         }
@@ -48,11 +48,9 @@
         }
     </tbody>
 </table>
-<tr>
-    <div id="pagination-controls-driver" class="pagination">
-        <!-- Pagination buttons will be created by JavaScript here -->
-    </div>
-</tr>
+<div id="pagination-controls-driver" class="pagination">
+    <!-- Pagination buttons will be created by JavaScript here -->
+</div>
 
 <script src="~/js/tablePagination.js"></script>
 

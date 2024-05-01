@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Create pagination buttons
         for (let i = 1; i <= pageCount; i++) {
             let button = document.createElement('button');
-            button.className = 'page-btn';
+            button.className = 'page-btn'; // Apply common style class
             button.textContent = i;
             paginationControls.appendChild(button);
         }
@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Create pagination buttons
             for (let i = 1; i <= pageCount; i++) {
                 let button = document.createElement('button');
-                button.className = 'page-btn';
+                button.className = 'page-btn'; // Apply common style class
                 button.textContent = i;
                 paginationControls.appendChild(button);
             }
@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Create pagination buttons
             for (let i = 1; i <= pageCount; i++) {
                 let button = document.createElement('button');
-                button.className = 'page-btn';
+                button.className = 'page-btn'; // Apply common style class
                 button.textContent = i;
                 paginationControls.appendChild(button);
             }
@@ -359,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Create pagination buttons
     for (let i = 1; i <= pageCount; i++) {
         let button = document.createElement('button');
-        button.className = 'page-btn';
+        button.className = 'page-btn'; // Apply common style class
         button.textContent = i;
         paginationControls.appendChild(button);
     }
