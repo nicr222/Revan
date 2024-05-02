@@ -18,16 +18,16 @@
 
         </tr>
     </thead>
-    <tbody>
+    <tbody id="messageTableBody">
         @if (Model.Message == null)
         {
             <tr><td colspan="4" class="text-center">There are Currently No Messages</td></tr>
         }
         else
         {
-            @foreach (var message in Model.Message)
+            @foreach (var message in Model.Message.OrderByDescending(m => m.id))
             {
-                <tr>
+                <tr id="messageRow">
                     <td>@message.name</td>
                     <td>
                         @if (message.message.Length > 10)
@@ -59,6 +59,10 @@
         }
     </tbody>
 </table>
+
+<div id="pagination-controls-message" class="pagination">
+    <!-- Pagination buttons will be created by JavaScript here -->
+</div>
 <div class="modal fade" id="messageDetailsModal" tabindex="-1" role="dialog" aria-labelledby="messageDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -80,6 +84,9 @@
     </div>
 </div>
 
+
+
+<script src="~/js/tablePagination.js"></script>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

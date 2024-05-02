@@ -9,12 +9,12 @@
 <div class="cardHeader">
     <h2>Locations</h2>
     <!--search-->
-    <div class="search">
+    <!--<div class="search">
         <label>
             <input id="locationSearch" type="text" placeholder="Search" />
             <i class="bi bi-search"></i>
         </label>
-    </div>
+    </div>-->
     <a asp-controller="Location" asp-action="Create" class="btn">Add Location</a>
 </div>
 <table>
@@ -38,7 +38,7 @@
         }
         else
         {
-            @foreach (var location in Model.Location)
+            @foreach (var location in Model.Location.OrderBy(o => o.Name))
             {
                 <tr class="locationRow">
                     <td>@location.Name</td>
@@ -55,5 +55,8 @@
         }
     </tbody>
 </table>
+<div id="pagination-controls-location" class="pagination">
+    <!-- Pagination buttons will be created by JavaScript here -->
+</div>
 
-
+<script src="~/js/tablePagination.js"></script>

@@ -511,6 +511,29 @@ footer {
         color: white;
     }
 
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+    .pagination .page-btn {
+        background-color: #840029;
+        color: white;
+        border: none;
+        padding: 8px 10px; /* Adjusted padding */
+        margin: 0 4px;
+        border-radius: 4px; /* Keeping border-radius */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .pagination button:hover {
+            background-color: #6d0022;
+        }
+
+
 /* Styles for Accept and Reject buttons */
 .button-accept, .button-reject {
     padding: 5px 15px;

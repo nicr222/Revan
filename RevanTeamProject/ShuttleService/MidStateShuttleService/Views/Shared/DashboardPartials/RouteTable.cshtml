@@ -8,13 +8,15 @@
 
 <div class="cardHeader">
     <h2>Routes</h2>
-    <!--search-->
-    <div class="search">
+    <!--search
+        <div class="search">
         <label>
             <input id="routeSearch" type="text" placeholder="Search" />
             <i class="bi bi-search"></i>
         </label>
     </div>
+    -->
+    
     <a asp-controller="Routes" asp-action="Create" class="btn">Add Route</a>
 </div>
 <table>
@@ -39,7 +41,7 @@
         }
         else
         {
-            @foreach (var r in Model.Route)
+            @foreach (var r in Model.Route.OrderBy(r => r.PickUpLocationID))
             {
                 <tr class="routeRow">
                     <td><a asp-controller="Dashboard" asp-action="PassengerList" asp-route-id="@r.RouteID">View Passengers</a></td>
@@ -55,8 +57,14 @@
                 </tr>
             }
         }
+        
     </tbody>
+    
 </table>
 
+    <div id="pagination-controls-routes" class="pagination">
+        <!-- Pagination buttons will be created by JavaScript here -->
+    </div>
 
 
+<script src="~/js/tablePagination.js"></script>

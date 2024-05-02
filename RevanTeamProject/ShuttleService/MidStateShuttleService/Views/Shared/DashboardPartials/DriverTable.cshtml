@@ -7,13 +7,15 @@
 
 <div class="cardHeader">
     <h2>Driver</h2>
-    <!--search-->
-    <div class="search">
+    <!--search
+        <div class="search">
         <label>
             <input id="driverSearch" type="text" placeholder="Search" />
             <i class="bi bi-search"></i>
         </label>
     </div>
+    -->
+    
     <a asp-controller="Driver" asp-action="Create" class="btn">Add Driver</a>
 </div>
 <table>
@@ -27,14 +29,14 @@
             <td>Delete</td>
         </tr>
     </thead>
-    <tbody>
-        @if (Model == null)
+    <tbody id="driverTableBody">
+        @if (Model.Driver == null)
         {
             <tr><td colspan="5" class="text-center">There are Currently No Routes</td></tr>
         }
         else
         {
-            @foreach (var d in Model.Driver)
+            @foreach (var d in Model.Driver.OrderBy(d => d.Name))
             {
                 <tr class="driverRow">
                     <td>@d.Name</td>
@@ -48,5 +50,9 @@
         }
     </tbody>
 </table>
+<div id="pagination-controls-driver" class="pagination">
+    <!-- Pagination buttons will be created by JavaScript here -->
+</div>
 
+<script src="~/js/tablePagination.js"></script>
 
