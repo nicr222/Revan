@@ -314,3 +314,15 @@ html {
         overflow: hidden;
     }
 }
+
+@media (max-width: 543px) {
+    .steps {
+        opacity: 1;
+        transform: translateX(0);
+        transition: none; /* Disable transition on mobile */
+    }
+
+    .steps_section-thumbnail {
+        height: 240px; /* Adjusted height for smaller screens */
+    }
+}
