@@ -21,7 +21,7 @@
         }
         else
         {
-            @foreach (var feedback in Model.Feedback)
+            @foreach (var feedback in Model.Feedback.OrderByDescending(f => f.FeedbackId))
             {
                 <tr id="feedbackRow">
                     <td>@feedback.CustomerName</td>

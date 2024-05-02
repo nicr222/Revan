@@ -37,7 +37,7 @@
         }
         else
         {
-            @foreach (var checkIn in Model.CheckIn)
+            @foreach (var checkIn in Model.CheckIn.OrderByDescending(c => c.CheckInId))
             {
                 <tr class="checkRow">
                     <td>@checkIn.Name</td>

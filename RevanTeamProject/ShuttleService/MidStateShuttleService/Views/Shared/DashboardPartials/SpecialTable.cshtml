@@ -30,7 +30,7 @@
         }
         else
         {
-            @foreach (var registration in Model.Register)
+            @foreach (var registration in Model.Register.OrderByDescending(r => r.RegistrationId))
             {
                 @if (registration.SpecialRequest == true)
                 {

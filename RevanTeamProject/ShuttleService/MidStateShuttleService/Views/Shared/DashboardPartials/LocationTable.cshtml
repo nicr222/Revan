@@ -38,7 +38,7 @@
         }
         else
         {
-            @foreach (var location in Model.Location)
+            @foreach (var location in Model.Location.OrderBy(o => o.Name))
             {
                 <tr class="locationRow">
                     <td>@location.Name</td>

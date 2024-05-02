@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const routesTableBody = document.getElementById('routesTableBody');
     const routesRows = routesTableBody.querySelectorAll('.routeRow');
     const paginationControls = document.getElementById('pagination-controls-routes'); // Unique ID
-    const routesPerPage = 1; // Adjust this value as needed
-    const maxButtonsToShow = 4;
+    const routesPerPage = 15; // Adjust this value as needed
+    const maxButtonsToShow = 10;
 
     // Calculate the number of pages needed
     let pageCount = Math.ceil(routesRows.length / routesPerPage);
@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const checkInsTableBody = document.getElementById('checkInsTableBody');
     const checkInsRows = checkInsTableBody.querySelectorAll('.checkRow');
     const paginationControls = document.getElementById('pagination-controls-checkIns'); // Unique ID
-    const checkInsPerPage = 1; // Adjust this value as needed
-    const maxButtonsToShow = 4;
+    const checkInsPerPage = 15; // Adjust this value as needed
+    const maxButtonsToShow = 10;
 
     // Calculate the number of pages needed
     let pageCount = Math.ceil(checkInsRows.length / checkInsPerPage);
@@ -101,8 +101,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const driverTableBody = document.getElementById('driverTableBody');
     const driverRows = driverTableBody.querySelectorAll('.driverRow');
     const paginationControls = document.getElementById('pagination-controls-driver'); // Unique ID
-    const driversPerPage = 1; // Adjust this value as needed
-    const maxButtonsToShow = 4;
+    const driversPerPage = 15; // Adjust this value as needed
+    const maxButtonsToShow = 10;
 
     // Calculate the number of pages needed
     let pageCount = Math.ceil(driverRows.length / driversPerPage);
@@ -150,8 +150,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const feedbackTableBody = document.getElementById('feedbackTableBody');
     const feedbackRows = feedbackTableBody.querySelectorAll('#feedbackRow'); // Use class instead of id
     const paginationControls = document.getElementById('pagination-controls-feedback'); // Unique ID
-    const feedbackPerPage = 1; // Adjust this value as needed
-    const maxButtonsToShow = 4;
+    const feedbackPerPage = 15; // Adjust this value as needed
+    const maxButtonsToShow = 10;
 
     // Calculate the number of pages needed
     let pageCount = Math.ceil(feedbackRows.length / feedbackPerPage);
@@ -199,8 +199,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const locationsTableBody = document.getElementById('locationsTableBody');
         const locationRows = locationsTableBody.querySelectorAll('.locationRow');
         const paginationControls = document.getElementById('pagination-controls-location');
-        const locationsPerPage = 1; // Adjust this value as needed
-        const maxButtonsToShow = 4;
+        const locationsPerPage = 15; // Adjust this value as needed
+        const maxButtonsToShow = 10;
 
         // Calculate the number of pages needed
         let pageCount = Math.ceil(locationRows.length / locationsPerPage);
@@ -247,8 +247,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const messageTableBody = document.getElementById('messageTableBody');
             const messageRows = messageTableBody.querySelectorAll('#messageRow');
             const paginationControls = document.getElementById('pagination-controls-message');
-            const messagesPerPage = 1; // Adjust this value as needed
-            const maxButtonsToShow = 4;
+            const messagesPerPage = 15; // Adjust this value as needed
+            const maxButtonsToShow = 10;
 
             // Calculate the number of pages needed
             let pageCount = Math.ceil(messageRows.length / messagesPerPage);
@@ -295,8 +295,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const shuttleTableBody = document.getElementById('shuttleTableBody');
             const shuttleRows = shuttleTableBody.querySelectorAll('.shuttleRow');
             const paginationControls = document.getElementById('pagination-controls-shuttle');
-            const shuttlesPerPage = 1; // Adjust this value as needed
-            const maxButtonsToShow = 4;
+            const shuttlesPerPage = 15; // Adjust this value as needed
+            const maxButtonsToShow = 10;
 
             // Calculate the number of pages needed
             let pageCount = Math.ceil(shuttleRows.length / shuttlesPerPage);
@@ -344,8 +344,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const registrationsTableBody = document.getElementById('registrationsTableBody');
     const registrationRows = registrationsTableBody.querySelectorAll('.registrationRow');
     const paginationControls = document.getElementById('pagination-controls-registration');
-    const registrationsPerPage = 1; // Adjust this value as needed
-    const maxButtonsToShow = 4;
+    const registrationsPerPage = 15; // Adjust this value as needed
+    const maxButtonsToShow = 10;
 
     // Calculate the number of pages needed
     let pageCount = Math.ceil(registrationRows.length / registrationsPerPage);

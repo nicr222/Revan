@@ -41,7 +41,7 @@
         }
         else
         {
-            @foreach (var r in Model.Route)
+            @foreach (var r in Model.Route.OrderBy(r => r.PickUpLocationID))
             {
                 <tr class="routeRow">
                     <td><a asp-controller="Dashboard" asp-action="PassengerList" asp-route-id="@r.RouteID">View Passengers</a></td>

@@ -36,7 +36,7 @@
         }
         else
         {
-            @foreach (var d in Model.Driver)
+            @foreach (var d in Model.Driver.OrderBy(d => d.Name))
             {
                 <tr class="driverRow">
                     <td>@d.Name</td>

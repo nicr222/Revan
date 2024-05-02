@@ -33,7 +33,7 @@
         }
         else
         {
-            @foreach (var b in Model.Bus)
+            @foreach (var b in Model.Bus.OrderBy(b => b.BusNo))
             {
                 <tr class="shuttleRow">
                     <td>@b.BusNo</td>

@@ -25,7 +25,7 @@
         }
         else
         {
-            @foreach (var message in Model.Message)
+            @foreach (var message in Model.Message.OrderByDescending(m => m.id))
             {
                 <tr id="messageRow">
                     <td>@message.name</td>
