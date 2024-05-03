@@ -9,8 +9,9 @@ input {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-        width: 100%;   /*comment it out because it was causing the input fields to be too wide*/
-
+    width: 100%; /*comment it out because it was causing the input fields to be too wide*/
+    font-size: 14px;
+    font-family: inherit;
 }
 
 .input-fields {
@@ -39,29 +40,29 @@ input {
 }
 
     .input--style-1::-webkit-input-placeholder {
-/*         WebKit, Blink, Edge */
+        /*         WebKit, Blink, Edge */
         color: #555;
     }
 
     .input--style-1:-moz-placeholder {
-/*         Mozilla Firefox 4 to 18 */
+        /*         Mozilla Firefox 4 to 18 */
         color: #555;
         opacity: 1;
     }
 
     .input--style-1::-moz-placeholder {
-/*         Mozilla Firefox 19+ */
+        /*         Mozilla Firefox 19+ */
         color: #555;
         opacity: 1;
     }
 
     .input--style-1:-ms-input-placeholder {
-/*         Internet Explorer 10-11 */
+        /*         Internet Explorer 10-11 */
         color: #555;
     }
 
     .input--style-1:-ms-input-placeholder {
-/*         Microsoft Edge */
+        /*         Microsoft Edge */
         color: #555;
     }
 /*
@@ -72,20 +73,20 @@ input {
         padding: 9px 0;
     }
 
-     To add the dropdown arrow icon 
+    To add the dropdown arrow icon
     .input-fields .input--style-1 {
         position: relative;
     }
 
-        .input-fields .input--style-1::after {
-            content: '▼';
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;  /*This prevents the pseudo-element from blocking clicks */
-            color: #ccc;
-        }
+    .input-fields .input--style-1::after {
+        content: '▼';
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none; /*This prevents the pseudo-element from blocking clicks */
+        color: #ccc;
+    }
 }
 
 
@@ -93,8 +94,8 @@ input {
 .name-info {
     font-size: 12px; /* Font size of the description text */
     color: #666; /* Color of the description text */
-    text-align: left;  /*Align text to the left */
-    padding: 0 15px;/*  Padding around the text */
+    text-align: left; /*Align text to the left */
+    padding: 0 15px; /*  Padding around the text */
 }
 
 @media (max-width: 767px) {
@@ -107,19 +108,19 @@ input {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
     .form-group label {
-        margin-bottom: 5px; 
-        font-weight: 600; 
+        margin-bottom: 5px;
+        font-weight: 600;
     }
 
     .form-group input,
     .form-group textarea {
-        width: 100%; 
+        width: 100%;
         padding: 10px;
-        border: 1px solid #ccc; 
+        border: 1px solid #ccc;
         border-radius: 4px;
     }
 
@@ -151,7 +152,7 @@ input {
     }
 
     .emoji-rating input:checked + label {
-        transform: scale(1.3);  /*Scale the emoji a little on select */
+        transform: scale(1.3); /*Scale the emoji a little on select */
     }
 
 Colors for different levels of satisfaction
@@ -188,16 +189,16 @@ Colors for different levels of satisfaction
     display: inline-block;
     padding: 0 16px;
     cursor: pointer;
-    color: #840029;/*  Maroon color for text */
+    color: #840029; /*  Maroon color for text */
     font-size: 12px;
     font-weight: 700;
-    border: 2px solid #840029; 
-    background-color: transparent; 
+    border: 2px solid #840029;
+    background-color: transparent;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin: 0 5px;
-    border-radius: 25px; 
-    transition: all 0.1s ease-out; 
+    border-radius: 25px;
+    transition: all 0.1s ease-out;
     animation: none;
 }
 
@@ -214,33 +215,33 @@ Colors for different levels of satisfaction
 .testimonials-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; 
-    gap: 25px; 
+    justify-content: flex-start;
+    gap: 25px;
     padding: 20px;
     margin-bottom: -1rem;
 }
-/**/
+
 .testimonial {
     flex: calc(33.333% - 20px); /* Calculate width for 3 columns, minus the gap */
-    flex-grow: 0; 
+    flex-grow: 0;
     flex-shrink: 0;
     max-width: calc(33.333% - 20px);
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
     position: relative;
     padding: 1em;
     background: #ffca52;
     box-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.075), 0 3px 3px hsla(0, 0%, 0%, 0.075), 0 5px 5px hsla(0, 0%, 0%, 0.075), 0 9px 9px hsla(0, 0%, 0%, 0.075), 0 17px 17px hsla(0, 0%, 0%, 0.075);
-    border-radius: 8px; 
-    margin-bottom: 40px; 
+    border-radius: 8px;
+    margin-bottom: 40px;
 }
 
     /* Speech bubble tail */
     .testimonial::before {
         content: '';
         position: absolute;
-        bottom: -20px; 
+        bottom: -20px;
         left: 50%;
         transform: translateX(-50%);
         border-style: solid;
@@ -254,8 +255,8 @@ Colors for different levels of satisfaction
 .testimonials-header {
     text-align: center;
     margin-top: 2rem;
-    margin-bottom: 2rem; 
-    position: relative; 
+    margin-bottom: 2rem;
+    position: relative;
 }
 
     .testimonials-header h2 {
@@ -263,27 +264,27 @@ Colors for different levels of satisfaction
         color: #666;
         margin: 0;
         padding: 0;
-        display: inline-block; 
-        position: relative; 
+        display: inline-block;
+        position: relative;
         letter-spacing: 1px;
     }
 
         .testimonials-header h2 span {
-            color: #f5a623; 
+            color: #f5a623;
         }
 
-    /* Decorative underline */
-    .testimonials-header h2::after {
-        content: '';
-        display: block;
-        width: 80px; 
-        height: 4px; 
-        background-color: #f5a623; 
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: -10px; 
-    }
+        /* Decorative underline */
+        .testimonials-header h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #f5a623;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -10px;
+        }
 
 /* Responsive adjustments for the header */
 @media (max-width: 768px) {
@@ -301,25 +302,25 @@ Colors for different levels of satisfaction
 
 /* Quote style */
 .quote {
-    font-size: 2em; 
+    font-size: 2em;
     position: absolute;
     color: white;
     background: #840029;
-    width: 30px; 
-    height: 30px; 
+    width: 30px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
     .quote.open {
-        top: 0px; 
-        left: 0px; 
+        top: 0px;
+        left: 0px;
     }
 
     .quote.close {
-        bottom: 0px; 
-        right: 0px; 
+        bottom: 0px;
+        right: 0px;
     }
 
 /* Image styling */
@@ -327,9 +328,9 @@ Colors for different levels of satisfaction
     transform: rotate(-5deg);
     position: absolute;
     top: 10px;
-    right: 24px; 
-    width: 75px; 
-    height: 75px; 
+    right: 24px;
+    width: 75px;
+    height: 75px;
 }
 
 /* Image styling */
@@ -350,6 +351,7 @@ Colors for different levels of satisfaction
     top: -8%;
     border-radius: 25px;
 }
+
     .clip ::before {
         content: "";
         position: absolute;
@@ -399,10 +401,10 @@ Colors for different levels of satisfaction
 
 /* Source and date container */
 .source {
-    text-align: center; 
+    text-align: center;
     font-size: 0.85em;
     padding-top: 10px;
-    padding-bottom: 1em; 
+    padding-bottom: 1em;
     margin-left: auto;
     font-weight: 700;
 }
@@ -415,15 +417,15 @@ Colors for different levels of satisfaction
 /* Handle responsiveness */
 @media (max-width: 768px) {
     .testimonial {
-        flex-basis: calc(50% - 20px); 
-        max-width: calc(50% - 20px); 
+        flex-basis: calc(50% - 20px);
+        max-width: calc(50% - 20px);
     }
 }
 
 @media (max-width: 480px) {
     .testimonial {
-        flex-basis: 100%; 
-        max-width: 100%; 
+        flex-basis: 100%;
+        max-width: 100%;
     }
 }
 /* ==========================================================================
@@ -431,23 +433,23 @@ Colors for different levels of satisfaction
    ========================================================================== */
 .pagination {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    margin-top: 1rem; 
-    margin-bottom: 5rem; 
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 5rem;
     padding: 0.5rem 0;
 }
 
 .page-btn {
-    font-size: 1rem; 
-    background-color: #fff; 
-    color: #840029; 
-    border: 2px solid #840029; 
+    font-size: 1rem;
+    background-color: #fff;
+    color: #840029;
+    border: 2px solid #840029;
     border-radius: 5px;
-    padding: 0.5rem 1rem; 
-    margin: 0 10px; 
+    padding: 0.5rem 1rem;
+    margin: 0 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
 }
 
     .page-btn:not(:disabled):not(.disabled) {
@@ -455,14 +457,14 @@ Colors for different levels of satisfaction
     }
 
     .page-btn:hover {
-        background-color: #840029; 
-        color: #fff; 
+        background-color: #840029;
+        color: #fff;
     }
 
     .page-btn:focus,
     .page-btn:active {
         outline: none; /* Remove the default outline on focus/active states */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
 /* Adjustments for responsiveness */
@@ -481,7 +483,7 @@ Colors for different levels of satisfaction
     }
 
     .testimonials-container {
-        margin-bottom: 1.5rem; 
+        margin-bottom: 1.5rem;
     }
 }
 
@@ -503,5 +505,3 @@ Colors for different levels of satisfaction
         font-weight: bold;
         margin-right: 5px;
     }
-
-
