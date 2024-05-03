@@ -10,8 +10,7 @@ input {
     -moz-box-shadow: none;
     box-shadow: none;
     width: 100%; /*comment it out because it was causing the input fields to be too wide*/
-    font-size: 14px;
-    font-family: inherit;
+    
 }
 
 .input-fields {
@@ -231,6 +230,7 @@ Colors for different levels of satisfaction
     align-items: center;
     position: relative;
     padding: 1em;
+    margin-top: 10rem;
     background: #ffca52;
     box-shadow: 0 2px 2px hsla(0, 0%, 0%, 0.075), 0 3px 3px hsla(0, 0%, 0%, 0.075), 0 5px 5px hsla(0, 0%, 0%, 0.075), 0 9px 9px hsla(0, 0%, 0%, 0.075), 0 17px 17px hsla(0, 0%, 0%, 0.075);
     border-radius: 8px;
@@ -256,7 +256,7 @@ Colors for different levels of satisfaction
     text-align: center;
     margin-top: 2rem;
     margin-bottom: 2rem;
-    position: relative;
+    position: absolute;
 }
 
     .testimonials-header h2 {
