@@ -65,7 +65,7 @@ footer {
                 width: 100%;
                 display: flex;
                 text-decoration: none;
-                color: #EEEEE;
+                color: #fdb71a;
                 font-weight: 500;
             }
 
@@ -512,26 +512,40 @@ footer {
     }
 
 .pagination {
-    margin-top: 20px;
-    text-align: center;
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+    padding: 0.5rem 0;
 }
 
-    .pagination .page-btn {
-        background-color: #840029;
-        color: white;
-        border: none;
-        padding: 8px 10px; /* Adjusted padding */
-        margin: 0 4px;
-        border-radius: 4px; /* Keeping border-radius */
+.page-btn {
+    font-size: 1rem;
+    background-color: #fff;
+    color: #840029;
+    border: 2px solid #840029;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .page-btn:not(:disabled):not(.disabled) {
         cursor: pointer;
-        transition: background-color 0.3s ease;
     }
 
-        .pagination button:hover {
-            background-color: #6d0022;
-        }
+    .page-btn:hover {
+        background-color: #840029;
+        color: #fff;
+    }
+
+    .page-btn:focus,
+    .page-btn:active {
+        outline: none; /* Remove the default outline on focus/active states */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
 
 
 /* Styles for Accept and Reject buttons */

@@ -11,16 +11,16 @@
 
 
 * {
-    box-sizing: border-box;
 
+
+    box-sizing: border-box;
 }
 
 body {
+
     margin: 0;
     padding: 0;
-    /*font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
-    font-weight: 400;
-    font-size: 14px;*/
+    
 }
 
 
@@ -172,7 +172,7 @@ footer {
     background-color: black;
     padding: 20px;
     text-align: center;
-    color: #840029; /* Adjusted text color */
+    color: white; /* Adjusted text color */
 }
 
 .desinger {

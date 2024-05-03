@@ -1,5 +1,5 @@
 ﻿@model MidStateShuttleService.Models.CheckIn
-
+<link rel="stylesheet" href="css/site.css" />
 <link rel="stylesheet" href="/css/Communication/Communicate.css" />
 <link rel="stylesheet" href="/css/Modal.css" />
 
@@ -10,7 +10,7 @@
 
 <body>
     <div>
-        <div class="wrapper wrapper--w680 mt-5">
+        <div class="wrapper wrapper--w680">
             <div class="card card-1">
                 <div class="card-heading"></div>
                 <div class="card-body">
@@ -37,6 +37,7 @@
                                                 class="form-control input--style-1" required>
                                             <option selected="selected" value="" required>--Select--</option>
                                         </select>
+
                                         <div class="div-line"></div>
                                         <div class="invalid-feedback">
                                             Please select a pick-up location
@@ -52,7 +53,7 @@
                                             <label class="radio-label-style" for="newRiderYes">Yes</label>
                                             <input asp-for="FirstTime" type="radio" value="false" class="form-check-input radio-style input--style-1" id="newRiderNo" required />
                                             <label class="radio-label-style" for="newRiderNo">No</label>
-                                            <div class="div-line pt-2"></div>
+                                            <div class="div-line pt-1"></div>
                                             <div class="invalid-feedback">
                                                 Must select one
                                             </div>

@@ -10,8 +10,7 @@ input {
     -moz-box-shadow: none;
     box-shadow: none;
         width: 100%;   /*comment it out because it was causing the input fields to be too wide*/
-    font-size: 14px;
-    font-family: inherit;
+
 }
 
 .input-fields {
