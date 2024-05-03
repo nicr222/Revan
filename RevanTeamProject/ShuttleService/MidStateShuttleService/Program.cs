@@ -22,9 +22,9 @@ namespace MidStateShuttleService
         {
             
             var builder = WebApplication.CreateBuilder(args);
-            var appConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            //var appConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             //Host connectionstring
-            //var appConnectionString = builder.Configuration.GetConnectionString("Connection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var appConnectionString = builder.Configuration.GetConnectionString("Connection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(appConnectionString));
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(appConnectionString));
@@ -59,7 +59,16 @@ namespace MidStateShuttleService
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddMicrosoftIdentityUI();
 
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
 
             var app = builder.Build();
 
@@ -77,11 +86,12 @@ namespace MidStateShuttleService
             app.UseSession();
 
             app.UseRouting();
-            
+            app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseAuthorization();
-            app.MapRazorPages();
 
+            app.MapRazorPages();
+            
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
