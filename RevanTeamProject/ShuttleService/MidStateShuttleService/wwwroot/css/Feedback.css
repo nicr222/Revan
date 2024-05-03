@@ -219,7 +219,7 @@ Colors for different levels of satisfaction
     padding: 20px;
     margin-bottom: -1rem;
 }
-
+/**/
 .testimonial {
     flex: calc(33.333% - 20px); /* Calculate width for 3 columns, minus the gap */
     flex-grow: 0; 

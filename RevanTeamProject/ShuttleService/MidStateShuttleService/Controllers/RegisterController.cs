@@ -110,6 +110,7 @@ namespace MidStateShuttleService.Controllers
 
         //retrieves route options based on selected pick-up and drop-off locations from a database and returns them as JSON.
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult GetRoutes(int pickUpLocationId, int dropOffLocationId)
         {
             RouteServices rs = new RouteServices(_context);
