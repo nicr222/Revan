@@ -1,4 +1,7 @@
-﻿/* ==========================================================================
+﻿/* Alexis: I just grabbed the stuff that Phoo did and copy/pasted it. 
+   It would be better to link both forms to the same stylesheet I think, but this works for now */
+
+/* ==========================================================================
    #GRID
    ========================================================================== */
 .row {
@@ -20,14 +23,14 @@
     justify-content: space-between;
 }
 
-.col-6 {
+.col-2 {
     width: -webkit-calc((100% - 60px) / 2);
     width: -moz-calc((100% - 60px) / 2);
     width: calc((100% - 60px) / 2);
 }
 
 @media (max-width: 767px) {
-    .col-6 {
+    .col-2 {
         width: 100%;
     }
 }
@@ -37,6 +40,7 @@
    ========================================================================== */
 /**
  * More sensible default box-sizing:
+ * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
  */
 html {
     -webkit-box-sizing: border-box;
@@ -49,18 +53,18 @@ html {
     margin: 0;
 }
 
-*, *:before, *:after {
-    -webkit-box-sizing: inherit;
-    -moz-box-sizing: inherit;
-    box-sizing: inherit;
-}
+    *, *:before, *:after {
+        -webkit-box-sizing: inherit;
+        -moz-box-sizing: inherit;
+        box-sizing: inherit;
+    }
+
 
 body {
     /*font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
     font-weight: 400;
     font-size: 14px;*/
 }
-
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
@@ -90,6 +94,18 @@ h6 {
     font-size: 13px;
 }
 
+/* Hide the spinner in Webkit browsers */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide the spinner in Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 /* ==========================================================================
    #BACKGROUND
    ========================================================================== */
@@ -111,135 +127,17 @@ h6 {
 .p-b-100 {
     padding-bottom: 100px;
 }
+
 /* ==========================================================================
    #WRAPPER
    ========================================================================== */
 .wrapper {
     margin: 80px auto;
+    padding-bottom: 150px;
 }
 
 .wrapper--w680 {
     max-width: 680px;
-}
-
-/* ==========================================================================
-   #Form Structure
-   ========================================================================== */
-.form {
-    overflow: hidden;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    background: #fff;
-}
-
-.form-1 {
-    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-}
-
-.form-1 .form-body {
-    padding: 0 90px;
-    padding-top: 55px;
-    padding-bottom: 65px;
-}
-
-@media (max-width: 767px) {
-    .form-1 .form-body {
-        padding: 0 40px;
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
-}
-
-/* ==========================================================================
-   #TITLE
-   ========================================================================== */
-.title {
-    margin-bottom: 37px;
-}
-
-/* ==========================================================================
-   #Input Fields
-   ========================================================================== */
-input {
-    outline: none;
-    margin: 0;
-    border: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    /* width: 100%; */ /* comment it out because it was causing the input fields to be too wide */
-    font-size: 14px;
-    font-family: inherit;
-}
-
-.input-fields {
-    position: relative;
-    margin-bottom: 30px;
-}
-
-.input--style-1 {
-    padding: 9px 0;
-    color: #666;
-    border: none;
-}
-
-.input--style-radio-group {
-    padding: 0px;
-    color: #666;
-    border: none;
-}
-
-.div-line {
-    border-top: 2px solid #ccc;
-}
-
-.input--style-1::-webkit-input-placeholder {
-    /* WebKit, Blink, Edge */
-    color: #555;
-}
-
-.input--style-1:-moz-placeholder {
-    /* Mozilla Firefox 4 to 18 */
-    color: #555;
-    opacity: 1;
-}
-
-.input--style-1::-moz-placeholder {
-    /* Mozilla Firefox 19+ */
-    color: #555;
-    opacity: 1;
-}
-
-.input--style-1:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: #555;
-}
-
-.input--style-1:-ms-input-placeholder {
-    /* Microsoft Edge */
-    color: #555;
-}
-
-label.radio-label-style {
-    margin-bottom: 0px;
-    margin-right: 1rem;
-    padding: 9px 0;
-}
-
-input.radio-style {
-    position: static;
-    margin-left: 0rem;
-    margin-top: 0rem;
-}
-
-/* ==========================================================================
-   #SPACING
-   ========================================================================== */
-.p-t-20 {
-    padding-top: 20px;
 }
 
 /* ==========================================================================
@@ -266,9 +164,326 @@ input.radio-style {
 .btn--submit:hover, .btn--cancel:hover {
     animation: thickenBorder 0.1s ease-out forwards; /* Apply the keyframe animation on hover */
 }
+/* ==========================================================================
+   #Input Fields
+   ========================================================================== */
+input {
+    outline: none;
+    margin: 0;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    /* width: 100%; */ /* comment it out because it was causing the input fields to be too wide */
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.input-fields {
+    position: relative;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ccc;
+}
+
+.input-icon {
+    position: absolute;
+    font-size: 18px;
+    color: #ccc;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.input--style-1 {
+    padding: 9px 0;
+    color: #666;
+    border: none;
+    width: 100%;
+}
+
+    .input--style-1::-webkit-input-placeholder {
+        /* WebKit, Blink, Edge */
+        color: #555;
+    }
+
+    .input--style-1:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #555;
+        opacity: 1;
+    }
+
+    .input--style-1::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #555;
+        opacity: 1;
+    }
+
+    .input--style-1:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: #555;
+    }
+
+    .input--style-1:-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: #555;
+    }
+
+/* ==========================================================================
+   #TITLE
+   ========================================================================== */
+.title {
+    margin-bottom: 37px;
+}
+
+/* ==========================================================================
+   #CARD
+   ========================================================================== */
+.card {
+    overflow: hidden;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.card-1 {
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+    /*    .card-1 .card-heading {
+        background: url("../images/bg-head-02.jpg") center center/cover no-repeat;
+        padding-top: 210px;
+    }*/
+
+    .card-1 .card-body {
+        padding: 0 90px;
+        padding-top: 55px;
+        padding-bottom: 65px;
+    }
+
+@media (max-width: 767px) {
+    .card-1 .card-body {
+        padding: 0 40px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
+
+/* ==========================================================================
+   #BUTTON
+   ========================================================================== */
+.btn {
+    line-height: 36px;
+    display: inline-block;
+    padding: 0 16px;
+    cursor: pointer;
+    color: #840029; /* Maroon color for text */
+    font-size: 12px;
+    font-weight: 700;
+    border: 2px solid #840029; /* Initial border thickness */
+    background-color: transparent; /* Transparent background */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 5px;
+    border-radius: 25px; /* Rounded corners */
+    transition: all 0.1s ease-out; /* Smooth transition for all properties */
+    animation: none;
+}
+
+.btn--submit:hover {
+    animation: thickenBorder 0.1s ease-out forwards; /* Apply the keyframe animation on hover */
+}
 
 /* Keyframes for border thickening animation */
 @keyframes thickenBorder {
     to {
         border-width: 3px; /* Target a thicker border */
     }
+}
+
+/* ==========================================================================
+   #Validation
+   ========================================================================== */
+
+
+.validation-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: none; /* Hide by default */
+}
+
+    .validation-message:before {
+        content: "\26A0";
+        color: red;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+/* ==========================================================================
+   #Select Route Section Styles
+   ========================================================================== */
+
+.route-location-schedule {
+    padding: 0px 15px;
+}
+
+/* Styling for the route selection title */
+.radio-route-type .route-type {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* General styling for radio button options within the route selection */
+#routeOptions {
+    display: flex;
+    flex-direction: column; /* Stack options vertically for clarity */
+    margin-bottom: 15px; /* Space below the options */
+    font-size: 13px;
+}
+
+/* Style for individual radio buttons - assuming you add class 'route-option' to each radio input */
+.route-option {
+    margin: 5px 0; /* Space between radio buttons */
+    cursor: pointer;
+    position: relative;
+}
+
+/* Styling for the route information text to match other form info texts */
+.radio-route-type .route-info {
+    display: none;
+}
+
+/* Style for individual radio buttons and labels */
+.radio-route-options label {
+    display: flex;
+    align-items: center; /* Aligns the radio button and label text vertically */
+    margin-bottom: 1px;
+}
+
+.radio-route-options input[type="radio"] {
+    margin-right: 10px; /* Space between radio button and label text */
+}
+
+/* Ensure that the label text wraps correctly next to the radio button */
+.radio-route-options label span {
+    display: inline-block;
+    margin-right: auto;
+}
+
+
+/* Adjustments for smaller screens, if necessary */
+@media (max-width: 767px) {
+    #routeOptions {
+        flex-direction: column; /* Ensure vertical stacking on small screens */
+    }
+
+    .route-schedule {
+        padding: 0px 10px; /* Adjust padding for smaller screens */
+    }
+}
+
+
+/* For the response request */
+.typetrip {
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.radio-options label {
+    margin: 5px; /* Space between the label and the radio buttons */
+}
+
+/* ==========================================================================
+   #Submission Success Message
+   ========================================================================== */
+
+.modal-backdrop.show {
+    opacity: 0.5;
+}
+
+/* Modal Dialog */
+.modal-dialog {
+    margin-top: 10vh;
+}
+
+/* Modal Content */
+.modal-content {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Header */
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    padding: 1rem 2rem;
+}
+
+    .modal-header .modal-title {
+        font-weight: 600;
+    }
+
+    .modal-header .close {
+        font-size: 1.4rem;
+    }
+
+/* Modal Body */
+.modal-body {
+    padding: 2rem;
+}
+
+/* Modal Footer */
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    padding: 1rem 2rem;
+}
+/* ==========================================================================
+   #Final Confirmation Styles
+   ========================================================================== */
+
+.modal-content {
+    border-radius: 0.5rem; /* Smooth rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.modal-header {
+    padding: 1rem; /* Comfortable padding around the header */
+    border-bottom: 1px solid #e9ecef; /* Light border for a subtle separation */
+    background-color: #fff; /* Keeping it clean and white */
+}
+
+.modal-title {
+    font-size: 1.25rem; /* Appropriately sized title */
+    color: #840029;
+    font-weight: bold;
+    margin: 0; /* No additional margin to keep things tight */
+}
+
+.modal-body {
+    background-color: white; /*White background for the modal body */
+    color: #333; /* Dark text for readability */
+    line-height: 1.5; /*Spacing between lines*/
+}
+
+
+/* Add some margin to the top of the modal for aesthetics */
+.modal-dialog {
+    margin-top: 5%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin-top: 20%; /*More top margin on smaller screens*/
+    }
+}
+
+
