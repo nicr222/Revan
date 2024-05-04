@@ -31,7 +31,7 @@
                             <div class="row row-space">
                                 <div class="col-6">
                                     <div class="input-fields">
-                                        <p class="typetrip">Pick-up Location</p>
+                                        <p class="typetrip pb-3">Pick-up Location</p>
                                         <select asp-for="LocationId"
                                                 asp-items="ViewBag.Locations"
                                                 class="form-control input--style-1" required>
@@ -47,18 +47,30 @@
 
                                 <div class="col-6">
                                     <div class="input-fields">
-                                        <p class="typetrip">Is this your first time riding?</p>
-                                        <div class="radio-options">
+                                        <p class="typetrip">First time?</p>
+                                        <div class="radio-route-options">
+                                            
                                             <input asp-for="FirstTime" type="radio" value="true" class="form-check-input radio-style input--style-1" id="newRiderYes" required />
-                                            <label class="radio-label-style" for="newRiderYes">Yes</label>
+                                            <label for="newRiderYes">Yes</label>
+                                            
                                             <input asp-for="FirstTime" type="radio" value="false" class="form-check-input radio-style input--style-1" id="newRiderNo" required />
-                                            <label class="radio-label-style" for="newRiderNo">No</label>
+                                            <label for="newRiderNo">No</label>
                                             <div class="div-line pt-1"></div>
                                             <div class="invalid-feedback">
                                                 Must select one
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="input-fields">
+                                <p class="typetrip">Enter Time</p>
+                                
+                                <input asp-for="Date" type="time" class="form-control input--style-1" id="checkInTime" />
+                                <div class="div-line"></div>
+                                <div class="invalid-feedback">
+                                    Max 255 characters
                                 </div>
                             </div>
 
