@@ -45,6 +45,7 @@ namespace MidStateShuttleService.Controllers
                 try
                 {
                     CommunicationServices cs = new CommunicationServices(_context);
+                    c.IsActive = true;
                     cs.AddEntity(c);
 
                     RegisterServices rs = new RegisterServices(_context);
@@ -101,6 +102,7 @@ namespace MidStateShuttleService.Controllers
                 try
                 {
                     MessageServices ms = new MessageServices(_context);
+                    c.IsActive = true;
                     ms.AddEntity(c);
 
                     // Increment the message count in the session

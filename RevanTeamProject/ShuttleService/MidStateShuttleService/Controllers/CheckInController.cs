@@ -56,6 +56,7 @@ namespace MidStateShuttleService.Controllers
             //date
             checkIn.Date = DateTime.Now;
             CheckInServices cs = new CheckInServices(_context);
+            checkIn.IsActive = true;
             cs.AddEntity(checkIn);
 
             // Increment the check-in count in the session

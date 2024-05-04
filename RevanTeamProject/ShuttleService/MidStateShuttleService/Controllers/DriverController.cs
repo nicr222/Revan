@@ -50,6 +50,7 @@ namespace MidStateShuttleService.Controllers
             try
             {
                 DriverServices ds = new DriverServices(_context);
+                driver.IsActive = true;
                 ds.AddEntity(driver);
 
                 TempData["SuccessMessage"] = "The driver has been successfully created!";

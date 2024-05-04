@@ -65,6 +65,7 @@ namespace MidStateShuttleService.Controllers
 
             if (ModelState.IsValid)
             {
+                model.IsActive = true; // Set IsActive to true
                 if (rs.AddEntity(model))
                 {
                     // Increment the registration count in the session

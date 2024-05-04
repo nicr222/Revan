@@ -43,6 +43,7 @@ namespace MidStateShuttleService.Controllers
             try
             {
                 LocationServices ls = new LocationServices(_context);
+                location.IsActive = true;
                 ls.AddEntity(location);
 
                 TempData["SuccessMessage"] = "The location has been successfully created!";
