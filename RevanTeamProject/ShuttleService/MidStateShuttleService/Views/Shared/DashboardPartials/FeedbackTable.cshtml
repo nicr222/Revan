@@ -11,6 +11,7 @@
             <td>Rating</td>
             <td>Share Testimonial</td>
             <td>Date Submitted</td>
+            <td>Is Active</td>
             <td>Actions</td>
         </tr>
     </thead>
@@ -39,6 +40,7 @@
                     <td>@feedback.Rating</td>
                     <td>@(feedback.DisplayTestimonial ? "Yes" : "No")</td>
                     <td>@feedback.DateSubmitted.ToString("yyyy-MM-dd")</td>
+                    <td>@feedback.IsActive.ToString()</td>
                     <td>
                         <a class="viewButton" href="#"
                            data-toggle="modal"
