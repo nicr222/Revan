@@ -69,38 +69,7 @@
 
 
 
-                    <div class="student-info">
-                        <p class="student-info-label">Student Information</p>
-                            <div class="row row-space">
-                                <div class="col-6">
-                                    <div class="input-fields">
-                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
-                                        <div class="form-line"></div>
-                                        <div id="FirstName-validation-message" class="validation-message">Must be characters</div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="input-fields">
-                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name" } })
-                                        <div class="form-line"></div>
-                                        <div id="LastName-validation-message" class="validation-message">Must be characters</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="input-fields">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Email" } })
-                                <div class="form-line"></div>
-                                <div id="Email-validation-message" class="validation-message">Must be characters</div>
-                            </div>
-                            <p class="student-email">*Your shuttle reservation confirmation will be sent to this email address.</p>
-
-                            <div class="input-fields">
-                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number" } })
-                                <div class="form-line"></div>
-                                <div id="PhoneNumber-validation-message" class="validation-message">Must be 10 digits</div>
-                            </div>
-                    </div>
+                    
 
                     <div class="Route-schedule">
                         <div class="input-fields">
@@ -474,6 +443,39 @@
                                 </div>
                                 <div id="FridayAgreeTerms-validation-message" class="validation-message">You must agree to terms</div>
 
+                            </div>
+                        </div>
+
+                        <div class="student-info">
+                            <p class="student-info-label">Student Information</p>
+                            <div class="row row-space">
+                                <div class="col-6">
+                                    <div class="input-fields">
+                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
+                                        <div class="form-line"></div>
+                                        <div id="FirstName-validation-message" class="validation-message">Must be characters</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-fields">
+                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name" } })
+                                        <div class="form-line"></div>
+                                        <div id="LastName-validation-message" class="validation-message">Must be characters</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-fields">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Email" } })
+                                <div class="form-line"></div>
+                                <div id="Email-validation-message" class="validation-message">Must be characters</div>
+                            </div>
+                            <p class="student-email">*Your shuttle reservation confirmation will be sent to this email address.</p>
+
+                            <div class="input-fields">
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Phone Number" } })
+                                <div class="form-line"></div>
+                                <div id="PhoneNumber-validation-message" class="validation-message">Must be 10 digits</div>
                             </div>
                         </div>
 
