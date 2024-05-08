@@ -160,7 +160,7 @@ namespace MidStateShuttleService.Controllers
                     uniqueRegisterIds.Add(passenger.RegistrationId);
                 }
             }
-
+            ViewBag.PassengerList = _context.RegisterModels.ToList();
             var pickupLocation = route.ToStringPickUp();
             var dropOffLocation = route.ToStringDropOff();
 

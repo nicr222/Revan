@@ -1,20 +1,21 @@
 ﻿// Function to show modal with filtered riders
 function showFilteredModal(filteredRiders) {
-    var modalBody = document.getElementById('filteredData');
+    var modalBody = document.getElementById('modalPassengerList');
     modalBody.innerHTML = ''; // Clear previous data
 
     filteredRiders.forEach(function (rider) {
-        var row = document.createElement('tr');
+        var row = document.createElement('div');
+        row.className = 'row table-left-border table-right-border';
         row.innerHTML = `
-            <td>${rider.name}</td>
-            <td>${rider.phoneNumber}</td>
-            <td><a href="mailto:${rider.email}">${rider.email}</a></td>
+            <div class="col table-top-border center-col">${rider.name}</div>
+            <div class="col table-left-border table-top-border center-col">${rider.email}</div>
+            <div class="col table-top-border center-col">${rider.phoneNumber}</div>
         `;
         modalBody.appendChild(row);
     });
 
     // Show the modal
-    $('#filteredModal').modal('show');
+    $('#routeSchedual').modal('show');
 }
 
 // Function to filter table rows based on selected day
@@ -63,16 +64,31 @@ document.getElementById('printButton').addEventListener('click', function () {
     showFilteredModal(filteredRiders);
 });
 
-// Add event listener to the "Print" button
-document.getElementById('printModalButton').addEventListener('click', function () {
-    printModalContent();
-});
+// Event listener for Print button in the modal
+// Update the event listener to target the correct button by its id
+document.getElementById("printModalButton").onclick = function () {
+    printElement(document.getElementById("printThis"));
+};
 
-// Function to print modal content
-function printModalContent() {
-    var modalContent = document.getElementById('filteredModal').innerHTML;
-    var originalBody = document.body.innerHTML;
-    document.body.innerHTML = modalContent;
+function printElement(elem) {
+    // Clone the modal content along with its styles
+    var domClone = elem.cloneNode(true);
+
+    // Create a new div to hold the cloned content
+    var $printSection = document.createElement("div");
+    $printSection.id = "printSection";
+
+    // Append the cloned content to the new div
+    $printSection.appendChild(domClone);
+
+    // Append the new div to the body
+    document.body.appendChild($printSection);
+
+    // Print the contents
     window.print();
-    document.body.innerHTML = originalBody;
+
+    // Remove the temporary div after printing
+    setTimeout(function () {
+        document.body.removeChild($printSection);
+    }, 500); // Adjust the timeout as needed to ensure the content is removed after printing
 }
