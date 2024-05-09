@@ -82,7 +82,7 @@ namespace MidStateShuttleService.Controllers
                     es.SendEmail(
                     model.Email,
                     "MSTC Shuttle Service Registration",
-                    "Your registration for the MSTC shuttle service was confirmed!"
+                    "Your registration for the MSTC shuttle service was confirmed! For any questions, please call or text the following number: 715-581-9284"
                     );
 
                     return RedirectToAction("Index");
