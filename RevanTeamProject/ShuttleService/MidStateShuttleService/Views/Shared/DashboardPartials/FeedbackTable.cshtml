@@ -39,7 +39,7 @@
                     </td>
                     <td>@feedback.Rating</td>
                     <td>@(feedback.DisplayTestimonial ? "Yes" : "No")</td>
-                    <td>@feedback.DateSubmitted.ToString("yyyy-MM-dd")</td>
+                    <td>@feedback.DateSubmitted.ToString("MM-dd-yyyy")</td>
                     <td>@feedback.IsActive.ToString()</td>
                     <td>
                         <a class="viewButton" href="#"
@@ -50,7 +50,7 @@
                            data-comment="@feedback.Comment"
                            data-rating="@feedback.Rating"
                            data-share-testimonial="@(feedback.DisplayTestimonial ? "Yes" : "No")"
-                           data-date-submitted="@feedback.DateSubmitted.ToString("yyyy-MM-dd")">View</a>
+                           data-date-submitted="@feedback.DateSubmitted.ToString("MM-dd-yyyy")">View</a>
                         @* <a class="button button-accept" asp-controller="Home" asp-action="Accept" asp-route-id="@feedback.FeedbackId">Accept</a>
                         <a class="button button-reject" asp-controller="Home" asp-action="Reject" asp-route-id="@feedback.FeedbackId">Reject</a> *@
                         <a href="@Url.Action("AcceptFeedback", "Dashboard", new { id = feedback.FeedbackId })" class="button button-accept">Accept</a>
