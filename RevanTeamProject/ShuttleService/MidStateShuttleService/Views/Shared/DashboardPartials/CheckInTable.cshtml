@@ -41,7 +41,7 @@
             {
                 <tr class="checkRow">
                     <td>@checkIn.Name</td>
-                    <td>@checkIn.Date.ToShortDateString()</td>
+                    <td>@checkIn.Date.ToString()</td>
                     <td>@checkIn.Location.CheckInName()</td>
                     @if (@checkIn.Comments != null)
                     {
@@ -52,7 +52,7 @@
                         <td>No Comments</td>
                     }
                     <td>@(checkIn.FirstTime ? "Yes" : "No")</td>
-                    <td>@checkIn.Date.ToString()</td>
+                    <td>@checkIn.IsActive.ToString()</td>
                     <td><a asp-controller="CheckIn" asp-action="EditCheckIn" asp-route-id="@checkIn.CheckInId">Edit</a></td>
                     <td><a asp-controller="CheckIn" asp-action="DeleteCheckIn" asp-route-id="@checkIn.CheckInId">Delete</a></td>
                 </tr>

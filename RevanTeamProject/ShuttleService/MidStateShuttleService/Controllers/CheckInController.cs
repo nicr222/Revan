@@ -80,6 +80,7 @@ namespace MidStateShuttleService.Controllers
                 return FailedCheckIn("Updates to check in could not be applied");
 
             //not all values comming over from form
+            checkIn.IsActive = true;
             cs.UpdateEntity(checkIn);
 
             return RedirectToAction("Index", "Dashboard");
