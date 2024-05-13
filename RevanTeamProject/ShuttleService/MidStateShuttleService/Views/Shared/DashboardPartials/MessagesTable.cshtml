@@ -27,33 +27,36 @@
         {
             @foreach (var message in Model.Message.OrderByDescending(m => m.id))
             {
-                <tr id="messageRow">
-                    <td>@message.name</td>
-                    <td>
-                        @if (message.message.Length > 10)
-                        {
-                            @message.message.Substring(0, 10) <!-- Displaying only the first 10 characters -->
-                            <span class="ellipsis">...</span> <!-- Ellipsis span, hidden visually -->
-                        }
-                        else
-                        {
-                            @message.message
-                        }
-                    </td>
-                    <!-- Displaying only the first 10 characters of the message -->
-                    <td>@(message.responseRequired ? "Yes" : "No")</td>
-                    <td>@(string.IsNullOrEmpty(message.contactInfo) ? "N/A" : message.contactInfo)</td>
-                    <td>
-                        <a class="viewButton" href="#"
-                           data-toggle="modal"
-                           data-target="#messageDetailsModal"
-                           data-message-id="@message.id"
-                           data-full-message="@message.message">View</a>
-                    </td>
-                    <td>
-                        <a asp-controller="Message" asp-action="Delete" asp-route-id="@message.id">Read</a>
-                    </td>
-                </tr>
+                if(message.IsActive == true)
+                {
+                    <tr id="messageRow">
+                        <td>@message.name</td>
+                        <td>
+                            @if (message.message.Length > 10)
+                            {
+                                @message.message.Substring(0, 10) <!-- Displaying only the first 10 characters -->
+                                <span class="ellipsis">...</span> <!-- Ellipsis span, hidden visually -->
+                            }
+                            else
+                            {
+                                @message.message
+                            }
+                        </td>
+                        <!-- Displaying only the first 10 characters of the message -->
+                        <td>@(message.responseRequired ? "Yes" : "No")</td>
+                        <td>@(string.IsNullOrEmpty(message.contactInfo) ? "N/A" : message.contactInfo)</td>
+                        <td>
+                            <a class="viewButton" href="#"
+                                data-toggle="modal"
+                                data-target="#messageDetailsModal"
+                                data-message-id="@message.id"
+                                data-full-message="@message.message">View</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Communicate" asp-action="Delete" asp-route-id="@message.id">Read</a>
+                        </td>
+                    </tr>
+                }               
             }
 
         }
