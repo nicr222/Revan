@@ -26,9 +26,8 @@
             <td>State</td>
             <td>Zip Code</td>
             <td>Abbreviation</td>
-            <td>Active?</td>
-            <td>Update</td>
-            <td>Delete</td>
+            <td>Status</td>
+            <td>Action</td>
         </tr>
     </thead>
     <tbody id="locationsTableBody">
@@ -47,9 +46,18 @@
                     <td>@location.State</td>
                     <td>@location.ZipCode</td>
                     <td>@location.Abbreviation</td>
-                    <td>@location.IsActive.ToString()</td>
-                    <td><a asp-controller="Location" asp-action="Edit" asp-route-id="@location.LocationId">Edit</a></td>
-                    <td><a asp-controller="Location" asp-action="DeleteLocation" asp-route-id="@location.LocationId">Delete</a></td>
+                    <td>
+                        @if (location.IsActive)
+                        {
+                            <span>Active</span>
+                        }
+                        else
+                        {
+                            <span>Inactive</span>
+                        }
+                    </td>
+                    <td><a asp-controller="Location" asp-action="Edit" asp-route-id="@location.LocationId">Update</a></td>
+                    <td><a asp-controller="Location" asp-action="DeleteLocation" asp-route-id="@location.LocationId">Remove</a></td>
                 </tr>
             }
         }

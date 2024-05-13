@@ -24,9 +24,8 @@
             <td>Name</td>
             <td>Phone Number</td>
             <td>Email</td>
-            <td>Is active</td>
-            <td>Update</td>
-            <td>Delete</td>
+            <td>Status</td>
+            <td>Actions</td>
         </tr>
     </thead>
     <tbody id="driverTableBody">
@@ -42,9 +41,18 @@
                     <td>@d.Name</td>
                     <td>@d.PhoneNumber</td>
                     <td>@d.Email</td>
-                    <td>@d.IsActive.ToString()</td>
-                    <td><a asp-controller="Driver" asp-action="Edit" asp-route-id="@d.DriverId">Edit</a></td>
-                    <td><a asp-controller="Driver" asp-action="Delete" asp-route-id="@d.DriverId">Delete</a></td>
+                    <td>
+                        @if (d.IsActive)
+                        {
+                            <span>Active</span>
+                        }
+                        else
+                        {
+                            <span>Inactive</span>
+                        }
+                    </td>
+                    <td><a asp-controller="Driver" asp-action="Edit" asp-route-id="@d.DriverId">Update</a></td>
+                    <td><a asp-controller="Driver" asp-action="Delete" asp-route-id="@d.DriverId">Remove</a></td>
                 </tr>
             }
         }
