@@ -25,9 +25,7 @@
             <td>Pick Up Location</td>
             <td>Comments</td>
             <td>First Time?</td>
-            <td>Is Active</td>
-            <td>Update</td>
-            <td>Delete</td>
+            <td>Actions</td>
         </tr>
     </thead>
     <tbody id="checkInsTableBody">
@@ -39,23 +37,25 @@
         {
             @foreach (var checkIn in Model.CheckIn.OrderByDescending(c => c.CheckInId))
             {
-                <tr class="checkRow">
-                    <td>@checkIn.Name</td>
-                    <td>@checkIn.Date.ToString()</td>
-                    <td>@checkIn.Location.CheckInName()</td>
-                    @if (@checkIn.Comments != null)
-                    {
-                        <td>@checkIn.Comments</td>
-                    }
-                    else
-                    {
-                        <td>No Comments</td>
-                    }
-                    <td>@(checkIn.FirstTime ? "Yes" : "No")</td>
-                    <td>@checkIn.IsActive.ToString()</td>
-                    <td><a asp-controller="CheckIn" asp-action="EditCheckIn" asp-route-id="@checkIn.CheckInId">Edit</a></td>
-                    <td><a asp-controller="CheckIn" asp-action="DeleteCheckIn" asp-route-id="@checkIn.CheckInId">Delete</a></td>
-                </tr>
+                if(checkIn.IsActive == true)
+                {
+                    <tr class="checkRow">
+                        <td>@checkIn.Name</td>
+                        <td>@checkIn.Date.ToString()</td>
+                        <td>@checkIn.Location.CheckInName()</td>
+                        @if (@checkIn.Comments != null)
+                        {
+                            <td>@checkIn.Comments</td>
+                        }
+                        else
+                        {
+                            <td>No Comments</td>
+                        }
+                        <td>@(checkIn.FirstTime ? "Yes" : "No")</td>
+                        <td><a asp-controller="CheckIn" asp-action="EditCheckIn" asp-route-id="@checkIn.CheckInId">Update</a></td>
+                        <td><a asp-controller="CheckIn" asp-action="DeleteCheckIn" asp-route-id="@checkIn.CheckInId">Remove</a></td>
+                    </tr>
+                }
             }
         }
     </tbody>
