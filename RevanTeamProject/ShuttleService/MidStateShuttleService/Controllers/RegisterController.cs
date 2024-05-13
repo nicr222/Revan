@@ -115,7 +115,9 @@ namespace MidStateShuttleService.Controllers
         public ActionResult GetRoutes(int pickUpLocationId, int dropOffLocationId)
         {
             RouteServices rs = new RouteServices(_context);
-            var routesList = rs.GetRoutesByLocations(pickUpLocationId, dropOffLocationId); // List to hold the route options
+            // This call will now also check the IsActive property of each route
+            var routesList = rs.GetRoutesByLocations(pickUpLocationId, dropOffLocationId)
+                               .Where(route => route.IsActive).ToList(); // Filte
             LocationServices ls = new LocationServices(_context);
 
             var formattedRoutesList = new List<object>();
