@@ -104,6 +104,8 @@ namespace MidStateShuttleService.Controllers
 
             try
             {
+                
+                driver.IsActive = true; // Set IsActive to true
                 // Update the driver in the database
                 _context.Update(driver);
                 _context.SaveChanges();
