@@ -104,6 +104,7 @@ namespace MidStateShuttleService.Controllers
 
             try
             {
+                updatedRoute.IsActive = true;
                 _context.Update(updatedRoute);
                 _context.SaveChanges();
 

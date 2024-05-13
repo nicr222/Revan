@@ -84,6 +84,7 @@ namespace MidStateShuttleService.Controllers
 
             try
             {
+                model.IsActive = true;
                 ls.UpdateEntity(model);
                 HttpContext.Session.SetString("LocationSuccess", "true");
                 TempData["LocationSuccess"] = true;

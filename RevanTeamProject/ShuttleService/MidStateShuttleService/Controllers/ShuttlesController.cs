@@ -108,6 +108,7 @@ namespace MidStateShuttleService.Controllers
 
             try
             {
+                bus.IsActive = true;
                 _context.Update(bus);
                 _context.SaveChanges();
 

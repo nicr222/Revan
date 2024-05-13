@@ -199,6 +199,7 @@ namespace MidStateShuttleService.Controllers
             try
             {
                 // Update the student in the database
+                student.IsActive = true; // Set IsActive to true
                 _context.Update(student);
                 _context.SaveChanges();
 
