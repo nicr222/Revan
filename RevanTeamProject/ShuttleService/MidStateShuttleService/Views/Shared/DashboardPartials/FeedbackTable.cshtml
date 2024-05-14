@@ -11,19 +11,20 @@
             <td>Rating</td>
             <td>Share Testimonial</td>
             <td>Date Submitted</td>
+            <td>Is Active</td>
             <td>Actions</td>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="feedbackTableBody">
         @if (Model.Feedback == null)
         {
             <tr><td colspan="5" class="text-center">There are Currently No Feedbacks</td></tr>
         }
         else
         {
-            @foreach (var feedback in Model.Feedback)
+            @foreach (var feedback in Model.Feedback.OrderByDescending(f => f.FeedbackId))
             {
-                <tr>
+                <tr id="feedbackRow">
                     <td>@feedback.CustomerName</td>
                     <td>
                         @if (feedback.Comment.Length > 10)
@@ -38,7 +39,8 @@
                     </td>
                     <td>@feedback.Rating</td>
                     <td>@(feedback.DisplayTestimonial ? "Yes" : "No")</td>
-                    <td>@feedback.DateSubmitted.ToString("yyyy-MM-dd")</td>
+                    <td>@feedback.DateSubmitted.ToString("MM-dd-yyyy")</td>
+                    <td>@feedback.IsActive.ToString()</td>
                     <td>
                         <a class="viewButton" href="#"
                            data-toggle="modal"
@@ -48,7 +50,7 @@
                            data-comment="@feedback.Comment"
                            data-rating="@feedback.Rating"
                            data-share-testimonial="@(feedback.DisplayTestimonial ? "Yes" : "No")"
-                           data-date-submitted="@feedback.DateSubmitted.ToString("yyyy-MM-dd")">View</a>
+                           data-date-submitted="@feedback.DateSubmitted.ToString("MM-dd-yyyy")">View</a>
                         @* <a class="button button-accept" asp-controller="Home" asp-action="Accept" asp-route-id="@feedback.FeedbackId">Accept</a>
                         <a class="button button-reject" asp-controller="Home" asp-action="Reject" asp-route-id="@feedback.FeedbackId">Reject</a> *@
                         <a href="@Url.Action("AcceptFeedback", "Dashboard", new { id = feedback.FeedbackId })" class="button button-accept">Accept</a>
@@ -59,6 +61,9 @@
         }
     </tbody>
 </table>
+<div id="pagination-controls-feedback" class="pagination">
+    <!-- Pagination buttons will be created by JavaScript here -->
+</div>
 <div class="modal fade" id="feedbackDetailsModal" tabindex="-1" role="dialog" aria-labelledby="feedbackDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -79,6 +84,9 @@
         </div>
     </div>
 </div>
+
+
+<script src="~/js/tablePagination.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/Dashboard/FeedbackModal.js"></script>

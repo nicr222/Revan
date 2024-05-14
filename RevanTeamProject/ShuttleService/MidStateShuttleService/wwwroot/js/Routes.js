@@ -32,7 +32,7 @@
         isValidForm &= validateInput($('#DropOffTime'), /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'DropOffTime-validation-message');
 
         // Validate Additional Details
-        isValidForm &= validateInput($('#AdditionalDetails'), /^[a-zA-Z0-9.,!?'";:@#$%^&*()_+=\-\/]{0,500}$/, 'AdditionalDetails-validation-message');
+        isValidForm &= validateInput($('#AdditionalDetails'), /^[a-zA-Z0-9.,!?'";:@#$%^&*()_+=\-\s\/]{0,500}$/, 'AdditionalDetails-validation-message');
 
         // Check if dropdowns have selected values
         if ($('#PickUpLocationID').val() === "") {
@@ -79,6 +79,6 @@
     });
 
     $('#AdditionalDetails').on('input', function () {
-        validateInput($(this), /^[a-zA-Z0-9.,!?'";:@#$%^&*()_+=\-\/]{0,500}$/, 'AdditionalDetails-validation-message');
+        validateInput($(this), /^[a-zA-Z0-9.,!?'";:@#$%^&*()_+=\-\s\/]{0,500}$/, 'AdditionalDetails-validation-message');
     });
 });

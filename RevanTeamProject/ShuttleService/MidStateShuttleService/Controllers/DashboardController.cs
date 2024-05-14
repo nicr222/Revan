@@ -160,7 +160,7 @@ namespace MidStateShuttleService.Controllers
                     uniqueRegisterIds.Add(passenger.RegistrationId);
                 }
             }
-
+            ViewBag.PassengerList = _context.RegisterModels.ToList();
             var pickupLocation = route.ToStringPickUp();
             var dropOffLocation = route.ToStringDropOff();
 
@@ -191,14 +191,13 @@ namespace MidStateShuttleService.Controllers
         {
             try
             {
-                var feedback = _context.Feedbacks.Find(id);
-
-
-
-                _context.Feedbacks.Remove(feedback);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index", "Dashboard"); // Redirect to Index after successful deletion
+                var feedback = await _context.Feedbacks.FindAsync(id);
+                if (feedback != null)
+                {
+                    feedback.IsActive = false;  // Set feedback as inactive
+                    await _context.SaveChangesAsync();
+                }
+                return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception ex)
             {

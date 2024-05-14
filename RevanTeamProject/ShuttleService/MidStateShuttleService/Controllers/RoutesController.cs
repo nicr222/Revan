@@ -56,6 +56,7 @@ namespace MidStateShuttleService.Controllers
         public ActionResult Create(Routes route)
         {
             RouteServices rs = new RouteServices(_context);
+            route.IsActive = true;
             rs.AddEntity(route);
 
             HttpContext.Session.SetString("RouteSuccess", "true");
@@ -103,6 +104,7 @@ namespace MidStateShuttleService.Controllers
 
             try
             {
+                updatedRoute.IsActive = true;
                 _context.Update(updatedRoute);
                 _context.SaveChanges();
 

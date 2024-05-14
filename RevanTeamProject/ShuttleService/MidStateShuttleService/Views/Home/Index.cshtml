@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Home Page";
+
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script defer src="~/js/homeScroll.js"></script>
@@ -56,39 +57,26 @@
 
 <a id="scroll-down"></a>
 
-<!--Section 1 Starts-->
 
-<section class="steps container-custom">
-    <div class="row">
-        <div class="col-12 col-sm-6 d-md-flex justify-content-md-center">
-            <img src="~/img/c2c.jpg" alt="Shuttle Image" class="img-fluid pb-4 steps_section-thumbnail" width="553" height="746" loading="lazy" />
-        </div>
-        <div class="col-12 col-sm-6 align-self-center justify-content-md-center">
-            <div class="stesp_content-width">
-                <span>01</span>
-                <h1 class="h2 mb-4">Reserve Your Spot</h1>
-                <p class="mb-4">Reserve your spot on the shuttle by registering online. It's quick and easy.  Reserve your spot on the shuttle by registering online. It's quick and easy. Reserve your spot on the shuttle by registering online. It's quick and easy.</p>
-                <a href="#" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!--Section 1 Ends-->
 <!--Section 2 Starts-->
 
 <section class="steps container-custom step-background">
     <div class="container-custom">
         <div class="row">
             <div class="col-12 col-sm-6 d-md-flex justify-content-md-center order-sm-1">
-                <img src="~/img/sideshuttle.jpg" alt="Shuttle Image" class="img-fluid pb-4 steps_section-thumbnail" width="553" height="746" loading="lazy" />
+                <img src="~/img/busImage.jpg" alt="Shuttle Image" class="img-fluid pb-4 steps_section-thumbnail" width="553" height="746" loading="lazy" />
             </div>
             <div class="col-12 col-sm-6 align-self-center justify-content-md-center">
                 <div class="stesp_content-width">
-                    <span>02</span>
-                    <h1 class="h2 mb-4">Share Your Feedback</h1>
-                    <p class="mb-4">We value your feedback. Share your experience with us and help us improve our service. We value your feedback. Share your experience with us and help us improve our service. We value your feedback. Share your experience with us and help us improve our service.</p>
-                    <a href="#" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
+                    <span>01</span>
+                    <h1 class="h2 mb-4">Reserve Your Spot</h1>
+                    <p class="mb-4">
+                        Reservations are recommended for current route schedule, but not required unless route is customized.</br></br>
+                        Reservations required for customized pick-up/drop-off locations, evening classes, and Fridays.
+                        </br></br>
+                        Additional stops along the route are available by request.
+                    </p>
+                    <a href="@Url.Action("Index", "Register")" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -105,14 +93,19 @@
         </div>
         <div class="col-12 col-sm-6 align-self-center justify-content-md-center">
             <div class="stesp_content-width">
-                <span>03</span>
+                <span>02</span>
                 <h1 class="h2 mb-4">Learn More!</h1>
-                <p class="mb-4">Learn more about our shuttle service and how it can help you get to and between campuses. Learn more about our shuttle service and how it can help you get to and between campuses. Learn more about our shuttle service and how it can help you get to and between campuses.</p>
-                <a href="#" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
+                <p class="mb-4">Save money and add valuable study time in your day while you ride.
+                    </br></br>
+                    <strong>FREE</strong> for all Mid-State students to attend class and school related activities.
+                    </br></br>
+                    <strong>FREE SNACKS</strong> are available for shuttle riders provided by Mission Coffee Rapids.
+                </p>
+                <a href="https://www.mstc.edu/shuttle" class="link-pages">Click here <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>
-</section>
+</section> 
 <!--Section 3 Ends-->
 <!-- Section 4 Start-->
 <section class="Three py-4 " style="background-color: #ebebeb;">
@@ -156,11 +149,11 @@
             <div class="form-group">
                 <label for="emojiRating">Satisfaction Level</label>
                 <div id="emojiRating" class="emoji-rating">
-                    <input id="emoji-1" type="radio" name="rating" value="1"><label for="emoji-1">😡</label>
-                    <input id="emoji-2" type="radio" name="rating" value="2"><label for="emoji-2">😠</label>
-                    <input id="emoji-3" type="radio" name="rating" value="3"><label for="emoji-3">😐</label>
-                    <input id="emoji-4" type="radio" name="rating" value="4"><label for="emoji-4">😊</label>
                     <input id="emoji-5" type="radio" name="rating" value="5"><label for="emoji-5">😄</label>
+                    <input id="emoji-4" type="radio" name="rating" value="4"><label for="emoji-4">😊</label>
+                    <input id="emoji-3" type="radio" name="rating" value="3"><label for="emoji-3">😐</label>
+                    <input id="emoji-2" type="radio" name="rating" value="2"><label for="emoji-2">😠</label>
+                    <input id="emoji-1" type="radio" name="rating" value="1"><label for="emoji-1">😡</label>
                     <div id="satisfaction-validation-message" class="validation-message">Please select your satisfaction level.</div>
                 </div>
             </div>
@@ -184,7 +177,7 @@
         <!-- Testimonials Section -->
         <div class="testimonials-container" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
             <div class="testimonials-header">
-                <h2>Discover why our customers love our services!</h2>
+                <h2>Discover why our riders love our services!</h2></br>
             </div>
             @foreach (var feedback in Model)
             {

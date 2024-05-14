@@ -11,6 +11,12 @@ html {
     scroll-behavior: smooth;
 }
 
+body {
+    /*font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    font-size: 14px;*/
+}
+
 /*custom contaienr*/
 .container-custom {
     width: 100%;
@@ -184,31 +190,9 @@ html {
     margin-top: 10px;
 }
 
-/* Adjust bottom margin of the last section to create space above the footer */
-.Three {
-    margin-bottom: 100px; /* Adjust this value as needed */
-}
 
-/* Alternatively, you can position the footer at the bottom of the page without overlapping content */
-footer {
-    background-color: #840029;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
 
-/* Adjusted styles for the footer container */
-.footerContainer {
-    padding: 20px 30px; /* Adjusted padding */
-}
 
-/* Adjusted styles for the footer bottom section */
-.footerBottom {
-    background-color: black;
-    padding: 20px;
-    text-align: center;
-    color: #840029; /* Adjusted text color */
-}
 
 
 /* Route Schedule table */
@@ -331,5 +315,17 @@ footer {
         margin: 0 !important;
         padding: 0 !important;
         overflow: hidden;
+    }
+}
+
+@media (max-width: 543px) {
+    .steps {
+        opacity: 1;
+        transform: translateX(0);
+        transition: none; /* Disable transition on mobile */
+    }
+
+    .steps_section-thumbnail {
+        height: 240px; /* Adjusted height for smaller screens */
     }
 }

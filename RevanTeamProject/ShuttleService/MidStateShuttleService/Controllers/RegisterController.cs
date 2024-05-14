@@ -65,6 +65,7 @@ namespace MidStateShuttleService.Controllers
 
             if (ModelState.IsValid)
             {
+                model.IsActive = true; // Set IsActive to true
                 if (rs.AddEntity(model))
                 {
                     // Increment the registration count in the session
@@ -110,10 +111,13 @@ namespace MidStateShuttleService.Controllers
 
         //retrieves route options based on selected pick-up and drop-off locations from a database and returns them as JSON.
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult GetRoutes(int pickUpLocationId, int dropOffLocationId)
         {
             RouteServices rs = new RouteServices(_context);
-            var routesList = rs.GetRoutesByLocations(pickUpLocationId, dropOffLocationId); // List to hold the route options
+            // This call will now also check the IsActive property of each route
+            var routesList = rs.GetRoutesByLocations(pickUpLocationId, dropOffLocationId)
+                               .Where(route => route.IsActive).ToList(); // Filte
             LocationServices ls = new LocationServices(_context);
 
             var formattedRoutesList = new List<object>();
@@ -122,11 +126,11 @@ namespace MidStateShuttleService.Controllers
                 if (r.AdditionalDetails != null)
                     formattedRoutesList.Add(new {
                         r.RouteID,
-                        Detail = $"Leave {ls.getLocationNameById(r.PickUpLocationID)} at {r.PickUpTime} ({r.AdditionalDetails}), Arrive at {ls.getLocationNameById(r.DropOffLocationID)} at {r.DropOffTime}" });
+                        Detail = $"Leave {ls.getLocationNameById(r.PickUpLocationID)} at {r.ToStringPickUpTime()} ({r.AdditionalDetails}), Arrive at {ls.getLocationNameById(r.DropOffLocationID)} at {r.ToStringDropOffTime()}" });
                 else
                     formattedRoutesList.Add(new {
                         r.RouteID,
-                        Detail = $"Leave {ls.getLocationNameById(r.PickUpLocationID)} at {r.PickUpTime}, Arrive at {ls.getLocationNameById(r.DropOffLocationID)} at {r.DropOffTime}"
+                        Detail = $"Leave {ls.getLocationNameById(r.PickUpLocationID)} at {r.ToStringPickUpTime()}, Arrive at {ls.getLocationNameById(r.DropOffLocationID)} at {r.ToStringDropOffTime()}"
                     });
             }
 
@@ -197,6 +201,7 @@ namespace MidStateShuttleService.Controllers
             try
             {
                 // Update the student in the database
+                student.IsActive = true; // Set IsActive to true
                 _context.Update(student);
                 _context.SaveChanges();
 

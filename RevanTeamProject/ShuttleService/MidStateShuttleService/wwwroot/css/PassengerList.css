@@ -96,3 +96,84 @@
         .recentFeedback table tr:hover td h4 span {
             color: white;
         }
+
+/* Route Schedule table */
+.table-top-border {
+    border-top: 2px solid black;
+}
+
+.table-left-border {
+    border-left: 2px solid black;
+}
+
+.table-right-border {
+    border-right: 2px solid black;
+}
+
+.center-col {
+    text-align: center;
+    color: black;
+    font-weight: 500;
+}
+
+.red-cell {
+    background-color: #840029;
+    color: white;
+    padding: 0px;
+}
+
+.gold-cell {
+    background-color: #fdb71a;
+    padding: 0px;
+}
+
+.stripe-cell {
+    background-color: rgba(128, 128, 128, .5);
+    padding: 0px;
+}
+
+.btn-mstc-gold {
+    background-color: #fdb71a;
+    color: black;
+}
+
+.btn-mstc-red {
+    background-color: #840029;
+    color: white;
+}
+
+.btn-mstc-gold, .btn-mstc-red {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+@media screen {
+    #printSection {
+        display: none;
+    }
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #printSection, #printSection * {
+        visibility: visible;
+    }
+
+    #printSection {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}

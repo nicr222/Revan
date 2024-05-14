@@ -1,4 +1,4 @@
-﻿@model MidStateShuttleService.Models.CheckIn
+﻿                @model MidStateShuttleService.Models.CheckIn
 
 <link rel="stylesheet" href="/css/CheckIn.css" />
 <link rel="stylesheet" href="/css/Modal.css" />
@@ -54,7 +54,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="input-fields">
+                    <p class="typetrip">Enter Time</p>
 
+                    <input asp-for="Date" type="time" class="form-control input--style-1" id="checkInTime" />
+                    <div class="div-line"></div>
+                    <div class="invalid-feedback">
+                        Max 255 characters
+                    </div>
+                </div>
                 <div class="input-fields">
                     <h6>Rider Comments / Suggestions</h6>
                     <textarea asp-for="Comments" class="form-control input--style-1" id="feedback" placeholder="Share your experience" rows="4" cols="50" maxlength="255"></textarea>

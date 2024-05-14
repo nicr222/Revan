@@ -1,4 +1,7 @@
-﻿/* ==========================================================================
+﻿/* Alexis: I just grabbed the stuff that Phoo did and copy/pasted it. 
+   It would be better to link both forms to the same stylesheet I think, but this works for now */
+
+/* ==========================================================================
    #GRID
    ========================================================================== */
 .row {
@@ -49,11 +52,11 @@ html {
     margin: 0;
 }
 
-*, *:before, *:after {
-    -webkit-box-sizing: inherit;
-    -moz-box-sizing: inherit;
-    box-sizing: inherit;
-}
+    *, *:before, *:after {
+        -webkit-box-sizing: inherit;
+        -moz-box-sizing: inherit;
+        box-sizing: inherit;
+    }
 
 /* ==========================================================================
    #WRAPPER
@@ -83,11 +86,11 @@ html {
     box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
-.form-1 .form-body {
-    padding: 0 90px;
-    padding-top: 55px;
-    padding-bottom: 65px;
-}
+    .form-1 .form-body {
+        padding: 0 90px;
+        padding-top: 55px;
+        padding-bottom: 65px;
+    }
 
 @media (max-width: 767px) {
     .form-1 .form-body {
@@ -216,3 +219,4 @@ input.radio-style {
     to {
         border-width: 3px; /* Target a thicker border */
     }
+}

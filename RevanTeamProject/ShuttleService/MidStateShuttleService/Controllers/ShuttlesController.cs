@@ -55,6 +55,7 @@ namespace MidStateShuttleService.Controllers
             try
             {
                 BusServices bs = new BusServices(_context);
+                bus.IsActive = true;
                 bs.AddEntity(bus);
 
                 TempData["SuccessMessage"] = "The bus has been successfully created!";
@@ -107,6 +108,7 @@ namespace MidStateShuttleService.Controllers
 
             try
             {
+                bus.IsActive = true;
                 _context.Update(bus);
                 _context.SaveChanges();
 

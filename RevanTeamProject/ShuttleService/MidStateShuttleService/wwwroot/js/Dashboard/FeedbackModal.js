@@ -1,4 +1,9 @@
 ﻿$(document).ready(function () {
+    function resetPageState() {
+        // Reset page state here, e.g., reload the page
+        window.location.reload();
+    }
+
     $('.viewButton').click(function () {
         // Retrieve the feedback information from the data attributes
         var customerName = $(this).data('customer-name');
@@ -20,6 +25,15 @@
 
         // Open the modal
         $('#feedbackDetailsModal').modal('show');
+
+        // Handle modal close event
+        
+    });
+    $('#feedbackDetailsModal').on('hidden.bs.modal', function () {
+        // Here you can add code to reset any page state as needed
+        // For example, you could reload the page using:
+        resetPageState();
+        // or reset specific form fields, etc.
     });
 });
 

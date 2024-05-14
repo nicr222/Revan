@@ -20,11 +20,11 @@ namespace MidStateShuttleService
     {
         public static async Task Main(string[] args)
         {
-            
+
             var builder = WebApplication.CreateBuilder(args);
-            var appConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            //var appConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             //Host connectionstring
-            //var appConnectionString = builder.Configuration.GetConnectionString("Connection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            var appConnectionString = builder.Configuration.GetConnectionString("Connection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services.AddDbContext<MidStateShuttleServiceContext>(options => options.UseSqlServer(appConnectionString));
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(appConnectionString));
@@ -55,7 +55,7 @@ namespace MidStateShuttleService
                 var policy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
-                
+
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddMicrosoftIdentityUI();
 
@@ -77,7 +77,7 @@ namespace MidStateShuttleService
             app.UseSession();
 
             app.UseRouting();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapRazorPages();

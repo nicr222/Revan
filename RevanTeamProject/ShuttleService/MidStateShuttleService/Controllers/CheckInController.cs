@@ -56,6 +56,7 @@ namespace MidStateShuttleService.Controllers
             //date
             checkIn.Date = DateTime.Now;
             CheckInServices cs = new CheckInServices(_context);
+            checkIn.IsActive = true;
             cs.AddEntity(checkIn);
 
             // Increment the check-in count in the session
@@ -79,6 +80,7 @@ namespace MidStateShuttleService.Controllers
                 return FailedCheckIn("Updates to check in could not be applied");
 
             //not all values comming over from form
+            checkIn.IsActive = true;
             cs.UpdateEntity(checkIn);
 
             return RedirectToAction("Index", "Dashboard");

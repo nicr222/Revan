@@ -45,6 +45,7 @@ namespace MidStateShuttleService.Controllers
                 try
                 {
                     CommunicationServices cs = new CommunicationServices(_context);
+                    c.IsActive = true;
                     cs.AddEntity(c);
 
                     RegisterServices rs = new RegisterServices(_context);
@@ -101,6 +102,7 @@ namespace MidStateShuttleService.Controllers
                 try
                 {
                     MessageServices ms = new MessageServices(_context);
+                    c.IsActive = true;
                     ms.AddEntity(c);
 
                     // Increment the message count in the session
@@ -135,6 +137,41 @@ namespace MidStateShuttleService.Controllers
             var locations = ls.GetLocationNames();
 
             return locations;
+        }
+
+        // GET: DriverController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var message = _context.Messages.Find(id);
+
+                if (message != null)
+                {
+                    message.IsActive = !message.IsActive; // Toggle IsActive from true to false or false to true
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    // Handle the case where the driver with the specified id is not found
+                    ModelState.AddModelError("", "Message not found.");
+                    return View();
+                }
+
+                return RedirectToAction("Index", "Dashboard"); // Redirect after toggling IsActive
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while toggling IsActive of the message.");
+
+                // Optionally add a model error for displaying an error message to the user
+                ModelState.AddModelError("", "An unexpected error occurred while toggling IsActive of the driver, please try again.");
+
+                // Return the view with an error message
+                return View();
+            }
         }
     }
 }
