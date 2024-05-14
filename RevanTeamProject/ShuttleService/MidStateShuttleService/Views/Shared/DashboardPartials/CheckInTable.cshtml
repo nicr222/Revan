@@ -41,7 +41,8 @@
                 {
                     <tr class="checkRow">
                         <td>@checkIn.Name</td>
-                        <td>@checkIn.Date.ToString()</td>
+                        <td>@checkIn.Date.ToString("MM/dd/yyyy hh:mm tt")</td>
+
                         <td>@checkIn.Location.CheckInName()</td>
                         @if (@checkIn.Comments != null)
                         {
