@@ -78,7 +78,7 @@ namespace MidStateShuttleService.Controllers
 
             // Retrieve the feedback count and last feedback from the session
             int feedbackCountFromSession = HttpContext.Session.GetInt32("FeedbackCount") ?? 0;
-            string lastFeedback = HttpContext.Session.GetString("LastFeedback") ?? "You have a new testimonials!";
+            string lastFeedback = HttpContext.Session.GetString("LastFeedback") ?? "You have a new testimonial!";
 
             // Pass them to the view
             ViewData["FeedbackCount"] = feedbackCountFromSession;
