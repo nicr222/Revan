@@ -68,7 +68,7 @@ namespace MidStateShuttleService.Controllers
             Location model = ls.GetEntityById(id);
 
             if (model == null)
-                return FailedLocation("Check In Not Found");
+                return FailedLocation("Registration Not Found");
 
             return View(model);
         }
@@ -108,7 +108,8 @@ namespace MidStateShuttleService.Controllers
                 Location model = ls.GetEntityById(id);
 
                 if (model == null)
-                    return FailedLocation("Check In Not Found");
+                    // Changing check in to registration
+                    return FailedLocation("Registration Not Found");
 
                 model.IsActive = !model.IsActive; // Toggle IsActive from true to false or false to true
                 ls.UpdateEntity(model); // Update the entity in the database

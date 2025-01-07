@@ -78,7 +78,7 @@ namespace MidStateShuttleService.Controllers
 
             // Retrieve the feedback count and last feedback from the session
             int feedbackCountFromSession = HttpContext.Session.GetInt32("FeedbackCount") ?? 0;
-            string lastFeedback = HttpContext.Session.GetString("LastFeedback") ?? "You have a new feedback!";
+            string lastFeedback = HttpContext.Session.GetString("LastFeedback") ?? "You have a new testimonials!";
 
             // Pass them to the view
             ViewData["FeedbackCount"] = feedbackCountFromSession;
@@ -113,6 +113,7 @@ namespace MidStateShuttleService.Controllers
             return PartialView("_MessageDetails", message);
         }
 
+        // Passenger lists are now being called reservation lists in the UI
         public ActionResult PassengerList(int id)
         {
             var route = _context.Routes
@@ -168,7 +169,8 @@ namespace MidStateShuttleService.Controllers
             var dropOffLocationTime = route.ToStringDropOffTime();
 
             // Construct the title string
-            ViewBag.Title = $"Passenger List for {pickupLocation} ({pickupLocationTime}) to {dropOffLocation} ({dropOffLocationTime})";
+            // using Reservation list in the UI instead of passenger list
+            ViewBag.Title = $"Reservation List for {pickupLocation} ({pickupLocationTime}) to {dropOffLocation} ({dropOffLocationTime})";
 
             // Pass the route and the list of unique passengers to the view
             ViewBag.Route = route;
@@ -203,10 +205,10 @@ namespace MidStateShuttleService.Controllers
             {
                 // Log the SQL exception and any other exceptions
                 LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
-                _logger.LogError(ex, "An error occurred while deleting feedback.");
+                _logger.LogError(ex, "An error occurred while deleting a testimonial.");
 
                 // Optionally add a model error for displaying an error message to the user
-                ModelState.AddModelError("", "An unexpected error occurred while deleting the feedback, please try again.");
+                ModelState.AddModelError("", "An unexpected error occurred while deleting the testimonial, please try again.");
 
                 // Return the view with an error message
                 return View();
