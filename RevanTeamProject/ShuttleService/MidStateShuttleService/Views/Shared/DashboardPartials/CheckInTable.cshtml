@@ -4,7 +4,7 @@
 @model MidStateShuttleService.Models.AllModels
 
 <div class="cardHeader">
-    <h2>Check-Ins</h2>
+    <h2>Requests</h2>
     <!--search
         <div class="search">
         <label>
@@ -15,7 +15,7 @@
     -->
     
     <!-- Add Check-In button -->
-    <a asp-controller="CheckIn" asp-action="CheckIn" class="btn">Add Check-In</a>
+    <a asp-controller="CheckIn" asp-action="CheckIn" class="btn">Add Request</a>
 </div>
 <table>
     <thead>
@@ -31,7 +31,7 @@
     <tbody id="checkInsTableBody">
         @if (Model.CheckIn == null || !Model.CheckIn.Any())
         {
-            <tr><td colspan="8" class="text-center">There are Currently No Check-Ins</td></tr>
+            <tr><td colspan="8" class="text-center">There are Currently No Requests</td></tr>
         }
         else
         {

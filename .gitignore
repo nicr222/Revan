@@ -216,17 +216,20 @@ orleans.codegen.cs
  
 # Tye
 .tye/
-/RevanTeamProject/SprintPowerPoint/~$Sprint1.pptx
-/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/MidStateShuttleService.csproj.nuget.dgspec.json
-/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/project.nuget.cache
-/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/MidStateShuttleService.csproj.nuget.dgspec.json
-/RevanTeamProject/ShuttleService/MidStateShuttleService/obj/project.nuget.cache
-/RevanTeamProject/Documentation/SprintPowerPoint/~$Sprint2.pptx
-/RevanTeamProject/ShuttleService/MidStateShuttleService/MidStateShuttleService.csproj.user
-/RevanTeamProject/Documentation/SprintPowerPoint/~$Sprint3.pptx
-/RevanTeamProject/ShuttleService/MidStateShuttleService/MidStateShuttleService.csproj.user
-/RevanTeamProject/Documentation/SprintPowerPoint/~$Sprint4.pptx
-/RevanTeamProject/Documentation/SprintPowerPoint/~$Sprint6.pptx
-/RevanTeamProject/Documentation/SprintPowerPoint/~$SprintFinal.pptx
-/RevanTeamProject/ShuttleService/MidStateShuttleService/appsetting.json
-/RevanTeamProject/ShuttleService/MidStateShuttleService/Services/EmailServices.cs
+
+RevanTeamProject/SprintPowerPoint/~$Sprint1.pptx
+RevanTeamProject/ShuttleService/MidStateShuttleService/obj/MidStateShuttleService.csproj.nuget.dgspec.json
+RevanTeamProject/ShuttleService/MidStateShuttleService/obj/project.nuget.cache
+RevanTeamProject/ShuttleService/MidStateShuttleService/obj/MidStateShuttleService.csproj.nuget.dgspec.json
+RevanTeamProject/ShuttleService/MidStateShuttleService/obj/project.nuget.cache
+RevanTeamProject/Documentation/SprintPowerPoint/~$Sprint2.pptx
+RevanTeamProject/ShuttleService/MidStateShuttleService/MidStateShuttleService.csproj.user
+RevanTeamProject/Documentation/SprintPowerPoint/~$Sprint3.pptx
+RevanTeamProject/ShuttleService/MidStateShuttleService/MidStateShuttleService.csproj.user
+RevanTeamProject/Documentation/SprintPowerPoint/~$Sprint4.pptx
+RevanTeamProject/Documentation/SprintPowerPoint/~$Sprint6.pptx
+RevanTeamProject/Documentation/SprintPowerPoint/~$SprintFinal.pptx
+
+# configs
+RevanTeamProject/ShuttleService/MidStateShuttleService/appsettings.json
+RevanTeamProject/ShuttleService/MidStateShuttleService/Services/EmailServices.cs

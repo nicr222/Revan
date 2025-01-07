@@ -22,7 +22,7 @@
 <table>
     <thead>
         <tr>
-            <td>Passenger List</td>
+            <td>Reservation List</td>
             <td>Pick Up Location</td>
             <td>Drop Off Location</td>
             <td>Pick Up Time</td>
@@ -43,7 +43,7 @@
             @foreach (var r in Model.Route.OrderBy(r => r.PickUpLocationID).ThenBy(r => r.PickUpTime))
             {
                 <tr class="routeRow">
-                    <td><a asp-controller="Dashboard" asp-action="PassengerList" asp-route-id="@r.RouteID">View Passengers</a></td>
+                    <td><a asp-controller="Dashboard" asp-action="PassengerList" asp-route-id="@r.RouteID">View Reservations</a></td>
                     <td>@r.PickUpLocation.ToStringPickup()</td>
                     <td>@r.DropOffLocation.ToStringDropoff()</td>
                     <td>@r.ToStringPickUpTime()</td>
