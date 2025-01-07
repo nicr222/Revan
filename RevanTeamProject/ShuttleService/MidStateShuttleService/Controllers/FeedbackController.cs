@@ -40,14 +40,16 @@ namespace MidStateShuttleService.Controllers
                     feedback.DateSubmitted = DateTime.Now; // Set submission date to current date and time
                     _context.Add(feedback);
                     await _context.SaveChangesAsync();
-                    _logger.LogInformation("Feedback successfully saved.");
+                    // changing terminology to testimonial
+                    _logger.LogInformation("Testimonial successfully saved.");
 
                     TempData["FeedbackSuccess"] = "True"; // Use TempData to signal that feedback was successful
                     return RedirectToAction(nameof(Index)); // Redirect back to the form page to show the success modal
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error saving feedback.");
+                    // changing terminology to testimonial
+                    _logger.LogError(ex, "Error saving testimonial.");
                 }
             }
             else

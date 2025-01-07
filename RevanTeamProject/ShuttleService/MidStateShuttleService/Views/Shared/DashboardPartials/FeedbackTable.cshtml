@@ -1,7 +1,7 @@
 ﻿@model MidStateShuttleService.Models.AllModels
 
 <div class="cardHeader">
-    <h2>Feedback</h2>
+    <h2>Testimonial</h2>
 </div>
 <table>
     <thead>
@@ -18,7 +18,7 @@
     <tbody id="feedbackTableBody">
         @if (Model.Feedback == null)
         {
-            <tr><td colspan="5" class="text-center">There are Currently No Feedbacks</td></tr>
+            <tr><td colspan="5" class="text-center">There are Currently No Testimonials</td></tr>
         }
         else
         {
@@ -68,7 +68,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="feedbackDetailsModalLabel">Feedback Details</h5>
+                <h5 class="modal-title" id="feedbackDetailsModalLabel">Testimonial Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

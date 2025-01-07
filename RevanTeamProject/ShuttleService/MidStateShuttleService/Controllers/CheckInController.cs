@@ -31,6 +31,7 @@ namespace MidStateShuttleService.Controllers
 
         }
 
+        // Changing the terminology from check in to registration
         public ActionResult EditCheckIn(int id)
         {
             CheckInServices cs = new CheckInServices(_context);
@@ -40,7 +41,7 @@ namespace MidStateShuttleService.Controllers
             ViewBag.Locations = ls.GetAllEntities().Select(x => new SelectListItem { Text = x.Name, Value = x.LocationId.ToString() });
 
             if (model == null)
-                return FailedCheckIn("Check In Not Found");
+                return FailedCheckIn("Registration Not Found");
 
             return View(model);
         }
@@ -77,7 +78,8 @@ namespace MidStateShuttleService.Controllers
         {
             CheckInServices cs = new CheckInServices(_context);
             if (checkIn == null)
-                return FailedCheckIn("Updates to check in could not be applied");
+                // Changing check in to registration
+                return FailedCheckIn("Updates to registration could not be applied");
 
             //not all values comming over from form
             checkIn.IsActive = true;
@@ -94,7 +96,8 @@ namespace MidStateShuttleService.Controllers
                 CheckIn model = cs.GetEntityById(id);
 
                 if (model == null)
-                    return FailedCheckIn("Check In could not be found");
+                    // Changing check in to registration
+                    return FailedCheckIn("Registration could not be found");
 
                 model.IsActive = !model.IsActive; // Toggle IsActive value
                 cs.UpdateEntity(model); // Update the entity in the database
@@ -105,10 +108,12 @@ namespace MidStateShuttleService.Controllers
             {
                 // Log the exception
                 LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
-                _logger.LogError(ex, "An error occurred while toggling IsActive of the check in.");
+                // Changing check in to registration
+                _logger.LogError(ex, "An error occurred while toggling IsActive of the registration.");
 
                 // Optionally add a model error for displaying an error message to the user
-                ModelState.AddModelError("", "An unexpected error occurred while toggling IsActive of the check in, please try again.");
+                // Changing check in to registration
+                ModelState.AddModelError("", "An unexpected error occurred while toggling IsActive of the registration, please try again.");
 
                 // Return the view with an error message or handle the error as required
                 return View();

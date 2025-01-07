@@ -232,4 +232,4 @@ RevanTeamProject/Documentation/SprintPowerPoint/~$SprintFinal.pptx
 
 # configs
 RevanTeamProject/ShuttleService/MidStateShuttleService/appsettings.json
-/RevanTeamProject/ShuttleService/MidStateShuttleService/Services/EmailServices.cs
+RevanTeamProject/ShuttleService/MidStateShuttleService/Services/EmailServices.cs

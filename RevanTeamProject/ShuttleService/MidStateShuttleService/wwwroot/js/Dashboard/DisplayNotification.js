@@ -20,8 +20,8 @@ function addRegistrationNotification(count) {
         <div class="notification-item message-notification">
             <i class="bi bi-exclamation-circle text-warning"></i>
             <div>
-                <h4>New Registration (${count})</h4>
-                <p>New registration received!</p>
+                <h4>New Request (${count})</h4>
+                <p>New request received!</p>
             </div>
         </div>`;
     notificationDropdown.prepend(newNotificationHtml);
@@ -30,14 +30,14 @@ function addRegistrationNotification(count) {
 }
 
 function addCheckInNotification(count) {
-    console.log('Adding check-in notification with count:', count);
+    console.log('Adding request notification with count:', count);
     let notificationDropdown = $('#notificationBellDropdown');
     let newNotificationHtml = `
         <div class="notification-item checkin-notification">
             <i class="bi bi-exclamation-circle text-warning"></i>
             <div>
-                <h4>New Check-In (${count})</h4>
-                <p>New check-in processed!</p>
+                <h4>New Request (${count})</h4>
+                <p>New request processed!</p>
             </div>
         </div>`;
     notificationDropdown.prepend(newNotificationHtml);
