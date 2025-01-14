@@ -66,6 +66,9 @@ namespace MidStateShuttleService.Controllers
             if (ModelState.IsValid)
             {
                 model.IsActive = true; // Set IsActive to true
+                model.DeviceIpAddress = model.DeviceIpAddress ?? "Unknown"; // Default to "Unknown" if IP is null
+                model.InsertDateTime = DateTime.Now;
+
                 if (rs.AddEntity(model))
                 {
                     // Increment the registration count in the session

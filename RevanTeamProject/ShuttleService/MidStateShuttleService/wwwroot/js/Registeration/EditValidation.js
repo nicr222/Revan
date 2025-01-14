@@ -1,4 +1,5 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
+    const stuendId = document.getElementById('StudentId');
     const name = document.getElementById('firstName');
     const lastName = document.getElementById('lastName');
     const phone = document.getElementById('phone');

@@ -245,11 +245,29 @@ document.addEventListener('DOMContentLoaded', function () {
     toggleStopsAvailable();
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    function fetchClientIpAddress() {
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                // JTJ remove
+                console.log('Client Public IP:', data.ip);
+                setIpAddressField(data.ip);
+            })
+            .catch(error => {
+                // JTJ remove
+                console.warn('Could not fetch IP address:', error);
+                setIpAddressField(null);
+            });
+    }
 
+    function setIpAddressField(ip) {
+        const ipField = document.getElementById('DeviceIpAddress');
+        if (ipField) {
+            ipField.value = ip || ''; // Set to an empty string if null
+        }
+    }
 
-
-
-
-
-
+    fetchClientIpAddress();
+});
 

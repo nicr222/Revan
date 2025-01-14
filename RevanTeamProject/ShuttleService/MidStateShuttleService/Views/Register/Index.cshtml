@@ -1,5 +1,4 @@
-﻿
-@model MidStateShuttleService.Models.RegisterModel
+﻿@model MidStateShuttleService.Models.RegisterModel
 
 @{
     ViewBag.Title = "Shuttle Service Registration";
@@ -25,6 +24,9 @@
                 @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { id = "registrationForm" }))
                 {
                     @Html.AntiForgeryToken()
+
+                    <!-- Fetch DeviceIpAddress -->
+                    <input type="hidden" id="DeviceIpAddress" name="DeviceIpAddress" />
 
                     <!-- Confirmation Modal -->
                     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -67,9 +69,6 @@
                         </div>
                     </div>
 
-
-
-                    
 
                     <div class="Route-schedule">
                         <div class="input-fields">
@@ -451,6 +450,11 @@
                             <div class="row row-space">
                                 <div class="col-6">
                                     <div class="input-fields">
+                                        @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", id = "StudentId" } })
+                                        <div class="form-line"></div>
+                                        <div id="StudentId-validation-message" class="validation-message">Must be numbers</div>
+                                    </div>
+                                    <div class="input-fields">
                                         @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
                                         <div class="form-line"></div>
                                         <div id="FirstName-validation-message" class="validation-message">Must be characters</div>
@@ -527,8 +531,3 @@
 <script src="/js/Registeration/routeVisibility.js"></script>
 <script src="/js/Registeration/form-reset.js"></script>
 <script src="/js/Registeration/autoFlipLocations.js"></script>
-
-
-
-
-

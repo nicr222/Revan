@@ -81,6 +81,14 @@
                 }
             }
 
+            // StudentId validation (numbers only, at least 1 character)
+            if (fieldId === 'StudentId') {
+                if (!/^\d+$/.test($field.val())) {
+                    $(validationMessageId).text('Must be numbers').show();
+                    isValid = false;
+                }
+            }
+
             // Email validation (matches common email patterns more accurately) ......... 
             // This is commented out because the validation doens't let it pass even if the email is valid I tried so many ways and can't find solution yet.
 
