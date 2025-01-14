@@ -73,21 +73,33 @@ namespace MidStateShuttleService.Controllers
                     registrationCount++;
 
                     HttpContext.Session.SetString("RegistrationSuccess", "true"); // Using session to set registration success.
-                    HttpContext.Session.SetInt32("RegistrationCount", registrationCount); 
+                    HttpContext.Session.SetInt32("RegistrationCount", registrationCount);
 
                     TempData["RegistrationSuccess"] = true;
 
-                    Debug.WriteLine(TempData["RegistrationSuccess"]);
-
                     // Send the email
+                    string emailBody = $@"
+                    Your registration for the MSTC shuttle service was confirmed!
+                    First Name:{model.FirstName}
+                    Last Name: {model.LastName}
+                    Email: {model.Email}
+                    Phone Number: {model.PhoneNumber}
+                    Trip Type: {model.TripType}
+                    Initial Route: {model.SelectedRouteDetail}
+                    Days of the Week Needed: {string.Join(", ", model.SelectedDaysOfWeek)}
+                    First Day Expecting to Ride: {model.FirstDayExpectingToRide?.ToString("yyyy-MM-dd")}
+                    Contact Preference: {model.ContactPreference}
+                    If you have any questions, please call or text the following number: 715-581-9284;";
+
                     es.SendEmail(
-                    model.Email,
-                    "MSTC Shuttle Service Registration",
-                    "Your registration for the MSTC shuttle service was confirmed! For any questions, please call or text the following number: 715-581-9284"
+                        model.Email,
+                        "MSTC Shuttle Service Registration",
+                        emailBody
                     );
 
                     return RedirectToAction("Index");
-                } else
+                }
+                else
                 {
                     ModelState.AddModelError("", "There was an error saving the registration, please try again.");
                 }
@@ -96,6 +108,7 @@ namespace MidStateShuttleService.Controllers
             //model.LocationNames = GetLocationNames();
             return View("Index", model);
         }
+
 
         [AllowAnonymous]
         public ActionResult RegisterConfirmation(RegisterModel model)

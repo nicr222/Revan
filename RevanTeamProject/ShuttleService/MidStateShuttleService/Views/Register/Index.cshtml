@@ -21,7 +21,7 @@
     <div class="wrapper wrapper--w680">
         <div class="form form-1">
             <div class="form-body">
-                <h2 class="title">Registration Info</h2>
+                <h2 class="title">Reserve a Ride</h2>
                 @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { id = "registrationForm" }))
                 {
                     @Html.AntiForgeryToken()
@@ -40,7 +40,7 @@
                                     <!-- The confirmation details will be dynamically inserted here -->
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Review</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
                                     <button type="button" class="btn btn-primary" id="confirmSubmit">Confirm</button>
                                 </div>
                             </div>
@@ -499,7 +499,7 @@
                     <div class="p-t-20">
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--submit" type="submit">Submit</button>
-                            <button class="btn btn--radius btn--cancel" type="button" onclick="resetForm()">Cancel</button>
+                            <button class="btn btn--radius btn--cancel" type="button" onclick="location.href='/Register/Register'">Cancel</button>
                         </div>
                     </div>
                 }

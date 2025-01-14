@@ -14,12 +14,12 @@ namespace MidStateShuttleService.Models
         public int RegistrationId { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
-        [RegularExpression("^[A-Za-z\\s]{2,}$", ErrorMessage = "Must contain only characters and be at least 2 characters long")]
+        [RegularExpression("^[A-Za-z\\s'-]+$", ErrorMessage = "Must contain only letters, spaces, dashes, or apostrophes.")]
         [StringLength(20)]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last Name is required")]
-        [RegularExpression("^[A-Za-z\\s]{2,}$", ErrorMessage = "Must contain only characters and be at least 2 characters long")]
+        [RegularExpression("^[A-Za-z\\s'-]+$", ErrorMessage = "Must contain only letters, spaces, dashes, or apostrophes.")]
         [StringLength(20)]
         public string LastName { get; set; }
 

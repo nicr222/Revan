@@ -75,7 +75,7 @@
 
             // First and Last Name validation (letters only, at least 2 characters)
             if (fieldId === 'FirstName' || fieldId === 'LastName') {
-                if (!/^[A-Za-z]{2,}$/.test($field.val())) {
+                if (!/^[A-Za-z\s'-]+$/.test($field.val())) {
                     $(validationMessageId).text('Must be characters').show();
                     isValid = false;
                 }

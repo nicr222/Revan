@@ -1,18 +1,12 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using MidStateShuttleService.Service;
-using MidStateShuttleService.Models;
-using MidStateShuttleService.Data;
-using Microsoft.Identity.Web;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
-using Microsoft.Identity.Client;
+using MidStateShuttleService.Data;
+using MidStateShuttleService.Models;
+using MidStateShuttleService.Service;
 
 namespace MidStateShuttleService
 {
