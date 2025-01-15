@@ -37,6 +37,7 @@ namespace MidStateShuttleService.Controllers
         {
             if (!ModelState.IsValid)
             {
+
                 return View(location);
             }
 

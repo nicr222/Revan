@@ -14,12 +14,12 @@ namespace MidStateShuttleService.Models
         public int RegistrationId { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
-        [RegularExpression("^[A-Za-z\\s]{2,}$", ErrorMessage = "Must contain only characters and be at least 2 characters long")]
+        [RegularExpression("^[A-Za-z\\s'-]+$", ErrorMessage = "Must contain only letters, spaces, dashes, or apostrophes.")]
         [StringLength(20)]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last Name is required")]
-        [RegularExpression("^[A-Za-z\\s]{2,}$", ErrorMessage = "Must contain only characters and be at least 2 characters long")]
+        [RegularExpression("^[A-Za-z\\s'-]+$", ErrorMessage = "Must contain only letters, spaces, dashes, or apostrophes.")]
         [StringLength(20)]
         public string LastName { get; set; }
 
@@ -95,6 +95,29 @@ namespace MidStateShuttleService.Models
         public int? FridayDropOffLocationID { get; set; }
 
         public bool IsActive { get; set; }
+        
+        /// <summary>
+        /// The student ID of the student associated with the registration.
+        /// </summary>
+        [StringLength(25)]
+        [RegularExpression(@"^\d+$", ErrorMessage = "The StudentID must contain only numbers.")]
+        public string? StudentId {get; set; }
+
+        /// <summary>
+        /// The IP address of the device that created the record.
+        /// </summary>
+        [StringLength(50)]
+        public string? DeviceIpAddress { get; set; }
+
+        /// <summary>
+        /// The date and time the record was created.
+        /// </summary>
+        public DateTime? InsertDateTime { get; set; }
+
+        /// <summary>
+        /// The date and time the record was last edited.
+        /// </summary>
+        public DateTime? EditDateTime { get; set; }
     }
 
 }

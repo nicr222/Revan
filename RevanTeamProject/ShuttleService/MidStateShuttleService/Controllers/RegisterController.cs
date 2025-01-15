@@ -4,6 +4,7 @@ using System.Diagnostics;
 using MidStateShuttleService.Service;
 using MidStateShuttleService.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Text.Json;
 
 namespace MidStateShuttleService.Controllers
 {
@@ -66,6 +67,13 @@ namespace MidStateShuttleService.Controllers
             if (ModelState.IsValid)
             {
                 model.IsActive = true; // Set IsActive to true
+                model.DeviceIpAddress = model.DeviceIpAddress ?? "Unknown"; // Default to "Unknown" if IP is null
+                model.InsertDateTime = DateTime.Now;
+
+                // Use LocationServices to fetch the location names based on the foreign keys
+                var pickupLocationName = ls.getLocationNameById(model.PickUpLocationID.Value);
+                var dropoffLocationName = ls.getLocationNameById(model.DropOffLocationID.Value);
+
                 if (rs.AddEntity(model))
                 {
                     // Increment the registration count in the session
@@ -73,21 +81,16 @@ namespace MidStateShuttleService.Controllers
                     registrationCount++;
 
                     HttpContext.Session.SetString("RegistrationSuccess", "true"); // Using session to set registration success.
-                    HttpContext.Session.SetInt32("RegistrationCount", registrationCount); 
+                    HttpContext.Session.SetInt32("RegistrationCount", registrationCount);
 
                     TempData["RegistrationSuccess"] = true;
 
-                    Debug.WriteLine(TempData["RegistrationSuccess"]);
-
-                    // Send the email
-                    es.SendEmail(
-                    model.Email,
-                    "MSTC Shuttle Service Registration",
-                    "Your registration for the MSTC shuttle service was confirmed! For any questions, please call or text the following number: 715-581-9284"
-                    );
+                    string emailBody = GenerateRegistrationEmailBody(model, pickupLocationName, dropoffLocationName);
+                    es.SendEmail(model.Email, "MSTC Shuttle Service Registration", emailBody, isHtml: true);
 
                     return RedirectToAction("Index");
-                } else
+                }
+                else
                 {
                     ModelState.AddModelError("", "There was an error saving the registration, please try again.");
                 }
@@ -96,6 +99,7 @@ namespace MidStateShuttleService.Controllers
             //model.LocationNames = GetLocationNames();
             return View("Index", model);
         }
+
 
         [AllowAnonymous]
         public ActionResult RegisterConfirmation(RegisterModel model)
@@ -253,7 +257,6 @@ namespace MidStateShuttleService.Controllers
 
         }
 
-
         // POST: RegisterController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -267,6 +270,84 @@ namespace MidStateShuttleService.Controllers
             {
                 return View();
             }
+        }
+
+        /// <summary>
+        /// Email content to generate for a registration (requested ride) confirmation email
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        private string GenerateRegistrationEmailBody(RegisterModel model, string pickuplocation, string dropofflocation)
+        {
+            try
+            {
+                // Check if the pick-up and drop-off locations are valid
+                if (model.PickUpLocationID == null || model.DropOffLocationID == null)
+                {
+                    return "Invalid pick-up or drop-off location";
+                }
+                else
+                {
+                    var actionResult = GetRoutes(model.PickUpLocationID.Value, model.DropOffLocationID.Value);
+                    string initialRoute = "Unknown";
+
+                    // Extract the JSON content from ActionResult
+                    if (actionResult is JsonResult jsonResult)
+                    {
+                        string jsonString = JsonSerializer.Serialize(jsonResult.Value);
+
+                        // Parse the JSON string
+                        using JsonDocument doc = JsonDocument.Parse(jsonString);
+
+                        // Assuming the first route in the list is required
+                        initialRoute = doc.RootElement[0].GetProperty("Detail").GetString();
+                    }
+
+                    return $@"
+                    <html>
+                    <head>
+                        <style>
+                            body {{ font-family: Arial, sans-serif; }}
+                            .email-container {{ max-width: 600px; margin: auto; padding: 20px; }}
+                            .header {{ text-align: center; }}
+                            .content {{ margin-top: 20px; }}
+                            .footer {{ margin-top: 30px; text-align: center; font-size: 12px; color: gray; }}
+                        </style>
+                    </head>
+                    <body>
+                        <div class='email-container'>
+                            <div class='header'>
+                                <h2>MSTC Shuttle Service Registration Confirmation</h2>
+                            </div>          Initial Route: Leave Wisconsin Rapids at 07:00 AM, Arrive at Stevens Point at 08:00 AM
+                            <div class='content'>
+                                <p><strong>Student ID:</strong> {model.StudentId}</p>
+                                <p><strong>First Name:</strong> {model.FirstName}</p>
+                                <p><strong>Last Name:</strong> {model.LastName}</p>
+                                <p><strong>Email:</strong> {model.Email}</p>
+                                <p><strong>Phone Number:</strong> {model.PhoneNumber}</p>
+                                <p><strong>Initial Route:</strong> {initialRoute}</p>
+                                <p><strong>Trip Type:</strong> {model.TripType}</p>
+                                <p><strong>Days of the Week Needed:</strong> {string.Join(", ", model.SelectedDaysOfWeek)}</p>
+                                <p><strong>First Day Expecting to Ride:</strong> {model.FirstDayExpectingToRide?.ToString("MM-dd-yyyy")}</p>
+                                <p><strong>Contact Preference:</strong> {model.ContactPreference}</p>
+                            </div>
+                            <div class='footer'>
+                                <p>If you have any questions, please call or text: <strong>715-581-9284</strong></p>
+                            </div>
+                        </div>
+                    </body>
+                    </html>";
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
+                _logger.LogError(ex, "An error occurred while generating registration email body.");
+                return "An error occurred while generating registration email body.";
+            }
+
+            
         }
     }
 }

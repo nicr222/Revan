@@ -3,6 +3,7 @@
         e.preventDefault(); // Prevent form submit
 
         // Gather form data
+        var studentId = $('#StudentId').val();
         var firstName = $('#FirstName').val();
         var lastName = $('#LastName').val();
         var email = $('#Email').val();
@@ -57,6 +58,7 @@
 
         // Start building the confirmationContent
         var confirmationContent = `
+            <p>Student ID: ${studentId}</p>
             <p>First Name: ${firstName}</p>
             <p>Last Name: ${lastName}</p>
             <p>Email: ${email}</p>

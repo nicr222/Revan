@@ -1,5 +1,4 @@
-﻿
-@model MidStateShuttleService.Models.RegisterModel
+﻿@model MidStateShuttleService.Models.RegisterModel
 
 @{
     ViewBag.Title = "Shuttle Service Registration";
@@ -21,10 +20,13 @@
     <div class="wrapper wrapper--w680">
         <div class="form form-1">
             <div class="form-body">
-                <h2 class="title">Registration Info</h2>
+                <h2 class="title">Reserve a Ride</h2>
                 @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { id = "registrationForm" }))
                 {
                     @Html.AntiForgeryToken()
+
+                    <!-- Fetch DeviceIpAddress -->
+                    <input type="hidden" id="DeviceIpAddress" name="DeviceIpAddress" />
 
                     <!-- Confirmation Modal -->
                     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -40,7 +42,7 @@
                                     <!-- The confirmation details will be dynamically inserted here -->
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Review</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
                                     <button type="button" class="btn btn-primary" id="confirmSubmit">Confirm</button>
                                 </div>
                             </div>
@@ -67,9 +69,6 @@
                         </div>
                     </div>
 
-
-
-                    
 
                     <div class="Route-schedule">
                         <div class="input-fields">
@@ -451,12 +450,15 @@
                             <div class="row row-space">
                                 <div class="col-6">
                                     <div class="input-fields">
+                                        @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", id = "StudentId" } })
+                                        <div class="form-line"></div>
+                                        <div id="StudentId-validation-message" class="validation-message">Must be numbers</div>
+                                    </div>
+                                    <div class="input-fields">
                                         @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
                                         <div class="form-line"></div>
                                         <div id="FirstName-validation-message" class="validation-message">Must be characters</div>
                                     </div>
-                                </div>
-                                <div class="col-6">
                                     <div class="input-fields">
                                         @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Last Name" } })
                                         <div class="form-line"></div>
@@ -499,7 +501,7 @@
                     <div class="p-t-20">
                         <div class="p-t-20">
                             <button class="btn btn--radius btn--submit" type="submit">Submit</button>
-                            <button class="btn btn--radius btn--cancel" type="button" onclick="resetForm()">Cancel</button>
+                            <button class="btn btn--radius btn--cancel" type="button" onclick="location.href='/Register/Register'">Cancel</button>
                         </div>
                     </div>
                 }
@@ -527,8 +529,3 @@
 <script src="/js/Registeration/routeVisibility.js"></script>
 <script src="/js/Registeration/form-reset.js"></script>
 <script src="/js/Registeration/autoFlipLocations.js"></script>
-
-
-
-
-
