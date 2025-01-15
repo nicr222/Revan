@@ -1,6 +1,7 @@
 ﻿// ** Commented out the some validation fields to work witht the rest of the form in next sprint **//
 
 document.addEventListener('DOMContentLoaded', function () {
+    const studentId = document.getElementById('StudentId');
     const firstName = document.getElementById('FirstName');
     const lastName = document.getElementById('LastName');
     const email = document.getElementById('Email');
@@ -9,8 +10,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Attach event listeners for real-time validation
     phoneNumber.addEventListener('input', () => validateField(phoneNumber, /^[0-9]{10}$/, 'PhoneNumber'));
-    firstName.addEventListener('input', () => validateField(firstName, /^[A-Za-z\s]{2,}$/, 'FirstName'));
-    lastName.addEventListener('input', () => validateField(lastName, /^[A-Za-z\s]{2,}$/, 'LastName'));
+    studentId.addEventListener('input', () => validateField(studentId, /^\d+$/, 'StudentId'));
+    firstName.addEventListener('input', () => validateField(firstName, /^[A-Za-z\s'-]+$/, 'FirstName'));
+    lastName.addEventListener('input', () => validateField(lastName, /^[A-Za-z\s'-]+$/, 'LastName'));
     email.addEventListener('input', () => validateField(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email')); // Email validation regex
     //tripTypeRadios.forEach(radio => radio.addEventListener('change', validateTripType));
 
@@ -29,8 +31,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Make sure it returns false if any validation fails temporarily crossed out vlaidation fields for submit button
     function validateForm() {
         const isPhoneNumberValid = validateField(phoneNumber, /^[0-9]{10}$/, 'PhoneNumber');
-        const isFirstNameValid = validateField(firstName, /^[A-Za-z\s]{2,}$/, 'FirstName');
-        const isLastNameValid = validateField(lastName, /^[A-Za-z\s]{2,}$/, 'LastName');
+        const isStudentIdValid = validateField(studentId, /^\d+$/, 'StudentId');
+        const isFirstNameValid = validateField(firstName, /^[A-Za-z\s'-]+$/, 'FirstName');
+        const isLastNameValid = validateField(lastName, /^[A-Za-z\s'-]+$/, 'LastName');
         const isEmailValid = validateField(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email');
         //const isTripTypeValid = validateTripType(); // Correctly placed outside the array
 

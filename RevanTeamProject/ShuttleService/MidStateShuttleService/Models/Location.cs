@@ -36,7 +36,7 @@ namespace MidStateShuttleService.Models
         public string ZipCode { get; set; }
 
         [Required(ErrorMessage = "Please enter the abbreviation.")]
-        [RegularExpression("^[A-Za-z]{3,3}$", ErrorMessage = "Abbreviation must contain only characters and be exactly 3 characters long.")]
+        [RegularExpression("^[A-Za-z]{1,5}$", ErrorMessage = "Abbreviation must contain only characters and be 1-5 characaters long.")]
         [StringLength(5)]
         public string Abbreviation { get; set; }
 

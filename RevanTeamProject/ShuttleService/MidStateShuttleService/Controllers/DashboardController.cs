@@ -4,7 +4,6 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MidStateShuttleService.Models;
 using MidStateShuttleService.Service;
-using MidStateShuttleService.Service;
 using System.Data;
 using System.Diagnostics;
 
