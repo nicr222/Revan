@@ -1,5 +1,4 @@
 ﻿using MidStateShuttleService.Models;
-using MidStateShuttleService.Models;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Configuration;
