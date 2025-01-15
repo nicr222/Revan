@@ -1,5 +1,5 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
-    const stuendId = document.getElementById('StudentId');
+    const studentId = document.getElementById('StudentId');
     const name = document.getElementById('firstName');
     const lastName = document.getElementById('lastName');
     const phone = document.getElementById('phone');
@@ -16,6 +16,7 @@
     // Validation functions
     function validateForm() {
         let isFormValid = true;
+        isFormValid &= validateString(studentId);
         isFormValid &= validateString(name);
         isFormValid &= validateString(lastName);
         isFormValid &= validateString(phone);
