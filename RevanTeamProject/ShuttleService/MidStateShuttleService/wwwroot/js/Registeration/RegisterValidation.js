@@ -81,10 +81,9 @@
                 }
             }
 
-            // StudentId validation (numbers only, at least 1 character)
             if (fieldId === 'StudentId') {
-                if (!/^\d+$/.test($field.val())) {
-                    $(validationMessageId).text('Must be numbers').show();
+                if (!/^(\d{1,25})?$/.test($field.val())) {
+                    $(validationMessageId).text('Length must not be longer than 25').show();
                     isValid = false;
                 }
             }

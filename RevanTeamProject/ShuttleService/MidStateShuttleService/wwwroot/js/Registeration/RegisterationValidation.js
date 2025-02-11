@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Attach event listeners for real-time validation
     phoneNumber.addEventListener('input', () => validateField(phoneNumber, /^[0-9]{10}$/, 'PhoneNumber'));
-    studentId.addEventListener('input', () => validateField(studentId, /^\d+$/, 'StudentId'));
+    studentId.addEventListener('input', () => validateField(studentId, /^(\d{1,25})?$/, 'StudentId'));
     firstName.addEventListener('input', () => validateField(firstName, /^[A-Za-z\s'-]+$/, 'FirstName'));
     lastName.addEventListener('input', () => validateField(lastName, /^[A-Za-z\s'-]+$/, 'LastName'));
     email.addEventListener('input', () => validateField(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email')); // Email validation regex
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Make sure it returns false if any validation fails temporarily crossed out vlaidation fields for submit button
     function validateForm() {
         const isPhoneNumberValid = validateField(phoneNumber, /^[0-9]{10}$/, 'PhoneNumber');
-        const isStudentIdValid = validateField(studentId, /^\d+$/, 'StudentId');
+        const isStudentIdValid = validateField(studentId, /^(\d{1,25})?$/, 'StudentId');
         const isFirstNameValid = validateField(firstName, /^[A-Za-z\s'-]+$/, 'FirstName');
         const isLastNameValid = validateField(lastName, /^[A-Za-z\s'-]+$/, 'LastName');
         const isEmailValid = validateField(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email');

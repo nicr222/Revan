@@ -85,7 +85,7 @@ namespace MidStateShuttleService.Controllers
 
                     TempData["RegistrationSuccess"] = true;
 
-                    string emailBody = GenerateRegistrationEmailBody(model, pickupLocationName, dropoffLocationName);
+                    string emailBody = GenerateRegistrationEmailBody(model);
                     es.SendEmail(model.Email, "MSTC Shuttle Service Registration", emailBody, isHtml: true);
 
                     return RedirectToAction("Index");
@@ -277,7 +277,7 @@ namespace MidStateShuttleService.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private string GenerateRegistrationEmailBody(RegisterModel model, string pickuplocation, string dropofflocation)
+        private string GenerateRegistrationEmailBody(RegisterModel model)
         {
             try
             {
@@ -318,7 +318,7 @@ namespace MidStateShuttleService.Controllers
                         <div class='email-container'>
                             <div class='header'>
                                 <h2>MSTC Shuttle Service Registration Confirmation</h2>
-                            </div>          Initial Route: Leave Wisconsin Rapids at 07:00 AM, Arrive at Stevens Point at 08:00 AM
+                            </div>
                             <div class='content'>
                                 <p><strong>Student ID:</strong> {model.StudentId}</p>
                                 <p><strong>First Name:</strong> {model.FirstName}</p>
