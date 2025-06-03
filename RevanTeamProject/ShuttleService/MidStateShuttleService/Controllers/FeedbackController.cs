@@ -38,8 +38,10 @@ namespace MidStateShuttleService.Controllers
                     feedback.CustomerName = string.IsNullOrWhiteSpace(feedback.CustomerName) ? "Anonymous" : feedback.CustomerName;
 
                     feedback.DateSubmitted = DateTime.Now; // Set submission date to current date and time
+                    feedback.IsActive = false;
                     _context.Add(feedback);
                     await _context.SaveChangesAsync();
+
                     // changing terminology to testimonial
                     _logger.LogInformation("Testimonial successfully saved.");
 
