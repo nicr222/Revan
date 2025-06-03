@@ -453,7 +453,7 @@
                                     <div class="input-fields">
                                         @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", id = "StudentId" } })
                                         <div class="form-line"></div>
-                                        @* <div id="StudentId-validation-message" class="validation-message"></div> *@
+                                        <div id="StudentId-validation-message" class="validation-message">Must be exactly 8 digits</div>
                                     </div>
                                     <div class="input-fields">
                                         @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })
