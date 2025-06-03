@@ -1,7 +1,8 @@
 ﻿@model MidStateShuttleService.Models.RegisterModel
 
-@{
-    ViewBag.Title = "Shuttle Service Registration";
+@{  
+    // Changed from registration to request
+    ViewBag.Title = "Shuttle Service Request";
 }
 
 <!-- Include Bootstrap CSS -->
@@ -20,7 +21,7 @@
     <div class="wrapper wrapper--w680">
         <div class="form form-1">
             <div class="form-body">
-                <h2 class="title">Reserve a Ride</h2>
+                <h2 class="title">Request a Ride</h2>
                 @using (Html.BeginForm("Register", "Register", FormMethod.Post, new { id = "registrationForm" }))
                 {
                     @Html.AntiForgeryToken()
@@ -54,13 +55,13 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
+                                    <h5 class="modal-title" id="successModalLabel">Check-in Successful</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    Your registration has been successfully submitted. Thank you!
+                                    Your check-in has been successfully submitted. Thank you!
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -196,7 +197,7 @@
                                                 <label><input type="checkbox" name="SelectedDaysOfWeek" value="Wednesday"> Wednesday</label>
                                                 <label><input type="checkbox" name="SelectedDaysOfWeek" value="Thursday"> Thursday</label>
                                                 <div class="form-line"></div>
-                                                <p class="days-of-weeks-guide">*Friday routes MUST be reserved and can be customized for your transportation needs.</p>
+                                                <p class="days-of-weeks-guide">*Friday routes MUST be requested and can be customized for your transportation needs.</p>
                                                 <div id="daysofweek-validation-message" class="validation-message">Please select days of week</div>
                                             </div>
                                         </div>
@@ -452,7 +453,7 @@
                                     <div class="input-fields">
                                         @Html.EditorFor(model => model.StudentId, new { htmlAttributes = new { @class = "input--style-1", placeholder = "Student ID", id = "StudentId" } })
                                         <div class="form-line"></div>
-                                        <div id="StudentId-validation-message" class="validation-message">Must be numbers</div>
+                                        @* <div id="StudentId-validation-message" class="validation-message"></div> *@
                                     </div>
                                     <div class="input-fields">
                                         @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-1", placeholder = "First Name" } })

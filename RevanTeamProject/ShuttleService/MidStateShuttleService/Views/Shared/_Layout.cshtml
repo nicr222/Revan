@@ -29,20 +29,19 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        <a class="nav-item nav-link" asp-area="" asp-controller="Register" asp-action="Register">Reserve a Ride</a>
-                        <a class="nav-item nav-link" asp-area="" asp-controller="CheckIn" asp-action="CheckIn">Register</a>
+                        <a class="nav-item nav-link" asp-area="" asp-controller="Register" asp-action="Register">Request a Ride</a>
+                        <a class="nav-item nav-link" asp-area="" asp-controller="CheckIn" asp-action="CheckIn">Check-in</a>
+                        <a class="nav-item nav-link" asp-area="" asp-controller="Communicate" asp-action="StudentCommunicate">Message</a>
                         
                         
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
-                            <a class="nav-item nav-link" asp-area="" asp-controller="Communicate" asp-action="Index">Message</a>
                             <a class="nav-item nav-link" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                             // User is signed in, display Signout link
                             <a class="nav-item nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="Signout">Signout</a>
                         }
                         else
-                        {
-                            <a class="nav-item nav-link" asp-area="" asp-controller="Communicate" asp-action="StudentCommunicate">Message</a>
+                        {                            
                             // User is not signed in, display Sign In link
                             <a class="nav-item nav-link" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="Signin">Sign In</a>
                         }
@@ -64,7 +63,7 @@
             <div class="footerNav">
                 <ul>
                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li><a href="@Url.Action("Index", "Register")">Reserve A Ride</a></li>
+                    <li><a href="@Url.Action("Index", "Register")">Request A Ride</a></li>
                     <li><a href="https://www.mstc.edu/">Mid-State Technical College</a></li>
                     <li><a href="https://www.mstc.edu/shuttle">Shuttle Service Info</a></li>
                     <li><a href="https://wedc.org/workforce-innovation-grant-helps-youth-discover-career-path/">Learn More!</a></li>

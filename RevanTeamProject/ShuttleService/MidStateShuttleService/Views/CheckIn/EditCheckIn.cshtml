@@ -6,7 +6,7 @@
     <div class="wrapper wrapper--w680">
         <form asp-controller="CheckIn" asp-action="EditCheckIn" method="post" class="form form-1">
             <div class="form-body">
-                <h2 class="title">Edit Shuttle Registration</h2>
+                <h2 class="title">Edit Shuttle Check-in</h2>
                 
 
                 <div class="input-fields">
@@ -65,6 +65,7 @@
 
                 <div class="p-t-20">
                     <button type="submit" class="btn btn--radius btn--green">Save</button>
+                    <button class="btn btn--radius btn--cancel" type="button" onclick="history.go(-1)">Cancel</button>
                 </div>
             </div>
         </form>
