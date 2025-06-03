@@ -86,13 +86,13 @@ namespace MidStateShuttleService.Controllers
                     TempData["RegistrationSuccess"] = true;
 
                     string emailBody = GenerateRegistrationEmailBody(model);
-                    es.SendEmail(model.Email, "MSTC Shuttle Service Registration", emailBody, isHtml: true);
+                    es.SendEmail(model.Email, "MSTC Shuttle Service Request", emailBody, isHtml: true);
 
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "There was an error saving the registration, please try again.");
+                    ModelState.AddModelError("", "There was an error saving the request, please try again.");
                 }
             }
 
@@ -317,7 +317,7 @@ namespace MidStateShuttleService.Controllers
                     <body>
                         <div class='email-container'>
                             <div class='header'>
-                                <h2>MSTC Shuttle Service Registration Confirmation</h2>
+                                <h2>MSTC Shuttle Service Request Confirmation</h2>
                             </div>
                             <div class='content'>
                                 <p><strong>Student ID:</strong> {model.StudentId}</p>
@@ -343,8 +343,8 @@ namespace MidStateShuttleService.Controllers
             {
                 // Log the exception
                 LogEvents.LogSqlException(ex, (IWebHostEnvironment)_context);
-                _logger.LogError(ex, "An error occurred while generating registration email body.");
-                return "An error occurred while generating registration email body.";
+                _logger.LogError(ex, "An error occurred while generating request email body.");
+                return "An error occurred while generating request email body.";
             }
 
             
