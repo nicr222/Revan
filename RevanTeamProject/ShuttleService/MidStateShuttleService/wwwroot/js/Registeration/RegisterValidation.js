@@ -82,8 +82,8 @@
             }
 
             if (fieldId === 'StudentId') {
-                if (!/^(\d{1,25})?$/.test($field.val())) {
-                    $(validationMessageId).text('Length must not be longer than 25').show();
+                if (!/^\d{8}$/.test($field.val())) {
+                    $(validationMessageId).text('Must be exactly 8 digits').show();
                     isValid = false;
                 }
             }

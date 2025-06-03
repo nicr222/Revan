@@ -100,7 +100,7 @@ namespace MidStateShuttleService.Models
         /// The student ID of the student associated with the registration.
         /// </summary>
         [StringLength(25)]
-        [RegularExpression(@"^(\d{1,25})?$", ErrorMessage = "The StudentID must contain only numbers and be up to 25 characters long.")]
+        [RegularExpression(@"^\d{8}$", ErrorMessage = "The StudentID must be exactly 8 digits.")]
         public string? StudentId {get; set; }
 
         /// <summary>
