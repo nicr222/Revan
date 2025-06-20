@@ -93,7 +93,7 @@
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
                 <p>Can Leave Time: ${otherCanLeaveAfter}</p>
                 <p>Pick Up Location: ${pickUpLocationName}</p>
-                <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
+                <p>Special Drop Off Location: ${specialDropOffLocation}</p>
                 <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
@@ -102,8 +102,8 @@
                 <p>Special Request: ${otherSpecialRequest}</p>
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
                 <p>Can Leave Time: ${otherCanLeaveAfter}</p>
-                <p>Speical Pick Up Location: ${specialPickUpLocation}</p>
-                <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
+                <p>Special Pick Up Location: ${specialPickUpLocation}</p>
+                <p>Special Drop Off Location: ${specialDropOffLocation}</p>
                 <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
@@ -160,7 +160,7 @@
                 <p>Special Request: ${otherSpecialRequest}</p>
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
                 <p>Pick Up Location: ${pickUpLocationName}</p>
-                <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
+                <p>Special Drop Off Location: ${specialDropOffLocation}</p>
                 <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }
@@ -168,8 +168,8 @@
                 confirmationContent += `
                 <p>Special Request: ${otherSpecialRequest}</p>
                 <p>Must Arrive Time: ${otherMustArriveBy}</p>
-                <p>Speical Pick Up Location: ${specialPickUpLocation}</p>
-                <p>Speical Drop Off Location: ${specialDropOffLocation}</p>
+                <p>Special Pick Up Location: ${specialPickUpLocation}</p>
+                <p>Special Drop Off Location: ${specialDropOffLocation}</p>
                 <p>Need Transportation Detail: ${needTransportation}</p>
             `;
             }

@@ -71,8 +71,16 @@ namespace MidStateShuttleService.Controllers
                 model.InsertDateTime = DateTime.Now;
 
                 // Use LocationServices to fetch the location names based on the foreign keys
-                var pickupLocationName = ls.getLocationNameById(model.PickUpLocationID.Value);
-                var dropoffLocationName = ls.getLocationNameById(model.DropOffLocationID.Value);
+                if (model.FridayPickUpLocationID != null)
+                {
+                    var pickupLocationName = ls.getLocationNameById(model.FridayPickUpLocationID.Value);
+                    var dropoffLocationName = ls.getLocationNameById(model.FridayDropOffLocationID.Value);
+                }
+                else
+                {
+                    var pickupLocationName = ls.getLocationNameById(model.PickUpLocationID.Value);
+                    var dropoffLocationName = ls.getLocationNameById(model.DropOffLocationID.Value);
+                }                
 
                 if (rs.AddEntity(model))
                 {
@@ -126,7 +134,7 @@ namespace MidStateShuttleService.Controllers
 
             var formattedRoutesList = new List<object>();
             foreach( var r in routesList)
-            {
+            {                
                 if (r.AdditionalDetails != null)
                     formattedRoutesList.Add(new {
                         r.RouteID,
@@ -137,6 +145,27 @@ namespace MidStateShuttleService.Controllers
                         Detail = $"Leave {ls.getLocationNameById(r.PickUpLocationID)} at {r.ToStringPickUpTime()}, Arrive at {ls.getLocationNameById(r.DropOffLocationID)} at {r.ToStringDropOffTime()}"
                     });
             }
+
+            return Json(formattedRoutesList);
+        }
+
+        /// <summary>
+        /// Overloaded method to retrieve special routes based on special pick-up and drop-off locations.
+        /// </summary>
+        /// <param name="specialpickUpLocation"></param>
+        /// <param name="specialdropOffLocation"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult BuildSpecialRoute(string specialPickUpLocation = "", string specialDropOffLocation = "", TimeOnly specialPickUpTime, TimeOnly specialDropOffTime)
+        {
+            var formattedRoutesList = new List<object>();
+
+            formattedRoutesList.Add(new
+            {
+                RouteID = "other",
+                Detail = $"Leave {specialPickUpLocation} at {specialPickUpTime.ToShortTimeString()}, Arrive at {specialDropOffLocation} at {specialDropOffTime.ToShortTimeString()}"
+            });
 
             return Json(formattedRoutesList);
         }
@@ -288,7 +317,34 @@ namespace MidStateShuttleService.Controllers
                 }
                 else
                 {
-                    var actionResult = GetRoutes(model.PickUpLocationID.Value, model.DropOffLocationID.Value);
+                    ActionResult actionResult = null;
+
+                    if (model.SpecialRequest != null)
+                    {
+                        if (model.SpecialRequest.Value == true &&
+                            model.MustArriveTime.HasValue ||
+                            model.CanLeaveTime.HasValue ||
+                            !string.IsNullOrWhiteSpace(model.SpecialPickUpLocation) ||
+                            !string.IsNullOrWhiteSpace(model.SpecialDropOffLocation))
+                        {
+                            actionResult = BuildSpecialRoute(
+                                model.SpecialPickUpLocation,
+                                model.SpecialDropOffLocation,
+                                model.MustArriveTime.Value,
+                                model.CanLeaveTime.Value);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Could not create special request. Check your request and try again.");
+                        }
+                    }
+                    else
+                    {
+                        model.SpecialRequest = false; // Default to false if SpecialRequest is null
+                        actionResult = GetRoutes(model.PickUpLocationID.Value, model.DropOffLocationID.Value);
+                    }
+                    
+                    
                     string initialRoute = "Unknown";
 
                     // Extract the JSON content from ActionResult
